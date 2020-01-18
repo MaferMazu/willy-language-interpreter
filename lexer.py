@@ -8,6 +8,10 @@
 """
 from ply import lex
 from LexerModels import TokenConstants
+from LexerModels import LexerFunctions
 
+# AQUI SOLO SE HARA EL AREA DE INPUT PARA EL LEXER, LO QUE TENGA QUE VER CON EL READ ARCHIVO O UN MENU PARA EL USUARIO #
 print("Hola mundo")
 TokenConstants.outHello()
+print(LexerFunctions.tk)
+# Functions working

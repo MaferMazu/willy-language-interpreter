@@ -72,10 +72,9 @@ reservedWords = {
     'begin': 'TkBegin',
     'end': 'TkEnd',
     'as': 'TkAs',
-    'and': 'TkAnd',
-    'or': 'TkOr',
-    'not': 'TkNot',
-
+    #'and': 'TkAnd',
+    #'or': 'TkOr',
+    #'not': 'TkNot',
 
     # Willy's Actions
     'move': 'TkMove',
@@ -103,7 +102,88 @@ reservedWords = {
     'true': 'TkTrue',
     'false': 'TkFalse',
 }
+# Token's Lsit
+tokens = [
+    # Para las variables
+    'TkId',
+
+    #  Numeros enteros
+    'TkNum',
+
+    # Cadenas de Caracteres
+    'TkString',
+
+    # Simbolos utilizados para denotar separadores
+    'TkOBlock',
+    'TkCBlock',
+    'TkSoForth',
+    'TkComma',
+    'TkCOpenPar',
+    'TkClosePar',
+    'TkAsig',
+    'TkSemicolon',
+    #'TkArrow',
+
+    # Simbolos utiliados para denotar operadores
+    #'TkPlus',
+    #'TkMinus',
+    #'TkMult',
+    #'TkDiv',
+    #'TkMod',
+    'TkOr',
+    'TkAnd',
+    'TkNot',
+    #'TkLess',
+    #'TkLeq',
+    #'TkGeq',
+    #'TkGreater',
+    'TkEqual',
+    'TkNEqual',
+    'TkOBracket',
+    'TkCBracket',
+    'TkTwoPoints',
+    'TkConcat',
+] + list(reservedWords.values())
+
+# Especificaciones de los tokens
+t_TkOBlock = r'\|\['
+t_TkCBlock = r'\]\|'
+t_TkSoForth = r'\.\.'
+t_TkComma = r'\,'
+t_TkCOpenPar = r'\('
+t_TkClosePar = r'\)'
+t_TkSemicolon = r';'
+
+"""
+t_TkPlus = r'\+'
+t_TkMinus = r'\-'
+t_TkMult = r'\*'
+t_TkDiv = r'\/'
+t_TkMod = r'\%'
+t_TkOr = r'\/'
+t_TkAnd = r'\/'
+t_TkNot = r'\!'
+t_TkLess = r'<'
+t_TkLeq = r'<='
+t_TkGeq = r'>='
+t_TkGreater = r'>'
+t_TkEqual = r'=='
+t_TkNEqual = r'!='
+"""
+t_TkOBracket = r'\['
+t_TkCBracket = r'\]'
+t_TkConcat = r'\|\|'
+
+# Ignored Chars
+t_ignore_Space = r'\s'             # Space
+# t_ignore_Comment = r'.*'        # Comentarios - falta colocar el regex de {{}}
+t_ignore_Line = r' \n'             # Salto de linea
+t_ignore_Tab = r' \t'              # Tabuladores
 
 
+ValidTokens = []                #Coleccion de tokens validos
+InvalidTokens = []              #Coleccion de tokens invalidos
+
+# Prove of import Functions (This class is ony for tokens, don't declare functions here) - Main is Lexer
 def outHello():
     print("Estamos conectando correctamente")
