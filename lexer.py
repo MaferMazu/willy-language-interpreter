@@ -7,5 +7,7 @@
     E-M 2020
 """
 from ply import lex
+from LexerModels import TokenConstants
 
 print("Hola mundo")
+TokenConstants.outHello()

@@ -40,8 +40,13 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lexer.py" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/Etapa1-1310780-1310787/Lexer.py" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/LexerModels" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="willyLexer" type="PythonConfigurationType" factoryName="Python">
@@ -89,7 +94,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1579357523629</updated>
-      <workItem from="1579357544331" duration="2123000" />
+      <workItem from="1579357544331" duration="4536000" />
     </task>
     <servers />
   </component>
@@ -113,26 +118,26 @@
       <screen x="0" y="27" width="1366" height="741" />
     </state>
     <state x="420" y="171" width="515" height="473" key="EnvironmentVariablesDialog/0.27.1366.741@0.27.1366.741" timestamp="1579359321099" />
-    <state x="466" y="168" width="424" height="480" key="FileChooserDialogImpl" timestamp="1579359689507">
+    <state x="466" y="168" width="424" height="480" key="FileChooserDialogImpl" timestamp="1579362825230">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
-    <state x="466" y="168" width="424" height="480" key="FileChooserDialogImpl/0.27.1366.741@0.27.1366.741" timestamp="1579359689507" />
-    <state width="1320" height="176" key="GridCell.Tab.0.bottom" timestamp="1579359606914">
+    <state x="466" y="168" width="424" height="480" key="FileChooserDialogImpl/0.27.1366.741@0.27.1366.741" timestamp="1579362825230" />
+    <state width="1320" height="176" key="GridCell.Tab.0.bottom" timestamp="1579359768788">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
-    <state width="1320" height="176" key="GridCell.Tab.0.bottom/0.27.1366.741@0.27.1366.741" timestamp="1579359606914" />
-    <state width="1320" height="176" key="GridCell.Tab.0.center" timestamp="1579359606913">
+    <state width="1320" height="176" key="GridCell.Tab.0.bottom/0.27.1366.741@0.27.1366.741" timestamp="1579359768788" />
+    <state width="1320" height="176" key="GridCell.Tab.0.center" timestamp="1579359768787">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
-    <state width="1320" height="176" key="GridCell.Tab.0.center/0.27.1366.741@0.27.1366.741" timestamp="1579359606913" />
-    <state width="1320" height="176" key="GridCell.Tab.0.left" timestamp="1579359606912">
+    <state width="1320" height="176" key="GridCell.Tab.0.center/0.27.1366.741@0.27.1366.741" timestamp="1579359768787" />
+    <state width="1320" height="176" key="GridCell.Tab.0.left" timestamp="1579359768786">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
-    <state width="1320" height="176" key="GridCell.Tab.0.left/0.27.1366.741@0.27.1366.741" timestamp="1579359606912" />
-    <state width="1320" height="176" key="GridCell.Tab.0.right" timestamp="1579359606913">
+    <state width="1320" height="176" key="GridCell.Tab.0.left/0.27.1366.741@0.27.1366.741" timestamp="1579359768786" />
+    <state width="1320" height="176" key="GridCell.Tab.0.right" timestamp="1579359768788">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
-    <state width="1320" height="176" key="GridCell.Tab.0.right/0.27.1366.741@0.27.1366.741" timestamp="1579359606913" />
+    <state width="1320" height="176" key="GridCell.Tab.0.right/0.27.1366.741@0.27.1366.741" timestamp="1579359768788" />
     <state x="172" y="32" key="SettingsEditor" timestamp="1579359457071">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
@@ -151,6 +156,6 @@
     <state x="347" y="45" width="672" height="676" key="search.everywhere.popup/0.27.1366.741@0.27.1366.741" timestamp="1579359356156" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Willy$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1579359549428" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Willy$Unnamed.coverage" NAME="willyLexer Coverage Results" MODIFIED="1579359731197" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
