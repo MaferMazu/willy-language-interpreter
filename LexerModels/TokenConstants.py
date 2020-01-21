@@ -8,6 +8,8 @@ Especificaciones de los mismos
 """
 
 from ply import lex
+import re
+
 
 # Reserved Words
 reservedWords = {
@@ -23,6 +25,8 @@ reservedWords = {
     'Boolean': 'TkBoolean',
     'Goal': 'TkGoal',
     'Final': 'TkFinal',
+    'basket': 'TkBasketLower',
+
 
     # Common Words - Oper - Used on previous words to build a instruction
     'from': 'TkFrom',
@@ -33,6 +37,9 @@ reservedWords = {
     'in': 'TkIn',
     'is': 'TkIs',
     'heading': 'TkHeading',
+    'with': 'TkWith',
+    'initial': 'TkInitial',
+    'value': 'TkValue',
     # No se como ejemplificar: with initial value - se usa con Boolean
 
     # Colors
@@ -57,12 +64,10 @@ reservedWords = {
 
     # Conditionals
     'if': 'TkIf',
-    'fi': 'Tkfi',
     'else': 'TkElse',
     'then': 'TkThen',
 
     # Loops
-    'for': 'TkFor',
     'repeat': 'TkRepeat',
     'while': 'TkWhile',
     'times': 'TkTimes',
@@ -101,6 +106,9 @@ reservedWords = {
     # Boolean Values
     'true': 'TkTrue',
     'false': 'TkFalse',
+    'or': 'TkOr',
+    'and': 'TkAnd',
+    'not': 'TkNot',
 }
 # Token's Lsit
 tokens = [
@@ -111,68 +119,26 @@ tokens = [
     'TkNum',
 
     # Cadenas de Caracteres
-    'TkString',
 
     # Simbolos utilizados para denotar separadores
-    'TkOBlock',
-    'TkCBlock',
-    'TkSoForth',
-    'TkComma',
+
     'TkCOpenPar',
     'TkClosePar',
-    'TkAsig',
     'TkSemicolon',
-    #'TkArrow',
+    'TkComments',
+    'TkCommentsBlock'
 
-    # Simbolos utiliados para denotar operadores
-    #'TkPlus',
-    #'TkMinus',
-    #'TkMult',
-    #'TkDiv',
-    #'TkMod',
-    'TkOr',
-    'TkAnd',
-    'TkNot',
-    #'TkLess',
-    #'TkLeq',
-    #'TkGeq',
-    #'TkGreater',
-    'TkEqual',
-    'TkNEqual',
-    'TkOBracket',
-    'TkCBracket',
-    'TkTwoPoints',
-    'TkConcat',
 ] + list(reservedWords.values())
 
 # Especificaciones de los tokens
-t_TkOBlock = r'\|\['
-t_TkCBlock = r'\]\|'
-t_TkSoForth = r'\.\.'
-t_TkComma = r'\,'
-t_TkCOpenPar = r'\('
+
 t_TkClosePar = r'\)'
 t_TkSemicolon = r';'
 
-"""
-t_TkPlus = r'\+'
-t_TkMinus = r'\-'
-t_TkMult = r'\*'
-t_TkDiv = r'\/'
-t_TkMod = r'\%'
-t_TkOr = r'\/'
-t_TkAnd = r'\/'
-t_TkNot = r'\!'
-t_TkLess = r'<'
-t_TkLeq = r'<='
-t_TkGeq = r'>='
-t_TkGreater = r'>'
-t_TkEqual = r'=='
-t_TkNEqual = r'!='
-"""
+t_TkComments = r'[-]{2}.*[\n]'
+
 t_TkOBracket = r'\['
 t_TkCBracket = r'\]'
-t_TkConcat = r'\|\|'
 
 # Ignored Chars
 t_ignore_Space = r'\s'             # Space
