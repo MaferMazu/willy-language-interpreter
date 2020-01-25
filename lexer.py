@@ -53,7 +53,7 @@ try:
                 token_info = str(tok.type) + ' ' + str(tok.lineno) + ' ' + str(tok.lexpos+1)
                 token_prev = str(tok.type)
 
-            TOKENS_VALIDOS.append(token_info)
+            ValidTokens.append(token_info)
             tok = lexer.token()
 
 
@@ -62,11 +62,11 @@ try:
 
     # Cuando hay un error se imprime solo el error
     # Cuando no hay error se imprimen los tokens validos
-    if (len(TOKENS_INVALIDOS)>0):
-        for x in TOKENS_INVALIDOS:
+    if (len(TokenConstants.InvalidTokens)>0):
+        for x in TokenConstants.InvalidTokens:
             print(x)
     else:
-        for x in TOKENS_VALIDOS:
+        for x in TokenConstants.ValidTokens:
             print(x)
     f.close()
 except FileNotFoundError:
