@@ -1,0 +1,61 @@
+{{Definicion del mundo}}
+begin-world world1
+{{mundo con 8 columas y 4 filas}}
+World 8 4
+{{paredes}}
+Wall north 1 4 to 1 2
+Wall west 1 2 to 5 2
+Wall south 7 2 to 7 3
+{{objetos}}
+Object-type flower of color yellow
+Object-type mirror of color green
+Object-type table of color cyan
+Object-type umbrella of color magenta
+Object-type heart of color red
+Object-type sky of color blue
+{{Colocar objetos}}
+Place 3 of flower at 2 3
+Place 5 heart at 8 1
+Place 1 sky at 1 1
+Place 10 of table in basket
+Place 300 of mirror in basket
+{{Inicio de Wally}}
+Start at 8 4 heading east
+Basket of capacity 310
+Boolean willy-happy with initial value true
+Boolean willy-can-learn with initial value false
+Goal goal1 is willy is at 8 1
+Goal goal2 300 mirror objects in Basket
+Goal goal3 10 table objects at 5 4
+Final goal is goal1 or goal2 and goal3
+Final goal is goal1 not goal2 and goal3
+Final goal is goal1 and goal2 and goal3
+end-world
+
+{{Definiendo un programa}}
+begin-work on world1
+begin
+repeat 2 times move;
+if willy-happy then move;
+define L as turn-left;
+define R as turn-right;
+define M as move;
+repeat 2 times drop table;
+while willy-can-learn do drop mirror;
+R;
+if willy-can-learn then L else L;
+repeat 3 times M;
+R;
+M;
+if found flower then pick flower;
+clear willy-happy;
+set willy-happy to true;
+flip willy-can-learn;
+if carrying flower then drop flower;
+R;
+M;
+if front-clear and left-clear an right-clear and looking-north then flip looking-north;
+if looking-east or not looking-south then set looking-west;
+end
+end-work
+terminate
