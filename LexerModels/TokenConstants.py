@@ -9,7 +9,7 @@ Especificaciones de los mismos
 
 from ply import lex
 import re
-
+from sys import argv
 
 # Reserved Words
 reservedWords = {
@@ -121,7 +121,7 @@ tokens = [
     #'TkCOpenPar',
     #'TkClosePar',
     'TkSemicolon',
-    #'TkComments',
+    'TkComments',
     #'TkCommentsBlock'
 
 ] + list(reservedWords.values())
@@ -131,7 +131,7 @@ tokens = [
 #t_TkClosePar = r'\)'
 t_TkSemicolon = r';'
 
-#t_TkComments = r'[-]{2}.*[\n]'
+t_TkComments = r'[-]{2}.*[\n]'
 
 
 # Ignored Chars
@@ -144,26 +144,6 @@ t_ignore_Tab = r' \t'              # Tabuladores
 ValidTokens = []                #Coleccion de tokens validos
 InvalidTokens = []              #Coleccion de tokens invalidos
 
-# Funciones Regulares
 
-def t_TkNum(t):
-    r'\d+'
-    t.value = int(t.value)
-    return t
-
-def t_TkId(identificar):
-    r'[a-zA-Z]+[a-zA-Z_0-9]*'
-    identificar.type =  reserved.get(identificar.value, 'TkId')
-    return identificar
-
-# Manejador de errores
-def t_error(invalido):
-    """ Funcion por "default" cuando encuentra un token que no pertenece a la lista de tokens """
-    error = 'Caracter ilegal "' + str(invalido.value[0]) + '" en fila ' \
-        + str(invalido.lineno) + ', columna ' + str(invalido.lexpos+1)
-    InvalidTokens.append(error)
-    invalido.lexer.skip(1)
 
 # Prove of import Functions (This class is ony for tokens, don't declare functions here) - Main is Lexer
-def outHello():
-    print("Estamos conectando correctamente")
