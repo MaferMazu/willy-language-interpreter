@@ -6,46 +6,51 @@
     Jesus Marcano (12-10359)
     E-M 2020
 """
+
 from ply import lex
-from LexerModels import TokenConstants
-from LexerModels import LexerFunctions
 from sys import argv
-import sys
+import os,sys
 
 # AQUI SOLO SE HARA EL AREA DE INPUT PARA EL LEXER, LO QUE TENGA QUE VER CON EL READ ARCHIVO O UN MENU PARA EL USUARIO #
 print("Hola mundo")
-# TokenConstants.outHello()
-# print(LexerFunctions.tk)
-# Functions working
-
-"""
-Clase encargada de llevar todos los tokens:
-Palabras Reservadas
-Funciones
-I/O
-Arreglo de los tokens declarados
-Especificaciones de los mismos
-"""
-
-from ply import lex
-import re
-from sys import argv
 
 # Reserved Words
-reservedWords = {
+
+tokens = [
+             'TkBeginWorld',
+             'TkEndWorld',
+             'TkObjType',
+             'TkTurnL',
+             'TkTurnR',
+             'TkFrontCl',
+             'TkLeftCl',
+             'TkRightCl',
+             'TkLookingN',
+             'TkLookingE',
+             'TkLookingS',
+             'TkLookingW',
+             'TkFinalG',
+             'TkBeginTask',
+             'TkEndTask',
+
+             # Simbolos utilizados para denotar separadores
+             'TkSemicolon',
+             'TkTab',
+             'TkNum',
+             'TkId',
+]
+
+reserved = {
     # Wily's Words / functions
-    'begin-world': 'TkBeginWorld',
-    'end-world': 'TkEndWorld',
+
     'World': 'TkWorld',
     'Wall': 'TkWall',
-    'Object-type': 'TkObjType',
     'Place': 'TkPlace',
     'Start': 'TkStart',
     'Basket': 'TkBasket',
     'Boolean': 'TkBoolean',
     'Goal': 'TkGoal',
-    'Final': 'TkFinal',
-    'basket': 'TkBasketLower',
+
 
     # Common Words - Oper - Used on previous words to build a instruction
     'from': 'TkFrom',
@@ -55,11 +60,15 @@ reservedWords = {
     'at': 'TkAt',
     'in': 'TkIn',
     'is': 'TkIs',
+    'on': 'TkOn',
     'heading': 'TkHeading',
     'with': 'TkWith',
     'initial': 'TkInitial',
     'value': 'TkValue',
-    # No se como ejemplificar: with initial value - se usa con Boolean
+    'capacity': 'TkCapacity',
+    'basket':'TkBasketLower',
+    'objects': 'TkObjectsLower',
+ 
 
     # Colors
     'red': 'TkRed',
@@ -75,11 +84,6 @@ reservedWords = {
     'south': 'TkSouth',
     'west': 'TkWest',
 
-    # Willy's Work Words
-
-    # Data Type
-    'int': 'TkInt',  #
-    # 'bool': 'TkBool',   Entendi que hay 2 tipos de boolean
 
     # Conditionals
     'if': 'TkIf',
@@ -93,14 +97,10 @@ reservedWords = {
 
     # Aux
     'define': 'TkDefine',
-    'begin': 'TkBegin',
-    'end': 'TkEnd',
     'as': 'TkAs',
 
     # Willy's Actions
     'move': 'TkMove',
-    'turn-left': 'TkTurnL',
-    'turn-right': 'TkTurnR',
     'pick': 'TkPick',
     'drop': 'TkDrop',
     'set': 'TkSet',
@@ -110,14 +110,6 @@ reservedWords = {
     'found': 'TkFound',
     'carrying': 'TkCarrying',
 
-    # Booleans Primitives
-    'front-clear': 'TkFrontCl',
-    'left-clear': 'TkLeftCl',
-    'right-clear': 'TkRightCl',
-    'looking-north': 'TkLookingN',
-    'looking-east': 'TkLookingE',
-    'looking-south': 'TkLookingS',
-    'looking-west': 'TkLookingW',
 
     # Boolean Values
     'true': 'TkTrue',
@@ -125,55 +117,100 @@ reservedWords = {
     'or': 'TkOr',
     'and': 'TkAnd',
     'not': 'TkNot',
+
+    #Other
+    'begin': 'TkBegin',
+    'end': 'TkEnd',
 }
-# Token's Lsit
-tokens = [
-             # Para las variables
-             'TkId',
 
-             #  Numeros enteros
-             'TkNum',
-
-             # Simbolos utilizados para denotar separadores
-
-             # 'TkCOpenPar',
-             # 'TkClosePar',
-             'TkSemicolon',
-             'TkComments',
-             #'TkCommentsBlock'
-
-         ] + list(reservedWords.values())
+# Token's List
+tokens += list(reserved.values())
 
 # Especificaciones de los tokens
-
-# t_TkClosePar = r'\)'
 t_TkSemicolon = r';'
+t_TkTab = r' \t'
 
-t_TkComments = r'[-]{2}.*[\n]'
 
 # Ignored Chars
-t_ignore_Space = r'\s'  # Space
-t_ignore_TkCommentsBlock = r'[{]{2}{.*}[}]{2}'        # Comentarios - falta colocar el regex de {{}}
-t_ignore_Line = r' \n'  # Salto de linea
-t_ignore_Tab = r' \t'  # Tabuladores
+t_ignore_TkCommentsBlock = r'[\{]{2}.*[}]{2}'        
+t_ignore_TkComments = r'[\-]{2}.*[\n]'
+t_ignore_TkSpace = r'\s'
+
 
 ValidTokens = []  # Coleccion de tokens validos
 InvalidTokens = []  # Coleccion de tokens invalidos
 
 # Prove of import Functions (This class is ony for tokens, don't declare functions here) - Main is Lexer
+
 # Funciones Regulares
+def t_TkBeginWorld(t):
+    r'begin\-world'
+    return t
+
+def t_TkEndWorld(t):
+    r'end\-world'
+    return t
+
+def t_TkObjType(t):
+    r'Object\-type'
+    return t
+
+def t_TkTurnL(t):
+    r'turn\-left'
+    return t
+
+def t_TkTurnR(t):
+    r'turn\-right'
+    return t
+
+def t_TkFrontCl(t):
+    r'front\-clear'
+    return t
+
+def t_TkLeftCl(t):
+    r'left\-clear'
+    return t
+
+def t_TkRightCl(t):
+    r'right\-clear'
+    return t
+
+def t_TkLookingN(t):
+    r'looking\-north'
+    return t
+
+def t_TkLookingE(t):
+    r'looking\-east'
+    return t
+
+def t_TkLookingS(t):
+    r'looking\-south'
+    return t
+
+def t_TkLookingW(t):
+    r'looking\-west'
+    return t 
+
+def t_TkFinalG(t):
+    r'Final[\s]+goal'
+    return t
+
+def t_TkBeginTask(t):
+    r'begin\-task'
+    return t
+
+def t_TkEndTask(t):
+    r'end\-task'
+    return t
 
 def t_TkNum(t):
     r'\d+'
     t.value = int(t.value)
     return t
 
-
-def t_TkId(identificar):
-    r'[a-zA-Z]+[a-zA-Z_0-9]*'
-    identificar.type = reservedWords.get(identificar.value, 'TkId')
-    return identificar
-
+def t_newLine(line):
+    r'\n+'
+    line.lexer.lineno += len(line.value)
 
 # Manejador de errores
 def t_error(invalido):
@@ -183,9 +220,23 @@ def t_error(invalido):
     InvalidTokens.append(error)
     invalido.lexer.skip(1)
 
+def t_TkId(identificar):
+    r'[a-zA-Z]+[a-zA-Z_0-9]*'
+    identificar.type = reserved.get(identificar.value, 'TkId')
+    return identificar
 
+
+
+#############################
+###### Leer el archivo ######
+#############################
+
+lexer = lex.lex()
+print('construyo el lexer')
+print("\n")
+print(tokens)
 if len(argv) > 2:
-    print("Uso del programa: python3 lexer.py <Nombre del archivo>")
+    print("Uso del programa: python lexer.py <Nombre del archivo>")
     print("o utiizando: python3 lexer.py ")
     sys.exit()
 elif len(argv) == 2:
@@ -195,9 +246,9 @@ else:
 
 try:
     f = open(filepath, 'r')
+    print('Abrio el archivo')
     data = f.readline()
-    token_prev = 'Unknown'
-    lexer = lex.lex()
+
     while data:
         # pasamos la linea como data al lexer
         # Esto es con el fin de calcular bien la columna de los tokens
@@ -207,33 +258,31 @@ try:
         # for tok in lexer:
         #    print(tok.type, tok.value, tok.lineno)
         tok = lexer.token()
-
+        #print(tok)
         while tok:
-            if (tok.type == 'TkNum'):
-                token_info = str(tok.type) + ' ("' + str(tok.value) + '") ' \
-                             + str(tok.lineno) + ' ' + str(tok.lexpos + 1)
-            elif (tok.type == 'TkId'):
-                token_info = str(tok.type) + ' ("' + str(tok.value) + '" , ' + token_prev + ') ' \
-                             + str(tok.lineno) + ' ' + str(tok.lexpos + 1)
+            if (tok.type == 'TkId' or tok.type == 'TkNum'):
+                token_info = str(tok.type) + ' ("' + str(tok.value)+'" , '  + str(tok.lineno)+' , '  + str(tok.lexpos + 1)+') '
+
             else:
-                token_info = str(tok.type) + ' ' + str(tok.lineno) + ' ' + str(tok.lexpos + 1)
-                token_prev = str(tok.type)
+                token_info = str(tok.type) + ' (' +str(tok.lineno)+' , '  + str(tok.lexpos + 1)+') '
 
             ValidTokens.append(token_info)
             tok = lexer.token()
 
         # leemos otra linea
+
         data = f.readline()
 
     # Cuando hay un error se imprime solo el error
     # Cuando no hay error se imprimen los tokens validos
-    if (len(TokenConstants.InvalidTokens) > 0):
-        for x in TokenConstants.InvalidTokens:
-            print(x)
+    if (len(InvalidTokens) > 0):
+        print(InvalidTokens[0])
+        #for x in InvalidTokens:
+            #print(x)
     else:
-        for x in TokenConstants.ValidTokens:
+        for x in ValidTokens:
             print(x)
-    f.close()
+    
 except FileNotFoundError:
     print('Imposible abrir el archivo ' + filepath)
     sys.exit()
