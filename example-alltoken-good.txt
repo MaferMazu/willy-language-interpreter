@@ -1,4 +1,5 @@
 {{Definicion del mundo}}
+--Holix
 begin-world world1
 {{mundo con 8 columas y 4 filas}}
 World 8 4
@@ -22,8 +23,8 @@ Place 300 of mirror in basket
 {{Inicio de Wally}}
 Start at 8 4 heading east
 Basket of capacity 310
-Boolean willy-happy with initial value true
-Boolean willy-can-learn with initial value false
+Boolean willyhappy with initial value true
+Boolean willycanlearn with initial value false
 Goal goal1 is willy is at 8 1
 Goal goal2 300 mirror objects in Basket
 Goal goal3 10 table objects at 5 4
@@ -33,29 +34,29 @@ Final goal is goal1 and goal2 and goal3
 end-world
 
 {{Definiendo un programa}}
-begin-work on world1
+begin-task on world1
 begin
 repeat 2 times move;
-if willy-happy then move;
+if willyhappy then move;
 define L as turn-left;
 define R as turn-right;
 define M as move;
 repeat 2 times drop table;
-while willy-can-learn do drop mirror;
+while willycanlearn do drop mirror;
 R;
-if willy-can-learn then L else L;
+if willycanlearn then L else L;
 repeat 3 times M;
 R;
 M;
 if found flower then pick flower;
-clear willy-happy;
-set willy-happy to true;
-flip willy-can-learn;
+clear willyhappy;
+set willyhappy to true;
+flip willycanlearn;
 if carrying flower then drop flower;
 R;
 M;
 if front-clear and left-clear an right-clear and looking-north then flip looking-north;
 if looking-east or not looking-south then set looking-west;
 end
-end-work
+end-task
 terminate
