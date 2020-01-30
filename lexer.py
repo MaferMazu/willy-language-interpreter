@@ -217,7 +217,7 @@ def t_error(invalido):
     invalido.lexer.skip(1)
 
 def t_TkId(identificar):
-    r'[a-zA-Z]+[0-9]*[a-zA-Z_0-9]*'
+    r'^([a-zA-Z]+[0-9]*[a-zA-Z_0-9]*)'
     identificar.type = reserved.get(identificar.value, 'TkId')
     return identificar
 
@@ -253,18 +253,23 @@ try:
         # Esto es con el fin de calcular bien la columna de los tokens
         lexer.input(data)
         column=0
-        controlSpace=True
+        
+        controlSpaceSemaphore=True
         # Iteramos sobre el la entrada para extraer los tokens
         tok = lexer.token()
         while tok:
-            if controlSpace==False:
+            if column==0:
+                while column < (tok.lexpos):
+                        output+=" "
+                        column+=1
+            if controlSpaceSemaphore==False:
                 while column < (tok.lexpos):
                     output+=" "
                     column+=1
                 column += len(str(tok.value))
             else:
                 column += len(str(tok.value))
-                controlSpace=False
+                controlSpaceSemaphore=False
 
             if (tok.type == 'TkId' or tok.type == 'TkNum'):
                 token_info = str(tok.type) + '(valor="' + str(tok.value)+'", linea='  + str(tok.lineno)+', columna='  + str(tok.lexpos + 1)+')'
