@@ -217,7 +217,7 @@ def t_error(invalido):
     invalido.lexer.skip(1)
 
 def t_TkId(identificar):
-    r'[a-zA-Z]+[a-zA-Z_0-9]*'
+    r'[a-zA-Z]+[0-9]*[a-zA-Z_0-9]*'
     identificar.type = reserved.get(identificar.value, 'TkId')
     return identificar
 

@@ -5,8 +5,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/Willy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Willy.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
+=======
       <change beforePath="$PROJECT_DIR$/example-alltoken-good.txt" beforeDir="false" afterPath="$PROJECT_DIR$/example-alltoken-good.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/lexer.py" afterDir="false" />
+>>>>>>> d588ce69196e312cd0174b61ec4cee39d9104a93
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,9 +139,13 @@
       <workItem from="1579357544331" duration="6416000" />
       <workItem from="1579369331822" duration="4428000" />
       <workItem from="1580018040055" duration="2691000" />
+<<<<<<< HEAD
+      <workItem from="1580022916585" duration="2320000" />
+=======
       <workItem from="1580022916585" duration="1274000" />
       <workItem from="1580217929334" duration="1628000" />
       <workItem from="1580226771415" duration="2415000" />
+>>>>>>> d588ce69196e312cd0174b61ec4cee39d9104a93
     </task>
     <servers />
   </component>
@@ -168,6 +175,26 @@
     </state>
     <state x="437" y="188" key="FileChooserDialogImpl/0.0.1280.988@0.0.1280.988" timestamp="1580221537053" />
     <state x="466" y="168" width="424" height="480" key="FileChooserDialogImpl/0.27.1366.741@0.27.1366.741" timestamp="1579362825230" />
+<<<<<<< HEAD
+    <state width="1320" height="187" key="GridCell.Tab.0.bottom" timestamp="1580052290104">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state width="1320" height="187" key="GridCell.Tab.0.bottom/0.27.1366.741@0.27.1366.741" timestamp="1580052290104" />
+    <state width="1320" height="187" key="GridCell.Tab.0.center" timestamp="1580052290104">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state width="1320" height="187" key="GridCell.Tab.0.center/0.27.1366.741@0.27.1366.741" timestamp="1580052290104" />
+    <state width="1320" height="187" key="GridCell.Tab.0.left" timestamp="1580052290103">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state width="1320" height="187" key="GridCell.Tab.0.left/0.27.1366.741@0.27.1366.741" timestamp="1580052290103" />
+    <state width="1320" height="187" key="GridCell.Tab.0.right" timestamp="1580052290104">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state width="1320" height="187" key="GridCell.Tab.0.right/0.27.1366.741@0.27.1366.741" timestamp="1580052290104" />
+    <state x="172" y="32" key="SettingsEditor" timestamp="1579369198883">
+      <screen x="0" y="27" width="1366" height="741" />
+=======
     <state width="1234" height="282" key="GridCell.Tab.0.bottom" timestamp="1580240829169">
       <screen x="0" y="0" width="1280" height="988" />
     </state>
@@ -190,14 +217,22 @@
     <state width="1320" height="187" key="GridCell.Tab.0.right/0.27.1366.741@0.27.1366.741" timestamp="1580024131222" />
     <state x="161" y="7" key="SettingsEditor" timestamp="1580221436620">
       <screen x="0" y="0" width="1280" height="988" />
+>>>>>>> d588ce69196e312cd0174b61ec4cee39d9104a93
     </state>
     <state x="161" y="7" key="SettingsEditor/0.0.1280.988@0.0.1280.988" timestamp="1580221436620" />
     <state x="172" y="32" key="SettingsEditor/0.27.1366.741@0.27.1366.741" timestamp="1579369198883" />
+<<<<<<< HEAD
+    <state x="343" y="225" key="com.intellij.ide.util.TipDialog" timestamp="1580343979646">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state x="343" y="225" key="com.intellij.ide.util.TipDialog/0.27.1366.741@0.27.1366.741" timestamp="1580343979646" />
+=======
     <state x="321" y="264" key="com.intellij.ide.util.TipDialog" timestamp="1580226769553">
       <screen x="0" y="0" width="1280" height="988" />
     </state>
     <state x="321" y="264" key="com.intellij.ide.util.TipDialog/0.0.1280.988@0.0.1280.988" timestamp="1580226769553" />
     <state x="343" y="225" key="com.intellij.ide.util.TipDialog/0.27.1366.741@0.27.1366.741" timestamp="1580022918470" />
+>>>>>>> d588ce69196e312cd0174b61ec4cee39d9104a93
     <state x="455" y="317" width="445" height="156" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579358089439">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
@@ -209,7 +244,11 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Willy$Unnamed.coverage" NAME="willyLexer Coverage Results" MODIFIED="1579364656363" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+<<<<<<< HEAD
+    <SUITE FILE_PATH="coverage/Willy$willyLexer.coverage" NAME="willyLexer Coverage Results" MODIFIED="1580024554881" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+=======
     <SUITE FILE_PATH="coverage/Willy$willyLexer.coverage" NAME="willyLexer Coverage Results" MODIFIED="1580024131206" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Willy$willyrex.coverage" NAME="willyrex Coverage Results" MODIFIED="1580240829157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+>>>>>>> d588ce69196e312cd0174b61ec4cee39d9104a93
   </component>
 </project>
