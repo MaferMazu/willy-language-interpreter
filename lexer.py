@@ -12,7 +12,7 @@ from sys import argv
 import os,sys
 
 # AQUI SOLO SE HARA EL AREA DE INPUT PARA EL LEXER, LO QUE TENGA QUE VER CON EL READ ARCHIVO O UN MENU PARA EL USUARIO #
-print("Hola mundo")
+
 
 # Reserved Words
 
@@ -36,8 +36,8 @@ tokens = [
              # Simbolos utilizados para denotar separadores
              'TkSemicolon',
              'TkTab',
-             'TkNum',
              'TkId',
+             'TkNum',
 ]
 
 reserved = {
@@ -133,7 +133,7 @@ t_TkTab = r' \t'
 
 # Ignored Chars
 t_ignore_TkCommentsBlock = r'[\{]{2}.*[}]{2}'        
-t_ignore_TkComments = r'[\-]{2}.*[\n]'
+t_ignore_TkComments = r'[\-]{2}.*'
 t_ignore_TkSpace = r'\s'
 
 
@@ -203,14 +203,10 @@ def t_TkEndTask(t):
     r'end\-task'
     return t
 
-def t_TkNum(t):
-    r'\d+'
-    t.value = int(t.value)
-    return t
-
 def t_newLine(line):
     r'\n+'
     line.lexer.lineno += len(line.value)
+
 
 # Manejador de errores
 def t_error(invalido):
@@ -225,6 +221,11 @@ def t_TkId(identificar):
     identificar.type = reserved.get(identificar.value, 'TkId')
     return identificar
 
+def t_TkNum(t):
+    r'\d+'
+    t.value = int(t.value)
+    return t
+
 
 
 #############################
@@ -232,9 +233,7 @@ def t_TkId(identificar):
 #############################
 
 lexer = lex.lex()
-print('construyo el lexer')
-print("\n")
-print(tokens)
+
 if len(argv) > 2:
     print("Uso del programa: python lexer.py <Nombre del archivo>")
     print("o utiizando: python3 lexer.py ")
@@ -246,43 +245,48 @@ else:
 
 try:
     f = open(filepath, 'r')
-    print('Abrio el archivo')
     data = f.readline()
+    output=""
 
     while data:
         # pasamos la linea como data al lexer
         # Esto es con el fin de calcular bien la columna de los tokens
         lexer.input(data)
-
+        column=0
+        controlSpace=True
         # Iteramos sobre el la entrada para extraer los tokens
-        # for tok in lexer:
-        #    print(tok.type, tok.value, tok.lineno)
         tok = lexer.token()
-        #print(tok)
         while tok:
-            if (tok.type == 'TkId' or tok.type == 'TkNum'):
-                token_info = str(tok.type) + ' ("' + str(tok.value)+'" , '  + str(tok.lineno)+' , '  + str(tok.lexpos + 1)+') '
-
+            if controlSpace==False:
+                while column < (tok.lexpos):
+                    output+=" "
+                    column+=1
+                column += len(str(tok.value))
             else:
-                token_info = str(tok.type) + ' (' +str(tok.lineno)+' , '  + str(tok.lexpos + 1)+') '
+                column += len(str(tok.value))
+                controlSpace=False
 
+            if (tok.type == 'TkId' or tok.type == 'TkNum'):
+                token_info = str(tok.type) + '(valor="' + str(tok.value)+'", linea='  + str(tok.lineno)+', columna='  + str(tok.lexpos + 1)+')'
+            else:
+                token_info = str(tok.type) + '(linea=' +str(tok.lineno)+', columna='  + str(tok.lexpos + 1)+')'
+            
             ValidTokens.append(token_info)
+            output+= token_info
+            # Agarro el siguiente token
             tok = lexer.token()
-
-        # leemos otra linea
-
+        output+="\n"
+            
+        # Leemos otra linea
         data = f.readline()
 
     # Cuando hay un error se imprime solo el error
     # Cuando no hay error se imprimen los tokens validos
     if (len(InvalidTokens) > 0):
         print(InvalidTokens[0])
-        #for x in InvalidTokens:
-            #print(x)
     else:
-        for x in ValidTokens:
-            print(x)
-    
+        print(output)
+
 except FileNotFoundError:
     print('Imposible abrir el archivo ' + filepath)
     sys.exit()
