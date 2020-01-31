@@ -1,7 +1,6 @@
-# Willy
-Lexer, Parser.
 
 # Willy*
+Lexer
 
 Este es el inicio de la implementación de un ambiente de programación basado en Willy, un robot que interactúa con objetos en un mundo hecho de cuadrículas de tamaño finito y paredes.
 
@@ -18,9 +17,13 @@ Para realizar el análisis lexicográfico se utilizó una herramienta de constru
 
 Se realiza la en la línea de comandos:
 ./makefile
+
 y luego se puede ejecutar el programa Willy, usando:
+
+
 willy <nombredearchivoexistente>
-o con willy exclusivamente.
+  
+o con willy exclusivamente. (Luego se le pedira ingresar el txt)
 
 # Sobre el Lexer
 
