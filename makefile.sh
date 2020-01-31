@@ -6,6 +6,7 @@ if [ -d "$DIR" ]; then
 else 
     echo "$DIR does not exist"
     mkdir ~/.local/bin
+    echo "$DIR NOW CREATED"
 fi
 cp lexer.py ~/.local/bin
 ln -s lexer.py ~/.local/bin/willy
@@ -17,5 +18,7 @@ else
     echo "$FILE does not exist"
     touch ~/.bash_profile
     echo -e 'export PATH="$PATH:~/.local/bin"' >> ~/.bash_profile
+    echo "$FILE NOW CREATED"
 fi
 source ~/.bash_profile
+echo "command willy has been added to your path"
