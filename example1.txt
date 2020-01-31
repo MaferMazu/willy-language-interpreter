@@ -1,0 +1,11 @@
+{{Definicion del mundo}}
+--Holix
+    begin-world world1
+{{mundo con 8 columas y 4 filas}}
+World       8 4
+{{paredes}}
+Wall north   1  4    to 1 2
+Wall west 1 2 to 5 2
+    Wall
+        south 7 2 to 7 3
+{{objetos}}
