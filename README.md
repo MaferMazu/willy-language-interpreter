@@ -42,3 +42,6 @@ Las siguientes instrucciones fueron para construir el lexer con PLY, verificar l
 Si el arreglo de tokens inválidos tiene algún elemento se muestra dicho error en pantalla y termina la ejecución.
 
 ## Conclusión
+Para desarrollar un interpretador es importante usar la estrategia de dividir y vencer.
+Dividiendo la entrada con el programa en tokens y almacenar información pertinente sobre la línea en la que se encuentra o la columna ayudará a que luego podamos darle estructura al lenguaje que se está leyendo y así lograr entender e implementar de forma correcta el funcionamiento del programa de entrada.
+Un paso a la vez.
