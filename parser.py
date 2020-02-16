@@ -5,8 +5,7 @@ DEBUG_MODE = False
 tokens = lexer.tokens
 
 def p_intanceWorld(p):
-    '''instanceWorld : TkBeginWorld Tkid wordlSet instructions TkEndWorld instanceWorld |
-                       TkBeginWorld Tkid wordlSet instructions startRobotAt instructions TkEndWorld instanceWorld | 
+    '''instanceWorld : TkBeginWorld Tkid instructions TkEndWorld instanceWorld |
                        empty'''
     pass
 
