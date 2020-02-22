@@ -8,8 +8,13 @@ import os,sys
 ValidTokens = []  # Coleccion de tokens validos
 InvalidTokens = []  # Coleccion de tokens invalidos
 
+# Construimos lexer
 lexer = lex.lex(module=lexer)
+# Construimos parser
+parser = yacc.yacc(module=parser)
 
+
+#Verificamos la ejecucion del programa y sus entradas
 if len(argv) > 2:
     print("Uso del programa: python lexer.py <Nombre del archivo>")
     print("o utiizando: python3 lexer.py ")
@@ -19,12 +24,15 @@ elif len(argv) == 2:
 else:
     filepath = input('Archivo a Interpretar: ')
 
+
+#Probamos abrir el archivo
 try:
     f = open(filepath, 'r')
     data = f.readline()
     output=""
-
+    
     while data:
+        datacopy = data
         # pasamos la linea como data al lexer
         # Esto es con el fin de calcular bien la columna de los tokens
         lexer.input(data)
@@ -57,7 +65,9 @@ try:
             # Agarro el siguiente token
             tok = lexer.token()
         output+="\n"
-            
+        result = parser.parse(datacopy)
+        print(result)
+        
         # Leemos otra linea
         data = f.readline()
 

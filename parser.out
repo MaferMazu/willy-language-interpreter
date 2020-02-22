@@ -1,0 +1,192 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    TkAnd
+    TkAs
+    TkAt
+    TkBasket
+    TkBasketLower
+    TkBegin
+    TkBeginTask
+    TkBlue
+    TkBoolean
+    TkCapacity
+    TkCarrying
+    TkClear
+    TkColor
+    TkCyan
+    TkDefine
+    TkDrop
+    TkElse
+    TkEnd
+    TkEndTask
+    TkFalse
+    TkFinalG
+    TkFlip
+    TkFound
+    TkFrontCl
+    TkGoal
+    TkGreen
+    TkHeading
+    TkIf
+    TkIn
+    TkInitial
+    TkIs
+    TkLeftCl
+    TkLookingE
+    TkLookingN
+    TkLookingS
+    TkLookingW
+    TkMagenta
+    TkMove
+    TkNot
+    TkNum
+    TkObjType
+    TkObjectsLower
+    TkOf
+    TkOn
+    TkOr
+    TkPick
+    TkPlace
+    TkRed
+    TkRepeat
+    TkRightCl
+    TkSet
+    TkStart
+    TkTab
+    TkTerminate
+    TkThen
+    TkTimes
+    TkTrue
+    TkTurnL
+    TkTurnR
+    TkValue
+    TkWhile
+    TkWith
+    TkYellow
+
+Grammar
+
+Rule 0     S' -> correctProgram
+Rule 1     correctProgram -> program
+Rule 2     progam -> worldBlock
+Rule 3     progam -> taskBlock
+Rule 4     progam -> worldBlock program
+Rule 5     progam -> taskBlock program
+Rule 6     worldBlock -> TkBeginWorld TkId instructions TkEndWorld worldBlock
+Rule 7     worldBlock -> TkBeginWorld TkId TkEndWorld worldBlock
+Rule 8     worldBlock -> TkBeginWorld TkId instructions TkEndWorld taskBlock
+Rule 9     worldSet -> TkWorld TkInt TkInt
+Rule 10    worldSet -> empty
+Rule 11    instructions -> wallSet TkSemicolon instructions
+Rule 12    instructions -> objectTypeSet TkSemicolon instructions
+Rule 13    instructions -> placeInBasketSet TkSemicolon instructions
+Rule 14    instructions -> placeInWorldSet TkSemicolon instructions
+Rule 15    instructions -> wallSet TkSemicolon
+Rule 16    instructions -> objectTypeSet TkSemicolon
+Rule 17    instructions -> placeInBasketSet TkSemicolon
+Rule 18    instructions -> placeInWorldSet TkSemicolon
+Rule 19    wallSet -> TkWall directions TkFrom TkInt TkInt TkTo TkInt TkInt
+Rule 20    directions -> TkNorth
+Rule 21    directions -> TkEast
+Rule 22    directions -> TkSouth
+Rule 23    directions -> TkWest
+Rule 24    empty -> <empty>
+
+Terminals, with rules where they appear
+
+TkAnd                : 
+TkAs                 : 
+TkAt                 : 
+TkBasket             : 
+TkBasketLower        : 
+TkBegin              : 
+TkBeginTask          : 
+TkBeginWorld         : 6 7 8
+TkBlue               : 
+TkBoolean            : 
+TkCapacity           : 
+TkCarrying           : 
+TkClear              : 
+TkColor              : 
+TkCyan               : 
+TkDefine             : 
+TkDrop               : 
+TkEast               : 21
+TkElse               : 
+TkEnd                : 
+TkEndTask            : 
+TkEndWorld           : 6 7 8
+TkFalse              : 
+TkFinalG             : 
+TkFlip               : 
+TkFound              : 
+TkFrom               : 19
+TkFrontCl            : 
+TkGoal               : 
+TkGreen              : 
+TkHeading            : 
+TkId                 : 6 7 8
+TkIf                 : 
+TkIn                 : 
+TkInitial            : 
+TkIs                 : 
+TkLeftCl             : 
+TkLookingE           : 
+TkLookingN           : 
+TkLookingS           : 
+TkLookingW           : 
+TkMagenta            : 
+TkMove               : 
+TkNorth              : 20
+TkNot                : 
+TkNum                : 
+TkObjType            : 
+TkObjectsLower       : 
+TkOf                 : 
+TkOn                 : 
+TkOr                 : 
+TkPick               : 
+TkPlace              : 
+TkRed                : 
+TkRepeat             : 
+TkRightCl            : 
+TkSemicolon          : 11 12 13 14 15 16 17 18
+TkSet                : 
+TkSouth              : 22
+TkStart              : 
+TkTab                : 
+TkTerminate          : 
+TkThen               : 
+TkTimes              : 
+TkTo                 : 19
+TkTrue               : 
+TkTurnL              : 
+TkTurnR              : 
+TkValue              : 
+TkWall               : 19
+TkWest               : 23
+TkWhile              : 
+TkWith               : 
+TkWorld              : 9
+TkYellow             : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+TkInt                : 9 9 19 19 19 19
+correctProgram       : 0
+directions           : 19
+empty                : 10
+instructions         : 6 8 11 12 13 14
+objectTypeSet        : 12 16
+placeInBasketSet     : 13 17
+placeInWorldSet      : 14 18
+progam               : 
+program              : 1 4 5
+taskBlock            : 3 5 8
+wallSet              : 11 15
+worldBlock           : 2 4 6 7
+worldSet             : 
+

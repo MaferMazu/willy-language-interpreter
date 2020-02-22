@@ -1,0 +1,3 @@
+{{Definicion del mundo}}
+--Holix
+begin-world world1
