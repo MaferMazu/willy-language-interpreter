@@ -4,20 +4,43 @@ DEBUG_MODE = False
 # import some required globals from tokenizer
 tokens = lexer.tokens
 
-def p_intanceWorld(p):
-    '''instanceWorld : TkBeginWorld Tkid instructions TkEndWorld instanceWorld |
-                       empty'''
-    pass
+
+def p_correctProgram(p):
+    "correctProgram: program"
+    p[0] = p[1]
+
+def p_program(p):
+    """
+    progam: worldBlock |
+            taskBlock |
+            worldBlock program|
+            taskBlock program
+    """
+    if(p.len < 1):
+        p[0] = p[1]
+    else:
+        P[0] = p[1] + p[2]
+
+    
+def p_worldBlock(p):
+    '''worldBlock : TkBeginWorld Tkid instructions TkEndWorld worldBlock |
+                    TkBeginWorld Tkid TkEndWorld worldBlock |
+                        TkBeginWorld Tkid instructions TkEndWorld taskBlock '''
+    p[0] = p[1] + p[2] + p[3] + p[4] + p[5]
 
 def p_worldSet(p):
     'worldSet : TkWorld TkInt TkInt | empty'
     pass
 
 def p_instructions(p):
-    '''instructions : wallSet instructions |
-                      objectTypeSet instructions | 
-                      placeInBasketSet instructions |
-                      placeInWorldSet instructions |
+    '''instructions : wallSet tkSemiColon instructions |
+                      objectTypeSet tkSemiColon instructions | 
+                      placeInBasketSet tkSemiColon instructions |
+                      placeInWorldSet tkSemiColon instructions |
+                      wallSet tkSemiColon |
+                      objectTypeSet tkSemiColon | 
+                      placeInBasketSet tkSemiColon |
+                      placeInWorldSet tkSemiColon |
                       
     '''
     pass
