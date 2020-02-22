@@ -7,14 +7,14 @@ DEBUG_MODE = False
 # import some required globals from tokenizer
 tokens = lexer.tokens
 
-
 def p_correctProgram(p):
     "correctProgram : program"
     p[0] = p[1]
+    pass
 
 def p_program(p):
     """
-    progam : worldBlock 
+    program : worldBlock 
             | taskBlock 
             | worldBlock program
             | taskBlock program
@@ -24,31 +24,27 @@ def p_program(p):
     else:
         P[0] = p[1] + p[2]
 
-    
+def p_wallSet(p):
+    'wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum'
+    pass
+
 def p_worldBlock(p):
     '''worldBlock : TkBeginWorld TkId instructions TkEndWorld worldBlock 
                     | TkBeginWorld TkId TkEndWorld worldBlock 
-                    | TkBeginWorld TkId instructions TkEndWorld taskBlock '''
+                    | TkBeginWorld TkId instructions TkEndWorld '''
     p[0] = p[1] + p[2] + p[3] + p[4] + p[5]
 
 def p_worldSet(p):
-    '''worldSet : TkWorld TkInt TkInt 
+    '''worldSet : TkWorld TkNum TkNum 
                 | empty'''
-    pass
+
 
 def p_instructions(p):
-    '''instructions : wallSet TkSemicolon instructions 
-                     | objectTypeSet TkSemicolon instructions 
-                     | placeInBasketSet TkSemicolon instructions 
-                     | placeInWorldSet TkSemicolon instructions 
-                     | wallSet TkSemicolon 
-                     | objectTypeSet TkSemicolon 
-                     | placeInBasketSet TkSemicolon 
-                     | placeInWorldSet TkSemicolon      '''
+    "instructions : TkId"
     pass
 
-def p_wallSet(p):
-    'wallSet : TkWall directions TkFrom TkInt TkInt TkTo TkInt TkInt'
+def p_taskBlock(p):
+    "taskBlock : TkId"
     pass
 
 def p_directions(p):
@@ -57,6 +53,7 @@ def p_directions(p):
                 | TkSouth 
                 | TkWest'''
     pass
+
 def p_empty(p):
     'empty :'
     pass
