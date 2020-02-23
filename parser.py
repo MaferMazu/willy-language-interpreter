@@ -59,6 +59,11 @@ def p_empty(p):
     pass
 
 def p_error(p):
-    print("Syntax error at '%s'" % p.value)
+    if p:
+        print("Syntax error at token", p.type)
+        # Just discard the token and tell the parser it's okay.
+        parser.errok()
+    else:
+        print("Syntax error at EOF")
 
-parser = yacc.yacc()
+#parser = yacc.yacc()
