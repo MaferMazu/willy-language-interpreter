@@ -11,7 +11,7 @@ InvalidTokens = []  # Coleccion de tokens invalidos
 # Construimos lexer
 lexer = lex.lex(module=lexer)
 # Construimos parser
-parser = yacc.yacc(module=parser)
+parser = yacc.yacc(parser)
 
 
 #Verificamos la ejecucion del programa y sus entradas

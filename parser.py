@@ -62,3 +62,19 @@ def p_error(p):
     print("Syntax error at '%s'" % p.value)
 
 parser = yacc.yacc()
+filepath = input("Archivo: ")
+try:
+    f = open(filepath, 'r')
+    data = f.readline()
+    output=""
+    
+    while data:
+        datacopy = data
+        result = parser.parse(datacopy)
+        print(result)
+        
+        # Leemos otra linea
+        data = f.readline()
+except FileNotFoundError:
+    print('Imposible abrir el archivo ' + filepath)
+    sys.exit()
