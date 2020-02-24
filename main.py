@@ -1,6 +1,6 @@
 import ply.lex as lex
 import ply.yacc as yacc 
-import lexer, parser
+import lexer, myparser
 from sys import argv
 import os,sys
 
@@ -11,7 +11,7 @@ InvalidTokens = []  # Coleccion de tokens invalidos
 # Construimos lexer
 lexer = lex.lex(module=lexer)
 # Construimos parser
-parser = yacc.yacc(module=parser)
+parser = yacc.yacc(module=myparser)
 
 
 #Verificamos la ejecucion del programa y sus entradas
@@ -28,6 +28,7 @@ else:
 #Probamos abrir el archivo
 try:
     f = open(filepath, 'r')
+    
     data = f.readline()
     output=""
     
