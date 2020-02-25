@@ -20,7 +20,7 @@ class myStack:
 
     def push_empty_table(self):
         table = myStack()
-        sel.stack.append(table)
+        self.stack.append(table)
 
     def pop(self,symbol):
         if not empty:
