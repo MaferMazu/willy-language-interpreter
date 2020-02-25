@@ -31,7 +31,7 @@ def p_program(p):
         P[0] = p[1] + p[2]
 
 def p_wallSet(p):
-    'wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum'
+    '''wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum'''
     pass
 
 def p_worldBlock(p):
@@ -44,6 +44,39 @@ def p_worldSet(p):
     '''worldSet : TkWorld TkNum TkNum 
                 | empty'''
 
+def p_newObjectType(p):
+    '''newObjectType : TkObjectType TkId TkOf TkColor colors'''
+
+def p_colors(p):
+    '''colors : TkRed
+                | TkBlue
+                | TkMagenta
+                | TkCyan
+                | TkGreen
+                | TkYellow'''
+
+def p_setPlaceObjWorld(p):
+    '''setPlaceObjWorld : TkPlace TkNum TkOf TkId TkAt TkNum TkNum'''
+
+def p_setPlaceObjBasket(p):
+    '''setPlaceObjBasket : TkPlace TkNum TkOf TkId TkIn TkBasketLower'''
+
+def p_setStartPosition(p):
+    '''setStartPosition : TkStart TkAt TkNum TkNum TkHeading directions'''
+
+def p_setBasketCapacity(p):
+    '''setBasketCapacity : TkBasket TkOf TkCapacity TkNum'''
+
+def p_newBoolean(p):
+    '''newBoolean : TkBoolean TkId TkWith TkInitial TkValue TkTrue 
+                | TkBoolean TkId TkWith TkInitial TkValue TkFalse
+    '''
+
+def p_newGoal(p):
+    '''newGoal : TkGoal TkId TkIs TkWilly TkIs TkAt TkNum TkNum
+            | TkGoal TkId TkIs TkNum TkId TkObjects TkIn TkBasket
+            | TkGoal TkId TkIs TkNum TkId TkObjects TkAt TkNum TkNum 
+    '''
 
 def p_instructions(p):
     "instructions : TkId"
