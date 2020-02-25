@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'TkAnd TkAs TkAt TkBasket TkBasketLower TkBegin TkBeginTask TkBeginWorld TkBlue TkBoolean TkCapacity TkCarrying TkClear TkColor TkCyan TkDefine TkDrop TkEast TkElse TkEnd TkEndTask TkEndWorld TkFalse TkFinalG TkFlip TkFound TkFrom TkFrontCl TkGoal TkGreen TkHeading TkId TkIf TkIn TkInitial TkIs TkLeftCl TkLookingE TkLookingN TkLookingS TkLookingW TkMagenta TkMove TkNorth TkNot TkNum TkObjType TkObjectsLower TkOf TkOn TkOr TkPick TkPlace TkRed TkRepeat TkRightCl TkSemicolon TkSet TkSouth TkStart TkTab TkTerminate TkThen TkTimes TkTo TkTrue TkTurnL TkTurnR TkValue TkWall TkWest TkWhile TkWith TkWorld TkYellowcorrectProgram : program\n    program : worldBlock \n            | taskBlock \n            | worldBlock program\n            | taskBlock program\n    wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNumworldBlock : TkBeginWorld TkId instructions TkEndWorld worldBlock \n                    | TkBeginWorld TkId TkEndWorld worldBlock \n                    | TkBeginWorld TkId instructions TkEndWorld worldSet : TkWorld TkNum TkNum \n                | emptyinstructions : TkIdtaskBlock : TkIddirections : TkNorth \n                | TkEast \n                | TkSouth \n                | TkWestempty :'
+_lr_signature = 'TkAnd TkAs TkAt TkBasket TkBasketLower TkBegin TkBeginTask TkBeginWorld TkBlue TkBoolean TkCapacity TkCarrying TkClear TkColor TkCyan TkDefine TkDrop TkEast TkElse TkEnd TkEndTask TkEndWorld TkFalse TkFinalG TkFlip TkFound TkFrom TkFrontCl TkGoal TkGreen TkHeading TkId TkIf TkIn TkInitial TkIs TkLeftCl TkLookingE TkLookingN TkLookingS TkLookingW TkMagenta TkMove TkNorth TkNot TkNum TkObjType TkObjectsLower TkOf TkOn TkOr TkPick TkPlace TkRed TkRepeat TkRightCl TkSemicolon TkSet TkSouth TkStart TkTab TkTerminate TkThen TkTimes TkTo TkTrue TkTurnL TkTurnR TkValue TkWall TkWest TkWhile TkWith TkWorld TkYellowcorrectProgram : program\n    program : worldBlock \n            | taskBlock \n            | worldBlock program\n            | taskBlock program\n    wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNumworldBlock : TkBeginWorld TkId instructions TkEndWorld worldBlock \n                    | TkBeginWorld TkId TkEndWorld worldBlock \n                    | TkBeginWorld TkId TkEndWorld worldSet : TkWorld TkNum TkNum \n                | emptyinstructions : TkIdtaskBlock : TkIddirections : TkNorth \n                | TkEast \n                | TkSouth \n                | TkWestempty :'
     
-_lr_action_items = {'TkBeginWorld':([0,3,4,6,12,13,14,15,],[5,5,5,-13,5,5,-8,-7,]),'TkId':([0,3,4,5,6,9,13,14,15,],[6,6,6,9,-13,10,-9,-8,-7,]),'$end':([1,2,3,4,6,7,8,13,14,15,],[0,-1,-2,-3,-13,-4,-5,-9,-8,-7,]),'TkEndWorld':([9,10,11,],[12,-12,13,]),}
+_lr_action_items = {'TkBeginWorld':([0,3,4,6,12,13,14,15,],[5,5,5,-13,5,5,-8,-7,]),'TkId':([0,3,4,5,6,9,12,14,15,],[6,6,6,9,-13,10,-9,-8,-7,]),'$end':([1,2,3,4,6,7,8,12,14,15,],[0,-1,-2,-3,-13,-4,-5,-9,-8,-7,]),'TkEndWorld':([9,10,11,],[12,-12,13,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -27,22 +27,22 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> correctProgram","S'",1,None,None,None),
-  ('correctProgram -> program','correctProgram',1,'p_correctProgram','parser.py',11),
-  ('program -> worldBlock','program',1,'p_program','parser.py',17),
-  ('program -> taskBlock','program',1,'p_program','parser.py',18),
-  ('program -> worldBlock program','program',2,'p_program','parser.py',19),
-  ('program -> taskBlock program','program',2,'p_program','parser.py',20),
-  ('wallSet -> TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum','wallSet',8,'p_wallSet','parser.py',28),
-  ('worldBlock -> TkBeginWorld TkId instructions TkEndWorld worldBlock','worldBlock',5,'p_worldBlock','parser.py',32),
-  ('worldBlock -> TkBeginWorld TkId TkEndWorld worldBlock','worldBlock',4,'p_worldBlock','parser.py',33),
-  ('worldBlock -> TkBeginWorld TkId instructions TkEndWorld','worldBlock',4,'p_worldBlock','parser.py',34),
-  ('worldSet -> TkWorld TkNum TkNum','worldSet',3,'p_worldSet','parser.py',38),
-  ('worldSet -> empty','worldSet',1,'p_worldSet','parser.py',39),
-  ('instructions -> TkId','instructions',1,'p_instructions','parser.py',43),
-  ('taskBlock -> TkId','taskBlock',1,'p_taskBlock','parser.py',47),
-  ('directions -> TkNorth','directions',1,'p_directions','parser.py',51),
-  ('directions -> TkEast','directions',1,'p_directions','parser.py',52),
-  ('directions -> TkSouth','directions',1,'p_directions','parser.py',53),
-  ('directions -> TkWest','directions',1,'p_directions','parser.py',54),
-  ('empty -> <empty>','empty',0,'p_empty','parser.py',58),
+  ('correctProgram -> program','correctProgram',1,'p_correctProgram','myparser.py',16),
+  ('program -> worldBlock','program',1,'p_program','myparser.py',22),
+  ('program -> taskBlock','program',1,'p_program','myparser.py',23),
+  ('program -> worldBlock program','program',2,'p_program','myparser.py',24),
+  ('program -> taskBlock program','program',2,'p_program','myparser.py',25),
+  ('wallSet -> TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum','wallSet',8,'p_wallSet','myparser.py',33),
+  ('worldBlock -> TkBeginWorld TkId instructions TkEndWorld worldBlock','worldBlock',5,'p_worldBlock','myparser.py',37),
+  ('worldBlock -> TkBeginWorld TkId TkEndWorld worldBlock','worldBlock',4,'p_worldBlock','myparser.py',38),
+  ('worldBlock -> TkBeginWorld TkId TkEndWorld','worldBlock',3,'p_worldBlock','myparser.py',39),
+  ('worldSet -> TkWorld TkNum TkNum','worldSet',3,'p_worldSet','myparser.py',43),
+  ('worldSet -> empty','worldSet',1,'p_worldSet','myparser.py',44),
+  ('instructions -> TkId','instructions',1,'p_instructions','myparser.py',48),
+  ('taskBlock -> TkId','taskBlock',1,'p_taskBlock','myparser.py',52),
+  ('directions -> TkNorth','directions',1,'p_directions','myparser.py',56),
+  ('directions -> TkEast','directions',1,'p_directions','myparser.py',57),
+  ('directions -> TkSouth','directions',1,'p_directions','myparser.py',58),
+  ('directions -> TkWest','directions',1,'p_directions','myparser.py',59),
+  ('empty -> <empty>','empty',0,'p_empty','myparser.py',63),
 ]

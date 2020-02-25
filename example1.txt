@@ -1,6 +1,6 @@
 {{Definicion del mundo}}
 --Holix
-    begin-world world1
+begin-world world1
 {{mundo con 8 columas y 4 filas}}
 World       8 4
 {{paredes}}

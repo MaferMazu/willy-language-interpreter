@@ -1,4 +1,2 @@
-{{Definicion del mundo}}
---Holix
 begin-world maferBaila
 end-world
