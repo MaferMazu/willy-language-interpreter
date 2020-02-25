@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'TkAnd TkAs TkAt TkBasket TkBasketLower TkBegin TkBeginTask TkBeginWorld TkBlue TkBoolean TkCapacity TkCarrying TkClear TkColor TkCyan TkDefine TkDrop TkEast TkElse TkEnd TkEndTask TkEndWorld TkFalse TkFinalG TkFlip TkFound TkFrom TkFrontCl TkGoal TkGreen TkHeading TkId TkIf TkIn TkInitial TkIs TkLeftCl TkLookingE TkLookingN TkLookingS TkLookingW TkMagenta TkMove TkNorth TkNot TkNum TkObjType TkObjectsLower TkOf TkOn TkOr TkPick TkPlace TkRed TkRepeat TkRightCl TkSemicolon TkSet TkSouth TkStart TkTab TkTerminate TkThen TkTimes TkTo TkTrue TkTurnL TkTurnR TkValue TkWall TkWest TkWhile TkWith TkWorld TkYellowcorrectProgram : program\n    program : worldBlock \n            | taskBlock \n            | worldBlock program\n            | taskBlock program\n    wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNumworldBlock : TkBeginWorld TkId instructions TkEndWorld  \n                    | TkBeginWorld TkId TkEndWorld  worldSet : TkWorld TkNum TkNum \n                | emptyinstructions : TkIdtaskBlock : TkIddirections : TkNorth \n                | TkEast \n                | TkSouth \n                | TkWestempty :'
+_lr_signature = 'TkAnd TkAs TkAt TkBasket TkBasketLower TkBegin TkBeginTask TkBeginWorld TkBlue TkBoolean TkCapacity TkCarrying TkClear TkColor TkCyan TkDefine TkDrop TkEast TkElse TkEnd TkEndTask TkEndWorld TkFalse TkFinalG TkFlip TkFound TkFrom TkFrontCl TkGoal TkGreen TkHeading TkId TkIf TkIn TkInitial TkIs TkLeftCl TkLookingE TkLookingN TkLookingS TkLookingW TkMagenta TkMove TkNorth TkNot TkNum TkObjType TkObjectsLower TkOf TkOn TkOr TkPick TkPlace TkRed TkRepeat TkRightCl TkSemicolon TkSet TkSouth TkStart TkTab TkTerminate TkThen TkTimes TkTo TkTrue TkTurnL TkTurnR TkValue TkWall TkWest TkWhile TkWilly TkWith TkWorld TkYellowcorrectProgram : program\n    program : worldBlock \n            | taskBlock \n            | worldBlock program\n            | taskBlock program\n    worldInstSet : worldInst TkSemicolon\n                    | worldInst worldInstSet\n     worldInst : worldSet  \n                | wallSet  \n                | newObjType  \n                | setPlaceObjWorld  \n                | setStartPosition \n                | setBasketCapacity  \n                | newBoolean  \n                | newGoal \n                | finalGoal  \n    wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNumworldBlock : TkBeginWorld ids worldInstSet TkEndWorld  \n                    | TkBeginWorld ids TkEndWorld  worldSet : TkWorld TkNum TkNum \n                | emptynewObjType : TkObjType ids TkOf TkColor colorscolors : TkRed\n                | TkBlue\n                | TkMagenta\n                | TkCyan\n                | TkGreen\n                | TkYellowsetPlaceObjWorld : TkPlace TkNum TkOf ids TkAt TkNum TkNum\n                        | TkPlace TkNum TkOf ids TkIn TkBasketLower\n    setPlaceObjBasket : TkPlace TkNum TkOf ids TkIn TkBasketLowersetStartPosition : TkStart TkAt TkNum TkNum TkHeading directionssetBasketCapacity : TkBasket TkOf TkCapacity TkNumnewBoolean : TkBoolean ids TkWith TkInitial TkValue TkTrue \n                | TkBoolean ids TkWith TkInitial TkValue TkFalse\n    newGoal : TkGoal ids TkIs TkWilly TkIs TkAt TkNum TkNum\n            | TkGoal ids TkIs TkNum ids TkObjectsLower TkIn TkBasket\n            | TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum \n    finalGoal : TkFinalG TkIs ids \n            | TkFinalG TkIs ids TkAnd ids\n            | TkFinalG TkIs ids TkOr ids\n            | TkFinalG TkIs TkNot ids \n    ids : TkIdtaskBlock : idsdirections : TkNorth \n                | TkEast \n                | TkSouth \n                | TkWestempty :'
     
-_lr_action_items = {'TkBeginWorld':([0,3,4,6,12,13,],[5,5,5,-12,-8,-7,]),'TkId':([0,3,4,5,6,9,12,13,],[6,6,6,9,-12,10,-8,-7,]),'$end':([1,2,3,4,6,7,8,12,13,],[0,-1,-2,-3,-12,-4,-5,-8,-7,]),'TkEndWorld':([9,10,11,],[12,-11,13,]),}
+_lr_action_items = {'TkBeginWorld':([0,3,4,6,7,12,33,],[5,5,5,-44,-43,-19,-18,]),'TkId':([0,3,4,5,6,7,12,26,30,31,33,48,52,58,66,67,68,],[7,7,7,7,-44,-43,-19,7,7,7,-18,7,7,7,7,7,7,]),'$end':([1,2,3,4,6,7,8,9,12,33,],[0,-1,-2,-3,-44,-43,-4,-5,-19,-18,]),'TkEndWorld':([7,10,11,34,35,],[-43,12,33,-6,-7,]),'TkWorld':([7,10,13,14,15,16,17,18,19,20,21,22,24,38,39,40,41,49,57,63,69,71,72,73,74,75,76,77,84,85,88,89,90,91,95,99,100,101,103,],[-43,23,23,-8,-9,-10,-11,-12,-13,-14,-15,-16,-21,-45,-46,-47,-48,-20,-39,-33,-42,-22,-23,-24,-25,-26,-27,-28,-40,-41,-30,-32,-34,-35,-29,-17,-36,-37,-38,]),'TkWall':([7,10,13,14,15,16,17,18,19,20,21,22,24,38,39,40,41,49,57,63,69,71,72,73,74,75,76,77,84,85,88,89,90,91,95,99,100,101,103,],[-43,25,25,-8,-9,-10,-11,-12,-13,-14,-15,-16,-21,-45,-46,-47,-48,-20,-39,-33,-42,-22,-23,-24,-25,-26,-27,-28,-40,-41,-30,-32,-34,-35,-29,-17,-36,-37,-38,]),'TkObjType':([7,10,13,14,15,16,17,18,19,20,21,22,24,38,39,40,41,49,57,63,69,71,72,73,74,75,76,77,84,85,88,89,90,91,95,99,100,101,103,],[-43,26,26,-8,-9,-10,-11,-12,-13,-14,-15,-16,-21,-45,-46,-47,-48,-20,-39,-33,-42,-22,-23,-24,-25,-26,-27,-28,-40,-41,-30,-32,-34,-35,-29,-17,-36,-37,-38,]),'TkPlace':([7,10,13,14,15,16,17,18,19,20,21,22,24,38,39,40,41,49,57,63,69,71,72,73,74,75,76,77,84,85,88,89,90,91,95,99,100,101,103,],[-43,27,27,-8,-9,-10,-11,-12,-13,-14,-15,-16,-21,-45,-46,-47,-48,-20,-39,-33,-42,-22,-23,-24,-25,-26,-27,-28,-40,-41,-30,-32,-34,-35,-29,-17,-36,-37,-38,]),'TkStart':([7,10,13,14,15,16,17,18,19,20,21,22,24,38,39,40,41,49,57,63,69,71,72,73,74,75,76,77,84,85,88,89,90,91,95,99,100,101,103,],[-43,28,28,-8,-9,-10,-11,-12,-13,-14,-15,-16,-21,-45,-46,-47,-48,-20,-39,-33,-42,-22,-23,-24,-25,-26,-27,-28,-40,-41,-30,-32,-34,-35,-29,-17,-36,-37,-38,]),'TkBasket':([7,10,13,14,15,16,17,18,19,20,21,22,24,38,39,40,41,49,57,63,69,71,72,73,74,75,76,77,84,85,88,89,90,91,95,97,99,100,101,103,],[-43,29,29,-8,-9,-10,-11,-12,-13,-14,-15,-16,-21,-45,-46,-47,-48,-20,-39,-33,-42,-22,-23,-24,-25,-26,-27,-28,-40,-41,-30,-32,-34,-35,-29,101,-17,-36,-37,-38,]),'TkBoolean':([7,10,13,14,15,16,17,18,19,20,21,22,24,38,39,40,41,49,57,63,69,71,72,73,74,75,76,77,84,85,88,89,90,91,95,99,100,101,103,],[-43,30,30,-8,-9,-10,-11,-12,-13,-14,-15,-16,-21,-45,-46,-47,-48,-20,-39,-33,-42,-22,-23,-24,-25,-26,-27,-28,-40,-41,-30,-32,-34,-35,-29,-17,-36,-37,-38,]),'TkGoal':([7,10,13,14,15,16,17,18,19,20,21,22,24,38,39,40,41,49,57,63,69,71,72,73,74,75,76,77,84,85,88,89,90,91,95,99,100,101,103,],[-43,31,31,-8,-9,-10,-11,-12,-13,-14,-15,-16,-21,-45,-46,-47,-48,-20,-39,-33,-42,-22,-23,-24,-25,-26,-27,-28,-40,-41,-30,-32,-34,-35,-29,-17,-36,-37,-38,]),'TkFinalG':([7,10,13,14,15,16,17,18,19,20,21,22,24,38,39,40,41,49,57,63,69,71,72,73,74,75,76,77,84,85,88,89,90,91,95,99,100,101,103,],[-43,32,32,-8,-9,-10,-11,-12,-13,-14,-15,-16,-21,-45,-46,-47,-48,-20,-39,-33,-42,-22,-23,-24,-25,-26,-27,-28,-40,-41,-30,-32,-34,-35,-29,-17,-36,-37,-38,]),'TkSemicolon':([7,10,13,14,15,16,17,18,19,20,21,22,24,38,39,40,41,49,57,63,69,71,72,73,74,75,76,77,84,85,88,89,90,91,95,99,100,101,103,],[-43,-49,34,-8,-9,-10,-11,-12,-13,-14,-15,-16,-21,-45,-46,-47,-48,-20,-39,-33,-42,-22,-23,-24,-25,-26,-27,-28,-40,-41,-30,-32,-34,-35,-29,-17,-36,-37,-38,]),'TkOf':([7,29,42,43,],[-43,45,51,52,]),'TkWith':([7,46,],[-43,55,]),'TkIs':([7,32,47,65,],[-43,48,56,82,]),'TkAnd':([7,57,],[-43,67,]),'TkOr':([7,57,],[-43,68,]),'TkAt':([7,28,61,82,93,],[-43,44,78,92,98,]),'TkIn':([7,61,93,],[-43,79,97,]),'TkObjectsLower':([7,83,],[-43,93,]),'TkNum':([23,27,36,44,50,53,54,56,59,78,86,87,92,94,96,98,102,],[36,43,49,53,59,62,63,66,70,87,94,95,96,99,100,102,103,]),'TkNorth':([25,80,],[38,38,]),'TkEast':([25,80,],[39,39,]),'TkSouth':([25,80,],[40,40,]),'TkWest':([25,80,],[41,41,]),'TkFrom':([37,38,39,40,41,],[50,-45,-46,-47,-48,]),'TkCapacity':([45,],[54,]),'TkNot':([48,],[58,]),'TkColor':([51,],[60,]),'TkInitial':([55,],[64,]),'TkWilly':([56,],[65,]),'TkRed':([60,],[72,]),'TkBlue':([60,],[73,]),'TkMagenta':([60,],[74,]),'TkCyan':([60,],[75,]),'TkGreen':([60,],[76,]),'TkYellow':([60,],[77,]),'TkHeading':([62,],[80,]),'TkValue':([64,],[81,]),'TkTo':([70,],[86,]),'TkBasketLower':([79,],[88,]),'TkTrue':([81,],[90,]),'TkFalse':([81,],[91,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'correctProgram':([0,],[1,]),'program':([0,3,4,],[2,7,8,]),'worldBlock':([0,3,4,],[3,3,3,]),'taskBlock':([0,3,4,],[4,4,4,]),'instructions':([9,],[11,]),}
+_lr_goto_items = {'correctProgram':([0,],[1,]),'program':([0,3,4,],[2,8,9,]),'worldBlock':([0,3,4,],[3,3,3,]),'taskBlock':([0,3,4,],[4,4,4,]),'ids':([0,3,4,5,26,30,31,48,52,58,66,67,68,],[6,6,6,10,42,46,47,57,61,69,83,84,85,]),'worldInstSet':([10,13,],[11,35,]),'worldInst':([10,13,],[13,13,]),'worldSet':([10,13,],[14,14,]),'wallSet':([10,13,],[15,15,]),'newObjType':([10,13,],[16,16,]),'setPlaceObjWorld':([10,13,],[17,17,]),'setStartPosition':([10,13,],[18,18,]),'setBasketCapacity':([10,13,],[19,19,]),'newBoolean':([10,13,],[20,20,]),'newGoal':([10,13,],[21,21,]),'finalGoal':([10,13,],[22,22,]),'empty':([10,13,],[24,24,]),'directions':([25,80,],[37,89,]),'colors':([60,],[71,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -32,16 +32,48 @@ _lr_productions = [
   ('program -> taskBlock','program',1,'p_program','myparser.py',24),
   ('program -> worldBlock program','program',2,'p_program','myparser.py',25),
   ('program -> taskBlock program','program',2,'p_program','myparser.py',26),
-  ('wallSet -> TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum','wallSet',8,'p_wallSet','myparser.py',35),
-  ('worldBlock -> TkBeginWorld TkId instructions TkEndWorld','worldBlock',4,'p_worldBlock','myparser.py',39),
-  ('worldBlock -> TkBeginWorld TkId TkEndWorld','worldBlock',3,'p_worldBlock','myparser.py',40),
-  ('worldSet -> TkWorld TkNum TkNum','worldSet',3,'p_worldSet','myparser.py',44),
-  ('worldSet -> empty','worldSet',1,'p_worldSet','myparser.py',45),
-  ('instructions -> TkId','instructions',1,'p_instructions','myparser.py',49),
-  ('taskBlock -> TkId','taskBlock',1,'p_taskBlock','myparser.py',53),
-  ('directions -> TkNorth','directions',1,'p_directions','myparser.py',57),
-  ('directions -> TkEast','directions',1,'p_directions','myparser.py',58),
-  ('directions -> TkSouth','directions',1,'p_directions','myparser.py',59),
-  ('directions -> TkWest','directions',1,'p_directions','myparser.py',60),
-  ('empty -> <empty>','empty',0,'p_empty','myparser.py',64),
+  ('worldInstSet -> worldInst TkSemicolon','worldInstSet',2,'p_worldInstSet','myparser.py',37),
+  ('worldInstSet -> worldInst worldInstSet','worldInstSet',2,'p_worldInstSet','myparser.py',38),
+  ('worldInst -> worldSet','worldInst',1,'p_worldInst','myparser.py',42),
+  ('worldInst -> wallSet','worldInst',1,'p_worldInst','myparser.py',43),
+  ('worldInst -> newObjType','worldInst',1,'p_worldInst','myparser.py',44),
+  ('worldInst -> setPlaceObjWorld','worldInst',1,'p_worldInst','myparser.py',45),
+  ('worldInst -> setStartPosition','worldInst',1,'p_worldInst','myparser.py',46),
+  ('worldInst -> setBasketCapacity','worldInst',1,'p_worldInst','myparser.py',47),
+  ('worldInst -> newBoolean','worldInst',1,'p_worldInst','myparser.py',48),
+  ('worldInst -> newGoal','worldInst',1,'p_worldInst','myparser.py',49),
+  ('worldInst -> finalGoal','worldInst',1,'p_worldInst','myparser.py',50),
+  ('wallSet -> TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum','wallSet',8,'p_wallSet','myparser.py',54),
+  ('worldBlock -> TkBeginWorld ids worldInstSet TkEndWorld','worldBlock',4,'p_worldBlock','myparser.py',58),
+  ('worldBlock -> TkBeginWorld ids TkEndWorld','worldBlock',3,'p_worldBlock','myparser.py',59),
+  ('worldSet -> TkWorld TkNum TkNum','worldSet',3,'p_worldSet','myparser.py',63),
+  ('worldSet -> empty','worldSet',1,'p_worldSet','myparser.py',64),
+  ('newObjType -> TkObjType ids TkOf TkColor colors','newObjType',5,'p_newObjType','myparser.py',67),
+  ('colors -> TkRed','colors',1,'p_colors','myparser.py',70),
+  ('colors -> TkBlue','colors',1,'p_colors','myparser.py',71),
+  ('colors -> TkMagenta','colors',1,'p_colors','myparser.py',72),
+  ('colors -> TkCyan','colors',1,'p_colors','myparser.py',73),
+  ('colors -> TkGreen','colors',1,'p_colors','myparser.py',74),
+  ('colors -> TkYellow','colors',1,'p_colors','myparser.py',75),
+  ('setPlaceObjWorld -> TkPlace TkNum TkOf ids TkAt TkNum TkNum','setPlaceObjWorld',7,'p_setPlaceObjWorld','myparser.py',78),
+  ('setPlaceObjWorld -> TkPlace TkNum TkOf ids TkIn TkBasketLower','setPlaceObjWorld',6,'p_setPlaceObjWorld','myparser.py',79),
+  ('setPlaceObjBasket -> TkPlace TkNum TkOf ids TkIn TkBasketLower','setPlaceObjBasket',6,'p_setPlaceObjBasket','myparser.py',83),
+  ('setStartPosition -> TkStart TkAt TkNum TkNum TkHeading directions','setStartPosition',6,'p_setStartPosition','myparser.py',86),
+  ('setBasketCapacity -> TkBasket TkOf TkCapacity TkNum','setBasketCapacity',4,'p_setBasketCapacity','myparser.py',89),
+  ('newBoolean -> TkBoolean ids TkWith TkInitial TkValue TkTrue','newBoolean',6,'p_newBoolean','myparser.py',92),
+  ('newBoolean -> TkBoolean ids TkWith TkInitial TkValue TkFalse','newBoolean',6,'p_newBoolean','myparser.py',93),
+  ('newGoal -> TkGoal ids TkIs TkWilly TkIs TkAt TkNum TkNum','newGoal',8,'p_newGoal','myparser.py',97),
+  ('newGoal -> TkGoal ids TkIs TkNum ids TkObjectsLower TkIn TkBasket','newGoal',8,'p_newGoal','myparser.py',98),
+  ('newGoal -> TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum','newGoal',9,'p_newGoal','myparser.py',99),
+  ('finalGoal -> TkFinalG TkIs ids','finalGoal',3,'p_finalGoal','myparser.py',102),
+  ('finalGoal -> TkFinalG TkIs ids TkAnd ids','finalGoal',5,'p_finalGoal','myparser.py',103),
+  ('finalGoal -> TkFinalG TkIs ids TkOr ids','finalGoal',5,'p_finalGoal','myparser.py',104),
+  ('finalGoal -> TkFinalG TkIs TkNot ids','finalGoal',4,'p_finalGoal','myparser.py',105),
+  ('ids -> TkId','ids',1,'p_ids','myparser.py',109),
+  ('taskBlock -> ids','taskBlock',1,'p_taskBlock','myparser.py',113),
+  ('directions -> TkNorth','directions',1,'p_directions','myparser.py',117),
+  ('directions -> TkEast','directions',1,'p_directions','myparser.py',118),
+  ('directions -> TkSouth','directions',1,'p_directions','myparser.py',119),
+  ('directions -> TkWest','directions',1,'p_directions','myparser.py',120),
+  ('empty -> <empty>','empty',0,'p_empty','myparser.py',124),
 ]

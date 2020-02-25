@@ -19,33 +19,52 @@ def p_correctProgram(p):
 
 
 def p_program(p):
-    """
+    '''
     program : worldBlock 
             | taskBlock 
             | worldBlock program
             | taskBlock program
-    """
+    '''
     print(len(p))
     if(len(p) <= 2):
-        p[0] = p[1]
+       # p[0] = p[1]
+       print("WeHAsNOTInst")
     else:
-        p[0] = p[1] + p[2]
+        print("WeGotInst")
+       # p[0] = p[1] + p[2]
+
+def p_worldInstSet(p):
+    '''worldInstSet : worldInst TkSemicolon
+                    | worldInst worldInstSet
+    '''
+
+def p_worldInst(p):
+    ''' worldInst : worldSet  
+                | wallSet  
+                | newObjType  
+                | setPlaceObjWorld  
+                | setStartPosition 
+                | setBasketCapacity  
+                | newBoolean  
+                | newGoal 
+                | finalGoal  
+    '''
 
 def p_wallSet(p):
     '''wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum'''
     pass
 
 def p_worldBlock(p):
-    '''worldBlock : TkBeginWorld TkId instructions TkEndWorld  
-                    | TkBeginWorld TkId TkEndWorld  '''
-    p[0] = p[1] + p[2] + p[3]
+    '''worldBlock : TkBeginWorld ids worldInstSet TkEndWorld  
+                    | TkBeginWorld ids TkEndWorld  '''
+    #p[0] = p[1] + p[2] + p[3]
 
 def p_worldSet(p):
     '''worldSet : TkWorld TkNum TkNum 
                 | empty'''
 
-def p_newObjectType(p):
-    '''newObjectType : TkObjectType TkId TkOf TkColor colors'''
+def p_newObjType(p):
+    '''newObjType : TkObjType ids TkOf TkColor colors'''
 
 def p_colors(p):
     '''colors : TkRed
@@ -56,10 +75,12 @@ def p_colors(p):
                 | TkYellow'''
 
 def p_setPlaceObjWorld(p):
-    '''setPlaceObjWorld : TkPlace TkNum TkOf TkId TkAt TkNum TkNum'''
+    '''setPlaceObjWorld : TkPlace TkNum TkOf ids TkAt TkNum TkNum
+                        | TkPlace TkNum TkOf ids TkIn TkBasketLower
+    '''
 
 def p_setPlaceObjBasket(p):
-    '''setPlaceObjBasket : TkPlace TkNum TkOf TkId TkIn TkBasketLower'''
+    '''setPlaceObjBasket : TkPlace TkNum TkOf ids TkIn TkBasketLower'''
 
 def p_setStartPosition(p):
     '''setStartPosition : TkStart TkAt TkNum TkNum TkHeading directions'''
@@ -68,22 +89,28 @@ def p_setBasketCapacity(p):
     '''setBasketCapacity : TkBasket TkOf TkCapacity TkNum'''
 
 def p_newBoolean(p):
-    '''newBoolean : TkBoolean TkId TkWith TkInitial TkValue TkTrue 
-                | TkBoolean TkId TkWith TkInitial TkValue TkFalse
+    '''newBoolean : TkBoolean ids TkWith TkInitial TkValue TkTrue 
+                | TkBoolean ids TkWith TkInitial TkValue TkFalse
     '''
 
 def p_newGoal(p):
-    '''newGoal : TkGoal TkId TkIs TkWilly TkIs TkAt TkNum TkNum
-            | TkGoal TkId TkIs TkNum TkId TkObjects TkIn TkBasket
-            | TkGoal TkId TkIs TkNum TkId TkObjects TkAt TkNum TkNum 
+    '''newGoal : TkGoal ids TkIs TkWilly TkIs TkAt TkNum TkNum
+            | TkGoal ids TkIs TkNum ids TkObjectsLower TkIn TkBasket
+            | TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum 
+    '''
+def p_finalGoal(p):
+    '''finalGoal : TkFinalG TkIs ids 
+            | TkFinalG TkIs ids TkAnd ids
+            | TkFinalG TkIs ids TkOr ids
+            | TkFinalG TkIs TkNot ids 
     '''
 
-def p_instructions(p):
-    "instructions : TkId"
+def p_ids(p):
+    "ids : TkId"
     pass
 
 def p_taskBlock(p):
-    "taskBlock : TkId"
+    "taskBlock : ids"
     pass
 
 def p_directions(p):
