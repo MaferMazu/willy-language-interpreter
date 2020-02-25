@@ -14,6 +14,7 @@ tokens = lexer.tokens
 
 def p_correctProgram(p):
     "correctProgram : program"
+    print("Tu programa esta correcto")
     p[0] = p[1]
 
 
@@ -28,16 +29,15 @@ def p_program(p):
     if(len(p) <= 2):
         p[0] = p[1]
     else:
-        P[0] = p[1] + p[2]
+        p[0] = p[1] + p[2]
 
 def p_wallSet(p):
     'wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum'
     pass
 
 def p_worldBlock(p):
-    '''worldBlock : TkBeginWorld TkId instructions TkEndWorld worldBlock 
-                    | TkBeginWorld TkId TkEndWorld worldBlock 
-                    | TkBeginWorld TkId TkEndWorld '''
+    '''worldBlock : TkBeginWorld TkId instructions TkEndWorld  
+                    | TkBeginWorld TkId TkEndWorld  '''
     p[0] = p[1] + p[2] + p[3]
 
 def p_worldSet(p):

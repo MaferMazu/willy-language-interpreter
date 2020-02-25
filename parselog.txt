@@ -1,34 +1,57 @@
    yacc.py: 362:PLY: PARSE DEBUG START
    yacc.py: 410:
    yacc.py: 411:State  : 0
-   yacc.py: 435:Stack  : . LexToken(TkBeginWorld,'begin-world',1,0)
+   yacc.py: 435:Stack  : . LexToken(TkBeginWorld,'begin-world',3,33)
    yacc.py: 445:Action : Shift and goto state 5
    yacc.py: 410:
    yacc.py: 411:State  : 5
-   yacc.py: 435:Stack  : TkBeginWorld . LexToken(TkId,'maferBaila',1,12)
+   yacc.py: 435:Stack  : TkBeginWorld . LexToken(TkId,'maferBaila',3,45)
    yacc.py: 445:Action : Shift and goto state 9
    yacc.py: 410:
    yacc.py: 411:State  : 9
-   yacc.py: 435:Stack  : TkBeginWorld TkId . LexToken(TkEndWorld,'end-world',2,23)
+   yacc.py: 435:Stack  : TkBeginWorld TkId . LexToken(TkEndWorld,'end-world',4,56)
    yacc.py: 445:Action : Shift and goto state 12
    yacc.py: 410:
    yacc.py: 411:State  : 12
-   yacc.py: 435:Stack  : TkBeginWorld TkId TkEndWorld . $end
+   yacc.py: 435:Stack  : TkBeginWorld TkId TkEndWorld . LexToken(TkBeginWorld,'begin-world',5,66)
    yacc.py: 471:Action : Reduce rule [worldBlock -> TkBeginWorld TkId TkEndWorld] with ['begin-world','maferBaila','end-world'] and goto state 3
-   yacc.py: 506:Result : <str @ 0x7f02dec6b300> ('begin-worldmaferBailaend-world')
+   yacc.py: 506:Result : <str @ 0x7f53364eaf80> ('begin-worldmaferBailaend-world')
    yacc.py: 410:
    yacc.py: 411:State  : 3
-   yacc.py: 435:Stack  : worldBlock . $end
-   yacc.py: 471:Action : Reduce rule [program -> worldBlock] with [<str @ 0x7f02dec6b300>] and goto state 2
-   yacc.py: 506:Result : <str @ 0x7f02dec6b300> ('begin-worldmaferBailaend-world')
+   yacc.py: 435:Stack  : worldBlock . LexToken(TkBeginWorld,'begin-world',5,66)
+   yacc.py: 445:Action : Shift and goto state 5
+   yacc.py: 410:
+   yacc.py: 411:State  : 5
+   yacc.py: 435:Stack  : worldBlock TkBeginWorld . LexToken(TkId,'maferBaila',5,78)
+   yacc.py: 445:Action : Shift and goto state 9
+   yacc.py: 410:
+   yacc.py: 411:State  : 9
+   yacc.py: 435:Stack  : worldBlock TkBeginWorld TkId . LexToken(TkEndWorld,'end-world',6,89)
+   yacc.py: 445:Action : Shift and goto state 12
+   yacc.py: 410:
+   yacc.py: 411:State  : 12
+   yacc.py: 435:Stack  : worldBlock TkBeginWorld TkId TkEndWorld . $end
+   yacc.py: 471:Action : Reduce rule [worldBlock -> TkBeginWorld TkId TkEndWorld] with ['begin-world','maferBaila','end-world'] and goto state 3
+   yacc.py: 506:Result : <str @ 0x7f53364fd300> ('begin-worldmaferBailaend-world')
+   yacc.py: 410:
+   yacc.py: 411:State  : 3
+   yacc.py: 435:Stack  : worldBlock worldBlock . $end
+   yacc.py: 471:Action : Reduce rule [program -> worldBlock] with [<str @ 0x7f53364fd300>] and goto state 7
+   yacc.py: 506:Result : <str @ 0x7f53364fd300> ('begin-worldmaferBailaend-world')
+   yacc.py: 410:
+   yacc.py: 411:State  : 7
+   yacc.py: 430:Defaulted state 7: Reduce using 4
+   yacc.py: 435:Stack  : worldBlock program . $end
+   yacc.py: 471:Action : Reduce rule [program -> worldBlock program] with [<str @ 0x7f53364eaf80>,<str @ 0x7f53364fd300>] and goto state 2
+   yacc.py: 506:Result : <str @ 0x7f5336654340> ('begin-worldmaferBailaend-worldbegin-wor ...)
    yacc.py: 410:
    yacc.py: 411:State  : 2
    yacc.py: 430:Defaulted state 2: Reduce using 1
    yacc.py: 435:Stack  : program . $end
-   yacc.py: 471:Action : Reduce rule [correctProgram -> program] with [<str @ 0x7f02dec6b300>] and goto state 1
-   yacc.py: 506:Result : <str @ 0x7f02dec6b300> ('begin-worldmaferBailaend-world')
+   yacc.py: 471:Action : Reduce rule [correctProgram -> program] with [<str @ 0x7f5336654340>] and goto state 1
+   yacc.py: 506:Result : <str @ 0x7f5336654340> ('begin-worldmaferBailaend-worldbegin-wor ...)
    yacc.py: 410:
    yacc.py: 411:State  : 1
    yacc.py: 435:Stack  : correctProgram . $end
-   yacc.py: 571:Done   : Returning <str @ 0x7f02dec6b300> ('begin-worldmaferBailaend-world')
+   yacc.py: 571:Done   : Returning <str @ 0x7f5336654340> ('begin-worldmaferBailaend-worldbegin-wor ...)
    yacc.py: 572:PLY: PARSE DEBUG END
