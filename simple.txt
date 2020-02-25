@@ -4,5 +4,9 @@ begin-world maferBaila
 end-world
 begin-world maferBaila
 Object-type flower of color yellow;
-Place 3 of flower at 2 3;
+Object-type flower of color yellow;
+Object-type flower of color yellow;
+Object-type flower of color yellow;
+Object-type flower of color yellow;
+
 end-world

@@ -34,8 +34,9 @@ def p_program(p):
        # p[0] = p[1] + p[2]
 
 def p_worldInstSet(p):
-    '''worldInstSet : worldInst TkSemicolon
+    '''worldInstSet : worldInst TkSemicolon worldInstSet
                     | worldInst worldInstSet
+                    | worldInst TkSemicolon
     '''
 
 def p_worldInst(p):
