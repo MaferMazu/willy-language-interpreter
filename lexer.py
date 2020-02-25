@@ -101,6 +101,7 @@ reserved = {
     'as': 'TkAs',
 
     # Willy's Actions
+    'willy': 'TkWilly',
     'move': 'TkMove',
     'pick': 'TkPick',
     'drop': 'TkDrop',
