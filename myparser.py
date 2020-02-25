@@ -24,7 +24,8 @@ def p_program(p):
             | worldBlock program
             | taskBlock program
     """
-    if(len(p) < 1):
+    print(len(p))
+    if(len(p) <= 2):
         p[0] = p[1]
     else:
         P[0] = p[1] + p[2]
@@ -37,7 +38,7 @@ def p_worldBlock(p):
     '''worldBlock : TkBeginWorld TkId instructions TkEndWorld worldBlock 
                     | TkBeginWorld TkId TkEndWorld worldBlock 
                     | TkBeginWorld TkId TkEndWorld '''
-    p[0] = p[1] + p[2] + p[3] + p[4] + p[5]
+    p[0] = p[1] + p[2] + p[3]
 
 def p_worldSet(p):
     '''worldSet : TkWorld TkNum TkNum 
