@@ -39,6 +39,8 @@ tokens = [
              'TkTab',
              'TkId',
              'TkNum',
+             'TkParenL',
+             'TkParenR',
 ]
 
 reserved = {
@@ -131,6 +133,8 @@ tokens += list(reserved.values())
 # Especificaciones de los tokens
 t_TkSemicolon = r';'
 t_TkTab = r' \t'
+t_TkParenL  = r'\('
+t_TkParenR  = r'\)'
 
 
 # Ignored Chars

@@ -104,6 +104,7 @@ def p_finalGoal(p):
             | TkFinalG TkIs ids TkAnd ids
             | TkFinalG TkIs ids TkOr ids
             | TkFinalG TkIs TkNot ids 
+            | TkParenL ids TkParenR
     '''
 
 def p_ids(p):
@@ -111,7 +112,58 @@ def p_ids(p):
     pass
 
 def p_taskBlock(p):
-    "taskBlock : ids"
+    '''taskBlock : TkBeginTask ids TkOn ids multiInstructions TkEndTask'''
+    pass
+
+def p_multiInstructions(p):
+    '''multiInstrucions : instructions
+                        | empty
+                        | instructions TkSemicolon multiInstructions'''
+    pass
+
+def p_primitiveInstructions(p):
+    '''primitiveInstructions : TkMove
+                    | TkTurnL
+                    | TkTurnR
+                    | TkPick ids
+                    | TkDrop ids
+                    | TkSet ids
+                    | TkSet ids TkTo TkTrue
+                    | TkSet ids TkTo TkFalse
+                    | TkClear ids
+                    | TkFlip ids
+                    | TkTerminate'''
+    pass
+
+def p_booleanTests(p):
+    '''booleanTests : ids
+                    | primitiveBoolean
+                    | TkFound TkParenL ids TkParenR
+                    | TkCarrying TkParenL ids TkParenR
+                    | booleanTests TkAnd booleanTests
+                    | booleanTests TkOr booleanTests
+                    | TkNot booleanTest
+                    | TkParenL booleanTests TkParenR'''
+    pass
+
+def p_primitiveBoolean(p):
+    '''primitiveBoolean : TkFrontCl
+                        | TkLeftCl
+                        | TkRightCl
+                        | TkLookingN
+                        | TkLookingE
+                        | TkLookingS
+                        | TkLookingW'''
+    pass
+
+def p_instructions(p):
+    '''instructions : primitiveInstructions
+                    | TkIf booleanTests TkThen instructions
+                    | TkIf booleanTests TkThen instructions TkElse instructions
+                    | TkRepeat TkNum TkTimes instructions
+                    | TkWhile booleanTests TkDo instructions
+                    | TkBegin multiInstructions TkEnd
+                    | TkDefine ids TkAs instructions'''
     pass
 
 def p_directions(p):
@@ -120,6 +172,7 @@ def p_directions(p):
                 | TkSouth 
                 | TkWest'''
     pass
+
 
 def p_empty(p):
     'empty :'
