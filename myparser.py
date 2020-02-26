@@ -3,12 +3,15 @@ import Node
 import ply.yacc as yacc
 import logging
 DEBUG_MODE = True
+
 logging.basicConfig(
         level = logging.DEBUG,
         filename = "parselog.txt",
         filemode = "w",
         format = "%(filename)10s:%(lineno)4d:%(message)s"
     )
+
+
 # import some required globals from tokenizer
 tokens = lexer.tokens
 
@@ -116,7 +119,7 @@ def p_taskBlock(p):
     pass
 
 def p_multiInstructions(p):
-    '''multiInstrucions : instructions
+    '''multiInstructions : instructions
                         | empty
                         | instructions TkSemicolon multiInstructions'''
     pass
@@ -142,7 +145,7 @@ def p_booleanTests(p):
                     | TkCarrying TkParenL ids TkParenR
                     | booleanTests TkAnd booleanTests
                     | booleanTests TkOr booleanTests
-                    | TkNot booleanTest
+                    | TkNot booleanTests
                     | TkParenL booleanTests TkParenR'''
     pass
 
