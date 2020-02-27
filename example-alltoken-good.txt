@@ -29,8 +29,8 @@ Goal goal1 is willy is at 8 1
 Goal goal2 is 300 mirror objects in Basket
 Goal goal3 is 10 table objects at 5 4
 Final goal is goal1 or goal2 and goal3
-Final goal is goal1 not goal2 and goal3
-Final goal is goal1 and goal2 and goal3
+Final goal is not goal2 and goal3
+Final goal is goal1 and goal2 and goal3;
 end-world
 
 {{Definiendo un programa}}
@@ -48,15 +48,15 @@ if willycanlearn then L else L;
 repeat 3 times M;
 R;
 M;
-if found flower then pick flower;
+if found (flower) then pick flower;
 clear willyhappy;
 set willyhappy to true;
 flip willycanlearn;
-if carrying flower then drop flower;
+if carrying (flower) then drop flower;
 R;
 M;
-if front-clear and left-clear an right-clear and looking-north then flip looking-north;
+terminate;
+if front-clear and left-clear and right-clear and looking-north then flip looking-north;
 if looking-east or not looking-south then set looking-west;
 end
 end-task
-terminate

@@ -103,12 +103,20 @@ def p_newGoal(p):
             | TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum 
     '''
 def p_finalGoal(p):
-    '''finalGoal : TkFinalG TkIs ids 
-            | TkFinalG TkIs ids TkAnd ids
-            | TkFinalG TkIs ids TkOr ids
-            | TkFinalG TkIs TkNot ids 
-            | TkParenL ids TkParenR
+    '''finalGoal : TkFinalG TkIs finalGoalTest 
     '''
+
+def p_finalGoalTest(p):
+    '''finalGoalTest :  TkId TkAnd TkId
+                     |  TkId TkOr TkId
+                     |  TkNot TkId
+                     |  TkParenL TkId TkParenR
+                     |  TkId TkAnd finalGoalTest
+                     |  TkId TkOr finalGoalTest
+                     |  TkNot finalGoalTest
+                     |  TkParenL TkId TkParenR finalGoalTest
+    '''
+
 
 def p_ids(p):
     "ids : TkId"
@@ -131,10 +139,16 @@ def p_primitiveInstructions(p):
                     | TkPick ids
                     | TkDrop ids
                     | TkSet ids
+                    | TkSet primitiveBoolean
+                    | TkSet primitiveBoolean TkTo TkTrue
+                    | TkSet primitiveBoolean TkTo TkFalse
                     | TkSet ids TkTo TkTrue
                     | TkSet ids TkTo TkFalse
                     | TkClear ids
+                    | TkClear primitiveBoolean
+                    | TkFlip primitiveBoolean
                     | TkFlip ids
+                    | ids
                     | TkTerminate'''
     pass
 
@@ -162,11 +176,17 @@ def p_primitiveBoolean(p):
 def p_instructions(p):
     '''instructions : primitiveInstructions
                     | TkIf booleanTests TkThen instructions
+                    | TkIf primitiveInstructions TkThen instructions
+                    | TkIf booleanTests TkThen primitiveInstructions
+                    | TkIf primitiveInstructions TkThen primitiveInstructions
                     | TkIf booleanTests TkThen instructions TkElse instructions
+                    | TkIf primitiveInstructions TkThen instructions TkElse instructions
                     | TkRepeat TkNum TkTimes instructions
                     | TkWhile booleanTests TkDo instructions
                     | TkBegin multiInstructions TkEnd
-                    | TkDefine ids TkAs instructions'''
+                    | TkDefine ids TkAs instructions
+                    | TkSemicolon
+                    '''
     pass
 
 def p_directions(p):
