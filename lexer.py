@@ -101,6 +101,7 @@ reserved = {
     # Aux
     'define': 'TkDefine',
     'as': 'TkAs',
+    'do' : 'TkDo',
 
     # Willy's Actions
     'willy': 'TkWilly',
