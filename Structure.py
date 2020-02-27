@@ -1,3 +1,4 @@
+DEBUG_MODE = True
 class Structure:
     def __init__(self, name, typeOfObject, attribute):
         self.name = name
@@ -27,6 +28,8 @@ class Structure:
 
 #Main
 Array= []
+
+print('hola')
 
 #Supongamos que encontré Object-type flores cyan
 attributesObjects = {

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import ply.lex as lex
 import ply.yacc as yacc 
 import lexer, myparser
@@ -87,7 +88,7 @@ try:
         tok = lexer.token()
     output+="\n"
     result = parser.parse(datacopy)
-    print(result)
+    #print(result)
         
     # Leemos otra linea
     #data = f.readline()
@@ -100,7 +101,8 @@ try:
     if (len(InvalidTokens) > 0):
         print(InvalidTokens[0])
     else:
-        print(output)
+        print("tokens")
+       #print(output)
 
 
 

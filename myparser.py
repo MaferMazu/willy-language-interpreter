@@ -1,7 +1,10 @@
+#!/usr/bin/env python3
 import lexer
 import Node
 import ply.yacc as yacc
 import logging
+from Structure import Structure 
+
 DEBUG_MODE = True
 
 logging.basicConfig(
@@ -28,13 +31,6 @@ def p_program(p):
             | worldBlock program
             | taskBlock program
     '''
-    print(len(p))
-    if(len(p) <= 2):
-       # p[0] = p[1]
-       print("WeHAsNOTInst")
-    else:
-        print("WeGotInst")
-       # p[0] = p[1] + p[2]
 
 def p_worldInstSet(p):
     '''worldInstSet : worldInst TkSemicolon worldInstSet
@@ -82,6 +78,16 @@ def p_setPlaceObjWorld(p):
     '''setPlaceObjWorld : TkPlace TkNum TkOf ids TkAt TkNum TkNum
                         | TkPlace TkNum TkOf ids TkIn TkBasketLower
     '''
+    print("Place Len")
+    print(len(p))
+    if (len(p)<8):
+        print("Probando")
+        attributesObjects = {
+            "amount": p[2],
+            "object": p[4]
+        }
+        place = Structure("Place_bascket","Place",attributesObjects)
+        print(place)
 
 def p_setPlaceObjBasket(p):
     '''setPlaceObjBasket : TkPlace TkNum TkOf ids TkIn TkBasketLower'''
