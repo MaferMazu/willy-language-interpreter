@@ -25,7 +25,7 @@ class Structure:
     def appendAttribute(self,key,value):
         self.attribute[str(key)]=str(value)
 
-
+def main():
 #Main
 Array= []
 
@@ -70,3 +70,6 @@ flores = Structure("Sol","Object",attributesObjects)
 Array.append(flores)
 
 print(flores.getAttribute('color'))
+
+if __name__ == "__main__":
+    main()
