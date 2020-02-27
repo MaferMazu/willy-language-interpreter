@@ -31,12 +31,14 @@ def p_program(p):
             | worldBlock program
             | taskBlock program
     '''
+    pass
 
 def p_worldInstSet(p):
     '''worldInstSet : worldInst TkSemicolon worldInstSet
                     | worldInst worldInstSet
                     | worldInst TkSemicolon
     '''
+    pass
 
 def p_worldInst(p):
     ''' worldInst : worldSet  
@@ -49,22 +51,45 @@ def p_worldInst(p):
                 | newGoal 
                 | finalGoal  
     '''
+    p[0]=p[1]
 
 def p_wallSet(p):
     '''wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum'''
-    pass
+    print("Probando")
+    attributesObjects = {
+        "direction": p[2],
+        "column1": p[4],
+        "row1": p[5],
+        "column2":p[7],
+        "row2": p[8]
+    }
+    p[0] = Structure("","WallSet",attributesObjects)
+    print(p[0])
+    
 
 def p_worldBlock(p):
     '''worldBlock : TkBeginWorld ids worldInstSet TkEndWorld  
                     | TkBeginWorld ids TkEndWorld  '''
-    #p[0] = p[1] + p[2] + p[3]
 
 def p_worldSet(p):
     '''worldSet : TkWorld TkNum TkNum 
                 | empty'''
+    print("Probando")
+    attributesObjects = {
+        "column": p[2],
+        "row": p[3],
+    }
+    p[0] = Structure("","WorldSet",attributesObjects)
+    print(p[0])
 
 def p_newObjType(p):
     '''newObjType : TkObjType ids TkOf TkColor colors'''
+    print("Probando")
+    attributesObjects = {
+        "color": p[5]
+    }
+    p[0] = Structure(p[2],"New-Object-Type",attributesObjects)
+    print(p[0])
 
 def p_colors(p):
     '''colors : TkRed
@@ -73,6 +98,7 @@ def p_colors(p):
                 | TkCyan
                 | TkGreen
                 | TkYellow'''
+    p[0]=p[1]
 
 def p_setPlaceObjWorld(p):
     '''setPlaceObjWorld : TkPlace TkNum TkOf ids TkAt TkNum TkNum
@@ -86,31 +112,79 @@ def p_setPlaceObjWorld(p):
             "amount": p[2],
             "object": p[4]
         }
-        place = Structure("Place_bascket","Place",attributesObjects)
-        print(place)
-
-def p_setPlaceObjBasket(p):
-    '''setPlaceObjBasket : TkPlace TkNum TkOf ids TkIn TkBasketLower'''
+        p[0] = Structure("Place_basket","Place",attributesObjects)
+        print(p[0])
+    else:
+        print("Probando")
+        attributesObjects = {
+            "amount": p[2],
+            "object": p[4],
+            "column": p[6],
+            "row": p[7]
+        }
+        p[0] = Structure("Place_object","Place",attributesObjects)
+        print(p[0])
 
 def p_setStartPosition(p):
     '''setStartPosition : TkStart TkAt TkNum TkNum TkHeading directions'''
+    attributesObjects = {
+        "column": p[3],
+        "row": p[4],
+        "head-direction": p[6]
+    }
+    p[0] = Structure("","StartPositionOfWilly",attributesObjects)
+    print(p[0])
 
 def p_setBasketCapacity(p):
     '''setBasketCapacity : TkBasket TkOf TkCapacity TkNum'''
+    attributesObjects = {
+        "amount": p[4]
+    }
+    p[0] = Structure("","BasketCapacityOfWilly",attributesObjects)
+    print(p[0])
 
 def p_newBoolean(p):
     '''newBoolean : TkBoolean ids TkWith TkInitial TkValue TkTrue 
                 | TkBoolean ids TkWith TkInitial TkValue TkFalse
     '''
+    attributesObjects = {
+        "value": p[6]
+    }
+    p[0] = Structure(p[2],"Boolean",attributesObjects)
+    print(p[0])
 
 def p_newGoal(p):
     '''newGoal : TkGoal ids TkIs TkWilly TkIs TkAt TkNum TkNum
             | TkGoal ids TkIs TkNum ids TkObjectsLower TkIn TkBasket
             | TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum 
     '''
+    if len(p)==8:
+        if p[4]=="TkWilly":
+            attributesObjects = {
+                "column": p[7],
+                "row": p[8]
+            }
+            p[0] = Structure(p[2],"newGoalWilly",attributesObjects)
+            print(p[0])
+        else:
+            attributesObjects = {
+                "amount": p[4],
+                "id-object": p[5],
+            }
+            p[0] = Structure(p[2],"newGoalBasket",attributesObjects)
+            print(p[0])
+    else:
+        attributesObjects = {
+            "amount": p[4],
+            "id-object": p[5],
+            "column": p[8],
+            "row": p[9]
+        }
+        p[0] = Structure(p[2],"newGoalPositionObject",attributesObjects)
+        print(p[0])
+
 def p_finalGoal(p):
-    '''finalGoal : TkFinalG TkIs finalGoalTest 
-    '''
+    '''finalGoal : TkFinalG TkIs finalGoalTest'''
 
 def p_finalGoalTest(p):
     '''finalGoalTest :  TkId TkAnd TkId
@@ -126,7 +200,7 @@ def p_finalGoalTest(p):
 
 def p_ids(p):
     "ids : TkId"
-    pass
+    p[0]=p[1]
 
 def p_taskBlock(p):
     '''taskBlock : TkBeginTask ids TkOn ids multiInstructions TkEndTask'''
@@ -167,7 +241,8 @@ def p_booleanTests(p):
                     | booleanTests TkOr booleanTests
                     | TkNot booleanTests
                     | TkParenL booleanTests TkParenR'''
-    pass
+    if len(p)==1:
+        p[0]=p[1]
 
 def p_primitiveBoolean(p):
     '''primitiveBoolean : TkFrontCl
@@ -177,7 +252,7 @@ def p_primitiveBoolean(p):
                         | TkLookingE
                         | TkLookingS
                         | TkLookingW'''
-    pass
+    p[0]=p[1]
 
 def p_instructions(p):
     '''instructions : primitiveInstructions
@@ -200,7 +275,7 @@ def p_directions(p):
                 | TkEast 
                 | TkSouth 
                 | TkWest'''
-    pass
+    p[0]=p[1]
 
 
 def p_empty(p):
