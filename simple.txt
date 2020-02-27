@@ -1,0 +1,12 @@
+{{Definicion del mundo}}
+--Holix
+begin-world maferBaila
+end-world
+begin-world maferBaila
+Object-type flower of color yellow;
+Object-type flower of color yellow;
+Object-type flower of color yellow;
+Object-type flower of color yellow;
+Object-type flower of color yellow;
+
+end-world

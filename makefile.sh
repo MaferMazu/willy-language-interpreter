@@ -1,4 +1,4 @@
-chmod a+x lexer.py
+chmod a+x main.py
 DIR=~/.local/bin
 if [ -d "$DIR" ]; then
     echo "$DIR exist"
@@ -8,8 +8,8 @@ else
     mkdir ~/.local/bin
     echo "$DIR NOW CREATED"
 fi
-cp lexer.py ~/.local/bin
-ln -s lexer.py ~/.local/bin/willy
+cp main.py ~/.local/bin
+ln -s main.py ~/.local/bin/willy
 FILE=~/.bash_profile
 if [ -f "$FILE" ]; then
     echo "$FILE exist"

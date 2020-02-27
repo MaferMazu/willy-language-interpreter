@@ -1,16 +1,16 @@
 
 # Willy*
-Lexer
 
-Este es el inicio de la implementación de un ambiente de programación basado en Willy, un robot que interactúa con objetos en un mundo hecho de cuadrículas de tamaño finito y paredes.
+Esta es la segunda etapa de la implementación de un ambiente de programación para un robot que interactúa con objetos en un mundo hecho de cuadrículas de tamaño finito y paredes. Este robot se llama Willy.
 
-Willy es controlado por un programa que tiene varias definiciones del mundo, y para ello se creó este proyecto.
 
-Este se dividió en etapas:
+Este proyecto se dividió en etapas:
 
 En esta primera fase del proyecto se implementó el análisis lexicográfico, el cual consiste en reconocer una entrada y dividirla en pequeños pedacitos que llamaremos tokens. Estos luego serán utilizados para crear el análisis sintáctico, que sería nuestro siguiente paso.
 
-Para realizar el análisis lexicográfico se utilizó una herramienta de construcción de lexer y parser llamada PLY.   
+Para realizar el análisis lexicográfico se utilizó una herramienta de construcción de lexer y parser llamada PLY.
+
+La segunda etapa consiste en implementar un módulo sintáctico que utilice el módulo lexicográfico de la primera entrega. Este analizador debe aceptar o rechazar un programa dependiendo de si la entrada pertenece o no al lenguaje Willy*, que es el que utiliza nuestro robot para transitar en los mundos definidos en ese mismo lenguaje.
 
 
 # Cómo correr el programa
@@ -21,7 +21,7 @@ Se realiza la en la línea de comandos:
 y luego se puede ejecutar el programa Willy, usando:
 
 
-willy <nombredearchivoexistente>
+willy [nombredearchivoexistente]
   
 o con willy exclusivamente. (Luego se le pedira ingresar el txt)
 
@@ -40,6 +40,14 @@ El manejador de errores es importante porque en este lenguaje puede que hayan s�
 Las siguientes instrucciones fueron para construir el lexer con PLY, verificar las longitudes de entradas del prompt, leer el archivo de entrada que nuestro analizador lexicográfico va a procesar y hacer las consideraciones pertinentes para que el formato de salida del programa sea el especificado.
 
 Si el arreglo de tokens inválidos tiene algún elemento se muestra dicho error en pantalla y termina la ejecución.
+
+# Sobre el Parser
+
+Para la implementación del Parser primero se tuvo que entender cómo funciona el constructor de sintaxis que provee PLY, este se denomina yacc, y toma un conjunto de definiciones y las convierte en la gramática de nuestro lenguaje. De hecho, la forma que tienen las definiciones presentes en este módulo se asemejan a las vistas en clase de Traductores.
+
+El diseño de esta gramática comprende la forma en que se determina si un programa es correcto o no en el mundo de Willy*. Para ello se utilizaron las especificaciones del mundo, y se buscó generalizar reglas que permitan que con símbolos terminales (los tokens obtenidos del módulo 1) y los no terminales representados por las definiciones en el parser (myparser.py), que son quienes generan las producciones correspondientes.
+
+La gramática consta de varios elementos: las variables (que vienen a ser las definiciones que se crearon para que el constructor del parser funcionara), los símbolos terminales que son los tokens, las reglas de producción que también están especificadas en el archivo myparser.py y el símbolo inicial que es representado por “program”. 
 
 ## Conclusión
 Para desarrollar un interpretador es importante usar la estrategia de dividir y vencer.

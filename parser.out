@@ -1,0 +1,367 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    TkAnd
+    TkAs
+    TkAt
+    TkBasket
+    TkBasketLower
+    TkBegin
+    TkBeginTask
+    TkBlue
+    TkBoolean
+    TkCapacity
+    TkCarrying
+    TkClear
+    TkColor
+    TkCyan
+    TkDefine
+    TkDrop
+    TkElse
+    TkEnd
+    TkEndTask
+    TkFalse
+    TkFinalG
+    TkFlip
+    TkFound
+    TkFrontCl
+    TkGoal
+    TkGreen
+    TkHeading
+    TkIf
+    TkIn
+    TkInitial
+    TkIs
+    TkLeftCl
+    TkLookingE
+    TkLookingN
+    TkLookingS
+    TkLookingW
+    TkMagenta
+    TkMove
+    TkNot
+    TkObjType
+    TkObjectsLower
+    TkOf
+    TkOn
+    TkOr
+    TkPick
+    TkPlace
+    TkRed
+    TkRepeat
+    TkRightCl
+    TkSemicolon
+    TkSet
+    TkStart
+    TkTab
+    TkTerminate
+    TkThen
+    TkTimes
+    TkTrue
+    TkTurnL
+    TkTurnR
+    TkValue
+    TkWhile
+    TkWith
+    TkYellow
+
+Grammar
+
+Rule 0     S' -> correctProgram
+Rule 1     correctProgram -> program
+Rule 2     program -> worldBlock
+Rule 3     program -> taskBlock
+Rule 4     program -> worldBlock program
+Rule 5     program -> taskBlock program
+Rule 6     wallSet -> TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum
+Rule 7     worldBlock -> TkBeginWorld TkId instructions TkEndWorld worldBlock
+Rule 8     worldBlock -> TkBeginWorld TkId TkEndWorld worldBlock
+Rule 9     worldBlock -> TkBeginWorld TkId instructions TkEndWorld
+Rule 10    worldSet -> TkWorld TkNum TkNum
+Rule 11    worldSet -> empty
+Rule 12    instructions -> TkId
+Rule 13    taskBlock -> TkId
+Rule 14    directions -> TkNorth
+Rule 15    directions -> TkEast
+Rule 16    directions -> TkSouth
+Rule 17    directions -> TkWest
+Rule 18    empty -> <empty>
+
+Terminals, with rules where they appear
+
+TkAnd                : 
+TkAs                 : 
+TkAt                 : 
+TkBasket             : 
+TkBasketLower        : 
+TkBegin              : 
+TkBeginTask          : 
+TkBeginWorld         : 7 8 9
+TkBlue               : 
+TkBoolean            : 
+TkCapacity           : 
+TkCarrying           : 
+TkClear              : 
+TkColor              : 
+TkCyan               : 
+TkDefine             : 
+TkDrop               : 
+TkEast               : 15
+TkElse               : 
+TkEnd                : 
+TkEndTask            : 
+TkEndWorld           : 7 8 9
+TkFalse              : 
+TkFinalG             : 
+TkFlip               : 
+TkFound              : 
+TkFrom               : 6
+TkFrontCl            : 
+TkGoal               : 
+TkGreen              : 
+TkHeading            : 
+TkId                 : 7 8 9 12 13
+TkIf                 : 
+TkIn                 : 
+TkInitial            : 
+TkIs                 : 
+TkLeftCl             : 
+TkLookingE           : 
+TkLookingN           : 
+TkLookingS           : 
+TkLookingW           : 
+TkMagenta            : 
+TkMove               : 
+TkNorth              : 14
+TkNot                : 
+TkNum                : 6 6 6 6 10 10
+TkObjType            : 
+TkObjectsLower       : 
+TkOf                 : 
+TkOn                 : 
+TkOr                 : 
+TkPick               : 
+TkPlace              : 
+TkRed                : 
+TkRepeat             : 
+TkRightCl            : 
+TkSemicolon          : 
+TkSet                : 
+TkSouth              : 16
+TkStart              : 
+TkTab                : 
+TkTerminate          : 
+TkThen               : 
+TkTimes              : 
+TkTo                 : 6
+TkTrue               : 
+TkTurnL              : 
+TkTurnR              : 
+TkValue              : 
+TkWall               : 6
+TkWest               : 17
+TkWhile              : 
+TkWith               : 
+TkWorld              : 10
+TkYellow             : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+correctProgram       : 0
+directions           : 6
+empty                : 11
+instructions         : 7 9
+program              : 1 4 5
+taskBlock            : 3 5
+wallSet              : 
+worldBlock           : 2 4 7 8
+worldSet             : 
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . correctProgram
+    (1) correctProgram -> . program
+    (2) program -> . worldBlock
+    (3) program -> . taskBlock
+    (4) program -> . worldBlock program
+    (5) program -> . taskBlock program
+    (7) worldBlock -> . TkBeginWorld TkId instructions TkEndWorld worldBlock
+    (8) worldBlock -> . TkBeginWorld TkId TkEndWorld worldBlock
+    (9) worldBlock -> . TkBeginWorld TkId instructions TkEndWorld
+    (13) taskBlock -> . TkId
+
+    TkBeginWorld    shift and go to state 5
+    TkId            shift and go to state 6
+
+    correctProgram                 shift and go to state 1
+    program                        shift and go to state 2
+    worldBlock                     shift and go to state 3
+    taskBlock                      shift and go to state 4
+
+state 1
+
+    (0) S' -> correctProgram .
+
+
+
+state 2
+
+    (1) correctProgram -> program .
+
+    $end            reduce using rule 1 (correctProgram -> program .)
+
+
+state 3
+
+    (2) program -> worldBlock .
+    (4) program -> worldBlock . program
+    (2) program -> . worldBlock
+    (3) program -> . taskBlock
+    (4) program -> . worldBlock program
+    (5) program -> . taskBlock program
+    (7) worldBlock -> . TkBeginWorld TkId instructions TkEndWorld worldBlock
+    (8) worldBlock -> . TkBeginWorld TkId TkEndWorld worldBlock
+    (9) worldBlock -> . TkBeginWorld TkId instructions TkEndWorld
+    (13) taskBlock -> . TkId
+
+    $end            reduce using rule 2 (program -> worldBlock .)
+    TkBeginWorld    shift and go to state 5
+    TkId            shift and go to state 6
+
+    worldBlock                     shift and go to state 3
+    program                        shift and go to state 7
+    taskBlock                      shift and go to state 4
+
+state 4
+
+    (3) program -> taskBlock .
+    (5) program -> taskBlock . program
+    (2) program -> . worldBlock
+    (3) program -> . taskBlock
+    (4) program -> . worldBlock program
+    (5) program -> . taskBlock program
+    (7) worldBlock -> . TkBeginWorld TkId instructions TkEndWorld worldBlock
+    (8) worldBlock -> . TkBeginWorld TkId TkEndWorld worldBlock
+    (9) worldBlock -> . TkBeginWorld TkId instructions TkEndWorld
+    (13) taskBlock -> . TkId
+
+    $end            reduce using rule 3 (program -> taskBlock .)
+    TkBeginWorld    shift and go to state 5
+    TkId            shift and go to state 6
+
+    taskBlock                      shift and go to state 4
+    program                        shift and go to state 8
+    worldBlock                     shift and go to state 3
+
+state 5
+
+    (7) worldBlock -> TkBeginWorld . TkId instructions TkEndWorld worldBlock
+    (8) worldBlock -> TkBeginWorld . TkId TkEndWorld worldBlock
+    (9) worldBlock -> TkBeginWorld . TkId instructions TkEndWorld
+
+    TkId            shift and go to state 9
+
+
+state 6
+
+    (13) taskBlock -> TkId .
+
+    TkBeginWorld    reduce using rule 13 (taskBlock -> TkId .)
+    TkId            reduce using rule 13 (taskBlock -> TkId .)
+    $end            reduce using rule 13 (taskBlock -> TkId .)
+
+
+state 7
+
+    (4) program -> worldBlock program .
+
+    $end            reduce using rule 4 (program -> worldBlock program .)
+
+
+state 8
+
+    (5) program -> taskBlock program .
+
+    $end            reduce using rule 5 (program -> taskBlock program .)
+
+
+state 9
+
+    (7) worldBlock -> TkBeginWorld TkId . instructions TkEndWorld worldBlock
+    (8) worldBlock -> TkBeginWorld TkId . TkEndWorld worldBlock
+    (9) worldBlock -> TkBeginWorld TkId . instructions TkEndWorld
+    (12) instructions -> . TkId
+
+    TkEndWorld      shift and go to state 12
+    TkId            shift and go to state 10
+
+    instructions                   shift and go to state 11
+
+state 10
+
+    (12) instructions -> TkId .
+
+    TkEndWorld      reduce using rule 12 (instructions -> TkId .)
+
+
+state 11
+
+    (7) worldBlock -> TkBeginWorld TkId instructions . TkEndWorld worldBlock
+    (9) worldBlock -> TkBeginWorld TkId instructions . TkEndWorld
+
+    TkEndWorld      shift and go to state 13
+
+
+state 12
+
+    (8) worldBlock -> TkBeginWorld TkId TkEndWorld . worldBlock
+    (7) worldBlock -> . TkBeginWorld TkId instructions TkEndWorld worldBlock
+    (8) worldBlock -> . TkBeginWorld TkId TkEndWorld worldBlock
+    (9) worldBlock -> . TkBeginWorld TkId instructions TkEndWorld
+
+    TkBeginWorld    shift and go to state 5
+
+    worldBlock                     shift and go to state 14
+
+state 13
+
+    (7) worldBlock -> TkBeginWorld TkId instructions TkEndWorld . worldBlock
+    (9) worldBlock -> TkBeginWorld TkId instructions TkEndWorld .
+    (7) worldBlock -> . TkBeginWorld TkId instructions TkEndWorld worldBlock
+    (8) worldBlock -> . TkBeginWorld TkId TkEndWorld worldBlock
+    (9) worldBlock -> . TkBeginWorld TkId instructions TkEndWorld
+
+  ! shift/reduce conflict for TkBeginWorld resolved as shift
+    TkId            reduce using rule 9 (worldBlock -> TkBeginWorld TkId instructions TkEndWorld .)
+    $end            reduce using rule 9 (worldBlock -> TkBeginWorld TkId instructions TkEndWorld .)
+    TkBeginWorld    shift and go to state 5
+
+  ! TkBeginWorld    [ reduce using rule 9 (worldBlock -> TkBeginWorld TkId instructions TkEndWorld .) ]
+
+    worldBlock                     shift and go to state 15
+
+state 14
+
+    (8) worldBlock -> TkBeginWorld TkId TkEndWorld worldBlock .
+
+    TkBeginWorld    reduce using rule 8 (worldBlock -> TkBeginWorld TkId TkEndWorld worldBlock .)
+    TkId            reduce using rule 8 (worldBlock -> TkBeginWorld TkId TkEndWorld worldBlock .)
+    $end            reduce using rule 8 (worldBlock -> TkBeginWorld TkId TkEndWorld worldBlock .)
+
+
+state 15
+
+    (7) worldBlock -> TkBeginWorld TkId instructions TkEndWorld worldBlock .
+
+    TkBeginWorld    reduce using rule 7 (worldBlock -> TkBeginWorld TkId instructions TkEndWorld worldBlock .)
+    TkId            reduce using rule 7 (worldBlock -> TkBeginWorld TkId instructions TkEndWorld worldBlock .)
+    $end            reduce using rule 7 (worldBlock -> TkBeginWorld TkId instructions TkEndWorld worldBlock .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for TkBeginWorld in state 13 resolved as shift
