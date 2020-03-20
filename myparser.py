@@ -56,15 +56,19 @@ def p_worldInst(p):
 def p_wallSet(p):
     '''wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum'''
     print("Probando")
-    attributesObjects = {
-        "direction": p[2],
-        "column1": p[4],
-        "row1": p[5],
-        "column2":p[7],
-        "row2": p[8]
-    }
-    p[0] = Structure("","WallSet",attributesObjects)
-    print(p[0])
+    if (p[2]=="north" and p[4]==p[7] and p[5]<p[8]) or (p[2]=="south" and p[4]==p[7] and p[5]>p[8]) or (p[2]=="east" and p[5]==p[8] and p[4]>p[7]) or (p[2]=="west" and p[5]==p[8] and p[4]<p[7]):
+        attributesObjects = {
+            "direction": p[2],
+            "column1": p[4],
+            "row1": p[5],
+            "column2":p[7],
+            "row2": p[8]
+        }
+        p[0] = Structure("","WallSet",attributesObjects)
+        print(p[0])
+    else:
+        ##Deberia lanzarme error pero mientras colocaré pass
+        pass
     
 
 def p_worldBlock(p):
