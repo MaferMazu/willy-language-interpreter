@@ -1,28 +1,32 @@
+DEBUG_MODE = True
 class myStack:
     def __init__(self):
         self.stack = []
 
     def find(self,symbol):
-        iFoundIt = False
-        for element in self.stack:
-            if not isinstance(element, myStack) and isinstance(element, list):
-                if element[0]==symbol:
-                    print(element[1])
-                    iFoundIt = True
+        table = self.stack(len(self.stack) - 1)
+        IFoundIt = False
+        for element in table:
+            if element[0] == symbol:
+                iFoundIt = True
+                break
         return iFoundIt
 
-    def insert(self,symbol,data):
+    def insert(self, symbol, data):
         if not self.find(symbol):
-            pair = [symbol,data]
-            self.stack.append(pair)
+            pair = [symbol, data]
+            table = self.stack(len(self.stack) - 1)
+            table.append(pair)
+
         else:
             print("Error: symbol " + symbol + " already exists")
 
     def push_empty_table(self):
-        table = myStack()
+        table = []
         self.stack.append(table)
+        print("Se ha inicializado la tabla con un elemnto")
 
-    def pop(self,symbol):
+    def pop(self):
         if not empty:
             self.stack.pop()
         else:

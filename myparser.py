@@ -3,7 +3,8 @@ import lexer
 import Node
 import ply.yacc as yacc
 import logging
-from Structure import Structure 
+from Structure import Structure
+from myStack import myStack
 
 DEBUG_MODE = True
 
@@ -17,6 +18,8 @@ logging.basicConfig(
 
 # import some required globals from tokenizer
 tokens = lexer.tokens
+
+stack = myStack
 
 def p_correctProgram(p):
     "correctProgram : program"
@@ -41,22 +44,25 @@ def p_worldInstSet(p):
     pass
 
 def p_worldInst(p):
-    ''' worldInst : worldSet  
-                | wallSet  
-                | newObjType  
-                | setPlaceObjWorld  
-                | setStartPosition 
-                | setBasketCapacity  
-                | newBoolean  
-                | newGoal 
-                | finalGoal  
-    '''
+    """ worldInst : worldSet
+                | wallSet
+                | newObjType
+                | setPlaceObjWorld
+                | setStartPosition
+                | setBasketCapacity
+                | newBoolean
+                | newGoal
+                | finalGoal
+    """
     p[0]=p[1]
 
 def p_wallSet(p):
-    '''wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum'''
+    """wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum"""
     print("Probando")
-    if (p[2]=="north" and p[4]==p[7] and p[5]<p[8]) or (p[2]=="south" and p[4]==p[7] and p[5]>p[8]) or (p[2]=="east" and p[5]==p[8] and p[4]>p[7]) or (p[2]=="west" and p[5]==p[8] and p[4]<p[7]):
+    if ((p[2]=="north" and p[4]==p[7] and p[5]<=p[8]) or
+            (p[2]=="south" and p[4]==p[7] and p[5]>=p[8]) or
+            (p[2]=="east" and p[5]==p[8] and p[4]>=p[7]) or
+            (p[2]=="west" and p[5]==p[8] and p[4]<=p[7])):
         attributesObjects = {
             "direction": p[2],
             "column1": p[4],
@@ -68,12 +74,14 @@ def p_wallSet(p):
         print(p[0])
     else:
         ##Deberia lanzarme error pero mientras colocaré pass
-        pass
+        p_error(p)
+        print('Bad definition of wall in World')
     
 
 def p_worldBlock(p):
     '''worldBlock : TkBeginWorld ids worldInstSet TkEndWorld  
                     | TkBeginWorld ids TkEndWorld  '''
+    stack.push_empty_table()
 
 def p_worldSet(p):
     '''worldSet : TkWorld TkNum TkNum 
