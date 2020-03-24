@@ -38,6 +38,7 @@ def p_program(p):
     '''
     stack.push_empty_table()
     
+    
     pass
 
 def p_worldInstSet(p):
@@ -108,6 +109,7 @@ def p_newObjType(p):
         "color": p[5]
     }
     p[0] = Structure(p[2],"New-Object-Type",attributesObjects)
+    stack.insert(p[2],p[0])
     print(p[0])
 
 def p_colors(p):
