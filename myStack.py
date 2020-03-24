@@ -16,6 +16,7 @@ class myStack:
         if not self.find(symbol):
             pair = [symbol, data]
             table = self.stack[len(self.stack) - 1]
+            print()
             table.append(pair)
             
 
@@ -39,9 +40,11 @@ class myStack:
         return len(self.stack)==0
 
     def push(self,table):
+        print(self.stack)
         self.stack.append(table)
-
+        print(self.stack)
     def __str__(self):
+        print(self.stack)
         mystring = "["
         for x in self.stack:
             for y in range(len(x)):

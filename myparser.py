@@ -23,7 +23,7 @@ tokens = lexer.tokens
 stack = myStack()
 stack.push_empty_table()
 
-
+worldInstBool = false
 
 def p_correctProgram(p):
     "correctProgram : program"
@@ -47,6 +47,9 @@ def p_worldInstSet(p):
                     | worldInst worldInstSet
                     | worldInst TkSemicolon
     """
+    global worldInstBool
+    if(worldInstBool):
+        worldInstBool = false
 
     pass
 
@@ -99,7 +102,7 @@ def p_worldBlock(p):
 
     print(a)
     print(b)
-    stack.insert(a,b)
+    # stack.insert(a,b)
 
 
 def p_worldSet(p):
@@ -115,12 +118,20 @@ def p_worldSet(p):
 def p_newObjType(p):
 
     '''newObjType : TkObjType ids TkOf TkColor colors'''
+
     attributesObjects = {
         "color": p[5]
     }
+
     p[0] = Structure(p[2],"New-Object-Type",attributesObjects)
     print(p[2])
-    stack.insert(p[2],p[0])
+    if worldInstBool:
+        stack.insert(p[2],p[0])
+    else:
+        table = []
+        stack.push(table)
+        stack.insert(p[2], p[0])
+
     print(p[0])
     # stack.insert(p[0],p[0])
 
@@ -183,6 +194,12 @@ def p_newBoolean(p):
     }
     p[0] = Structure(p[2],"Boolean",attributesObjects)
     print(p[0])
+    if worldInstBool:
+        stack.insert(p[2],p[0])
+    else:
+        table = []
+        stack.push(table)
+        stack.insert(p[2], p[0])
 
 def p_newGoal(p):
     '''newGoal : TkGoal ids TkIs TkWilly TkIs TkAt TkNum TkNum
@@ -213,6 +230,13 @@ def p_newGoal(p):
         }
         p[0] = Structure(p[2],"newGoalPositionObject",attributesObjects)
         print(p[0])
+
+        if worldInstBool:
+            stack.insert(p[2], p[0])
+        else:
+            table = []
+            stack.push(table)
+            stack.insert(p[2], p[0])
 
 def p_finalGoal(p):
     '''finalGoal : TkFinalG TkIs finalGoalTest'''
