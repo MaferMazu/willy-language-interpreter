@@ -26,6 +26,7 @@ def p_correctProgram(p):
     "correctProgram : program"
     print("Tu programa esta correcto")
     p[0] = p[1]
+    print(stack)
 
 
 def p_program(p):
@@ -36,6 +37,8 @@ def p_program(p):
             | taskBlock program
     '''
     stack.push_empty_table()
+    
+    
     pass
 
 def p_worldInstSet(p):
@@ -108,6 +111,7 @@ def p_newObjType(p):
         "color": p[5]
     }
     p[0] = Structure(p[2],"New-Object-Type",attributesObjects)
+    stack.insert(p[2],p[0])
     print(p[0])
     stack.insert(p[0],p[0])
 

@@ -41,6 +41,9 @@ class myStack:
     def __str__(self):
         mystring = "["
         for x in self.stack:
-            mystring = mystring + "[ " + x[0] + ", " + x[1].typeOfObject+ "], "
+            if len(x) == 2:
+                mystring = mystring + "[ " + x[0] + ", " + x[1].typeOfObject+ "], "
+            else:
+                mystring = mystring + "[ ],"
         mystring = mystring + "]"
         return mystring
