@@ -42,9 +42,14 @@ class myStack:
     def __str__(self):
         mystring = "["
         for x in self.stack:
-            if len(x) == 2:
-                mystring = mystring + "[ " + x[0] + ", " + x[1].typeOfObject+ "], "
-            else:
+
+            if len(x) == 0:
                 mystring = mystring + "[ ],"
+            else:
+                for i in range(0,len(x)):
+                    if len(x[i]) == 0:
+                        mystring = mystring + "[ ],"
+                        print(x[i][1].typeOfObject + "aaaaaaaaaaaaaaaaaaaaaaaaaa")
+                        mystring = mystring + "[ " + x[i][0] + ", " + x[i][1].typeOfObject+ "], "
         mystring = mystring + "]"
         return mystring
