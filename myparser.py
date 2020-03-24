@@ -25,6 +25,7 @@ def p_correctProgram(p):
     "correctProgram : program"
     print("Tu programa esta correcto")
     p[0] = p[1]
+    print(stack)
 
 
 def p_program(p):
@@ -35,6 +36,7 @@ def p_program(p):
             | taskBlock program
     '''
     stack.push_empty_table()
+    
     pass
 
 def p_worldInstSet(p):
