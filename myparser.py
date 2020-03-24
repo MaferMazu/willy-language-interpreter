@@ -21,6 +21,7 @@ tokens = lexer.tokens
 stack = myStack()
 stack.push_empty_table()
 
+
 def p_correctProgram(p):
     "correctProgram : program"
     print("Tu programa esta correcto")
@@ -34,6 +35,7 @@ def p_program(p):
             | worldBlock program
             | taskBlock program
     '''
+    stack.push_empty_table()
     pass
 
 def p_worldInstSet(p):
