@@ -39,10 +39,11 @@ def p_program(p):
     pass
 
 def p_worldInstSet(p):
-    '''worldInstSet : worldInst TkSemicolon worldInstSet
+    """worldInstSet : worldInst TkSemicolon worldInstSet
                     | worldInst worldInstSet
                     | worldInst TkSemicolon
-    '''
+    """
+
     pass
 
 def p_worldInst(p):
@@ -63,7 +64,7 @@ def p_worldInst(p):
 def p_wallSet(p):
     """wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum"""
     print("Probando")
-    print
+
     if ((p[2]=="north" and p[4]==p[7] and p[5]<=p[8]) or
             (p[2]=="south" and p[4]==p[7] and p[5]>=p[8]) or
             (p[2]=="east" and p[5]==p[8] and p[4]>=p[7]) or
@@ -100,6 +101,7 @@ def p_worldSet(p):
     print(p[0])
 
 def p_newObjType(p):
+
     '''newObjType : TkObjType ids TkOf TkColor colors'''
     print("Probando")
     attributesObjects = {
@@ -107,6 +109,7 @@ def p_newObjType(p):
     }
     p[0] = Structure(p[2],"New-Object-Type",attributesObjects)
     print(p[0])
+    stack.insert(p[0],p[0])
 
 def p_colors(p):
     '''colors : TkRed
