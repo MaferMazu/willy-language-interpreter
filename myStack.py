@@ -33,6 +33,7 @@ class myStack:
             print("Error: pop in empty stack")
 
     def empty(self):
+
         return len(self.stack)==0
 
     def push(self,table):
