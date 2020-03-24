@@ -67,8 +67,6 @@ def p_worldInst(p):
 
 def p_wallSet(p):
     """wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum"""
-    print("Probando")
-
     if ((p[2]=="north" and p[4]==p[7] and p[5]<=p[8]) or
             (p[2]=="south" and p[4]==p[7] and p[5]>=p[8]) or
             (p[2]=="east" and p[5]==p[8] and p[4]>=p[7]) or
@@ -107,7 +105,6 @@ def p_worldBlock(p):
 def p_worldSet(p):
     '''worldSet : TkWorld TkNum TkNum 
                 | empty'''
-    print("Probando")
     attributesObjects = {
         "column": p[2],
         "row": p[3],
@@ -118,7 +115,6 @@ def p_worldSet(p):
 def p_newObjType(p):
 
     '''newObjType : TkObjType ids TkOf TkColor colors'''
-    print("Probando")
     attributesObjects = {
         "color": p[5]
     }
@@ -126,7 +122,7 @@ def p_newObjType(p):
     print(p[2])
     stack.insert(p[2],p[0])
     print(p[0])
-    stack.insert(p[0],p[0])
+    # stack.insert(p[0],p[0])
 
 def p_colors(p):
     '''colors : TkRed
@@ -144,7 +140,6 @@ def p_setPlaceObjWorld(p):
     print("Place Len")
     print(len(p))
     if (len(p)<8):
-        print("Probando")
         attributesObjects = {
             "amount": p[2],
             "object": p[4]
@@ -152,7 +147,6 @@ def p_setPlaceObjWorld(p):
         p[0] = Structure("Place_basket","Place",attributesObjects)
         print(p[0])
     else:
-        print("Probando")
         attributesObjects = {
             "amount": p[2],
             "object": p[4],
