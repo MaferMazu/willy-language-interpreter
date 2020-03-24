@@ -23,7 +23,7 @@ tokens = lexer.tokens
 stack = myStack()
 stack.push_empty_table()
 
-worldInstBool = false
+worldInstBool = False
 
 def p_correctProgram(p):
     "correctProgram : program"
@@ -49,7 +49,7 @@ def p_worldInstSet(p):
     """
     global worldInstBool
     if(worldInstBool):
-        worldInstBool = false
+        worldInstBool = False
 
     pass
 
@@ -119,6 +119,7 @@ def p_newObjType(p):
 
     '''newObjType : TkObjType ids TkOf TkColor colors'''
 
+    global worldInstBool
     attributesObjects = {
         "color": p[5]
     }
@@ -131,6 +132,7 @@ def p_newObjType(p):
         table = []
         stack.push(table)
         stack.insert(p[2], p[0])
+        worldInstBool = True
 
     print(p[0])
     # stack.insert(p[0],p[0])
@@ -189,6 +191,7 @@ def p_newBoolean(p):
     '''newBoolean : TkBoolean ids TkWith TkInitial TkValue TkTrue 
                 | TkBoolean ids TkWith TkInitial TkValue TkFalse
     '''
+    global worldInstBool
     attributesObjects = {
         "value": p[6]
     }
@@ -200,12 +203,14 @@ def p_newBoolean(p):
         table = []
         stack.push(table)
         stack.insert(p[2], p[0])
+        worldInstBool = True
 
 def p_newGoal(p):
     '''newGoal : TkGoal ids TkIs TkWilly TkIs TkAt TkNum TkNum
             | TkGoal ids TkIs TkNum ids TkObjectsLower TkIn TkBasket
             | TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum 
     '''
+    global worldInstBool
     if len(p)==8:
         if p[4]=="TkWilly":
             attributesObjects = {
@@ -237,6 +242,7 @@ def p_newGoal(p):
             table = []
             stack.push(table)
             stack.insert(p[2], p[0])
+            worldInstBool = True
 
 def p_finalGoal(p):
     '''finalGoal : TkFinalG TkIs finalGoalTest'''
