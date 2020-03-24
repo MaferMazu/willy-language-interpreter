@@ -9,18 +9,18 @@
    yacc.py: 445:Action : Shift and goto state 10
    yacc.py: 410:
    yacc.py: 411:State  : 10
-   yacc.py: 434:Stack  : TkBeginWorld TkId . LexToken(TkEndWorld,'end-world',4,57)
-   yacc.py: 469:Action : Reduce rule [ids -> TkId] with ['maferBaila1'] and goto state 9
-   yacc.py: 506:Result : <str @ 0x16ba476ebf0> ('maferBaila1')
+   yacc.py: 435:Stack  : TkBeginWorld TkId . LexToken(TkEndWorld,'end-world',4,57)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['maferBaila1'] and goto state 9
+   yacc.py: 506:Result : <str @ 0x10bdb64f0> ('maferBaila1')
    yacc.py: 410:
    yacc.py: 411:State  : 9
    yacc.py: 434:Stack  : TkBeginWorld ids . LexToken(TkEndWorld,'end-world',4,57)
    yacc.py: 445:Action : Shift and goto state 13
    yacc.py: 410:
    yacc.py: 411:State  : 13
-   yacc.py: 434:Stack  : TkBeginWorld ids TkEndWorld . LexToken(TkBeginWorld,'begin-world',5,67)
-   yacc.py: 469:Action : Reduce rule [worldBlock -> TkBeginWorld ids TkEndWorld] with ['begin-world','maferBaila1','end-world'] and goto state 3
-   yacc.py: 506:Result : <Structure @ 0x16ba4be6340> (<Structure.Structure object at 0x0000016 ...)
+   yacc.py: 435:Stack  : TkBeginWorld ids TkEndWorld . LexToken(TkBeginWorld,'begin-world',5,67)
+   yacc.py: 471:Action : Reduce rule [worldBlock -> TkBeginWorld ids TkEndWorld] with ['begin-world','maferBaila1','end-world'] and goto state 3
+   yacc.py: 506:Result : <Structure @ 0x10bdcdf28> (<Structure.Structure object at 0x10bdcdf ...)
    yacc.py: 410:
    yacc.py: 411:State  : 3
    yacc.py: 434:Stack  : worldBlock . LexToken(TkBeginWorld,'begin-world',5,67)
@@ -31,9 +31,9 @@
    yacc.py: 445:Action : Shift and goto state 10
    yacc.py: 410:
    yacc.py: 411:State  : 10
-   yacc.py: 434:Stack  : worldBlock TkBeginWorld TkId . LexToken(TkObjType,'Object-type',6,91)
-   yacc.py: 469:Action : Reduce rule [ids -> TkId] with ['maferBaila2'] and goto state 9
-   yacc.py: 506:Result : <str @ 0x16ba4bd2cf0> ('maferBaila2')
+   yacc.py: 435:Stack  : worldBlock TkBeginWorld TkId . LexToken(TkObjType,'Object-type',6,91)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['maferBaila2'] and goto state 9
+   yacc.py: 506:Result : <str @ 0x10bdddeb0> ('maferBaila2')
    yacc.py: 410:
    yacc.py: 411:State  : 9
    yacc.py: 434:Stack  : worldBlock TkBeginWorld ids . LexToken(TkObjType,'Object-type',6,91)
@@ -44,9 +44,9 @@
    yacc.py: 445:Action : Shift and goto state 10
    yacc.py: 410:
    yacc.py: 411:State  : 10
-   yacc.py: 434:Stack  : worldBlock TkBeginWorld ids TkObjType TkId . LexToken(TkOf,'of',6,110)
-   yacc.py: 469:Action : Reduce rule [ids -> TkId] with ['flower'] and goto state 44
-   yacc.py: 506:Result : <str @ 0x16ba4bd2e70> ('flower')
+   yacc.py: 435:Stack  : worldBlock TkBeginWorld ids TkObjType TkId . LexToken(TkOf,'of',6,110)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['flower'] and goto state 44
+   yacc.py: 506:Result : <str @ 0x10bdcdf48> ('flower')
    yacc.py: 410:
    yacc.py: 411:State  : 44
    yacc.py: 434:Stack  : worldBlock TkBeginWorld ids TkObjType ids . LexToken(TkOf,'of',6,110)
@@ -61,56 +61,56 @@
    yacc.py: 445:Action : Shift and goto state 135
    yacc.py: 410:
    yacc.py: 411:State  : 135
-   yacc.py: 434:Stack  : worldBlock TkBeginWorld ids TkObjType ids TkOf TkColor TkYellow . LexToken(TkSemicolon,';',6,125)
-   yacc.py: 469:Action : Reduce rule [colors -> TkYellow] with ['yellow'] and goto state 129
-   yacc.py: 506:Result : <str @ 0x16ba4bd2f70> ('yellow')
+   yacc.py: 435:Stack  : worldBlock TkBeginWorld ids TkObjType ids TkOf TkColor TkYellow . LexToken(TkSemicolon,';',6,125)
+   yacc.py: 471:Action : Reduce rule [colors -> TkYellow] with ['yellow'] and goto state 129
+   yacc.py: 506:Result : <str @ 0x10bdf6068> ('yellow')
    yacc.py: 410:
    yacc.py: 411:State  : 129
-   yacc.py: 434:Stack  : worldBlock TkBeginWorld ids TkObjType ids TkOf TkColor colors . LexToken(TkSemicolon,';',6,125)
-   yacc.py: 469:Action : Reduce rule [newObjType -> TkObjType ids TkOf TkColor colors] with ['Object-type','flower','of','color','yellow'] and goto state 17
-   yacc.py: 506:Result : <NoneType @ 0x7ffc25314880> (None)
+   yacc.py: 435:Stack  : worldBlock TkBeginWorld ids TkObjType ids TkOf TkColor colors . LexToken(TkSemicolon,';',6,125)
+   yacc.py: 471:Action : Reduce rule [newObjType -> TkObjType ids TkOf TkColor colors] with ['Object-type','flower','of','color','yellow'] and goto state 17
+   yacc.py: 506:Result : <Structure @ 0x10bdf62e8> (<Structure.Structure object at 0x10bdf62 ...)
    yacc.py: 410:
    yacc.py: 411:State  : 17
-   yacc.py: 434:Stack  : worldBlock TkBeginWorld ids newObjType . LexToken(TkSemicolon,';',6,125)
-   yacc.py: 469:Action : Reduce rule [worldInst -> newObjType] with [None] and goto state 14
-   yacc.py: 506:Result : <NoneType @ 0x7ffc25314880> (None)
+   yacc.py: 435:Stack  : worldBlock TkBeginWorld ids newObjType . LexToken(TkSemicolon,';',6,125)
+   yacc.py: 471:Action : Reduce rule [worldInst -> newObjType] with [<Structure @ 0x10bdf62e8>] and goto state 14
+   yacc.py: 506:Result : <Structure @ 0x10bdf62e8> (<Structure.Structure object at 0x10bdf62 ...)
    yacc.py: 410:
    yacc.py: 411:State  : 14
    yacc.py: 434:Stack  : worldBlock TkBeginWorld ids worldInst . LexToken(TkSemicolon,';',6,125)
    yacc.py: 445:Action : Shift and goto state 36
    yacc.py: 410:
    yacc.py: 411:State  : 36
-   yacc.py: 434:Stack  : worldBlock TkBeginWorld ids worldInst TkSemicolon . LexToken(TkEndWorld,'end-world',7,127)
-   yacc.py: 469:Action : Reduce rule [worldInstSet -> worldInst TkSemicolon] with [None,';'] and goto state 12
-   yacc.py: 506:Result : <NoneType @ 0x7ffc25314880> (None)
+   yacc.py: 435:Stack  : worldBlock TkBeginWorld ids worldInst TkSemicolon . LexToken(TkEndWorld,'end-world',7,127)
+   yacc.py: 471:Action : Reduce rule [worldInstSet -> worldInst TkSemicolon] with [<Structure @ 0x10bdf62e8>,';'] and goto state 12
+   yacc.py: 506:Result : <NoneType @ 0x10b7d9068> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 12
    yacc.py: 434:Stack  : worldBlock TkBeginWorld ids worldInstSet . LexToken(TkEndWorld,'end-world',7,127)
    yacc.py: 445:Action : Shift and goto state 35
    yacc.py: 410:
    yacc.py: 411:State  : 35
-   yacc.py: 434:Stack  : worldBlock TkBeginWorld ids worldInstSet TkEndWorld . $end
-   yacc.py: 469:Action : Reduce rule [worldBlock -> TkBeginWorld ids worldInstSet TkEndWorld] with ['begin-world','maferBaila2',None,'end-world'] and goto state 3
-   yacc.py: 506:Result : <Structure @ 0x16ba4be6580> (<Structure.Structure object at 0x0000016 ...)
+   yacc.py: 435:Stack  : worldBlock TkBeginWorld ids worldInstSet TkEndWorld . $end
+   yacc.py: 471:Action : Reduce rule [worldBlock -> TkBeginWorld ids worldInstSet TkEndWorld] with ['begin-world','maferBaila2',None,'end-world'] and goto state 3
+   yacc.py: 506:Result : <Structure @ 0x10bdf6278> (<Structure.Structure object at 0x10bdf62 ...)
    yacc.py: 410:
    yacc.py: 411:State  : 3
-   yacc.py: 434:Stack  : worldBlock worldBlock . $end
-   yacc.py: 469:Action : Reduce rule [program -> worldBlock] with [<Structure @ 0x16ba4be6580>] and goto state 7
-   yacc.py: 506:Result : <NoneType @ 0x7ffc25314880> (None)
+   yacc.py: 435:Stack  : worldBlock worldBlock . $end
+   yacc.py: 471:Action : Reduce rule [program -> worldBlock] with [<Structure @ 0x10bdf6278>] and goto state 7
+   yacc.py: 506:Result : <NoneType @ 0x10b7d9068> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 7
    yacc.py: 430:Defaulted state 7: Reduce using 4
-   yacc.py: 434:Stack  : worldBlock program . $end
-   yacc.py: 469:Action : Reduce rule [program -> worldBlock program] with [<Structure @ 0x16ba4be6340>,None] and goto state 2
-   yacc.py: 506:Result : <NoneType @ 0x7ffc25314880> (None)
+   yacc.py: 435:Stack  : worldBlock program . $end
+   yacc.py: 471:Action : Reduce rule [program -> worldBlock program] with [<Structure @ 0x10bdcdf28>,None] and goto state 2
+   yacc.py: 506:Result : <NoneType @ 0x10b7d9068> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 2
    yacc.py: 430:Defaulted state 2: Reduce using 1
-   yacc.py: 434:Stack  : program . $end
-   yacc.py: 469:Action : Reduce rule [correctProgram -> program] with [None] and goto state 1
-   yacc.py: 506:Result : <NoneType @ 0x7ffc25314880> (None)
+   yacc.py: 435:Stack  : program . $end
+   yacc.py: 471:Action : Reduce rule [correctProgram -> program] with [None] and goto state 1
+   yacc.py: 506:Result : <NoneType @ 0x10b7d9068> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 1
-   yacc.py: 434:Stack  : correctProgram . $end
-   yacc.py: 571:Done   : Returning <NoneType @ 0x7ffc25314880> (None)
+   yacc.py: 435:Stack  : correctProgram . $end
+   yacc.py: 571:Done   : Returning <NoneType @ 0x10b7d9068> (None)
    yacc.py: 572:PLY: PARSE DEBUG END
