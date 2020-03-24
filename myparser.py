@@ -118,7 +118,7 @@ def p_newObjType(p):
     attributesObjects = {
         "color": p[5]
     }
-    #p[0] = Structure(p[2],"New-Object-Type",attributesObjects)
+    p[0] = Structure(p[2],"New-Object-Type",attributesObjects)
     print(p[2])
     stack.insert(p[2],p[0])
     print(p[0])

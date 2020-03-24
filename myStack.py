@@ -17,7 +17,7 @@ class myStack:
             pair = [symbol, data]
             table = self.stack[len(self.stack) - 1]
             table.append(pair)
-            print(self.stack)
+            
 
         else:
             print("Error: symbol " + symbol + " already exists")
@@ -26,7 +26,7 @@ class myStack:
         table = []
         self.stack.append(table)
         print("Se ha inicializado la tabla con un elemnto")
-        print(self.stack)
+        
 
     def pop(self):
         if not self.empty():
@@ -43,18 +43,12 @@ class myStack:
 
     def __str__(self):
         mystring = "["
-        print(len(self.stack))
-        print(self.stack)
         for x in self.stack:
-            print(len(x))
             for y in range(len(x)):
                 if len(x) >= 1:
-                    print("hijos par")
-                    print(x[y][1])
-                    mystring = mystring + "[ " + x[y][0] + "], "
+                    mystring = mystring + "[ " + x[y][0] + ", " + str(x[y][1].typeOfObject) + "], "
 
                 else:
-                    print("hijos impar")
                     mystring = mystring + "[ ],"
 
         mystring = mystring + "]"
