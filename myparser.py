@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+from typing import Any
+
 import lexer
 import ply.yacc as yacc
 import logging
@@ -22,6 +24,7 @@ stack = myStack()
 stack.push_empty_table()
 
 
+
 def p_correctProgram(p):
     "correctProgram : program"
     print("Tu programa esta correcto")
@@ -30,15 +33,13 @@ def p_correctProgram(p):
 
 
 def p_program(p):
-    '''
-    program : worldBlock 
-            | taskBlock 
+    """
+    program : worldBlock
+            | taskBlock
             | worldBlock program
             | taskBlock program
-    '''
-    stack.push_empty_table()
-    
-    
+    """
+
     pass
 
 def p_worldInstSet(p):
@@ -88,8 +89,19 @@ def p_wallSet(p):
     
 
 def p_worldBlock(p):
-    '''worldBlock : TkBeginWorld ids worldInstSet TkEndWorld  
-                    | TkBeginWorld ids TkEndWorld  '''
+    """worldBlock : TkBeginWorld ids worldInstSet TkEndWorld
+                    | TkBeginWorld ids TkEndWorld
+    """
+    attributesObjects = {
+        "id": p[2],
+    }
+    a = p[2]
+    b = Structure(a, "WorldBlock", attributesObjects)
+    p[0] = Structure(a, "WorldBlock", attributesObjects)
+
+    print(a)
+    print(b)
+    stack.insert(a,b)
 
 
 def p_worldSet(p):
@@ -111,6 +123,7 @@ def p_newObjType(p):
         "color": p[5]
     }
     p[0] = Structure(p[2],"New-Object-Type",attributesObjects)
+    print(p[2])
     stack.insert(p[2],p[0])
     print(p[0])
     stack.insert(p[0],p[0])
@@ -315,8 +328,7 @@ def p_error(p):
     if p:
         print("Syntax error at token", p.type)
         # Just discard the token and tell the parser it's okay.
-        parser.error
+        parser.error()
     else:
         print("Syntax error at EOF")
 
-#parser = yacc.yacc()
