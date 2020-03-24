@@ -4,8 +4,8 @@ class myStack:
         self.stack = []
 
     def find(self,symbol):
-        table = self.stack(len(self.stack) - 1)
-        IFoundIt = False
+        table = self.stack[len(self.stack) - 1]
+        iFoundIt = False
         for element in table:
             if element[0] == symbol:
                 iFoundIt = True
@@ -15,7 +15,7 @@ class myStack:
     def insert(self, symbol, data):
         if not self.find(symbol):
             pair = [symbol, data]
-            table = self.stack(len(self.stack) - 1)
+            table = self.stack[len(self.stack) - 1]
             table.append(pair)
 
         else:
@@ -24,10 +24,10 @@ class myStack:
     def push_empty_table(self):
         table = []
         self.stack.append(table)
-        print("Se ha inicializado la tabla con un elemnto")
+        print("Push empty table")
 
     def pop(self):
-        if not empty:
+        if not self.empty():
             self.stack.pop()
         else:
             print("Error: pop in empty stack")
