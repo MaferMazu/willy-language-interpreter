@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import lexer
-import Node
 import ply.yacc as yacc
 import logging
 from Structure import Structure
@@ -20,6 +19,8 @@ logging.basicConfig(
 tokens = lexer.tokens
 
 stack = myStack()
+stack.push_empty_table()
+
 
 def p_correctProgram(p):
     "correctProgram : program"
@@ -59,9 +60,12 @@ def p_worldInst(p):
     """
     p[0]=p[1]
 
+
+
 def p_wallSet(p):
     """wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum"""
     print("Probando")
+    print
     if ((p[2]=="north" and p[4]==p[7] and p[5]<=p[8]) or
             (p[2]=="south" and p[4]==p[7] and p[5]>=p[8]) or
             (p[2]=="east" and p[5]==p[8] and p[4]>=p[7]) or
@@ -77,14 +81,14 @@ def p_wallSet(p):
         print(p[0])
     else:
         ##Deberia lanzarme error pero mientras colocaré pass
-        p_error(p)
+        # p_statement_print_error(p)
         print('Bad definition of wall in World')
     
 
 def p_worldBlock(p):
     '''worldBlock : TkBeginWorld ids worldInstSet TkEndWorld  
                     | TkBeginWorld ids TkEndWorld  '''
-    stack.push_empty_table()
+
 
 def p_worldSet(p):
     '''worldSet : TkWorld TkNum TkNum 
@@ -296,6 +300,11 @@ def p_directions(p):
 def p_empty(p):
     'empty :'
     pass
+
+
+# def p_statement_print_error(p):
+#     'statement : PRINT error'
+#     print("Syntax error in print statement. Bad expression")
 
 def p_error(p):
     if p:

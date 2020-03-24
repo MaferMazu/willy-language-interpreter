@@ -7,6 +7,6 @@ World       8 4 ;
 Wall north from  1  4    to 1 2 ;
 Wall west from 1 2 to 5 2 ;
     Wall
-        south from 7 2 to 7 3 ;
+    south from 7 2 to 7 3 ;
 {{objetos}}
 end-world
