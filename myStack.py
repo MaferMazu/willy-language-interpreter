@@ -37,3 +37,10 @@ class myStack:
 
     def push(self,table):
         self.stack.append(table)
+
+    def __str__(self):
+        mystring = "["
+        for x in self.stack:
+            mystring = mystring + "[ " + x[0] + ", " + x[1].typeOfObject+ "], "
+        mystring = mystring + "]"
+        return mystring

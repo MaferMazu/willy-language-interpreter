@@ -19,7 +19,7 @@ logging.basicConfig(
 # import some required globals from tokenizer
 tokens = lexer.tokens
 
-stack = myStack
+stack = myStack()
 
 def p_correctProgram(p):
     "correctProgram : program"
@@ -34,6 +34,7 @@ def p_program(p):
             | worldBlock program
             | taskBlock program
     '''
+    stack.push_empty_table()
     pass
 
 def p_worldInstSet(p):
