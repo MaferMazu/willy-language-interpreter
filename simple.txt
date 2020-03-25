@@ -12,3 +12,37 @@ Object-type sky of color blue;
 Boolean willyhappy with initial value true;
 Boolean willycanlearn with initial value false;
 end-world
+{{Definicion del mundo}}
+--Holix
+begin-world world1
+{{mundo con 8 columas y 4 filas}}
+World 8 4
+{{paredes}}
+Wall north from 1 4 to 1 2
+Wall west from 1 2 to 5 2
+Wall south from 7 2 to 7 3
+{{objetos}}
+Object-type flower of color yellow
+Object-type mirror of color green
+Object-type table of color cyan
+Object-type umbrella of color magenta
+Object-type heart of color red
+Object-type sky of color blue
+{{Colocar objetos}}
+Place 3 of flower at 2 3
+Place 5 of heart at 8 1
+Place 1 of sky at 1 1
+Place 10 of table in basket
+Place 300 of mirror in basket
+{{Inicio de Wally}}
+Start at 8 4 heading east
+Basket of capacity 310
+Boolean willyhappy with initial value true
+Boolean willycanlearn with initial value false
+Goal goal1 is willy is at 8 1
+Goal goal2 is 300 mirror objects in Basket
+Goal goal3 is 10 table objects at 5 4
+Final goal is goal1 or goal2 and goal3
+Final goal is not goal2 and goal3
+Final goal is goal1 and goal2 and goal3;
+end-world
