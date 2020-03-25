@@ -50,6 +50,8 @@ def p_worldInstSet(p):
     global worldInstBool
     if(worldInstBool):
         worldInstBool = False
+        
+        
 
     pass
 
@@ -96,13 +98,15 @@ def p_worldBlock(p):
     attributesObjects = {
         "id": p[2],
     }
-    a = p[2]
-    b = Structure(a, "WorldBlock", attributesObjects)
-    p[0] = Structure(a, "WorldBlock", attributesObjects)
-
-    print(a)
-    print(b)
-    # stack.insert(a,b)
+    
+    p[0] = Structure(p[2], "WorldBlock", attributesObjects)
+    print("Antes del pop")
+    print(stack)
+    stack.pop()
+    stack.insert(p[2],p[0])
+    print("Despues del pop")
+    print(stack)
+    
 
 
 def p_worldSet(p):
