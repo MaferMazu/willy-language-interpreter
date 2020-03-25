@@ -138,12 +138,13 @@ def p_newObjType(p):
     # stack.insert(p[0],p[0])
 
 def p_colors(p):
-    '''colors : TkRed
+    """colors : TkRed
                 | TkBlue
                 | TkMagenta
                 | TkCyan
                 | TkGreen
-                | TkYellow'''
+                | TkYellow
+                """
     p[0]=p[1]
 
 def p_setPlaceObjWorld(p):
