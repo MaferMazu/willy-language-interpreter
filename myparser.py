@@ -24,6 +24,7 @@ stack = myStack()
 stack.push_empty_table()
 
 worldInstBool = False
+taskBool = False
 
 def p_correctProgram(p):
     "correctProgram : program"
@@ -215,7 +216,7 @@ def p_newGoal(p):
             | TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum
     """
     global worldInstBool
-    if len(p)==8:
+    if len(p)==9:
         if p[4]=="TkWilly":
             attributesObjects = {
                 "column": p[7],
@@ -295,6 +296,28 @@ def p_primitiveInstructions(p):
                     | TkFlip ids
                     | ids
                     | TkTerminate'''
+    global taskBool
+    if p[1] == "TkSet":
+        if len(p) == 3:
+            attributesObjects = {
+                "id": p[2],
+                "value": "true",
+            }
+            p[0] = Structure(p[2],"newBoolean",attributesObjects)
+        if len(p) == 5:
+            attributesObjects = {
+                "id": p[2],
+                "value": p[4],
+            }
+            p[0] = Structure(p[2],"newBoolean",attributesObjects)
+
+        if taskBool:
+            stack.insert(p[2],p[0])
+        else:
+            table = []
+            stack.push(table)
+            stack.insert(p[2], p[0])
+            taskBool = True
     pass
 
 def p_booleanTests(p):

@@ -1,10 +1,3 @@
-{{Definicion del mundo}}
---Holix
-begin-world maferBaila1
-Object-type flower of color yellow;
-Object-type dog of color green;
-Boolean willycanlearn with initial value false;
-end-world
 begin-world maferBaila2
 Object-type flower of color yellow;
 Object-type dog of color green;
@@ -46,3 +39,11 @@ Final goal is goal1 or goal2 and goal3
 Final goal is not goal2 and goal3
 Final goal is goal1 and goal2 and goal3;
 end-world
+begin-task task1 on world1
+begin
+move;
+pick flower;
+set willyishungry;
+set willyisangry to false;
+end
+end-task
