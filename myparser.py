@@ -180,7 +180,7 @@ def p_setStartPosition(p):
     print(p[0])
 
 def p_setBasketCapacity(p):
-    '''setBasketCapacity : TkBasket TkOf TkCapacity TkNum'''
+    """setBasketCapacity : TkBasket TkOf TkCapacity TkNum"""
     attributesObjects = {
         "amount": p[4]
     }
@@ -206,10 +206,10 @@ def p_newBoolean(p):
         worldInstBool = True
 
 def p_newGoal(p):
-    '''newGoal : TkGoal ids TkIs TkWilly TkIs TkAt TkNum TkNum
+    """newGoal : TkGoal ids TkIs TkWilly TkIs TkAt TkNum TkNum
             | TkGoal ids TkIs TkNum ids TkObjectsLower TkIn TkBasket
-            | TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum 
-    '''
+            | TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum
+    """
     global worldInstBool
     if len(p)==8:
         if p[4]=="TkWilly":
