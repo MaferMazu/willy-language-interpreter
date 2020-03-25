@@ -278,6 +278,7 @@ def p_multiInstructions(p):
                         | instructions TkSemicolon multiInstructions'''
     pass
 
+
 def p_primitiveInstructions(p):
     '''primitiveInstructions : TkMove
                     | TkTurnL
@@ -297,7 +298,7 @@ def p_primitiveInstructions(p):
                     | ids
                     | TkTerminate'''
     global taskBool
-    if p[1] == "TkSet":
+    if p[1] == "set":
         if len(p) == 3:
             attributesObjects = {
                 "id": p[2],
