@@ -345,7 +345,7 @@ def p_primitiveBoolean(p):
     p[0]=p[1]
 
 def p_instructions(p):
-    '''instructions : primitiveInstructions
+    """instructions : primitiveInstructions
                     | TkIf booleanTests TkThen instructions
                     | TkIf primitiveInstructions TkThen instructions
                     | TkIf booleanTests TkThen primitiveInstructions
@@ -357,14 +357,14 @@ def p_instructions(p):
                     | TkBegin multiInstructions TkEnd
                     | TkDefine ids TkAs instructions
                     | TkSemicolon
-                    '''
+                    """
     pass
 
 def p_directions(p):
-    '''directions : TkNorth 
-                | TkEast 
-                | TkSouth 
-                | TkWest'''
+    """directions : TkNorth
+                | TkEast
+                | TkSouth
+                | TkWest"""
     p[0]=p[1]
 
 
