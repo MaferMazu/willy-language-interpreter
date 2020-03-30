@@ -25,6 +25,7 @@ stack.push_empty_table()
 
 worldInstBool = False
 taskBool = False
+defineAsBool = False
 
 def p_correctProgram(p):
     "correctProgram : program"
@@ -355,10 +356,30 @@ def p_instructions(p):
                     | TkRepeat TkNum TkTimes instructions
                     | TkWhile booleanTests TkDo instructions
                     | TkBegin multiInstructions TkEnd
-                    | TkDefine ids TkAs instructions
+                    | instructionDefine
                     | TkSemicolon
                     """
     pass
+
+def p_instructionDefine(p):
+    '''instructionDefine: instructionDefineAs instructions'''
+    stack.pop()
+
+def p_instructionDefineAs(p):
+    '''instructionDefine: TkDefine ids TkAs'''
+    global defineAsBool
+    attributesObjects = {
+        "id": p[3],
+        "type": "DefineAs",
+    }
+    p[0] = Structure(p[3],"New-Define",attributesObjects)
+    if defineAsBool:
+        stack.insert(p[3],p[0])
+    else:
+        table = []
+        stack.push(table)
+        stack.insert(p[3], p[0])
+        defineAsBool = True
 
 def p_directions(p):
     """directions : TkNorth
