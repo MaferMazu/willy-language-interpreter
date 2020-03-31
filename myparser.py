@@ -229,6 +229,8 @@ def p_finalGoalTest(p):
 def p_ids(p):
     "ids : TkId"
     p[0]=p[1]
+    p.set_lineno(0,p.lineno(1))
+    p.set_lexpos(0,p.lexpos(1))
 
 def p_taskBlock(p):
     '''taskBlock : TkBeginTask ids TkOn ids multiInstructions TkEndTask'''
@@ -339,11 +341,7 @@ def p_instructions(p):
 
     if p[1] != "instructionDefineAs":
         global defineAsBool
-        attributesObjects = {
-            "type": "Instruction",
-            "line" : p.lineno(2),
-            "column" : p.lexpos(2) + 1,
-        }
+        
         if len(p) > 3:
             print(p[2])
             print(p[0])
