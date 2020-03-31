@@ -31,7 +31,7 @@ def p_correctProgram(p):
     "correctProgram : program"
     print("Tu programa esta correcto")
     p[0] = p[1]
-    print(stack)
+    # print(stack)
 
 def p_program(p):
     """
@@ -92,12 +92,12 @@ def p_worldBlock(p):
     }
     
     p[0] = Structure(p[2], "WorldBlock", attributesObjects)
-    print("Antes del pop")
-    print(stack)
+    # print("Antes del pop")
+    # print(stack)
     stack.pop()
     stack.insert(p[2],p[0])
-    print("Despues del pop")
-    print(stack)
+    # print("Despues del pop")
+    # print(stack)
     
 
 def p_worldSet(p):
@@ -231,6 +231,7 @@ def p_finalGoalTest(p):
 def p_ids(p):
     "ids : TkId"
     p[0]=p[1]
+    p.set_lineno(0, p.lineno(1))
 
 def p_taskBlock(p):
     '''taskBlock : TkBeginTask ids TkOn ids multiInstructions TkEndTask'''
@@ -303,25 +304,27 @@ def p_primitiveInstructions(p):
     pass
 
 def p_booleanTests(p):
-    '''booleanTests : ids
+    """booleanTests : ids
                     | primitiveBoolean
                     | TkFound TkParenL ids TkParenR
                     | TkCarrying TkParenL ids TkParenR
                     | booleanTests TkAnd booleanTests
                     | booleanTests TkOr booleanTests
                     | TkNot booleanTests
-                    | TkParenL booleanTests TkParenR'''
+                    | TkParenL booleanTests TkParenR
+                    """
     if len(p)==1:
         p[0]=p[1]
 
 def p_primitiveBoolean(p):
-    '''primitiveBoolean : TkFrontCl
+    """primitiveBoolean : TkFrontCl
                         | TkLeftCl
                         | TkRightCl
                         | TkLookingN
                         | TkLookingE
                         | TkLookingS
-                        | TkLookingW'''
+                        | TkLookingW
+                        """
     p[0]=p[1]
 
 def p_instructions(p):
@@ -341,16 +344,13 @@ def p_instructions(p):
 
     if p[1] != "instructionDefineAs":
         global defineAsBool
-        attributesObjects = {
-            "type": "Instruction",
-            "line": p.lineno,
-            #         # "column" : p.lexpos + 1,
-        }
+
         if len(p) > 3:
             print(p[2])
             print(p[0])
             stack.insert(p[2], p[0])
         else:
+            print(len(p))
             print("Esto es un ;")
 
     else:
@@ -368,14 +368,12 @@ def p_instructionDefineAs(p):
     print("EUREKA")
     global defineAsBool
     defineAsBool = False
-    attributesObjects = {
-        "type" : "Instruction",
-        "line" : p.lineno,
-#         # "column" : p.lexpos + 1,
-        }
+
     if defineAsBool:
         print("La variable es TRUE")
     else:
+        print("la variable es false, procedemos a pusherar" + "\n" + "aqui viebe el stack")
+        print(stack)
         table = []
         stack.push(table)
         defineAsBool = True
