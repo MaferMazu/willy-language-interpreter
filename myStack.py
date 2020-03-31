@@ -49,7 +49,7 @@ class myStack:
         for x in self.stack:
             for y in range(len(x)):
                 if len(x) >= 1:
-                    mystring = mystring + "[ " + x[y][0] + ", " + str(x[y][1].typeOfObject) + "], "
+                    mystring = mystring + "[ " + x[y][0] + ", " + str(x[y][1].type) + "], "
 
                 else:
                     mystring = mystring + "[ ],"

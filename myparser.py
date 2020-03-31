@@ -33,7 +33,6 @@ def p_correctProgram(p):
     p[0] = p[1]
     print(stack)
 
-
 def p_program(p):
     """
     program : worldBlock
@@ -52,9 +51,6 @@ def p_worldInstSet(p):
     global worldInstBool
     if(worldInstBool):
         worldInstBool = False
-        
-        
-
     pass
 
 def p_worldInst(p):
@@ -78,15 +74,7 @@ def p_wallSet(p):
             (p[2]=="south" and p[4]==p[7] and p[5]>=p[8]) or
             (p[2]=="east" and p[5]==p[8] and p[4]>=p[7]) or
             (p[2]=="west" and p[5]==p[8] and p[4]<=p[7])):
-        attributesObjects = {
-            "direction": p[2],
-            "column1": p[4],
-            "row1": p[5],
-            "column2":p[7],
-            "row2": p[8]
-        }
-        p[0] = Structure("","WallSet",attributesObjects)
-        print(p[0])
+            pass
     else:
         ##Deberia lanzarme error pero mientras colocaré pass
         # p_statement_print_error(p)
@@ -98,59 +86,49 @@ def p_worldBlock(p):
                     | TkBeginWorld ids TkEndWorld
     """
     attributesObjects = {
-        "id": p[2],
+        "type" : "World",
+        "line" : p.lineno,
+        "column" : p.lexpos + 1,
     }
     
     p[0] = Structure(p[2], "WorldBlock", attributesObjects)
-    # print("Antes del pop")
-    # print(stack)
+    print("Antes del pop")
+    print(stack)
     stack.pop()
     stack.insert(p[2],p[0])
-    # print("Despues del pop")
-    # print(stack)
+    print("Despues del pop")
+    print(stack)
     
-
 
 def p_worldSet(p):
     '''worldSet : TkWorld TkNum TkNum 
                 | empty'''
-    attributesObjects = {
-        "column": p[2],
-        "row": p[3],
-    }
-    p[0] = Structure("","WorldSet",attributesObjects)
     print(p[0])
 
 def p_newObjType(p):
-
     '''newObjType : TkObjType ids TkOf TkColor colors'''
-
     global worldInstBool
     attributesObjects = {
-        "color": p[5]
+        "type" : "Object-type",
+        "line" : p.lineno,
+        "column" : p.lexpos + 1,
+        "color": p[5],
     }
-
-    p[0] = Structure(p[2],"New-Object-Type",attributesObjects)
-    print(p[2])
     if worldInstBool:
-        stack.insert(p[2],p[0])
+        stack.insert(p[2],attributesObjects)
     else:
         table = []
         stack.push(table)
-        stack.insert(p[2], p[0])
+        stack.insert(p[2], attributesObjects)
         worldInstBool = True
 
-    print(p[0])
-    # stack.insert(p[0],p[0])
-
 def p_colors(p):
-    """colors : TkRed
+    '''colors : TkRed
                 | TkBlue
                 | TkMagenta
                 | TkCyan
                 | TkGreen
-                | TkYellow
-                """
+                | TkYellow'''
     p[0]=p[1]
 
 def p_setPlaceObjWorld(p):
@@ -160,39 +138,17 @@ def p_setPlaceObjWorld(p):
     print("Place Len")
     print(len(p))
     if (len(p)<8):
-        attributesObjects = {
-            "amount": p[2],
-            "object": p[4]
-        }
-        p[0] = Structure("Place_basket","Place",attributesObjects)
-        print(p[0])
+        pass
     else:
-        attributesObjects = {
-            "amount": p[2],
-            "object": p[4],
-            "column": p[6],
-            "row": p[7]
-        }
-        p[0] = Structure("Place_object","Place",attributesObjects)
-        print(p[0])
+        pass
 
 def p_setStartPosition(p):
     '''setStartPosition : TkStart TkAt TkNum TkNum TkHeading directions'''
-    attributesObjects = {
-        "column": p[3],
-        "row": p[4],
-        "head-direction": p[6]
-    }
-    p[0] = Structure("","StartPositionOfWilly",attributesObjects)
-    print(p[0])
+    pass
 
 def p_setBasketCapacity(p):
     """setBasketCapacity : TkBasket TkOf TkCapacity TkNum"""
-    attributesObjects = {
-        "amount": p[4]
-    }
-    p[0] = Structure("","BasketCapacityOfWilly",attributesObjects)
-    print(p[0])
+    pass
 
 def p_newBoolean(p):
     '''newBoolean : TkBoolean ids TkWith TkInitial TkValue TkTrue 
@@ -200,16 +156,17 @@ def p_newBoolean(p):
     '''
     global worldInstBool
     attributesObjects = {
-        "value": p[6]
+        "type" : "Bool",
+        "line" : p.lineno,
+        "column" : p.lexpos + 1,
+        "value": p[6],
     }
-    p[0] = Structure(p[2],"Boolean",attributesObjects)
-    print(p[0])
     if worldInstBool:
-        stack.insert(p[2],p[0])
+        stack.insert(p[2],attributesObjects)
     else:
         table = []
         stack.push(table)
-        stack.insert(p[2], p[0])
+        stack.insert(p[2], attributesObjects)
         worldInstBool = True
 
 def p_newGoal(p):
@@ -221,35 +178,37 @@ def p_newGoal(p):
     if len(p)==9:
         if p[4]=="TkWilly":
             attributesObjects = {
-                "column": p[7],
+                "type" : "Goal-IsAt",
+                "line" : p.lineno,
+                "column" : p.lexpos + 1,
+                "column_": p[7],
                 "row": p[8]
             }
-            p[0] = Structure(p[2],"newGoalWilly",attributesObjects)
-            print(p[0])
         else:
             attributesObjects = {
+                "type" : "Goal-InBasket",
+                "line" : p.lineno,
+                "column" : p.lexpos + 1,
                 "amount": p[4],
                 "id-object": p[5],
             }
-            p[0] = Structure(p[2],"newGoalBasket",attributesObjects)
-            print(p[0])
     else:
         attributesObjects = {
+            "type" : "Goal-ObjectIn",
+            "line" : p.lineno,
+            "column" : p.lexpos + 1,
             "amount": p[4],
             "id-object": p[5],
-            "column": p[8],
+            "column_": p[8],
             "row": p[9]
         }
-        p[0] = Structure(p[2],"newGoalPositionObject",attributesObjects)
-        print(p[0])
-
-        if worldInstBool:
-            stack.insert(p[2], p[0])
-        else:
-            table = []
-            stack.push(table)
-            stack.insert(p[2], p[0])
-            worldInstBool = True
+    if worldInstBool:
+        stack.insert(p[2], attributesObjects)
+    else:
+        table = []
+        stack.push(table)
+        stack.insert(p[2], attributesObjects)
+        worldInstBool = True
 
 def p_finalGoal(p):
     '''finalGoal : TkFinalG TkIs finalGoalTest'''
@@ -265,14 +224,25 @@ def p_finalGoalTest(p):
                      |  TkParenL TkId TkParenR finalGoalTest
     '''
 
-
 def p_ids(p):
     "ids : TkId"
     p[0]=p[1]
 
 def p_taskBlock(p):
     '''taskBlock : TkBeginTask ids TkOn ids multiInstructions TkEndTask'''
-    pass
+    global taskBool
+    attributesObjects = {
+            "type" : "Task",
+            "line" : p.lineno,
+            "column" : p.lexpos + 1,
+        }
+    if taskBool:
+        stack.insert(p[2], attributesObjects)
+    else:
+        table = []
+        stack.push(table)
+        stack.insert(p[2], attributesObjects)
+        taskBool = True
 
 def p_multiInstructions(p):
     '''multiInstructions : instructions
@@ -303,36 +273,38 @@ def p_primitiveInstructions(p):
     if p[1] == "set":
         if len(p) == 3:
             attributesObjects = {
-                "id": p[2],
+                "type" : "Bool",
+                "line" : p.lineno,
+                "column" : p.lexpos + 1,
                 "value": "true",
             }
-            p[0] = Structure(p[2],"newBoolean",attributesObjects)
+
         if len(p) == 5:
             attributesObjects = {
-                "id": p[2],
+                "type" : "Bool",
+                "line" : p.lineno,
+                "column" : p.lexpos + 1,
                 "value": p[4],
             }
-            p[0] = Structure(p[2],"newBoolean",attributesObjects)
 
         if taskBool:
-            stack.insert(p[2],p[0])
+            stack.insert(p[2],attributesObjects)
         else:
             table = []
             stack.push(table)
-            stack.insert(p[2], p[0])
+            stack.insert(p[2], attributesObjects)
             taskBool = True
     pass
 
 def p_booleanTests(p):
-    """booleanTests : ids
+    '''booleanTests : ids
                     | primitiveBoolean
                     | TkFound TkParenL ids TkParenR
                     | TkCarrying TkParenL ids TkParenR
                     | booleanTests TkAnd booleanTests
                     | booleanTests TkOr booleanTests
                     | TkNot booleanTests
-                    | TkParenL booleanTests TkParenR
-                    """
+                    | TkParenL booleanTests TkParenR'''
     if len(p)==1:
         p[0]=p[1]
 
@@ -347,7 +319,7 @@ def p_primitiveBoolean(p):
     p[0]=p[1]
 
 def p_instructions(p):
-    """instructions : primitiveInstructions
+    '''instructions : primitiveInstructions
                     | TkIf booleanTests TkThen instructions
                     | TkIf primitiveInstructions TkThen instructions
                     | TkIf booleanTests TkThen primitiveInstructions
@@ -357,65 +329,36 @@ def p_instructions(p):
                     | TkRepeat TkNum TkTimes instructions
                     | TkWhile booleanTests TkDo instructions
                     | TkBegin multiInstructions TkEnd
-                    | instructionDefineAs instructions
+                    | instructionDefine
                     | TkSemicolon
-                    """
-
-    if p[0] == "instructionDefineAs":
-        print("prePOP")
-        print(stack)
-        print('\n')
-        stack.pop()
-        print("postPOP")
-        print(stack)
-        print('\n')
-
+                    '''
     pass
 
-
+def p_instructionDefine(p):
+    '''instructionDefine: instructionDefineAs instructions'''
+    stack.pop()
 
 def p_instructionDefineAs(p):
-    """instructionDefineAs : TkDefine ids TkAs"""
-    print(stack)
+    '''instructionDefine: TkDefine ids TkAs'''
     global defineAsBool
     attributesObjects = {
-        "id": p[3],
-        "type": "DefineAs",
-    }
-    p[0] = Structure(p[3],"New-Define",attributesObjects)
+        "type" : "Instruction",
+        "line" : p.lineno,
+        "column" : p.lexpos + 1,
+        }
     if defineAsBool:
         stack.insert(p[3],p[0])
-        print("postInsert")
-        print(stack)
-        print('\n')
     else:
         table = []
         stack.push(table)
-        print("postPush")
-        print(stack)
-        print('\n')
         stack.insert(p[3], p[0])
         defineAsBool = True
-        print("postInsert")
-        print(stack)
-        print('\n')
-
-
-# def p_instructionDefine(p):
-#     """instructionDefine : instructionDefineAs instructions"""
-#     print("prePOP")
-#     print(stack)
-#     print('\n')
-#     stack.pop()
-#     print("postPOP")
-#     print(stack)
-#     print('\n')
 
 def p_directions(p):
-    """directions : TkNorth
-                | TkEast
-                | TkSouth
-                | TkWest"""
+    '''directions : TkNorth 
+                | TkEast 
+                | TkSouth 
+                | TkWest'''
     p[0]=p[1]
 
 
