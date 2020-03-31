@@ -96,8 +96,8 @@ def p_worldBlock(p):
     # print(stack)
     stack.pop()
     stack.insert(p[2],attributesObjects)
-    print("Despues del pop")
-    print(stack)
+    # print("Despues del pop")
+    # print(stack)
     
 
 def p_worldSet(p):
@@ -233,20 +233,22 @@ def p_ids(p):
     p.set_lexpos(0, p.lexpos(1))
 
 def p_taskBlock(p):
-    '''taskBlock : TkBeginTask ids TkOn ids multiInstructions TkEndTask'''
+    """taskBlock : TkBeginTask ids TkOn ids multiInstructions TkEndTask"""
     global taskBool
     attributesObjects = {
             "type" : "Task",
             "line" : p.lineno(2),
             "column" : p.lexpos(2) + 1,
         }
-    if taskBool:
-        stack.insert(p[2], attributesObjects)
-    else:
-        table = []
-        stack.push(table)
-        stack.insert(p[2], attributesObjects)
-        taskBool = True
+
+    p[0] = Structure(p[2], "TaskBlock", attributesObjects)
+    print("Antes del pop")
+    print(stack)
+    stack.pop()
+    stack.insert(p[2], attributesObjects)
+    print("Despues del pop")
+    # print(stack)
+
     print("fin del task")
     print(stack)
 
@@ -340,7 +342,7 @@ def p_instructions(p):
                     | instructionDefineAs instructions
                     | TkSemicolon
                     """
-
+    print("Esto es P1" + str(p[1]))
     if p[1] != "instructionDefineAs":
         global defineAsBool
 
