@@ -102,12 +102,12 @@ def p_worldBlock(p):
     }
     
     p[0] = Structure(p[2], "WorldBlock", attributesObjects)
-    print("Antes del pop")
-    print(stack)
+    # print("Antes del pop")
+    # print(stack)
     stack.pop()
     stack.insert(p[2],p[0])
-    print("Despues del pop")
-    print(stack)
+    # print("Despues del pop")
+    # print(stack)
     
 
 
@@ -324,14 +324,15 @@ def p_primitiveInstructions(p):
     pass
 
 def p_booleanTests(p):
-    '''booleanTests : ids
+    """booleanTests : ids
                     | primitiveBoolean
                     | TkFound TkParenL ids TkParenR
                     | TkCarrying TkParenL ids TkParenR
                     | booleanTests TkAnd booleanTests
                     | booleanTests TkOr booleanTests
                     | TkNot booleanTests
-                    | TkParenL booleanTests TkParenR'''
+                    | TkParenL booleanTests TkParenR
+                    """
     if len(p)==1:
         p[0]=p[1]
 
@@ -356,17 +357,26 @@ def p_instructions(p):
                     | TkRepeat TkNum TkTimes instructions
                     | TkWhile booleanTests TkDo instructions
                     | TkBegin multiInstructions TkEnd
-                    | instructionDefine
+                    | instructionDefineAs instructions
                     | TkSemicolon
                     """
+
+    if p[0] == "instructionDefineAs":
+        print("prePOP")
+        print(stack)
+        print('\n')
+        stack.pop()
+        print("postPOP")
+        print(stack)
+        print('\n')
+
     pass
 
-def p_instructionDefine(p):
-    '''instructionDefine: instructionDefineAs instructions'''
-    stack.pop()
+
 
 def p_instructionDefineAs(p):
-    '''instructionDefine: TkDefine ids TkAs'''
+    """instructionDefineAs : TkDefine ids TkAs"""
+    print(stack)
     global defineAsBool
     attributesObjects = {
         "id": p[3],
@@ -375,11 +385,31 @@ def p_instructionDefineAs(p):
     p[0] = Structure(p[3],"New-Define",attributesObjects)
     if defineAsBool:
         stack.insert(p[3],p[0])
+        print("postInsert")
+        print(stack)
+        print('\n')
     else:
         table = []
         stack.push(table)
+        print("postPush")
+        print(stack)
+        print('\n')
         stack.insert(p[3], p[0])
         defineAsBool = True
+        print("postInsert")
+        print(stack)
+        print('\n')
+
+
+# def p_instructionDefine(p):
+#     """instructionDefine : instructionDefineAs instructions"""
+#     print("prePOP")
+#     print(stack)
+#     print('\n')
+#     stack.pop()
+#     print("postPOP")
+#     print(stack)
+#     print('\n')
 
 def p_directions(p):
     """directions : TkNorth

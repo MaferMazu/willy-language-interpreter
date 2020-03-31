@@ -10,3 +10,5 @@ Wall west from 1 2 to 5 2 ;
     south from 7 2 to 7 3 ;
 {{objetos}}
 end-world
+begin-task
+define x as begin
