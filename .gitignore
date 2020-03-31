@@ -1,6 +1,6 @@
 ply/
 ply-3.1/
 .idea/
-__pycache__
+__pycache__/
 get-pip.py
 parselog.txt
