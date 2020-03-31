@@ -87,15 +87,15 @@ def p_worldBlock(p):
     """
     attributesObjects = {
         "type" : "World",
-        "line" : p.lineno,
-        # "column" : p.lexpos + 1,
+        "line" : p.lineno(2),
+        "column" : p.lexpos(2) + 1,
     }
     
     p[0] = Structure(p[2], "WorldBlock", attributesObjects)
     print("Antes del pop")
     print(stack)
     stack.pop()
-    stack.insert(p[2],p[0])
+    stack.insert(p[2],attributesObjects)
     print("Despues del pop")
     print(stack)
     
@@ -109,13 +109,11 @@ def p_newObjType(p):
     '''newObjType : TkObjType ids TkOf TkColor colors'''
     global worldInstBool
     print("Hey pila aqui")
-    print(p.lexpos)
-    print(p.lineno)
     print("Hey pila aqui")
     attributesObjects = {
         "type" : "Object-type",
-        "line" : p.lineno,
-#         # "column" : p.lexpos + 1,
+        "line" : p.lineno(2),
+        "column" : p.lexpos(2) + 1,
         "color": p[5],
     }
     if worldInstBool:
@@ -161,8 +159,8 @@ def p_newBoolean(p):
     global worldInstBool
     attributesObjects = {
         "type" : "Bool",
-        "line" : p.lineno,
-        # "column" : p.lexpos + 1,
+        "line" : p.lineno(2),
+        "column" : p.lexpos(2) + 1,
         "value": p[6],
     }
     if worldInstBool:
@@ -183,24 +181,24 @@ def p_newGoal(p):
         if p[4]=="TkWilly":
             attributesObjects = {
                 "type" : "Goal-IsAt",
-                "line" : p.lineno,
-                # "column" : p.lexpos + 1,
+                "line" : p.lineno(2),
+                "column" : p.lexpos(2) + 1,
                 "column_": p[7],
                 "row": p[8]
             }
         else:
             attributesObjects = {
                 "type" : "Goal-InBasket",
-                "line" : p.lineno,
-                # "column" : p.lexpos + 1,
+                "line" : p.lineno(2),
+                "column" : p.lexpos(2) + 1,
                 "amount": p[4],
                 "id-object": p[5],
             }
     else:
         attributesObjects = {
             "type" : "Goal-ObjectIn",
-            "line" : p.lineno,
-            # "column" : p.lexpos + 1,
+            "line" : p.lineno(2),
+            "column" : p.lexpos(2) + 1,
             "amount": p[4],
             "id-object": p[5],
             "column_": p[8],
@@ -237,8 +235,8 @@ def p_taskBlock(p):
     global taskBool
     attributesObjects = {
             "type" : "Task",
-            "line" : p.lineno,
-            # "column" : p.lexpos + 1,
+            "line" : p.lineno(2),
+            "column" : p.lexpos(2) + 1,
         }
     if taskBool:
         stack.insert(p[2], attributesObjects)
@@ -280,16 +278,16 @@ def p_primitiveInstructions(p):
         if len(p) == 3:
             attributesObjects = {
                 "type" : "Bool",
-                "line" : p.lineno,
-                # "column" : p.lexpos + 1,
+                "line" : p.lineno(2),
+                "column" : p.lexpos(2) + 1,
                 "value": "true",
             }
 
         if len(p) == 5:
             attributesObjects = {
                 "type" : "Bool",
-                "line" : p.lineno,
-                # "column" : p.lexpos + 1,
+                "line" : p.lineno(2),
+                "column" : p.lexpos(2) + 1,
                 "value": p[4],
             }
 
@@ -343,8 +341,8 @@ def p_instructions(p):
         global defineAsBool
         attributesObjects = {
             "type": "Instruction",
-            "line": p.lineno,
-            #         # "column" : p.lexpos + 1,
+            "line" : p.lineno(2),
+            "column" : p.lexpos(2) + 1,
         }
         if len(p) > 3:
             print(p[2])
@@ -370,8 +368,8 @@ def p_instructionDefineAs(p):
     defineAsBool = False
     attributesObjects = {
         "type" : "Instruction",
-        "line" : p.lineno,
-#         # "column" : p.lexpos + 1,
+        "line" : p.lineno(2),
+        "column" : p.lexpos(2) + 1,
         }
     if defineAsBool:
         print("La variable es TRUE")
