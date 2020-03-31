@@ -9,7 +9,7 @@ from myStack import myStack
 from Node import Node
 
 DEBUG_MODE = True
-parser = yacc.parse(lexer)
+# parser: Any = yacc.parse(lexer)
 logging.basicConfig(
         level = logging.DEBUG,
         filename = "parselog.txt",
@@ -55,7 +55,7 @@ def p_worldInstSet(p):
     global worldInstBool
     if(worldInstBool):
         worldInstBool = False
-    if len(p)==3:
+    if len(p)==4:
         p[0]=Node("WorldInstancia",[p[1],p[3]],p[2])
     else:
         if p[2]==";":
@@ -107,7 +107,7 @@ def p_worldBlock(p):
     stack.pop()
     stack.insert(p[2],attributesObjects)
     print("Despues del pop")
-    print(stack)
+    # print(stack)
     
 
 def p_worldSet(p):
@@ -122,8 +122,6 @@ def p_newObjType(p):
     '''newObjType : TkObjType ids TkOf TkColor colors'''
     global worldInstBool
     p[0]=Node("NewObjectType",[p[2],p[5]],[p[1],p[3],p[4]])
-    print("Hey pila aqui")
-    print("Hey pila aqui")
     attributesObjects = {
         "type" : "Object-type",
         "line" : p.lineno(2),
@@ -151,8 +149,7 @@ def p_setPlaceObjWorld(p):
     '''setPlaceObjWorld : TkPlace TkNum TkOf ids TkAt TkNum TkNum
                         | TkPlace TkNum TkOf ids TkIn TkBasketLower
     '''
-    print("Place Len")
-    print(len(p))
+
     if len(p)==8:
         p[0]=Node("PlaceObjWorld",p[4],[p[1],p[2],p[3],p[5],p[6],p[7]])
     else:
@@ -272,15 +269,14 @@ def p_taskBlock(p):
             "line" : p.lineno(2),
             "column" : p.lexpos(2) + 1,
         }
-    if taskBool:
-        stack.insert(p[2], attributesObjects)
-    else:
-        table = []
-        stack.push(table)
-        stack.insert(p[2], attributesObjects)
-        taskBool = True
-    print("fin del task")
+    print("Antes del pop")
     print(stack)
+    stack.pop()
+    stack.insert(p[2], attributesObjects)
+    # print("Despues del pop")
+    print(stack)
+    print("fin del task")
+    # print(stack)
 
 def p_multiInstructions(p):
     '''multiInstructions : instructions
@@ -315,7 +311,7 @@ def p_primitiveInstructions(p):
         p[0]=Node("PrimitiveInstruction",None,p[1])
     if len(p)==3:
         p[0]=Node("PrimitiveInstruction",p[2],p[1])
-    else:
+    elif len(p)>= 4:
         p[0]=Node("PrimitiveInstruction",p[2],[p[1],p[3],p[4]])
     if p[1] == "set":
         if len(p) == 3:
@@ -403,6 +399,7 @@ def p_instructions(p):
         else:
             print(len(p))
             print("Esto es un ;")
+            print(p[1].type)
 
     else:
         stack.pop()
@@ -410,10 +407,10 @@ def p_instructions(p):
         defineAsBool = False
         pass
 
-def p_instructionDefine(p):
-    '''instructionDefine : instructionDefineAs instructions'''
-    p[0]=Node("Define",[p[1],p[2]])
-    stack.pop()
+# def p_instructionDefine(p):
+#     '''instructionDefine : instructionDefineAs instructions'''
+#     p[0]=Node("Define",[p[1],p[2]])
+#     stack.pop()
 
 def p_instructionDefineAs(p):
     '''instructionDefineAs : TkDefine ids TkAs'''
@@ -429,8 +426,9 @@ def p_instructionDefineAs(p):
     if defineAsBool:
         print("La variable es TRUE")
     else:
-        print("la variable es false, procedemos a pusherar" + "\n" + "aqui viebe el stack")
+        print("la variable es false, procedemos a pusherar" + "\n")
         print(stack)
+        print("Aqui estuvo el stack")
         table = []
         stack.push(table)
         defineAsBool = True
