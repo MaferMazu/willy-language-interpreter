@@ -6,6 +6,7 @@ import ply.yacc as yacc
 import logging
 from Structure import Structure
 from myStack import myStack
+from Node import Node
 
 DEBUG_MODE = True
 
@@ -40,8 +41,11 @@ def p_program(p):
             | worldBlock program
             | taskBlock program
     """
+    if len(p)==2:
+        p[0]=p[1]
+    else:
+        p[0]=Node("",[p[1],p[2]])
 
-    pass
 
 def p_worldInstSet(p):
     """worldInstSet : worldInst TkSemicolon worldInstSet
@@ -51,7 +55,13 @@ def p_worldInstSet(p):
     global worldInstBool
     if(worldInstBool):
         worldInstBool = False
-    pass
+    if len(p)==3:
+        p[0]=Node("WorldInstancia",[p[1],p[3]],p[2])
+    else:
+        if p[2]==";":
+            p[0]=Node("WorldInstancia",p[1],p[2])
+        else:
+            p[0]=Node("WorldInstancia",[p[1],p[2]])
 
 def p_worldInst(p):
     """ worldInst : worldSet
