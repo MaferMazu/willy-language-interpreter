@@ -45,16 +45,16 @@ class myStack:
         print(self.stack)
     def __str__(self):
         print(self.stack)
-        mystring = "["
-        for x in self.stack:
-            for y in range(len(x)):
-                if len(x) >= 1:
-                    mystring = mystring + "[ " + x[y][0] + ", " + str(x[y][1].type) + "], "
-
-                else:
-                    mystring = mystring + "[ ],"
-
-        mystring = mystring + "]"
+        mystring = str(self.stack)
+        # for x in self.stack:
+        #     for y in range(len(x)):
+        #         if len(x) >= 1:
+        #             mystring = mystring + "[ " + x[y][0] + ", " + str(x[y][1].type) + "], "
+        #
+        #         else:
+        #             mystring = mystring + "[ ],"
+        #
+        # mystring = mystring + "]"
         return mystring
 
 

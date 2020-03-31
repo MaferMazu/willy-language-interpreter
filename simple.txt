@@ -40,10 +40,10 @@ Final goal is not goal2 and goal3
 Final goal is goal1 and goal2 and goal3;
 end-world
 begin-task task1 on world1
-begin
-move;
-pick flower;
-set willyishungry;
-set willyisangry to false;
-end
+define fun as begin
+    move;
+    pick flower;
+    set willyishungry;
+    set willyisangry to false;
+    end
 end-task

@@ -88,7 +88,7 @@ def p_worldBlock(p):
     attributesObjects = {
         "type" : "World",
         "line" : p.lineno,
-        "column" : p.lexpos + 1,
+        # "column" : p.lexpos + 1,
     }
     
     p[0] = Structure(p[2], "WorldBlock", attributesObjects)
@@ -108,10 +108,14 @@ def p_worldSet(p):
 def p_newObjType(p):
     '''newObjType : TkObjType ids TkOf TkColor colors'''
     global worldInstBool
+    print("Hey pila aqui")
+    print(p.lexpos)
+    print(p.lineno)
+    print("Hey pila aqui")
     attributesObjects = {
         "type" : "Object-type",
         "line" : p.lineno,
-        "column" : p.lexpos + 1,
+#         # "column" : p.lexpos + 1,
         "color": p[5],
     }
     if worldInstBool:
@@ -158,7 +162,7 @@ def p_newBoolean(p):
     attributesObjects = {
         "type" : "Bool",
         "line" : p.lineno,
-        "column" : p.lexpos + 1,
+        # "column" : p.lexpos + 1,
         "value": p[6],
     }
     if worldInstBool:
@@ -180,7 +184,7 @@ def p_newGoal(p):
             attributesObjects = {
                 "type" : "Goal-IsAt",
                 "line" : p.lineno,
-                "column" : p.lexpos + 1,
+                # "column" : p.lexpos + 1,
                 "column_": p[7],
                 "row": p[8]
             }
@@ -188,7 +192,7 @@ def p_newGoal(p):
             attributesObjects = {
                 "type" : "Goal-InBasket",
                 "line" : p.lineno,
-                "column" : p.lexpos + 1,
+                # "column" : p.lexpos + 1,
                 "amount": p[4],
                 "id-object": p[5],
             }
@@ -196,7 +200,7 @@ def p_newGoal(p):
         attributesObjects = {
             "type" : "Goal-ObjectIn",
             "line" : p.lineno,
-            "column" : p.lexpos + 1,
+            # "column" : p.lexpos + 1,
             "amount": p[4],
             "id-object": p[5],
             "column_": p[8],
@@ -234,7 +238,7 @@ def p_taskBlock(p):
     attributesObjects = {
             "type" : "Task",
             "line" : p.lineno,
-            "column" : p.lexpos + 1,
+            # "column" : p.lexpos + 1,
         }
     if taskBool:
         stack.insert(p[2], attributesObjects)
@@ -243,6 +247,8 @@ def p_taskBlock(p):
         stack.push(table)
         stack.insert(p[2], attributesObjects)
         taskBool = True
+    print("fin del task")
+    print(stack)
 
 def p_multiInstructions(p):
     '''multiInstructions : instructions
@@ -275,7 +281,7 @@ def p_primitiveInstructions(p):
             attributesObjects = {
                 "type" : "Bool",
                 "line" : p.lineno,
-                "column" : p.lexpos + 1,
+                # "column" : p.lexpos + 1,
                 "value": "true",
             }
 
@@ -283,7 +289,7 @@ def p_primitiveInstructions(p):
             attributesObjects = {
                 "type" : "Bool",
                 "line" : p.lineno,
-                "column" : p.lexpos + 1,
+                # "column" : p.lexpos + 1,
                 "value": p[4],
             }
 
@@ -319,7 +325,7 @@ def p_primitiveBoolean(p):
     p[0]=p[1]
 
 def p_instructions(p):
-    '''instructions : primitiveInstructions
+    """instructions : primitiveInstructions
                     | TkIf booleanTests TkThen instructions
                     | TkIf primitiveInstructions TkThen instructions
                     | TkIf booleanTests TkThen primitiveInstructions
@@ -329,29 +335,49 @@ def p_instructions(p):
                     | TkRepeat TkNum TkTimes instructions
                     | TkWhile booleanTests TkDo instructions
                     | TkBegin multiInstructions TkEnd
-                    | instructionDefine
+                    | instructionDefineAs instructions
                     | TkSemicolon
-                    '''
-    pass
+                    """
+
+    if p[1] != "instructionDefineAs":
+        global defineAsBool
+        attributesObjects = {
+            "type": "Instruction",
+            "line": p.lineno,
+            #         # "column" : p.lexpos + 1,
+        }
+        if len(p) > 3:
+            print(p[2])
+            print(p[0])
+            stack.insert(p[2], p[0])
+        else:
+            print("Esto es un ;")
+
+    else:
+        stack.pop()
+        stack.insert(p[1],p[0])
+        defineAsBool = False
+        pass
 
 def p_instructionDefine(p):
-    '''instructionDefine: instructionDefineAs instructions'''
+    '''instructionDefine : instructionDefineAs instructions'''
     stack.pop()
 
 def p_instructionDefineAs(p):
-    '''instructionDefine: TkDefine ids TkAs'''
+    '''instructionDefineAs : TkDefine ids TkAs'''
+    print("EUREKA")
     global defineAsBool
+    defineAsBool = False
     attributesObjects = {
         "type" : "Instruction",
         "line" : p.lineno,
-        "column" : p.lexpos + 1,
+#         # "column" : p.lexpos + 1,
         }
     if defineAsBool:
-        stack.insert(p[3],p[0])
+        print("La variable es TRUE")
     else:
         table = []
         stack.push(table)
-        stack.insert(p[3], p[0])
         defineAsBool = True
 
 def p_directions(p):
