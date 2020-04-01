@@ -388,9 +388,23 @@ def p_instructions(p):
                     | TkBegin multiInstructions TkEnd
                     | instructionDefineAs instructions
                     """
+    if len(p)==2:
+        p[0]= Node("Instructions",p[1])
+    if len(p)==3:
+        p[0]= Node("Instructions",[p[1],p[2]])
+    if len(p)==4:
+        p[0]= Node("Instructions",p[2],[p[1],p[3]])
+    if len(p)==5:
+        if p[1]=="TkRepeat":
+            p[0]= Node("Instructions",p[4],[p[1],p[2],p[3]])
+        else:
+            p[0] = Node("Instructions",[p[2],p[4]],[p[1],p[3]])
+    else:
+        p[0]= Node("Instructions",[p[2],p[4],p[6]],[p[1],p[3],p[5]])
+
     print("Primer elemento de p: ")
     print(p)
-    if p[1] != "instructionDefineAs":
+    if len(p)!=3:
         global defineAsBool
 
         if len(p) > 3:
