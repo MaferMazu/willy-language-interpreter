@@ -102,7 +102,7 @@ def p_worldBlock(p):
         "column" : p.lexpos(2) + 1,
     }
     if len(p)==5:
-        p[0] = Node("WorldBlock",[p[2]],[p[1],p[3],p[4]])
+        p[0] = Node("WorldBlock",[p[2],p[3]],[p[1],p[4]])
     else:
         p[0] = Node("WorldBlock",[p[2]],[p[1],p[3]])
     # print("Antes del pop")
