@@ -430,11 +430,11 @@ def p_instructionDefineAs(p):
     p[0]=Node("DefineAs",[p[2]],[p[1],p[3]])
     global defineAsBool
     defineAsBool = False
-    """ attributesObjects = {
-        "type" : "Instruction",
+    attributesObjects = {
+        "type" : "Define As",
         "line" : p.lineno(2),
         "column" : p.lexpos(2) + 1,
-        } """
+        }
     if defineAsBool:
         print("La variable es TRUE")
     else:
@@ -442,7 +442,9 @@ def p_instructionDefineAs(p):
         print(stack)
         print("Aqui estuvo el stack")
         table = []
+        # stack.insert(p[0].type, attributesObjects)
         stack.push(table)
+
         defineAsBool = True
 
 def p_directions(p):
