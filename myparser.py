@@ -6,7 +6,7 @@ import ply.yacc as yacc
 import logging
 from Structure import Structure
 from myStack import myStack
-from Node import Node
+from Node import *
 
 DEBUG_MODE = True
 # parser: Any = yacc.parse(lexer)
@@ -32,7 +32,9 @@ def p_correctProgram(p):
     "correctProgram : program"
     print("Tu programa esta correcto")
     p[0] = p[1]
-    # print(stack)
+    print(p[1].type,p[1].children)
+    print(p[1].children[0].type,p[1].children[1].type)
+    print(isinstance(p[0],Node))
 
 def p_program(p):
     """
