@@ -414,7 +414,7 @@ def p_instructions(p):
             "column": p.lineno(1) + 1,
         }
         stack.pop()
-        stack.insert(p[1],attributesObjects)
+        stack.insert(p[1].children,attributesObjects)
         defineAsBool = False
 
 
