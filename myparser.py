@@ -390,33 +390,27 @@ def p_instructions(p):
                     """
     if len(p)==2:
         p[0]= Node("Instructions",p[1])
-    if len(p)==3:
+    elif len(p)==3:
         p[0]= Node("Instructions",[p[1],p[2]])
-    if len(p)==4:
+    elif len(p)==4:
         p[0]= Node("Instructions",p[2],[p[1],p[3]])
-    if len(p)==5:
+    elif len(p)==5:
         if p[1]=="TkRepeat":
             p[0]= Node("Instructions",p[4],[p[1],p[2],p[3]])
         else:
             p[0] = Node("Instructions",[p[2],p[4]],[p[1],p[3]])
-    else:
+    elif len(p)==7:
         p[0]= Node("Instructions",[p[2],p[4],p[6]],[p[1],p[3],p[5]])
 
     print("Primer elemento de p: ")
     print(p)
     if len(p)==3:
         global defineAsBool
-
-        if len(p) > 3:
-            print(p[2])
-            print(p[0])
-            stack.insert(p[2], p[0])
-        else:
-            print(len(p))
-            print("Esto es un ;")
-            print(p[1].type)
-
-    else:
+        attributesObjects = {
+            "type": "Instruction",
+            "line": p.lineno(1),
+            "column": p.lineno(1) + 1,
+        }
         stack.pop()
         stack.insert(p[1],attributesObjects)
         defineAsBool = False
