@@ -203,7 +203,7 @@ def p_newGoal(p):
                 "row": p[8]
             }
         else:
-            p[0]=Node("NewGoal",[p[2],p[5]],[p[1],p[3],p[4],p[6],p[7],p[8]])
+            p[0]=Node("NewGoal: Object in Basket",[p[2],p[5]],[p[1],p[3],p[4],p[6],p[7],p[8]])
             attributesObjects = {
                 "type" : "Goal-InBasket",
                 "line" : p.lineno(2),
@@ -212,7 +212,7 @@ def p_newGoal(p):
                 "id-object": p[5],
             }
     else:
-        p[0]=Node("NewGoal",[p[2],p[5]],[p[1],p[3],p[4],p[6],p[7],p[8],p[9]])
+        p[0]=Node("NewGoal: Object at position",[p[2],p[5]],[p[1],p[3],p[4],p[6],p[7],p[8],p[9]])
         attributesObjects = {
             "type" : "Goal-ObjectIn",
             "line" : p.lineno(2),
