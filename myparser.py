@@ -32,6 +32,9 @@ def p_correctProgram(p):
     "correctProgram : program"
     print("Tu programa esta correcto")
     p[0] = p[1]
+    print(p[1].type, p[1].children)
+    print(p[1].children[0].type, p[1].children[1].type)
+    print(instance(p[0],Node))
     # print(stack)
 
 def p_program(p):
