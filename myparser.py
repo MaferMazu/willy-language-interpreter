@@ -399,18 +399,18 @@ def p_instructions(p):
             p[0]= Node("Instructions",p[4],[p[1],p[2],p[3]])
         else:
             p[0] = Node("Instructions",[p[2],p[4]],[p[1],p[3]])
-    elif len(p) ==7:
+    else:
         p[0]= Node("Instructions",[p[2],p[4],p[6]],[p[1],p[3],p[5]])
 
     print("Primer elemento de p: ")
     print(p)
-    if len(p)!=3:
+    if len(p)==3:
         global defineAsBool
 
         if len(p) > 3:
             print(p[2])
             print(p[0])
-            stack.insert(p[0].type, p)
+            stack.insert(p[2], p[0])
         else:
             print(len(p))
             print("Esto es un ;")
@@ -418,9 +418,9 @@ def p_instructions(p):
 
     else:
         stack.pop()
-        stack.insert(p[1],p[0])
+        stack.insert(p[1],attributesObjects)
         defineAsBool = False
-        pass
+
 
 # def p_instructionDefine(p):
 #     '''instructionDefine : instructionDefineAs instructions'''
