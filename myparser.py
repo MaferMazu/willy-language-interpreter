@@ -6,7 +6,7 @@ import ply.yacc as yacc
 import logging
 from Structure import Structure
 from myStack import myStack
-from Node import Node
+from Node import *
 
 DEBUG_MODE = True
 # parser: Any = yacc.parse(lexer)
@@ -34,7 +34,7 @@ def p_correctProgram(p):
     p[0] = p[1]
     print(p[1].type, p[1].children)
     print(p[1].children[0].type, p[1].children[1].type)
-    print(instance(p[0],Node))
+    print(isinstance(p[0], Node))
     # print(stack)
 
 def p_program(p):
@@ -415,7 +415,7 @@ def p_instructions(p):
             "column": p.lineno(1) + 1,
         }
         stack.pop()
-        stack.insert(p[1],attributesObjects)
+        stack.insert(p[1].children,attributesObjects)
         defineAsBool = False
 
 
