@@ -388,7 +388,8 @@ def p_instructions(p):
                     | TkBegin multiInstructions TkEnd
                     | instructionDefineAs instructions
                     """
-
+    print("Primer elemento de p: ")
+    print(p)
     if p[1] != "instructionDefineAs":
         global defineAsBool
 
