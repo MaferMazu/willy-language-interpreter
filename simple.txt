@@ -45,5 +45,17 @@ define fun as begin
     pick flower;
     set willyishungry;
     set willyisangry to false;
+    define fun as begin
+        move;
+        pick flower;
+        set willyishungry;
+        set willyisangry to false;
+        define fun as begin
+            move;
+            pick flower;
+            set willyishungry;
+            set willyisangry to false;
+        end
     end
+end
 end-task

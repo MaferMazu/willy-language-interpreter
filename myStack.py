@@ -2,6 +2,7 @@ DEBUG_MODE = True
 class myStack:
     def __init__(self):
         self.stack = []
+        self.level = 0
 
     def find(self,symbol):
         table = self.stack[len(self.stack) - 1]
@@ -15,7 +16,10 @@ class myStack:
     def insert(self, symbol, data):
         if not self.find(symbol):
             pair = [symbol, data]
-            table = self.stack[len(self.stack) - 1]
+            print(self.level)
+            print(len(self.stack))
+            print(self.stack)
+            table = self.stack[self.level - 1]
             print()
             table.append(pair)
             
@@ -25,14 +29,17 @@ class myStack:
 
     def push_empty_table(self):
         table = []
+        self.level = 1
         self.stack.append(table)
         print("Se ha inicializado la tabla con un elemnto")
         
 
     def pop(self):
         if not self.empty():
-            self.stack.pop()
+            # self.stack.pop()
+            self.level = self.level - 1
         else:
+            self.level = 0
             print("Error: pop in empty stack")
 
     def empty(self):
@@ -42,7 +49,10 @@ class myStack:
     def push(self,table):
         print(self.stack)
         self.stack.append(table)
+        self.level = self.level + 1
         print(self.stack)
+
+
     def __str__(self):
         print(self.stack)
         mystring = str(self.stack)

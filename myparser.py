@@ -462,11 +462,11 @@ def p_empty(p):
 #     'statement : PRINT error'
 #     print("Syntax error in print statement. Bad expression")
 
-def p_error(p):
-    if p:
-        print("Syntax error at token", p.type)
-        # Just discard the token and tell the parser it's okay.
-        parser.errok()
+def p_error(p,errorType=None):
+    if p and errorType==None:
+        error = 'Error del Parser "' + str(p.type) + '" en fila ' \
+            + str(p.lineno(1)) + ', columna ' + str(p.lexpos(1) + 1)
+        ParserErrors.append(error)
     else:
         print("Syntax error at EOF")
 
