@@ -32,9 +32,10 @@ def p_correctProgram(p):
     "correctProgram : program"
     print("Tu programa esta correcto")
     p[0] = p[1]
-    print(p[1].type, p[1].children)
+    # print(p[1].type, p[1].children)
     print(p[1].children[0].type, p[1].children[1].type)
     print(isinstance(p[0], Node))
+    print(Node)
     # print(stack)
 
 def p_program(p):
@@ -48,6 +49,9 @@ def p_program(p):
         p[0]=Node("ProgramBlock",p[1])
     else:
         p[0]=Node("ProgramBlock",[p[1],p[2]])
+    print("Se supone que este es el arbol")
+    root = str(p[0])
+    print(root)
 
 
 def p_worldInstSet(p):
