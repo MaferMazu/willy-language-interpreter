@@ -35,6 +35,7 @@ def p_correctProgram(p):
     print(p[1].type,p[1].children)
     print(p[1].children[0].type,p[1].children[1].type)
     print(isinstance(p[0],Node))
+    print(str(p[0]))
 
 def p_program(p):
     """
@@ -44,7 +45,7 @@ def p_program(p):
             | taskBlock program
     """
     if len(p)==2:
-        p[0]=Node("ProgramBlock",p[1])
+        p[0]=Node("ProgramBlock",[p[1]])
     else:
         p[0]=Node("ProgramBlock",[p[1],p[2]])
 
@@ -61,7 +62,7 @@ def p_worldInstSet(p):
         p[0]=Node("WorldInstancia",[p[1],p[3]],p[2])
     else:
         if p[2]==";":
-            p[0]=Node("WorldInstancia",p[1],p[2])
+            p[0]=Node("WorldInstancia",[p[1]],p[2])
         else:
             p[0]=Node("WorldInstancia",[p[1],p[2]])
 
@@ -76,7 +77,7 @@ def p_worldInst(p):
                 | newGoal
                 | finalGoal
     """
-    p[0]=Node("WorldInstructions",p[1])
+    p[0]=Node("WorldInstructions",[p[1]])
 
 def p_wallSet(p):
     """wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum"""
@@ -84,7 +85,7 @@ def p_wallSet(p):
             (p[2]=="south" and p[4]==p[7] and p[5]>=p[8]) or
             (p[2]=="east" and p[5]==p[8] and p[4]>=p[7]) or
             (p[2]=="west" and p[5]==p[8] and p[4]<=p[7])):
-        p[0]= Node("WallSet",p[2],[p[1],p[3],p[4],p[5],p[6],p[7],p[8]])
+        p[0]= Node("WallSet",[p[2]],[p[1],p[3],p[4],p[5],p[6],p[7],p[8]])
     else:
         ##Deberia lanzarme error pero mientras colocaré pass
         # p_statement_print_error(p)
@@ -101,9 +102,9 @@ def p_worldBlock(p):
         "column" : p.lexpos(2) + 1,
     }
     if len(p)==5:
-        p[0] = Node("WorldBlock",p[2],[p[1],p[3],p[4]])
+        p[0] = Node("WorldBlock",[p[2]],[p[1],p[3],p[4]])
     else:
-        p[0] = Node("WorldBlock",p[2],[p[1],p[3]])
+        p[0] = Node("WorldBlock",[p[2]],[p[1],p[3]])
     # print("Antes del pop")
     # print(stack)
     stack.pop()
@@ -116,7 +117,7 @@ def p_worldSet(p):
     '''worldSet : TkWorld TkNum TkNum 
                 | empty'''
     if len(p)==4:
-        p[0]=Node("WorldSet",None,[p[1],p[2],p[3]])
+        p[0]=Node("WorldSet",[],[p[1],p[2],p[3]])
     else:
         p[0]=p[1]
 
@@ -153,23 +154,23 @@ def p_setPlaceObjWorld(p):
     '''
 
     if len(p)==8:
-        p[0]=Node("PlaceObjWorld",p[4],[p[1],p[2],p[3],p[5],p[6],p[7]])
+        p[0]=Node("PlaceObjWorld",[p[4]],[p[1],p[2],p[3],p[5],p[6],p[7]])
     else:
-        p[0]=Node("PlaceObjWorld",p[4],[p[1],p[2],p[3],p[5],p[6]])
+        p[0]=Node("PlaceObjWorld",[p[4]],[p[1],p[2],p[3],p[5],p[6]])
 
 def p_setStartPosition(p):
     '''setStartPosition : TkStart TkAt TkNum TkNum TkHeading directions'''
-    p[0]=Node("WillyStartPosition",p[6],[p[1],p[2],p[3],p[4],p[5]])
+    p[0]=Node("WillyStartPosition",[p[6]],[p[1],p[2],p[3],p[4],p[5]])
 
 def p_setBasketCapacity(p):
     """setBasketCapacity : TkBasket TkOf TkCapacity TkNum"""
-    p[0]=Node("BasketCapacity",None,[p[1],p[2],p[3],p[4]])
+    p[0]=Node("BasketCapacity",[],[p[1],p[2],p[3],p[4]])
 
 def p_newBoolean(p):
     '''newBoolean : TkBoolean ids TkWith TkInitial TkValue TkTrue 
                 | TkBoolean ids TkWith TkInitial TkValue TkFalse
     '''
-    p[0]=Node("NewBoolean",p[2],[p[1],p[3],p[4],p[5],p[6]])
+    p[0]=Node("NewBoolean",[p[2]],[p[1],p[3],p[4],p[5],p[6]])
     global worldInstBool
     attributesObjects = {
         "type" : "Bool",
@@ -193,7 +194,7 @@ def p_newGoal(p):
     global worldInstBool
     if len(p)==9:
         if p[4]=="TkWilly":
-            p[0]=Node("NewGoal",p[2],[p[1],p[3],p[4],p[5],p[6],p[7],p[8]])
+            p[0]=Node("NewGoal",[p[2]],[p[1],p[3],p[4],p[5],p[6],p[7],p[8]])
             attributesObjects = {
                 "type" : "Goal-IsAt",
                 "line" : p.lineno(2),
@@ -231,7 +232,7 @@ def p_newGoal(p):
 
 def p_finalGoal(p):
     '''finalGoal : TkFinalG TkIs finalGoalTest'''
-    p[0]=Node("FinalGoal",p[3],[p[1],p[2]])
+    p[0]=Node("FinalGoal",[p[3]],[p[1],p[2]])
 
 def p_finalGoalTest(p):
     '''finalGoalTest : ids
@@ -241,9 +242,9 @@ def p_finalGoalTest(p):
                      | TkParenL finalGoalTest TkParenR
     '''
     if len(p)==2:
-        p[0]=Node("FinalGoal",p[1])
+        p[0]=Node("FinalGoal",[p[1]])
     else:
-        p[0]=Node("FinalGoal",p[2],[p[1],p[3]])
+        p[0]=Node("FinalGoal",[p[2]],[p[1],p[3]])
 
 def p_disyuncionGoal(p):
     '''disyuncionGoal : finalGoalTest TkOr finalGoalTest'''
@@ -255,7 +256,7 @@ def p_conjuncionGoal(p):
 
 def p_negacionGoal(p):
     '''negacionGoal : TkNot finalGoalTest'''
-    p[0]=Node("Negación",p[2],p[1])
+    p[0]=Node("Negación",[p[2]],p[1])
 
 def p_ids(p):
     "ids : TkId"
@@ -310,11 +311,11 @@ def p_primitiveInstructions(p):
                     | TkTerminate'''
     global taskBool
     if len(p)==2:
-        p[0]=Node("PrimitiveInstruction",None,p[1])
+        p[0]=Node("PrimitiveInstruction",[],p[1])
     if len(p)==3:
-        p[0]=Node("PrimitiveInstruction",p[2],p[1])
+        p[0]=Node("PrimitiveInstruction",[p[2]],p[1])
     elif len(p)>= 4:
-        p[0]=Node("PrimitiveInstruction",p[2],[p[1],p[3],p[4]])
+        p[0]=Node("PrimitiveInstruction",[p[2]],[p[1],p[3],p[4]])
     if p[1] == "set":
         if len(p) == 3:
             attributesObjects = {
@@ -352,11 +353,11 @@ def p_booleanTests(p):
                     | TkParenL booleanTests TkParenR
                     """
     if len(p)==2:
-        p[0]=Node("BooleanTest",p[1])
+        p[0]=Node("BooleanTest",[p[1]])
     if len(p)==5:
-        p[0]=Node("BooleanTest",p[3],[p[1],p[2],p[4]])
+        p[0]=Node("BooleanTest",[p[3]],[p[1],p[2],p[4]])
     if len(p)==4:
-        p[0]=Node("BooleanTest",p[2],[p[1],p[3]])
+        p[0]=Node("BooleanTest",[p[2]],[p[1],p[3]])
 
 def p_disyuncionBool(p):
     '''disyuncionBool : booleanTests TkOr booleanTests'''
@@ -368,7 +369,7 @@ def p_conjuncionBool(p):
 
 def p_negacionBool(p):
     '''negacionBool : TkNot booleanTests'''
-    p[0]=Node("Negación",p[2],p[1])
+    p[0]=Node("Negación",[p[2]],p[1])
 
 def p_primitiveBoolean(p):
     """primitiveBoolean : TkFrontCl
@@ -391,14 +392,14 @@ def p_instructions(p):
                     | instructionDefineAs instructions
                     """
     if len(p)==2:
-        p[0]= Node("Instructions",p[1])
+        p[0]= Node("Instructions",[p[1]])
     elif len(p)==3:
         p[0]= Node("Instructions",[p[1],p[2]])
     elif len(p)==4:
-        p[0]= Node("Instructions",p[2],[p[1],p[3]])
+        p[0]= Node("Instructions",[p[2]],[p[1],p[3]])
     elif len(p)==5:
         if p[1]=="TkRepeat":
-            p[0]= Node("Instructions",p[4],[p[1],p[2],p[3]])
+            p[0]= Node("Instructions",[p[4]],[p[1],p[2],p[3]])
         else:
             p[0] = Node("Instructions",[p[2],p[4]],[p[1],p[3]])
     elif len(p)==7:
@@ -426,7 +427,7 @@ def p_instructions(p):
 def p_instructionDefineAs(p):
     '''instructionDefineAs : TkDefine ids TkAs'''
     print("EUREKA")
-    p[0]=Node("DefineAs",p[2],[p[1],p[3]])
+    p[0]=Node("DefineAs",[p[2]],[p[1],p[3]])
     global defineAsBool
     defineAsBool = False
     """ attributesObjects = {
@@ -449,7 +450,7 @@ def p_directions(p):
                 | TkEast 
                 | TkSouth 
                 | TkWest'''
-    p[0]=Node("Direction",None,p[1])
+    p[0]=Node("Direction",[],p[1])
 
 
 def p_empty(p):
