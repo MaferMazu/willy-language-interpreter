@@ -32,9 +32,9 @@ def p_correctProgram(p):
     "correctProgram : program"
     print("Tu programa esta correcto")
     p[0] = p[1]
-    print(p[1].type, p[1].children)
-    print(p[1].children[0].type, p[1].children[1].type)
-    print(isinstance(p[0], Node))
+    print(p[1].type,p[1].children)
+    print(p[1].children[0].type,p[1].children[1].type)
+    print(isinstance(p[0],Node))
     print(str(p[0]))
 
 def p_program(p):
@@ -445,11 +445,11 @@ def p_instructionDefineAs(p):
     p[0]=Node("DefineAs",[p[2]],[p[1],p[3]])
     global defineAsBool
     defineAsBool = False
-    attributesObjects = {
-        "type" : "Define As",
+    """ attributesObjects = {
+        "type" : "Instruction",
         "line" : p.lineno(2),
         "column" : p.lexpos(2) + 1,
-        }
+        } """
     if defineAsBool:
         print("La variable es TRUE")
     else:
@@ -457,9 +457,7 @@ def p_instructionDefineAs(p):
         print(stack)
         print("Aqui estuvo el stack")
         table = []
-        # stack.insert(p[0].type, attributesObjects)
         stack.push(table)
-
         defineAsBool = True
 
 def p_directions(p):
@@ -479,11 +477,11 @@ def p_empty(p):
 #     'statement : PRINT error'
 #     print("Syntax error in print statement. Bad expression")
 
-def p_error(p):
-    if p:
-        print("Syntax error at token", p.type)
-        # Just discard the token and tell the parser it's okay.
-        parser.errok()
+def p_error(p,errorType=None):
+    if p and errorType==None:
+        error = 'Error del Parser "' + str(p.type) + '" en fila ' \
+            + str(p.lineno(1)) + ', columna ' + str(p.lexpos(1) + 1)
+        ParserErrors.append(error)
     else:
         print("Syntax error at EOF")
 

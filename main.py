@@ -8,6 +8,7 @@ import logging
 
 ValidTokens = []  # Coleccion de tokens validos
 InvalidTokens = []  # Coleccion de tokens invalidos
+ParserErrors = [] #Errores en el parser
 
 """
 logging.basicConfig(
@@ -103,6 +104,11 @@ try:
     else:
         print("tokens")
        #print(output)
+    
+    if (len(ParserErrors)>=1):
+        print(ParserErrors[0])
+
+
 
 
 
