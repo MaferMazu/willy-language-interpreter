@@ -7,6 +7,8 @@ import logging
 from Structure import Structure
 from myStack import myStack
 from Node import *
+from World import *
+from ModelProcedure import *
 
 DEBUG_MODE = True
 # parser: Any = yacc.parse(lexer)
@@ -21,21 +23,27 @@ logging.basicConfig(
 # import some required globals from tokenizer
 tokens = lexer.tokens
 
+procedures= ModelProcedure()
+
 stack = myStack()
 stack.push_empty_table()
+
+programBlock = []
 
 worldInstBool = False
 taskBool = False
 defineAsBool = False
+blockNumber = 0
+
 
 def p_correctProgram(p):
     "correctProgram : program"
     print("Tu programa esta correcto")
     p[0] = p[1]
-    print(p[1].type,p[1].children)
-    print(p[1].children[0].type,p[1].children[1].type)
-    print(isinstance(p[0],Node))
-    print(str(p[0]))
+    # print(p[1].type,p[1].children)
+    # print(p[1].children[0].type,p[1].children[1].type)
+    # print(isinstance(p[0],Node))
+    # print(str(p[0]))
 
 def p_program(p):
     """
@@ -48,6 +56,13 @@ def p_program(p):
         p[0]=Node("ProgramBlock",[p[1]])
     else:
         p[0]=Node("ProgramBlock",[p[1],p[2]])
+    print("Stack luego de leer un bloque" + "\n")
+    print(stack)
+    print("programBlock")
+    print(programBlock[0][0])
+    r = programBlock[0][1]["type"]
+    print(r)
+    print("\n")
 
 
 def p_worldInstSet(p):
@@ -56,6 +71,7 @@ def p_worldInstSet(p):
                     | worldInst TkSemicolon
     """
     global worldInstBool
+
     if(worldInstBool):
         worldInstBool = False
     if len(p)==4:
@@ -90,16 +106,36 @@ def p_wallSet(p):
         ##Deberia lanzarme error pero mientras colocaré pass
         # p_statement_print_error(p)
         print('Bad definition of wall in World')
+
+
+def p_wordlDefinition(p):
+    """
+    wordlDefinition : TkBeginWorld ids
+    """
+    type = {
+        "type": "World"
+    }
+
+    # if p[2]
+    p[0] = Node("World", [p[2]], [p[1]])
+    data = [p[0].children[0], type]
+
+    programBlock.append(data)
     
 
 def p_worldBlock(p):
-    """worldBlock : TkBeginWorld ids worldInstSet TkEndWorld
+    """worldBlock : wordlDefinition worldInstSet TkEndWorld
                     | TkBeginWorld ids TkEndWorld
     """
+    id = p[1].children[0]
+    global blockNumber
     attributesObjects = {
         "type" : "World",
         "line" : p.lineno(2),
         "column" : p.lexpos(2) + 1,
+    }
+    dataFlag = {
+        "ownerPrev" : id,
     }
     if len(p)==5:
         p[0] = Node("WorldBlock",[p[2],p[3]],[p[1],p[4]])
@@ -107,10 +143,17 @@ def p_worldBlock(p):
         p[0] = Node("WorldBlock",[p[2]],[p[1],p[3]])
     # print("Antes del pop")
     # print(stack)
+    if blockNumber == 0:
+        stack.insert("WorldBlock" + str(blockNumber), dataFlag)
+        blockNumber = blockNumber + 1
+    else:
+        stack.insert("WorldBlock" + str(blockNumber), dataFlag)
+        blockNumber = blockNumber + 1
+
     stack.pop()
-    stack.insert(p[2],attributesObjects)
+    stack.insert(id,attributesObjects)
     print("Despues del pop")
-    # print(stack)
+#     # print(stack)
     
 
 def p_worldSet(p):
@@ -128,8 +171,9 @@ def p_worldSet(p):
 
 
 def p_newObjType(p):
-    '''newObjType : TkObjType ids TkOf TkColor colors'''
+    """newObjType : TkObjType ids TkOf TkColor colors"""
     global worldInstBool
+    id = p[2]
     p[0]=Node("NewObjectType",[p[2],p[5]],[p[1],p[3],p[4]])
     attributesObjects = {
         "type" : "Object-type",
@@ -138,7 +182,10 @@ def p_newObjType(p):
         "color": p[5],
     }
     if worldInstBool:
-        stack.insert(p[2],attributesObjects)
+        if procedures.find(id, programBlock):
+            print("Este elemento ya existe")
+        else:
+            stack.insert(p[2],attributesObjects)
     else:
         table = []
         stack.push(table)
@@ -146,24 +193,25 @@ def p_newObjType(p):
         worldInstBool = True
 
 def p_colors(p):
-    '''colors : TkRed
+    """colors : TkRed
                 | TkBlue
                 | TkMagenta
                 | TkCyan
                 | TkGreen
-                | TkYellow'''
+                | TkYellow
+    """
     p[0]=p[1]
 
 def p_setPlaceObjWorld(p):
-    '''setPlaceObjWorld : TkPlace TkNum TkOf ids TkAt TkNum TkNum
+    """setPlaceObjWorld : TkPlace TkNum TkOf ids TkAt TkNum TkNum
                         | TkPlace TkNum TkOf ids TkIn TkBasketLower
-    '''
+    """
     if p[2] != 0:
         if len(p) == 8:
             if (p[6] or p[7]) > 0:
                 p[0] = Node("PlaceObjWorld", [p[4]], [p[1], p[2], p[3], p[5], p[6], p[7]])
 
-                # TODO: Falta validar la posicion en el mundo con respecto a las posiciones del mundo
+                # TODO : Falta validar la posicion en el mundo con respecto a las posiciones del mundo
             else:
                 print("No puedes setear 0 elementos o una cantidad negativa")
 
@@ -182,9 +230,9 @@ def p_setBasketCapacity(p):
     p[0]=Node("BasketCapacity",[],[p[1],p[2],p[3],p[4]])
 
 def p_newBoolean(p):
-    '''newBoolean : TkBoolean ids TkWith TkInitial TkValue TkTrue 
-                | TkBoolean ids TkWith TkInitial TkValue TkFalse
-    '''
+    """newBoolean : TkBoolean ids TkWith TkInitial TkValue TkTrue
+                  | TkBoolean ids TkWith TkInitial TkValue TkFalse
+    """
     p[0]=Node("NewBoolean",[p[2]],[p[1],p[3],p[4],p[5],p[6]])
     global worldInstBool
     attributesObjects = {
@@ -262,15 +310,15 @@ def p_finalGoalTest(p):
         p[0]=Node("FinalGoal",[p[2]],[p[1],p[3]])
 
 def p_disyuncionGoal(p):
-    '''disyuncionGoal : finalGoalTest TkOr finalGoalTest'''
+    """disyuncionGoal : finalGoalTest TkOr finalGoalTest"""
     p[0]=Node("Disyuncion",[p[1],p[3]],p[2])
 
 def p_conjuncionGoal(p):
-    '''conjuncionGoal : finalGoalTest TkAnd finalGoalTest'''
+    """conjuncionGoal : finalGoalTest TkAnd finalGoalTest"""
     p[0]=Node("Conjuncion",[p[1],p[3]],p[2])
 
 def p_negacionGoal(p):
-    '''negacionGoal : TkNot finalGoalTest'''
+    """negacionGoal : TkNot finalGoalTest"""
     p[0]=Node("Negación",[p[2]],p[1])
 
 def p_ids(p):
@@ -280,7 +328,7 @@ def p_ids(p):
     p.set_lexpos(0, p.lexpos(1))
 
 def p_taskBlock(p):
-    '''taskBlock : TkBeginTask ids TkOn ids multiInstructions TkEndTask'''
+    """taskBlock : taskDefinition TkOn ids multiInstructions TkEndTask"""
     global taskBool
     attributesObjects = {
             "type" : "Task",
@@ -288,18 +336,30 @@ def p_taskBlock(p):
             "column" : p.lexpos(2) + 1,
         }
     print("Antes del pop")
-    print(stack)
+    # print(stack)
     stack.pop()
-    stack.insert(p[2], attributesObjects)
+    stack.insert(p[1].children[0], attributesObjects)
     # print("Despues del pop")
-    print(stack)
+    # print(stack)
     print("fin del task")
     # print(stack)
 
+def p_tsdkDefinition(p):
+    """
+    taskDefinition : TkBeginTask ids
+    """
+    type = {
+        "type" : "Task"
+    }
+    p[0] = Node("Task", [p[2]], [p[1]])
+    data = [p[0].children[0], type]
+    programBlock.append(data)
+
 def p_multiInstructions(p):
-    '''multiInstructions : instructions
-                        | empty
-                        | instructions TkSemicolon multiInstructions'''
+    """multiInstructions : instructions
+                         | empty
+                         | instructions TkSemicolon multiInstructions
+    """
     if len(p)==2:
         p[0]=p[1]
     else:
@@ -307,23 +367,24 @@ def p_multiInstructions(p):
 
 
 def p_primitiveInstructions(p):
-    '''primitiveInstructions : TkMove
-                    | TkTurnL
-                    | TkTurnR
-                    | TkPick ids
-                    | TkDrop ids
-                    | TkSet ids
-                    | TkSet primitiveBoolean
-                    | TkSet primitiveBoolean TkTo TkTrue
-                    | TkSet primitiveBoolean TkTo TkFalse
-                    | TkSet ids TkTo TkTrue
-                    | TkSet ids TkTo TkFalse
-                    | TkClear ids
-                    | TkClear primitiveBoolean
-                    | TkFlip primitiveBoolean
-                    | TkFlip ids
-                    | TkId
-                    | TkTerminate'''
+    """primitiveInstructions : TkMove
+                             | TkTurnL
+                             | TkTurnR
+                             | TkPick ids
+                             | TkDrop ids
+                             | TkSet ids
+                             | TkSet primitiveBoolean
+                             | TkSet primitiveBoolean TkTo TkTrue
+                             | TkSet primitiveBoolean TkTo TkFalse
+                             | TkSet ids TkTo TkTrue
+                             | TkSet ids TkTo TkFalse
+                             | TkClear ids
+                             | TkClear primitiveBoolean
+                             | TkFlip primitiveBoolean
+                             | TkFlip ids
+                             | TkId
+                             | TkTerminate
+    """
     global taskBool
     if len(p)==2:
         p[0]=Node("PrimitiveInstruction",[],p[1])
@@ -420,8 +481,8 @@ def p_instructions(p):
     elif len(p)==7:
         p[0]= Node("Instructions",[p[2],p[4],p[6]],[p[1],p[3],p[5]])
 
-    print("Primer elemento de p: ")
-    print(p)
+    # print("Primer elemento de p: ")
+    # print(p)
     if len(p)==3:
         global defineAsBool
         attributesObjects = {
@@ -430,7 +491,7 @@ def p_instructions(p):
             "column": p.lineno(1) + 1,
         }
         stack.pop()
-        stack.insert(p[1].children,attributesObjects)
+        stack.insert(p[1].children[0],attributesObjects)
         defineAsBool = False
 
 
@@ -454,7 +515,7 @@ def p_instructionDefineAs(p):
         print("La variable es TRUE")
     else:
         print("la variable es false, procedemos a pusherar" + "\n")
-        print(stack)
+        # print(stack)
         print("Aqui estuvo el stack")
         table = []
         stack.push(table)
@@ -477,11 +538,13 @@ def p_empty(p):
 #     'statement : PRINT error'
 #     print("Syntax error in print statement. Bad expression")
 
-def p_error(p,errorType=None):
-    if p and errorType==None:
+def p_error(p):
+    if p :
         error = 'Error del Parser "' + str(p.type) + '" en fila ' \
             + str(p.lineno(1)) + ', columna ' + str(p.lexpos(1) + 1)
         ParserErrors.append(error)
     else:
         print("Syntax error at EOF")
+
+
 

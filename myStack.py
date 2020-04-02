@@ -18,7 +18,7 @@ class myStack:
             pair = [symbol, data]
             print(self.level)
             print(len(self.stack))
-            print(self.stack)
+            print(symbol)
             table = self.stack[self.level - 1]
             print()
             table.append(pair)
@@ -36,7 +36,7 @@ class myStack:
 
     def pop(self):
         if not self.empty():
-            # self.stack.pop()
+            self.stack.pop()
             self.level = self.level - 1
         else:
             self.level = 0
@@ -47,14 +47,17 @@ class myStack:
         return len(self.stack)==0
 
     def push(self,table):
-        print(self.stack)
-        self.stack.append(table)
-        self.level = self.level + 1
-        print(self.stack)
+        # print(self.stack)
+        if (len(self.stack) - self.level) == 1:
+            self.level = self.level + 1
+        elif (len(self.stack) - self.level) == 0:
+            self.stack.append(table)
+            self.level = self.level + 1
+        # print(self.stack)
 
 
     def __str__(self):
-        print(self.stack)
+        #print(self.stack)
         mystring = str(self.stack)
         # for x in self.stack:
         #     for y in range(len(x)):

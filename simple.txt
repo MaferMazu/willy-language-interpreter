@@ -1,5 +1,5 @@
 begin-world maferBaila2
-Object-type flower of color yellow;
+Object-type maferBaila2 of color yellow;
 Object-type dog of color green;
 Object-type sky of color blue;
 Boolean willyhappy with initial value true;
@@ -9,7 +9,7 @@ end-world
 --Holix
 begin-world world1
 {{mundo con 8 columas y 4 filas}}
-World 0 0
+World 8 8
 {{paredes}}
 Wall north from 1 4 to 1 2
 Wall west from 1 2 to 5 2
@@ -24,14 +24,14 @@ Object-type sky of color blue
 {{Colocar objetos}}
 Place 3 of flower at 2 3
 Place 5 of heart at 8 1
-Place 1 of sky at 1 1
+Place 1 of sky1 at 1 1
 Place 10 of table in basket
 Place 300 of mirror in basket
 {{Inicio de Wally}}
 Start at 8 4 heading east
 Basket of capacity 310
-Boolean willyhappy with initial value true
-Boolean willycanlearn with initial value false
+Boolean willyhappy1 with initial value true
+Boolean willycanlearn1 with initial value false
 Goal goal1 is willy is at 8 1
 Goal goal2 is 300 mirror objects in Basket
 Goal goal3 is 10 table objects at 5 4
