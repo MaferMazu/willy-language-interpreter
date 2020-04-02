@@ -114,12 +114,18 @@ def p_worldBlock(p):
     
 
 def p_worldSet(p):
-    '''worldSet : TkWorld TkNum TkNum 
-                | empty'''
-    if len(p)==4:
-        p[0]=Node("WorldSet",[],[p[1],p[2],p[3]])
+    """worldSet : TkWorld TkNum TkNum
+                | empty"""
+
+    if 0 != (p[2] or p[3]):
+        if len(p) == 4:
+            p[0] = Node("WorldSet", [], [p[1], p[2], p[3]])
+        else:
+            p[0] = p[1]
     else:
-        p[0]=p[1]
+        print("No puedes setear en 0 ninguno de los valores del mundo")
+
+
 
 def p_newObjType(p):
     '''newObjType : TkObjType ids TkOf TkColor colors'''
@@ -152,14 +158,23 @@ def p_setPlaceObjWorld(p):
     '''setPlaceObjWorld : TkPlace TkNum TkOf ids TkAt TkNum TkNum
                         | TkPlace TkNum TkOf ids TkIn TkBasketLower
     '''
+    if p[2] != 0:
+        if len(p) == 8:
+            if (p[6] or p[7]) > 0:
+                p[0] = Node("PlaceObjWorld", [p[4]], [p[1], p[2], p[3], p[5], p[6], p[7]])
 
-    if len(p)==8:
-        p[0]=Node("PlaceObjWorld",[p[4]],[p[1],p[2],p[3],p[5],p[6],p[7]])
+                # TODO: Falta validar la posicion en el mundo con respecto a las posiciones del mundo
+            else:
+                print("No puedes setear 0 elementos o una cantidad negativa")
+
+        else:
+            p[0] = Node("PlaceObjWorld", [p[4]], [p[1], p[2], p[3], p[5], p[6]])
     else:
-        p[0]=Node("PlaceObjWorld",[p[4]],[p[1],p[2],p[3],p[5],p[6]])
+        print("No puedes setear 0 elementos en el mundo")
+
 
 def p_setStartPosition(p):
-    '''setStartPosition : TkStart TkAt TkNum TkNum TkHeading directions'''
+    """setStartPosition : TkStart TkAt TkNum TkNum TkHeading directions"""
     p[0]=Node("WillyStartPosition",[p[6]],[p[1],p[2],p[3],p[4],p[5]])
 
 def p_setBasketCapacity(p):
