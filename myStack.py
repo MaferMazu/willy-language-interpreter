@@ -1,4 +1,5 @@
 DEBUG_MODE = True
+import sys
 class myStack:
     def __init__(self):
         self.stack = []
@@ -16,9 +17,9 @@ class myStack:
     def insert(self, symbol, data):
         if not self.find(symbol):
             pair = [symbol, data]
-            print(self.level)
-            print(len(self.stack))
-            print(symbol)
+            # print(self.level)
+            # print(len(self.stack))
+            # print(symbol)
             table = self.stack[self.level - 1]
             print()
             table.append(pair)
@@ -26,6 +27,7 @@ class myStack:
 
         else:
             print("Error: symbol " + symbol + " already exists")
+            sys.exit()
 
     def push_empty_table(self):
         table = []

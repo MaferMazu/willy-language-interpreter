@@ -4,11 +4,16 @@ class ModelProcedure:
 
         self.symbol = ""
 
-    def find(self,symbol, array):
+    def find(self, symbol, array):
+        print("Init ModelProcedure")
         table = array
-        iFoundIt = False
+        i_found_it = False
         for element in table:
-            if element[0][0] == symbol:
-                iFoundIt = True
+            print(element)
+            print(element[0])
+            print(symbol)
+            if element[0] == symbol:
+                i_found_it = True
                 break
-        return iFoundIt
+        print("End MdodelProcedure")
+        return i_found_it

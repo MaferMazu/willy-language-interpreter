@@ -1,7 +1,7 @@
 begin-world maferBaila2
-Object-type maferBaila2 of color yellow;
+Object-type sky of color yellow;
 Object-type dog of color green;
-Object-type sky of color blue;
+Object-type maferBaila2 of color blue;
 Boolean willyhappy with initial value true;
 Boolean willycanlearn with initial value false;
 end-world

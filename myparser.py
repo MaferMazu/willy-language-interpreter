@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from typing import Any
-
+import os,sys
 import lexer
 import ply.yacc as yacc
 import logging
@@ -22,18 +22,24 @@ logging.basicConfig(
 
 # import some required globals from tokenizer
 tokens = lexer.tokens
+ParserErrors = []
 
 procedures= ModelProcedure()
+
+newWorld = World()
 
 stack = myStack()
 stack.push_empty_table()
 
 programBlock = []
+createdWorlds = []
 
 worldInstBool = False
 taskBool = False
 defineAsBool = False
 blockNumber = 0
+
+
 
 
 def p_correctProgram(p):
@@ -103,8 +109,14 @@ def p_wallSet(p):
             (p[2]=="west" and p[5]==p[8] and p[4]<=p[7])):
         p[0]= Node("WallSet",[p[2]],[p[1],p[3],p[4],p[5],p[6],p[7],p[8]])
     else:
+        data_error ={
+            "type": "Bad Wall Def",
+            "line": p.lineno(2),
+            "column": p.lexpos(2) + 1,
+        }
         ##Deberia lanzarme error pero mientras colocaré pass
         # p_statement_print_error(p)
+        p_error(data_error)
         print('Bad definition of wall in World')
 
 
@@ -166,6 +178,12 @@ def p_worldSet(p):
         else:
             p[0] = p[1]
     else:
+        data_error = {
+            "type": "0 dimention of World",
+            "line": p.lineno(2),
+            "column": p.lexpos(2) + 1,
+        }
+        p_error(data_error)
         print("No puedes setear en 0 ninguno de los valores del mundo")
 
 
@@ -174,6 +192,7 @@ def p_newObjType(p):
     """newObjType : TkObjType ids TkOf TkColor colors"""
     global worldInstBool
     id = p[2]
+    print(p[2])
     p[0]=Node("NewObjectType",[p[2],p[5]],[p[1],p[3],p[4]])
     attributesObjects = {
         "type" : "Object-type",
@@ -181,9 +200,15 @@ def p_newObjType(p):
         "column" : p.lexpos(2) + 1,
         "color": p[5],
     }
+    print(stack)
+    print(programBlock)
+    print("space")
+    print(procedures.find(id, programBlock))
     if worldInstBool:
         if procedures.find(id, programBlock):
-            print("Este elemento ya existe")
+            print("Este elemento ya existe como Mundo o tarea")
+            p_error(attributesObjects)
+
         else:
             stack.insert(p[2],attributesObjects)
     else:
@@ -214,11 +239,24 @@ def p_setPlaceObjWorld(p):
                 # TODO : Falta validar la posicion en el mundo con respecto a las posiciones del mundo
             else:
                 print("No puedes setear 0 elementos o una cantidad negativa")
-
+                data_error = {
+                    "type": "Posicion nula del mundo en a la hora de colocar objetos",
+                    "line": p.lineno(2),
+                    "column": p.lexpos(2) + 1,
+                    "color": p[5],
+                }
+                p_error(data_error)
         else:
             p[0] = Node("PlaceObjWorld", [p[4]], [p[1], p[2], p[3], p[5], p[6]])
     else:
         print("No puedes setear 0 elementos en el mundo")
+        data_error = {
+            "type": "No puede colocar 0 objetos",
+            "line": p.lineno(2),
+            "column": p.lexpos(2) + 1,
+            "color": p[5],
+        }
+        p_error(data_error)
 
 
 def p_setStartPosition(p):
@@ -539,12 +577,17 @@ def p_empty(p):
 #     print("Syntax error in print statement. Bad expression")
 
 def p_error(p):
-    if p :
-        error = 'Error del Parser "' + str(p.type) + '" en fila ' \
-            + str(p.lineno(1)) + ', columna ' + str(p.lexpos(1) + 1)
+    global ParserErrors
+    if p != None:
+        error = 'Error del Parser "' + str(p["type"]) + '" en fila ' \
+            + str(p["line"]) + ', columna ' + str(p["column"])
         ParserErrors.append(error)
+
+
     else:
         print("Syntax error at EOF")
+
+    sys.exit()
 
 
 
