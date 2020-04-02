@@ -23,23 +23,30 @@ class World:
 
      def insertWall(self,ini,fin,direction):
           #ini y fin son pares ordenados x,y
-          if len(ini)==len(fin)==2 and (direction=="north" or direction=="south" or direction=="east" or direction=="west"):
+          if len(ini)==len(fin)==2 and ((direction=="north" and ini[0]==fin[0] and ini[1]<=fin[1]) or
+            (direction=="south" and ini[0]==fin[0] and ini[1]>=fin[1]) or
+            (direction=="east" and ini[1]==fin[1] and ini[0]>=fin[0]) or
+            (direction=="west" and ini[1]==fin[1] and ini[0]<=fin[0])):
                self.walls.append([ini,fin,direction])
                if direction=="north":
-                    for x in range(ini[1],fin[1]):
-                         position = self.board[x-1][ini[0]]
+                    for x in range(ini[1],fin[1]+1):
+                         pair=self.positionInBoard([ini[0],x])
+                         position = self.board[pair[0]][pair[1]]
                          position[1]="/"
                if direction=="south":
                     for x in range(fin[1],ini[1]):
-                         position = self.board[x-1][ini[0]]
+                         pair=self.positionInBoard([ini[0],x])
+                         position = self.board[pair[0]][pair[1]]
                          position[1]="/"
                if direction=="east":
-                    for x in range(fin[0],ini[0]):
-                         position = self.board[ini[1]][x-1]
+                    for x in range(fin[0],ini[0]+1):
+                         pair=self.positionInBoard([x,ini[1]])
+                         position = self.board[pair[0]][pair[1]]
                          position[1]="/"
                if direction=="west":
-                    for x in range(ini[0],fin[0]):
-                         position = self.board[ini[1]][x-1]
+                    for x in range(ini[0],fin[0]+1):
+                         pair=self.positionInBoard([x,ini[1]])
+                         position = self.board[pair[0]][pair[1]]
                          position[1]="/"
                return True
           else:
@@ -51,11 +58,11 @@ class World:
           if self.isObject(id):
                for x in self.objects:
                     if x[0] == id:
-                         x[2] += amount
+                         x[1] += amount
                          positionInBoard =self.board[newPosition[0]][newPosition[1]]
                          for y in positionInBoard[2]:
                               if y[0]==id:
-                                   y[2] +=amount
+                                   y[1] +=amount
                                    itsHere = True
                                    break
                          if not itsHere:
@@ -137,7 +144,7 @@ class World:
      def getObjects(self):
           return self.objects
 
-     def addObject(self,id,amount,color):
+     def addObject(self,id,color,amount=0):
           if not self.isObject(id):
                self.objects.append([id,amount,color])
                return True
@@ -153,18 +160,21 @@ class World:
                          self.board[i].append([[j,pair[1]-i-1]," ",[]])
           return True
 
-     def printBoard(self,itype="celdas"):
+     def printBoard(self,itype=None):
           ##Imprime matriz y el type dice qué imprimir
           rep = ""
           for column in self.board:
                for elem in column:
-                    if itype=="celdas":
+                    if itype=="index":
                          rep += "["+str(elem[0][0]+1)+", "+str(elem[0][1]+1)+"]" + "   "
                     else:
-                         if elem[1]==" " and elem[2]!=[]:
-                              rep += "o" + "   "
+                         if elem[1]==" ":
+                              if elem[2]!=[]:
+                                   rep += "[ O ]   "
+                              else:
+                                   rep += "[   ]   "
                          else:
-                              rep += str(elem[1]) + "   "
+                              rep += "[ "+str(elem[1]) + " ]   "
                rep += "\n"
           print(rep)
           return rep
@@ -244,8 +254,32 @@ class World:
 def main():
     print("Corriendo!")
     if __name__== "__main__" :
+         print("####\nEmpezó la prueba\n####\n\n")
          World1 = World()
-         print(World1.getDimension())
-         World1.setClearBoard([4,3])
+         print("####\nInicializado\n####")
+         print("Dimensiones: ",World1.getDimension())
+         World1.setDimension([7,9])
+         print("SetDimension 7 9 then print board with index")
+         World1.printBoard("index")
+         print("getWalls: ",World1.getWalls())
+         print("Insert wall [1,1],[1,3],north")
+         World1.insertWall([1,1],[1,3],"north")
+         print("Insert wall [2,2],[3,2],north que NO se debe insertar porque la direccion no corresponde")
+         print("Impresion del retorno: ",World1.insertWall([2,2],[3,2],"north"))
+         print("Insert wall [2,2],[3,2],west si debería")
+         print("Impresion del retorno: ",World1.insertWall([2,2],[3,2],"west"))
+         World1.printBoard()
+         print("Verifico mi list wall",World1.getWalls())
+         World1.insertWall([7,7],[5,7],"east")
+         World1.insertWall([5,7],[5,2],"south")
+         World1.insertWall([1,7],[3,7],"west")
+         print("inserto walls 7,7-5,7  5,7-5,2 y 1,7-3,7")
+         World1.printBoard()
+         print("Añadiendo un objeto con id flor, sin amount y color verde, debería decir true: ", World1.addObject("flor","cyan"))
+         print("lista de objetos: ", World1.getObjects())
+         print("metodo isObject para flor: ",World1.isObject("flor"))
+         print("metodo isObject para mirror: ",World1.isObject("mirror"))
+         print("setObjectInWorld 3 flores en 4,4:",World1.setObjectInWorld("flor",3,[4,4]))
+         print("lista de objetos: ", World1.getObjects())
          World1.printBoard()
 main()
