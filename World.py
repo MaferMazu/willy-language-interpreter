@@ -9,6 +9,7 @@ class World:
           self.WCapacityOfBasket = 0
           self.WObjectsInBasket = [] #Formato [idObjeto,amountObject,colorObject]
           self.worldBools = [["front-clear",True], ["left-clear",True], ["right-clear",True], ["looking-north",True], ["looking-east",False], ["looking-south",False],["looking-west",False]] #Formato [id,value]
+          self.directions=["north","west","south","east"]
      
      def getDimension(self):
           return self.dimensions
@@ -53,21 +54,24 @@ class World:
                return False
 
      def setObjectInWorld(self,id,amount,position):
-          newPosition= self.positionInBoard(position)
-          itsHere = False
-          if self.isObject(id):
-               for x in self.objects:
-                    if x[0] == id:
-                         x[1] += amount
-                         positionInBoard =self.board[newPosition[0]][newPosition[1]]
-                         for y in positionInBoard[2]:
-                              if y[0]==id:
-                                   y[1] +=amount
-                                   itsHere = True
-                                   break
-                         if not itsHere:
-                              positionInBoard[2].append([id,amount])
-               return True
+          if self.cellWallFree(position):
+               newPosition= self.positionInBoard(position)
+               itsHere = False
+               if self.isObject(id):
+                    for x in self.objects:
+                         if x[0] == id:
+                              x[1] += amount
+                              positionInBoard =self.board[newPosition[0]][newPosition[1]]
+                              for y in positionInBoard[2]:
+                                   if y[0]==id:
+                                        y[1] +=amount
+                                        itsHere = True
+                                        break
+                              if not itsHere:
+                                   positionInBoard[2].append([id,amount])
+                    return True
+          else:
+               return False
 
      def positionInBoard(self,position):
           dimension = self.getDimension()
@@ -84,8 +88,28 @@ class World:
 
      def setWillyPosition(self,pair,direction):
           self.WPositionF = [pair,direction]
-          position = self.board[pair[1]-1][pair[0]]
-          position[1]="W"
+          pos = self.positionInBoard(pair)
+          self.board[pos[0],pos[1]][1]="W"
+          return True
+
+     """ def moveWilly(self):
+          pos = self.getWillyPosition()
+          if self.getValue("front-clear"):
+               if pos[1]=="north":
+                    newpos = self.positionInBoard() """
+
+     def turnWilly(self,directionLR):
+          pos = self.getWillyPosition()[1]
+          index = 0
+          for x in range(0,5):
+               if self.directions[x]== pos:
+                    index = x
+               else:
+                    return False
+          if directionLR == "left":
+               self.WPositionF[1]=self.directions[(index-1)%4]
+          elif directionLR == "right":
+               self.WPositionF[1]=self.directions[(index+1)%4]
           return True
 
      def getWillyPosition(self):
@@ -131,8 +155,16 @@ class World:
 
      def getWorldBools(self):
           return self.worldBools
+     
+     def getValueBool(self,id):
+          if self.isBool(id):
+               for x in self.worldBools:
+                    if x[0]==id:
+                         return x[1]
+          return None
 
-     def changeWorldBool(self,id,value):
+
+     def changeBool(self,id,value):
           if self.isBool(id):
                for x in self.worldBools:
                     if x[0]==id:
@@ -183,7 +215,7 @@ class World:
           if len(pair)==2:
                # position = [pair([x,y]),willy(W) o wall(X),lista de pares([idObje,attributes])]
                position = self.positionInBoard(pair)
-               return position[1] ==" "
+               return self.board[position[0]][position[1]][1] != "/"
           else:
                return False
      
@@ -216,7 +248,6 @@ class World:
                     #x = [idObjeto,amountObject,colorObject]
                     if x[0]==objectname:
                          return True
-          else:
                return False
      
      def howMuchObjectsInCell(self,pair,objectname):
@@ -282,4 +313,20 @@ def main():
          print("setObjectInWorld 3 flores en 4,4:",World1.setObjectInWorld("flor",3,[4,4]))
          print("lista de objetos: ", World1.getObjects())
          World1.printBoard()
+         print("setObjectInWorld + 5  flores en 4,4:",World1.setObjectInWorld("flor",5,[4,4]))
+         print("lista de objetos: ", World1.getObjects())
+         print("cellWithObject con cel 4,4 y flor: ",World1.cellWithObject([4,4],"flor"))
+         print("howMuchObjectsInCell con cel 4,4 y flor: ",World1.howMuchObjectsInCell([4,4],"flor"))
+         print("what color is flor: ",World1.whatColorIs("flor"))
+         print("cellWithObject con cel 1,1 y flor: ",World1.cellWithObject([1,1],"flor"))
+         ("howMuchObjectsInCell con cel 4,4 y mirror: ",World1.howMuchObjectsInCell([4,4],"mirror"))
+         print("isObject mirror: ", World1.isObject("mirror"))
+         print("addWorldBools willhapyy true: ",World1.addWorldBools("willhappy",True))
+         print("añadirlo una segunda vez willhapyy true: ",World1.addWorldBools("willhappy",True))
+         print("change willhapyy to false: ",World1.changeBool("willhappy",False))
+         print("getValue willhapyy: ",World1.getValueBool("willhappy"))
+         print("setObjectInWorld + 1  flores en 1,1 pero hay wall:",World1.setObjectInWorld("flor",1,[1,1]))
+         print("isBool willhappy: ", World1.isBool("willhappy"))
+         print("isBool happy: ", World1.isBool("happy"))
+
 main()
