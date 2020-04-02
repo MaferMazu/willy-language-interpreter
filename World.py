@@ -8,7 +8,7 @@ class World:
           self.WPositionF = [[1,1],"north"]
           self.WCapacityOfBasket = 0
           self.WObjectsInBasket = [] #Formato [idObjeto,amountObject,colorObject]
-          self.worldBools = [["front-clear",True], ["left-clear",True], ["right-clear",True], ["looking-north",True], ["looking-east",False], ["looking-south",False],["looking-west",False]] #Formato [id,value]
+          self.worldBools = [["front-clear",False], ["left-clear",False], ["right-clear",False], ["looking-north",False], ["looking-east",False], ["looking-south",False],["looking-west",False]] #Formato [id,value]
           self.directions=["north","west","south","east"]
      
      def getDimension(self):
@@ -87,30 +87,101 @@ class World:
           return self.WPositionI
 
      def setWillyPosition(self,pair,direction):
-          self.WPositionF = [pair,direction]
-          pos = self.positionInBoard(pair)
-          self.board[pos[0],pos[1]][1]="W"
-          return True
+          if self.cellWallFree(pair):
+               self.WPositionF = [pair,direction]
+               pos = self.positionInBoard(pair)
+               self.board[pos[0]][pos[1]][1]="W"
+               self.changeLookingBools(direction)
+               self.changeFLRBools(self.getWillyPosition()[0],direction)
+               return True
+          else:
+               return False
 
-     """ def moveWilly(self):
-          pos = self.getWillyPosition()
-          if self.getValue("front-clear"):
-               if pos[1]=="north":
-                    newpos = self.positionInBoard() """
+     def moveWilly(self):
+          actualposition = self.getWillyPosition()
+          pos = self.positionInBoard(actualposition[0])
+          self.board[pos[0]][pos[1]][1]=" "
+          newfront,newleft,newright = self.whereIsMyFrontLeftRight(actualposition[0],actualposition[1])
+          if newfront!=None:
+               self.WPositionF = [newfront,actualposition[1]]
+               position = self.positionInBoard(self.getWillyPosition()[0])
+               self.board[position[0]][position[1]][1]="W"
+               self.changeFLRBools(self.getWillyPosition()[0],self.getWillyPosition()[1])
+               return True
+
+     def changeLookingBools(self,direction):
+          for x in range(0,4):
+               if self.directions[x] == direction:
+                    self.changeBool("looking-"+direction,True)
+               else:
+                    self.changeBool("looking-"+self.directions[x],False)
+
+     def changeFLRBools(self,position,direction):
+          newfront,newleft,newright = self.whereIsMyFrontLeftRight(position,direction)
+          if newfront!=None:
+               self.changeBool("front-clear",self.cellWallFree(newfront))
+          else:
+               self.changeBool("front-clear",False)
+          if newleft!=None:
+               self.changeBool("left-clear",self.cellWallFree(newleft))
+          else:
+               self.changeBool("left-clear",False)
+          if newright!=None:
+               self.changeBool("right-clear",self.cellWallFree(newright))
+          else:
+               self.changeBool("right-clear",False)
+          return True
 
      def turnWilly(self,directionLR):
           pos = self.getWillyPosition()[1]
           index = 0
-          for x in range(0,5):
+          for x in range(0,4):
                if self.directions[x]== pos:
                     index = x
-               else:
-                    return False
           if directionLR == "left":
-               self.WPositionF[1]=self.directions[(index-1)%4]
+               new_direction=self.directions[(index-1)%4]
           elif directionLR == "right":
-               self.WPositionF[1]=self.directions[(index+1)%4]
+               new_direction=self.directions[(index+1)%4]
+          self.WPositionF[1]=new_direction
+          self.changeLookingBools(new_direction)
+          self.changeFLRBools(self.getWillyPosition()[0],new_direction)
           return True
+     
+     def whereIsMyFrontLeftRight(self,position,direction):
+          front=left=right = None
+          if 1<= position[0]<= self.dimensions[0] and 1<= position[1]<= self.dimensions[1]:
+               if direction=="north":
+                    if 1<= position[1]+1 <= self.dimensions[1]:
+                         front = [position[0],position[1]+1]
+                    if 1<= position[0]-1 <= self.dimensions[0]:
+                         left = [position[0]-1,position[1]]
+                    if 1<= position[0]+1 <= self.dimensions[0]:
+                         right = [position[0]+1,position[1]]
+
+               elif direction=="west":
+                    if 1<= position[1]+1 <= self.dimensions[1]:
+                         left = [position[0],position[1]+1]
+                    if 1<= position[1]-1 <= self.dimensions[1]:
+                         right = [position[0],position[1]-1]
+                    if 1<= position[0]+1 <= self.dimensions[0]:
+                         front = [position[0]+1,position[1]]
+
+               elif direction=="south":
+                    if 1<= position[1]-1 <= self.dimensions[1]:
+                         front = [position[0],position[1]-1]
+                    if 1<= position[0]-1 <= self.dimensions[0]:
+                         right = [position[0]-1,position[1]]
+                    if 1<= position[0]+1 <= self.dimensions[0]:
+                         left = [position[0]+1,position[1]]
+               
+               elif direction=="east":
+                    if 1<= position[1]+1 <= self.dimensions[1]:
+                         right = [position[0],position[1]+1]
+                    if 1<= position[1]-1 <= self.dimensions[1]:
+                         left = [position[0],position[1]-1]
+                    if 1<= position[0]-1 <= self.dimensions[0]:
+                         front = [position[0]-1,position[1]]
+          return front,left,right
 
      def getWillyPosition(self):
           return self.WPositionF
@@ -192,7 +263,7 @@ class World:
                          self.board[i].append([[j,pair[1]-i-1]," ",[]])
           return True
 
-     def printBoard(self,itype=None):
+     def printBoard(self,itype=None,reprint=None):
           ##Imprime matriz y el type dice qué imprimir
           rep = ""
           for column in self.board:
@@ -208,7 +279,8 @@ class World:
                          else:
                               rep += "[ "+str(elem[1]) + " ]   "
                rep += "\n"
-          print(rep)
+          if reprint==None:
+               print(rep)
           return rep
 
      def cellWallFree(self,pair):
@@ -279,8 +351,7 @@ class World:
           return None
 
      def __str__(self):
-          ret = self.printBoard("willy")
-          return ret
+          return self.printBoard("","willy")
 
 def main():
     print("Corriendo!")
@@ -328,5 +399,22 @@ def main():
          print("setObjectInWorld + 1  flores en 1,1 pero hay wall:",World1.setObjectInWorld("flor",1,[1,1]))
          print("isBool willhappy: ", World1.isBool("willhappy"))
          print("isBool happy: ", World1.isBool("happy"))
+         """"print("Insertar a Willy en 7,9",World1.setWillyPosition([7,9],"north"))"""
+         print(World1)
+         front,left,right = World1.whereIsMyFrontLeftRight([1,1],"west")
+         print("1,1 My front left right",front,left,right)
+         print("setWilly 2,1 west",World1.setWillyPosition([2,1],"west"))
+         print(World1)
+         print(World1.getWorldBools())
+         print(World1.moveWilly())
+         print(World1.getWorldBools())
+         print(World1.getWorldBools())
+         print("turn willy left (miro al north)",World1.turnWilly("left"))
+         print("turn willy left (miro al este)",World1.turnWilly("left"))
+         print("turn willy right (miro al norte)",World1.turnWilly("right"))
+         print(World1.getWorldBools())
+         
+
+         
 
 main()
