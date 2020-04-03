@@ -115,10 +115,9 @@ def p_wallSet(p):
             "column": p.lexpos(2) + 1,
         }
         ##Deberia lanzarme error pero mientras colocaré pass
-        print('Bad definition of wall in World')
         # p_statement_print_error(p)
         #p_error(data_error)
-
+        print('Bad definition of wall in World')
 
 
 def p_wordlDefinition(p):
@@ -378,10 +377,10 @@ def p_taskBlock(p):
             "line" : p.lineno(2),
             "column" : p.lexpos(2) + 1,
         }
-    print("Antes del pop")
-    p[0] = Node("Task", [p[1], p[3], p[4]], [p[2], p[5]])
+    p[0]=Node("Task",[p[1],p[3],p[4]])
     print("###################################")
-    print("ESTO ES BLOCK P[0]", p[0])
+    print("ESTO ES BLOCK P[0]",p[0])
+    print("Antes del pop")
     # print(stack)
     stack.pop()
     stack.insert(p[1].children[0], attributesObjects)
@@ -397,7 +396,7 @@ def p_taskDefinition(p):
     type = {
         "type" : "Task"
     }
-    p[0] = Node("Task", [p[2]], [p[1]])
+    p[0] = Node("", [p[2],p[1]])
     data = [p[0].children[0], type]
     programBlock.append(data)
 
@@ -409,7 +408,7 @@ def p_multiInstructions(p):
     if len(p)==2:
         p[0]=p[1]
     else:
-        p[0]=Node("MultiInstrucción",[p[1],p[3]],p[2])
+        p[0]=Node("",[p[1],p[3]])
 
 
 def p_primitiveInstructions(p):
@@ -433,11 +432,13 @@ def p_primitiveInstructions(p):
     """
     global taskBool
     if len(p)==2:
-        p[0]=Node("PrimitiveInstruction",[p[1]],p[1])
+        p[0]=Node("PrimitiveInstruction:",p[1])
+        print("(####################)")
+        print("isInstance p[1]",isinstance(p[1],Node),p[1])
     if len(p)==3:
-        p[0]=Node("PrimitiveInstruction",[p[2]],p[1])
+        p[0]=Node("PrimitiveInstruction:",[p[1],p[2]])
     elif len(p)>= 4:
-        p[0]=Node("PrimitiveInstruction",[p[2]],[p[1],p[3],p[4]])
+        p[0]=Node("PrimitiveInstruction:",[p[1],p[2],p[len(p)-1]])
     if p[1] == "set":
         if len(p) == 3:
             attributesObjects = {

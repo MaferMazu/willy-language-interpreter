@@ -8,11 +8,14 @@ class Node:
           self.leaf = leaf
 
      def __str__(self, level=0):
-          ret = "  " * level + self.type + ":" + "\n"
-          for child in self.children:
-               if isinstance(child,Node):
-                    ret += child.__str__(level + 1)
-               else:
-                    ret = ret.rstrip("\n")
-                    ret += " " + str(child) + "\n"
+          if isinstance(self,Node):
+               ret = "  " * level + self.type + "\n"
+               for child in self.children:
+                    if isinstance(child,Node):
+                         ret += child.__str__(level + 1)
+                    else:
+                         ret = ret.rstrip("\n")
+                         ret += " " + str(child) + "\n"
+          else:
+               ret += " " + str(self) + "\n"
           return ret
