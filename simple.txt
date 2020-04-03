@@ -51,7 +51,7 @@ define fun as begin
         pick flower;
         set willyishungry;
         set willyisangry to false;
-        define fun as begin
+        define fun2 as begin
             move;
             pick flower;
             set willyishungry;
