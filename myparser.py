@@ -115,9 +115,10 @@ def p_wallSet(p):
             "column": p.lexpos(2) + 1,
         }
         ##Deberia lanzarme error pero mientras colocaré pass
-        # p_statement_print_error(p)
-        p_error(data_error)
         print('Bad definition of wall in World')
+        # p_statement_print_error(p)
+        #p_error(data_error)
+
 
 
 def p_wordlDefinition(p):
@@ -378,6 +379,9 @@ def p_taskBlock(p):
             "column" : p.lexpos(2) + 1,
         }
     print("Antes del pop")
+    p[0] = Node("Task", [p[1], p[3], p[4]], [p[2], p[5]])
+    print("###################################")
+    print("ESTO ES BLOCK P[0]", p[0])
     # print(stack)
     stack.pop()
     stack.insert(p[1].children[0], attributesObjects)
@@ -386,7 +390,7 @@ def p_taskBlock(p):
     print("fin del task")
     # print(stack)
 
-def p_tsdkDefinition(p):
+def p_taskDefinition(p):
     """
     taskDefinition : TkBeginTask ids
     """
@@ -429,7 +433,7 @@ def p_primitiveInstructions(p):
     """
     global taskBool
     if len(p)==2:
-        p[0]=Node("PrimitiveInstruction",[],p[1])
+        p[0]=Node("PrimitiveInstruction",[p[1]],p[1])
     if len(p)==3:
         p[0]=Node("PrimitiveInstruction",[p[2]],p[1])
     elif len(p)>= 4:
