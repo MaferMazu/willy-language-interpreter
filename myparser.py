@@ -59,9 +59,9 @@ def p_program(p):
             | taskBlock program
     """
     if len(p)==2:
-        p[0]=Node("ProgramBlock",[p[1]])
+        p[0]=Node("Program Block:",[p[1]])
     else:
-        p[0]=Node("ProgramBlock",[p[1],p[2]])
+        p[0]=Node("Program Block:",[p[1],p[2]])
     print("Stack luego de leer un bloque" + "\n")
     print(stack)
     print("programBlock")
@@ -81,12 +81,12 @@ def p_worldInstSet(p):
     if(worldInstBool):
         worldInstBool = False
     if len(p)==4:
-        p[0]=Node("WorldInstancia",[p[1],p[3]],p[2])
+        p[0]=Node("WorldInstancia:",[p[1],p[3]])
     else:
         if p[2]==";":
-            p[0]=Node("WorldInstancia",[p[1]],p[2])
+            p[0]=Node("WorldInstancia:",[p[1]],p[2])
         else:
-            p[0]=Node("WorldInstancia",[p[1],p[2]])
+            p[0]=Node("WorldInstancia:",[p[1],p[2]])
 
 def p_worldInst(p):
     """ worldInst : worldSet
@@ -107,7 +107,7 @@ def p_wallSet(p):
             (p[2]=="south" and p[4]==p[7] and p[5]>=p[8]) or
             (p[2]=="east" and p[5]==p[8] and p[4]>=p[7]) or
             (p[2]=="west" and p[5]==p[8] and p[4]<=p[7])):
-        p[0]= Node("WallSet",[p[2]],[p[1],p[3],p[4],p[5],p[6],p[7],p[8]])
+        p[0]= Node("WallSet:",[p[2],p[3],p[4],p[5],p[6],p[7],p[8]])
     else:
         data_error ={
             "type": "Bad Wall Def",
@@ -120,7 +120,7 @@ def p_wallSet(p):
         print('Bad definition of wall in World')
 
 
-def p_wordlDefinition(p):
+def p_worldDefinition(p):
     """
     wordlDefinition : TkBeginWorld ids
     """
@@ -129,7 +129,7 @@ def p_wordlDefinition(p):
     }
 
     # if p[2]
-    p[0] = Node("World", [p[2]], [p[1]])
+    p[0] = Node("",[p[2]])
     data = [p[0].children[0], type]
 
     programBlock.append(data)
@@ -137,7 +137,7 @@ def p_wordlDefinition(p):
 
 def p_worldBlock(p):
     """worldBlock : wordlDefinition worldInstSet TkEndWorld
-                    | TkBeginWorld ids TkEndWorld
+                    | worldDefinition TkEndWorld
     """
     id = p[1].children[0]
     global blockNumber
@@ -149,10 +149,10 @@ def p_worldBlock(p):
     dataFlag = {
         "ownerPrev" : id,
     }
-    if len(p)==5:
-        p[0] = Node("WorldBlock",[p[2],p[3]],[p[1],p[4]])
+    if len(p)==4:
+        p[0] = Node("World Block:",[p[2],p[3]])
     else:
-        p[0] = Node("WorldBlock",[p[2]],[p[1],p[3]])
+        p[0] = Node("World Block:",[p[1]])
     # print("Antes del pop")
     # print(stack)
     if blockNumber == 0:
@@ -408,7 +408,7 @@ def p_multiInstructions(p):
     if len(p)==2:
         p[0]=p[1]
     else:
-        p[0]=Node("",[p[1],p[3]])
+        p[0]=Node("MultiInstruction:",[p[1],p[3]])
 
 
 def p_primitiveInstructions(p):
@@ -432,7 +432,7 @@ def p_primitiveInstructions(p):
     """
     global taskBool
     if len(p)==2:
-        p[0]=Node("PrimitiveInstruction:",p[1])
+        p[0]=Node("PrimitiveInstruction:",[p[1]])
         print("(####################)")
         print("isInstance p[1]",isinstance(p[1],Node),p[1])
     if len(p)==3:
@@ -550,7 +550,7 @@ def p_instructions(p):
 def p_instructionDefineAs(p):
     '''instructionDefineAs : TkDefine ids TkAs'''
     print("EUREKA")
-    p[0]=Node("DefineAs",[p[2]],[p[1],p[3]])
+    p[0]=Node("Define function as",[p[2]])
     global defineAsBool
     defineAsBool = False
     """ attributesObjects = {
