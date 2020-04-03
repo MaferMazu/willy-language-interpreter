@@ -140,7 +140,7 @@ t_TkParenR  = r'\)'
 
 # Ignored Chars
 t_ignore_TkCommentsBlock = r'[\{]{2}.*[}]{2}'        
-t_ignore_TkComments = r'\{\{([^{}]|(\{[^{}]\}|\{\}[^{}]|[^{}]\{\}))+\}\}'
+t_ignore_TkComments = r'[\-]{2}.*'
 t_ignore_TkSpace = r'\s'
 
 

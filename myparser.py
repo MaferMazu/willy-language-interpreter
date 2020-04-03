@@ -171,11 +171,14 @@ def p_worldBlock(p):
 def p_worldSet(p):
     """worldSet : TkWorld TkNum TkNum
                 | empty"""
+    global newWorld
 
     if 0 != (p[2] or p[3]):
         if len(p) == 4:
             p[0] = Node("WorldSet", [], [p[1], p[2], p[3]])
+            newWorld.setDimension([p[2],p[3]])
         else:
+            newWorld.setDimension([1, 1])
             p[0] = p[1]
     else:
         data_error = {
@@ -185,6 +188,7 @@ def p_worldSet(p):
         }
         p_error(data_error)
         print("No puedes setear en 0 ninguno de los valores del mundo")
+    print(newWorld.getDimension())
 
 
 
