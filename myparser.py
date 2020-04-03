@@ -120,9 +120,9 @@ def p_wallSet(p):
         print('Bad definition of wall in World')
 
 
-def p_wordlDefinition(p):
+def p_worldDefinition(p):
     """
-    wordlDefinition : TkBeginWorld ids
+    worldDefinition : TkBeginWorld ids
     """
     type = {
         "type": "World"
@@ -136,8 +136,8 @@ def p_wordlDefinition(p):
     
 
 def p_worldBlock(p):
-    """worldBlock : wordlDefinition worldInstSet TkEndWorld
-                    | TkBeginWorld ids TkEndWorld
+    """worldBlock : worldDefinition worldInstSet TkEndWorld
+                  | worldDefinition TkEndWorld
     """
     id = p[1].children[0]
     global blockNumber
@@ -149,10 +149,10 @@ def p_worldBlock(p):
     dataFlag = {
         "ownerPrev" : id,
     }
-    if len(p)==5:
-        p[0] = Node("WorldBlock",[p[2],p[3]],[p[1],p[4]])
-    else:
+    if len(p)==4:
         p[0] = Node("WorldBlock",[p[2]],[p[1],p[3]])
+    else:
+        p[0] = Node("WorldBlock",[p[2]],[p[1]])
     # print("Antes del pop")
     # print(stack)
     if blockNumber == 0:
