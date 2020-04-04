@@ -525,7 +525,6 @@ def p_primitiveInstructions(p):
                 "type": "Objeto " + p[2] + " No existe en el mudno ",
                 "line": p.lineno(2),
                 "column": p.lexpos(2) + 1,
-                "color": p[5],
             }
             errorSemantic(data_error)
     elif p[1] == ("clear" or "flip"):
@@ -534,9 +533,15 @@ def p_primitiveInstructions(p):
                 "type": "Booleano " + p[2] + " No existe en el mudno ",
                 "line": p.lineno(2),
                 "column": p.lexpos(2) + 1,
-                "color": p[5],
             }
             errorSemantic(data_error)
+    elif p[1] == "terminate":
+        data_error = {
+            "type": "Se ha detenido la ejecucion del programa",
+            "line": p.lineno(2),
+            "column": p.lexpos(2) + 1,
+        }
+        errorSemantic(data_error)
     if len(p)==2:
         p[0]=Node("PrimitiveInstruction:",[p[1]])
         # print("(####################)")
