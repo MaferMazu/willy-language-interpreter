@@ -455,6 +455,7 @@ def p_finalGoal(p):
     else:
         p[0] = Node("FinalGoal", [p[3]], [p[1], p[2]])
         ret = p[3].toString()
+        validateFinalGoal = True
         print("###########################")
         print("###########################")
         print(ret)
