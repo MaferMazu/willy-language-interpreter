@@ -560,7 +560,7 @@ def p_taskDefinition(p):
 
 
     # print(procedures.find(p[4], createdWorlds).id)
-    if procedures.find(p[4], createdWorlds) != None:
+    if procedures.find(p[4], createdWorlds) is not None:
 
         activeWorld = procedures.find(p[4], createdWorlds)
         # print("######### elemento")
@@ -772,8 +772,22 @@ def p_instructions(p):
                     """
     if len(p)==2:
         p[0]= Node("Instructions",[p[1]])
+
     elif len(p)==3:
         p[0]= Node("Instructions",[p[1],p[2]])
+        global defineAsBool
+        print("#####IN RUN DEFINE")
+        attributesObjects = {
+            "type": "Instruction",
+            "line": p.lineno(1),
+            "column": p.lineno(1) + 1,
+        }
+        print(stack)
+        stack.pop()
+        stack.insert(p[1].children[0], attributesObjects)
+        print(stack)
+        defineAsBool = False
+        print("#####IN RUN DEFINE")
     elif len(p)==4:
         p[0]= Node("Instructions",[p[2]],[p[1],p[3]])
     elif len(p)==5:
@@ -796,16 +810,7 @@ def p_instructions(p):
 
     # print("Primer elemento de p: ")
     # print(p)
-    if len(p)==3:
-        global defineAsBool
-        attributesObjects = {
-            "type": "Instruction",
-            "line": p.lineno(1),
-            "column": p.lineno(1) + 1,
-        }
-        stack.pop()
-        stack.insert(p[1].children[0],attributesObjects)
-        defineAsBool = False
+
 
 
 # def p_instructionDefine(p):
@@ -835,7 +840,10 @@ def p_instructionDefineAs(p):
     # print(p[2])
     p[0]=Node("Define function as",[p[2]])
     global defineAsBool
+    print("Define" + str(p[2]))
     print(stack)
+    print("Define")
+    defineAsBool = False
 
     """ attributesObjects = {
         "type" : "Instruction",
@@ -844,13 +852,15 @@ def p_instructionDefineAs(p):
         } """
     if defineAsBool:
         defineAsBool = False
-        # print("La variable es TRUE")
     else:
         # print("la variable es false, procedemos a pusherar" + "\n")
         # # print(stack)
         # print("Aqui estuvo el stack")
         table = []
         stack.push(table)
+        print("Nuevo Contexto")
+        print(stack)
+        print("Nuevo Contexto")
         defineAsBool = True
 
 def p_directions(p):
