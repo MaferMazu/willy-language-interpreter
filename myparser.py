@@ -45,6 +45,7 @@ worldInstBool = False
 taskBool = False
 defineAsBool = False
 validateFinalGoal = False
+hasSetted = False
 blockNumber = 0
 
 
@@ -189,7 +190,7 @@ def p_worldDefinition(p):
     newWorld = World(p[2])
     newWorld.setDimension([1,1])
     programBlock.append(data)
-    
+
 
 def p_worldBlock(p):
     """worldBlock : worldDefinition worldInstSet TkEndWorld
@@ -227,29 +228,39 @@ def p_worldBlock(p):
     print(newWorld)
     print("Despues del pop")
 #     # print(stack)
-    
+
 
 def p_worldSet(p):
     """worldSet : TkWorld TkNum TkNum
                 | empty"""
     global newWorld
-
-    if 0 != (p[2] or p[3]):
-        if len(p) == 4:
-            p[0] = Node("WorldSet", [], [p[1], p[2], p[3]])
-            newWorld.setDimension([p[2],p[3]])
+    global hasSetted
+    if not hasSetted:
+        if 0 != (p[2] or p[3]):
+            if len(p) == 4:
+                p[0] = Node("WorldSet", [], [p[1], p[2], p[3]])
+                newWorld.setDimension([p[2], p[3]])
+            else:
+                newWorld.setDimension([1, 1])
+                p[0] = p[1]
         else:
-            newWorld.setDimension([1, 1])
-            p[0] = p[1]
+            data_error = {
+                "type": "0 dimention of World",
+                "line": p.lineno(2),
+                "column": p.lexpos(2) + 1,
+            }
+            errorSemantic(data_error)
+            print("No puedes setear en 0 ninguno de los valores del mundo")
+        print("Dimensiones del mundo" + str(newWorld.getDimension()))
     else:
         data_error = {
-            "type": "0 dimention of World",
+            "type": ("To place objects in World:" + newWorld.id + "need to declare dimentions at start" + "\n" + "Can't replace dimentions"),
             "line": p.lineno(2),
             "column": p.lexpos(2) + 1,
         }
         errorSemantic(data_error)
-        print("No puedes setear en 0 ninguno de los valores del mundo")
-    print("Dimensiones del mundo" + str(newWorld.getDimension()))
+
+
 
 
 
@@ -307,6 +318,8 @@ def p_setPlaceObjWorld(p):
                         | TkPlace TkNum TkOf ids TkIn TkBasketLower
     """
     global newWorld
+    global hasSetted
+    hasSetted = True
     id = p[4]
     # print("#####ELEMENTOS")
     # print(id)
@@ -341,6 +354,8 @@ def p_setPlaceObjWorld(p):
 def p_setStartPosition(p):
     """setStartPosition : TkStart TkAt TkNum TkNum TkHeading directions"""
     global newWorld
+    global hasSetted
+    hasSetted = True
     print("######Esto es el dir: " + str(p[6]))
     if (p[3] or p[4]) <= 0:
         data_error = {
@@ -743,10 +758,10 @@ def p_primitiveBoolean(p):
 
 def p_instructions(p):
     """instructions : primitiveInstructions
-                    | TkIf booleanTests TkThen instructions
-                    | TkIf booleanTests TkThen instructions TkElse instructions
+                    | ifSimple
+                    | ifCompound
                     | TkRepeat TkNum TkTimes instructions
-                    | TkWhile booleanTests TkDo instructions
+                    | whileInst
                     | TkBegin multiInstructions TkEnd
                     | instructionDefineAs instructions
                     """
@@ -792,6 +807,22 @@ def p_instructions(p):
 #     '''instructionDefine : instructionDefineAs instructions'''
 #     p[0]=Node("Define",[p[1],p[2]])
 #     stack.pop()
+
+def p_ifSimple(p):
+    """ ifSimple : TkIf booleanTests TkThen instructions
+    """
+    p[0] = Node('ifSimple', [p[2],p[4]],[p[1],p[3]])
+
+def p_ifCompound(p):
+    """ ifCompound : TkIf booleanTests TkThen instructions TkElse instructions
+    """
+    p[0] = Node('ifCompound', [p[2],p[4],p[6]], [p[1],p[3],p[5]])
+
+def p_whileInst(p):
+    """ whileInst : TkWhile booleanTests TkDo instructions
+    """
+    p[0] = Node('whileInst', [p[2],p[4]],[p[1],p[3]])
+
 
 def p_instructionDefineAs(p):
     """instructionDefineAs : TkDefine ids TkAs"""
