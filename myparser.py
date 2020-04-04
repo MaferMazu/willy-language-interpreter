@@ -187,6 +187,7 @@ def p_worldDefinition(p):
     p[0] = Node("",[p[2]])
     data = [p[0].children[0], type]
     newWorld = World(p[2])
+    newWorld.setDimension([1,1])
     programBlock.append(data)
     
 
@@ -553,7 +554,10 @@ def p_taskDefinition(p):
         }
         p[0] = Node("", [p[2], p[1]])
         data = [p[0].children[0], type]
-        currentTask = Task(p[2], p[4])
+        # print("11111 INSTANCIA")
+        # print(isinstance(activeWorld, World))
+        # print("22222 INSTANCIA")
+        currentTask = Task(p[2], activeWorld)
         programBlock.append(data)
         # print(stack)
     else:
@@ -600,6 +604,7 @@ def p_primitiveInstructions(p):
     global taskBool
     global objectsInWorlds
     global currentTask
+    attributesObjects = {}
     if p[1] == ("drop" or "pick"):
         if not (procedures.findObj(p[2], objectsInWorlds)):
             data_error = {
@@ -636,13 +641,13 @@ def p_primitiveInstructions(p):
             else:
                 activeWorld.changeBool(p[2], True)
     elif p[1] == "move":
-        activeWorld.moveWilly()
+        currentTask.moveWilly()
     elif p[1] == "turn-left":
         dir = "left"
-        activeWorld.turnWilly(dir)
+        currentTask.turnWilly(dir)
     elif p[1] == "turn-right":
         dir = "right"
-        activeWorld.turnWilly(dir)
+        currentTask.turnWilly(dir)
     elif p[1] == "terminate":
         data_error = {
             "type": "Ha finalizado la corrida con exito",
@@ -650,7 +655,7 @@ def p_primitiveInstructions(p):
             "column": p.lexpos(1) + 1,
         }
         print(newWorld)
-        errorSemantic(data_error)
+        finish(data_error)
     if len(p)==2:
         p[0]=Node("PrimitiveInstruction:",[p[1]])
     if len(p)==3:
@@ -790,8 +795,8 @@ def p_instructions(p):
 
 def p_instructionDefineAs(p):
     """instructionDefineAs : TkDefine ids TkAs"""
-    print("EUREKA")
-    print(p[2])
+    # print("EUREKA")
+    # print(p[2])
     p[0]=Node("Define function as",[p[2]])
     global defineAsBool
     defineAsBool = False
@@ -801,11 +806,12 @@ def p_instructionDefineAs(p):
         "column" : p.lexpos(2) + 1,
         } """
     if defineAsBool:
-        print("La variable es TRUE")
+        # print("La variable es TRUE")
+        pass
     else:
-        print("la variable es false, procedemos a pusherar" + "\n")
-        # print(stack)
-        print("Aqui estuvo el stack")
+        # print("la variable es false, procedemos a pusherar" + "\n")
+        # # print(stack)
+        # print("Aqui estuvo el stack")
         table = []
         stack.push(table)
         defineAsBool = True
@@ -855,5 +861,11 @@ def errorSemantic(err):
 
     sys.exit()
 
+def finish(data):
+    # print(data)
+    if data is not None:
+        Message = "Programa finalizado con exito"
+        print(Message)
+    sys.exit()
 
 
