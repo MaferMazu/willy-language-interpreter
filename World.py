@@ -141,14 +141,10 @@ class World:
                                    return False
      
      def getValueFinalGoal(self):
-          if self.finalgoal!="":
-               token=self.finalgoal.split(" ")
-               for i in range(0,len(token)):
-                    if token[i]!="and" and token[i]!="or" and token[i]!="not":
-                         if token[i]=="":
-                              pass
-                         else:
-                              token[i]=self.getValueGoals(token[i])
+          if self.finalgoal[1]!="":
+               return self.finalgoal[0].finalGoalValue(self)
+          else:
+               return False
 
      def getFinalGoal(self):
           return self.finalgoal[1]
