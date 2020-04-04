@@ -1,17 +1,9 @@
 
 # Willy*
 
-Esta es la segunda etapa de la implementación de un ambiente de programación para un robot que interactúa con objetos en un mundo hecho de cuadrículas de tamaño finito y paredes. Este robot se llama Willy.
+Willy* es un proyecto que consiste en la implementación de un ambiente de programación para un robot de nombre Willy.
 
-
-Este proyecto se dividió en etapas:
-
-En esta primera fase del proyecto se implementó el análisis lexicográfico, el cual consiste en reconocer una entrada y dividirla en pequeños pedacitos que llamaremos tokens. Estos luego serán utilizados para crear el análisis sintáctico, que sería nuestro siguiente paso.
-
-Para realizar el análisis lexicográfico se utilizó una herramienta de construcción de lexer y parser llamada PLY.
-
-La segunda etapa consiste en implementar un módulo sintáctico que utilice el módulo lexicográfico de la primera entrega. Este analizador debe aceptar o rechazar un programa dependiendo de si la entrada pertenece o no al lenguaje Willy*, que es el que utiliza nuestro robot para transitar en los mundos definidos en ese mismo lenguaje.
-
+Este robot puede interactuar con objetos en un mundo y desplazarse por el mismo a través de cuadrículas de tamaño finito.
 
 # Cómo correr el programa
 
@@ -25,7 +17,32 @@ willy [nombredearchivoexistente]
   
 o con willy exclusivamente. (Luego se le pedira ingresar el txt)
 
-# Sobre el Lexer
+# Estado Actual del Programa
+03/04/2020 23:50
+
+El proyecto no se encuentra terminado en su totalidad, sin embargo esta implementado:
+
+- El lexer.
+- El parser con sus correspondientes validaciones.
+- La tabla de símbolos.
+- Las clases World y Task para la implementación.
+
+Por terminar:
+Hacer las instancias correspondientes del mundo para hacer la correcta ejecución del programa Willy.
+
+# Sobre el proyecto:
+
+La implementación de este programa se dividió en 3 etapas:
+
+En la primera fase del proyecto se implementó el análisis lexicográfico, el cual consiste en reconocer una entrada y dividirla en pequeños pedacitos que llamaremos tokens. Estos luego serán utilizados para crear el análisis sintáctico, que sería nuestro siguiente paso.
+
+Para realizar el análisis lexicográfico se utilizó una herramienta de construcción de lexer y parser llamada PLY.
+
+La segunda etapa consistió en implementar un módulo sintáctico que utilice el módulo lexicográfico de la primera entrega. Este analizador debe aceptar o rechazar un programa dependiendo de si la entrada pertenece o no al lenguaje Willy*, que es el que utiliza nuestro robot para transitar en los mundos definidos en ese mismo lenguaje.
+
+Y por último en la tercera entrega se concentraba en terminar el interpretador del lenguaje y el simulador para que se realizara correctamente la ejecución del programa.
+
+## Sobre el Lexer
 
 Primero se realizó una lista de tokens, que son los que se consideraron convenientes para los requerimientos del problema. Esta posee los nombres que se usarán posteriormente para identificar las palabras o grupos de palabras que queremos agrupar y dividir, y así empezar a interpretar todo lo que nos provee la entrada al software.
 
@@ -41,7 +58,7 @@ Las siguientes instrucciones fueron para construir el lexer con PLY, verificar l
 
 Si el arreglo de tokens inválidos tiene algún elemento se muestra dicho error en pantalla y termina la ejecución.
 
-# Sobre el Parser
+## Sobre el Parser
 
 Para la implementación del Parser primero se tuvo que entender cómo funciona el constructor de sintaxis que provee PLY, este se denomina yacc, y toma un conjunto de definiciones y las convierte en la gramática de nuestro lenguaje. De hecho, la forma que tienen las definiciones presentes en este módulo se asemejan a las vistas en clase de Traductores.
 
@@ -49,7 +66,22 @@ El diseño de esta gramática comprende la forma en que se determina si un progr
 
 La gramática consta de varios elementos: las variables (que vienen a ser las definiciones que se crearon para que el constructor del parser funcionara), los símbolos terminales que son los tokens, las reglas de producción que también están especificadas en el archivo myparser.py y el símbolo inicial que es representado por “program”. 
 
-## Conclusión
+## Sobre el Interpretador
+
+
+
+# Conclusión
+
 Para desarrollar un interpretador es importante usar la estrategia de dividir y vencer.
+
 Dividiendo la entrada con el programa en tokens y almacenar información pertinente sobre la línea en la que se encuentra o la columna ayudará a que luego podamos darle estructura al lenguaje que se está leyendo y así lograr entender e implementar de forma correcta el funcionamiento del programa de entrada.
+
 Un paso a la vez.
+
+Para la siguiente etapa se aseguró de que la estructura de las instrucciones fueran las indicadas, y que el programa de Willy no pueda ser ejecutado si existe alguna instrucción con errores de sintaxis.
+
+Además se creo una tabla de símbolos que permite llevar el control de las variables del mundo.
+
+Finalmente se crearon estructuras como World y Task que proveen distintas funciones para implementar y ejecutar los programas en lenguaje Willy.
+
+De esta forma se fueron realizando paso a paso todos los procedimientos para crear un interpretador de lenguaje y darle vida a Willy.
