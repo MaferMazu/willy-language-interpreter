@@ -42,6 +42,7 @@ activeWorld = Any
 worldInstBool = False
 taskBool = False
 defineAsBool = False
+validateFinalGoal = False
 blockNumber = 0
 
 
@@ -193,6 +194,7 @@ def p_worldBlock(p):
     """
     id = p[1].children[0]
     global blockNumber
+    global validateFinalGoal
     attributesObjects = {
         "type" : "World",
         "line" : p.lineno(2),
@@ -214,7 +216,7 @@ def p_worldBlock(p):
     else:
         stack.insert("WorldBlock" + str(blockNumber), dataFlag)
         blockNumber = blockNumber + 1
-
+    validateFinalGoal = False
     stack.pop()
     stack.insert(id,attributesObjects)
     createdWorlds.append([id,dataFlag])
@@ -318,6 +320,7 @@ def p_setPlaceObjWorld(p):
                 }
                 errorSemantic(data_error)
         else:
+            newWorld.setObjectsInBasket(id, amount)
             p[0] = Node("PlaceObjWorld", [p[4]], [p[1], p[2], p[3], p[5], p[6]])
     else:
         data_error = {
@@ -331,18 +334,30 @@ def p_setPlaceObjWorld(p):
 
 def p_setStartPosition(p):
     """setStartPosition : TkStart TkAt TkNum TkNum TkHeading directions"""
-    if (p[3] or p[4]) == 0:
+    global newWorld
+    print("######Esto es el dir: " + str(p[6]))
+    if (p[3] or p[4]) <= 0:
         data_error = {
             "type": "Start posicion en 0 no es valido",
             "line": p.lineno(2),
             "column": p.lexpos(2) + 1,
-            "color": p[5],
         }
         errorSemantic(data_error)
     else:
         #Verificar las dimensiones del mundo
         print("dimesiones mundo: " + str(newWorld.getDimension()))
-        p[0]=Node("WillyStartPosition",[p[6]],[p[1],p[2],p[3],p[4],p[5]])
+        dimen = newWorld.getDimension()
+
+        if (p[3] > dimen[0]) or (p[4] > dimen[1]):
+            data_error = {
+                "type": "Willy is out of world",
+                "line": p.lineno(2),
+                "column": p.lexpos(2) + 1,
+            }
+            errorSemantic(data_error)
+        else:
+            newWorld.setWillyStart([p[3],p[4]], p[6])
+            p[0]=Node("WillyStartPosition",[p[6]],[p[1],p[2],p[3],p[4],p[5]])
 
 def p_setBasketCapacity(p):
     """setBasketCapacity : TkBasket TkOf TkCapacity TkNum"""
@@ -351,7 +366,6 @@ def p_setBasketCapacity(p):
             "type": "No permitido " + p[4] + " capacidad de Basket" ,
             "line": p.lineno(2),
             "column": p.lexpos(2) + 1,
-            "color": p[5],
         }
         errorSemantic(data_error)
     else:
@@ -427,13 +441,24 @@ def p_newGoal(p):
 
 def p_finalGoal(p):
     """finalGoal : TkFinalG TkIs finalGoalTest"""
-    p[0]=Node("FinalGoal",[p[3]],[p[1],p[2]])
-    ret = p[3].toString()
-    print("###########################")
-    print("###########################")
-    print(ret)
-    print("###########################")
-    print("###########################")
+    global validateFinalGoal
+    if validateFinalGoal:
+        data_error = {
+            "type": "Only one final goal",
+            "line": p.lineno(2),
+            "column": p.lexpos(2) + 1,
+        }
+        errorSemantic(data_error)
+    else:
+        p[0] = Node("FinalGoal", [p[3]], [p[1], p[2]])
+        ret = p[3].toString()
+        print("###########################")
+        print("###########################")
+        print(ret)
+        print("###########################")
+        print("###########################")
+
+
 
 def p_finalGoalTest(p):
     """finalGoalTest : TkParenL finalGoalTest TkParenR
