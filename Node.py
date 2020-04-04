@@ -31,8 +31,8 @@ class Node:
           else:
                for child in self.children:
                     if isinstance(child,Node):
-                         ret += "" + child.toString()
+                         ret += child.toString()
                     else:
                          ret = ret.rstrip("\n")
-                         ret += "" + str(child)
+                         ret += str(child)
           return ret

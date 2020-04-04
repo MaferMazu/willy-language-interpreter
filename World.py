@@ -131,7 +131,13 @@ class World:
                               if self.isCellWithObject(x[4],x[2]):
                                    return self.howMuchObjectsInCell(x[4],x[2])==x[3]
                               else:
-                                   return False 
+                                   return False
+     
+     def getValueFinalGoal(self):
+          token=self.finalgoal.split(" ")
+          for i in range(0,len(token)):
+               if token[i]!="and" and token[i]!="or" and token[i]!="not":
+                    self.getValueGoals(token[i])
 
      def getFinalGoal(self):
           return self.finalgoal

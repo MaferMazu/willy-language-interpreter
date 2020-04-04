@@ -457,6 +457,8 @@ def p_finalGoal(p):
         print(ret)
         print("###########################")
         print("###########################")
+        validateFinalGoal=True
+        newWorld.setFinalGoal(ret)
 
 
 
