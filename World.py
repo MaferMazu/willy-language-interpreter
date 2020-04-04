@@ -381,26 +381,29 @@ class World:
           pair = [dimension[1]-position[1],position[0]-1]
           return pair
 
-     def printBoard(self,itype=None,reprint=None):
+     def printBoard(self, itype=None, reprint=None):
           ##Imprime matriz y el type dice qué imprimir
           rep = ""
           for column in self.board:
                for elem in column:
-                    if itype=="index":
-                         rep += "["+str(elem[0][0]+1)+", "+str(elem[0][1]+1)+"]" + "   "
+                    if itype == "index":
+                         rep += "[" + str(elem[0][0] + 1) + ", " + str(elem[0][1] + 1) + "]" + " "
                     else:
-                         if elem[1]==" ":
+                         if elem[1] == " ":
                               if elem[2]!=[]:
-                                   rep += "[ * ]   "
+                                   for x in range(0, len(self.objects)):
+                                        if self.objects[x][0] == elem[2][0][0]:
+                                             rep += "[" + self.repobj[x % 4] + "] "
+                                             break
                               else:
-                                   rep += "[   ]   "
+                                   rep += "[ ] "
                          else:
                               if elem[2]!=[]:
-                                   rep += "[ W ]   "
+                                   rep += "[W] "
                               else:
-                                   rep += "[ "+str(elem[1]) + " ]   "
+                                   rep += "[" + str(elem[1]) + "] "
                rep += "\n"
-          if reprint==None:
+          if reprint is None:
                print(rep)
           return rep
 

@@ -1,26 +1,33 @@
 begin-world world1
-{{mundo con 8 columas y 4 filas}}
-World 4 4
+{{mundo con 20 columas y 20 filas}}
+World 20 20
 {{paredes}}
 Wall west from 1 3 to 2 3
-Wall west from 2 2 to 3 2
+Wall west from 2 2 to 15 2
+Wall west from 17 4 to 20 4
+Wall west from 1 17 to 8 17
+Wall north from 8 17 to 8 19
+Wall west from 5 11 to 16 11
+Wall west from 5 3 to 8 3
+Wall north from 9 4 to 9 10
 {{objetos}}
-Object-type flower of color yellow
-Object-type umbrella of color magenta
+Object-type medal of color yellow
+Object-type pain of color cyan
 Object-type heart of color red
 {{Colocar objetos}}
-Place 5 of flower at 1 1
-Place 20 of umbrella at 1 1
-Place 5 of umbrella at 4 3
-Place 10 of heart in basket
+Place 1 of medal at 1 18
+Place 1 of pain at 9 5
+Place 1 of pain at 4 3
+Place 1 of pain at 19 19
+Place 3 of heart in basket
 {{Inicio de Wally}}
 Start at 1 2 heading south
 Basket of capacity 30
-Boolean willyhappy1 with initial value true
-Boolean willycanlearn1 with initial value false
-Goal goal1 is willy is at 1 1
-Goal goal2 is 3 mirror objects in Basket
-Goal goal3 is 10 umbrella objects at 4 3
+Boolean willyhappy with initial value true
+Boolean willyhavehearts with initial value true
+Goal goal1 is willy is at 1 18
+Goal goal2 is 0 heart objects in Basket
+Goal goal3 is 1 medal objects in Basket
 Final goal is goal1 and (not goal2 or goal3);
 end-world
 begin-task task1 on world1
