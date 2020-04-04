@@ -8,6 +8,7 @@ import logging
 
 ValidTokens = []  # Coleccion de tokens validos
 InvalidTokens = []  # Coleccion de tokens invalidos
+ParserErrors = [] #Errores en el parser
 
 """
 logging.basicConfig(
@@ -87,7 +88,7 @@ try:
         # Agarro el siguiente token
         tok = lexer.token()
     output+="\n"
-    result = parser.parse(datacopy)
+    # result = parser.parse(datacopy)
     #print(result)
         
     # Leemos otra linea
@@ -103,6 +104,11 @@ try:
     else:
         print("tokens")
        #print(output)
+    
+    if (len(ParserErrors)>=1):
+        print(ParserErrors[0])
+
+
 
 
 

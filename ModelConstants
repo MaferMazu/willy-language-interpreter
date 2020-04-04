@@ -1,0 +1,5 @@
+class ModelConstants:
+    def __init__(self):
+
+        self.primitiveBool = []
+
