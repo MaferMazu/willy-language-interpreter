@@ -235,65 +235,11 @@ class World:
           else:
                return False
 
-     ####
-     # Willy Instructions
-     ####
-
-     def moveWilly(self):
-          actualposition = self.getWillyPosition()
-          pos = self.positionInBoard(actualposition[0])
-          newfront,newleft,newright = self.whereIsMyFrontLeftRight(actualposition[0],actualposition[1])
-          if newfront!=None and self.isCellWallFree(newfront):
-               self.positionF = [newfront,actualposition[1]]
-               position = self.positionInBoard(self.getWillyPosition()[0])
-               self.board[position[0]][position[1]][1]="w"
-               self.changeFLRBools(self.getWillyPosition()[0],self.getWillyPosition()[1])
-               self.board[pos[0]][pos[1]][1]=" "
-               return True
-          else:
-               return False
-
-     def turnWilly(self,directionLR):
-          pos = self.getWillyPosition()[1]
-          index = 0
-          for x in range(0,4):
-               if self.directions[x]== pos:
-                    index = x
-          if directionLR == "left":
-               new_direction=self.directions[(index-1)%4]
-          elif directionLR == "right":
-               new_direction=self.directions[(index+1)%4]
-          self.positionF[1]=new_direction
-          self.changeLookingBools(new_direction)
-          self.changeFLRBools(self.getWillyPosition()[0],new_direction)
-          return True
-
-     def pickObject(self,id):
-          return self.setObjectsInBasket(id,1)
-
-     def dropObject(self,id):
-          return self.setFreeObjectsInBasket(id,1)
 
 
      ####
      # Some Questions
      ####
-
-     def isGeneric(self,id,typeOf):
-          if typeOf=="ObjectBasket":
-               mylist=self.objectsInBasket
-          elif typeOf=="Object":
-               mylist=self.objects
-          elif typeOf=="Bool":
-               mylist=self.bools
-          elif typeOf=="Goal":
-               mylist=self.goals
-          
-          for x in mylist:
-               if x[0]==id:
-                    return True
-          else:
-               return False
 
      def isObjectBasket(self,objectname):
           return self.isGeneric(objectname,"ObjectBasket")
@@ -453,8 +399,23 @@ class World:
                else:
                     self.changeBool("looking-"+self.directions[x],False)
      
+     def isGeneric(self,id,typeOf):
+          if typeOf=="ObjectBasket":
+               mylist=self.objectsInBasket
+          elif typeOf=="Object":
+               mylist=self.objects
+          elif typeOf=="Bool":
+               mylist=self.bools
+          elif typeOf=="Goal":
+               mylist=self.goals
+          
+          for x in mylist:
+               if x[0]==id:
+                    return True
+          else:
+               return False
 
-def main():
+""" def main():
     print("Corriendo!")
     if __name__== "__main__" :
          print("####\nEmpezó la prueba\n####\n\n")
@@ -500,7 +461,7 @@ def main():
          print("setObjectInWorld + 1  flores en 1,1 pero hay wall:",World1.setObjectInWorld("flor",1,[1,1]))
          print("isBool willhappy: ", World1.isBool("willhappy"))
          print("isBool happy: ", World1.isBool("happy"))
-         """"print("Insertar a Willy en 7,9",World1.setWillyPosition([7,9],"north"))"""
+         print("Insertar a Willy en 7,9",World1.setWillyPosition([7,9],"north"))
          print(World1)
          front,left,right = World1.whereIsMyFrontLeftRight([1,1],"west")
          print("1,1 My front left right",front,left,right)
@@ -566,4 +527,4 @@ def main():
          World1.setGoals("goal1","WillyIsAt",[1,2])
          print(World1.getGoals())
 
-main()
+main() """
