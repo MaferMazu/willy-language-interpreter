@@ -519,10 +519,19 @@ def p_primitiveInstructions(p):
     """
     global taskBool
     global objectsInWorlds
-    if p[1] == "drop":
+    if p[1] == ("drop" or "pick"):
         if not (ModelProcedure(p[2], objectsInWorlds)):
             data_error = {
                 "type": "Objeto " + p[2] + " No existe en el mudno ",
+                "line": p.lineno(2),
+                "column": p.lexpos(2) + 1,
+                "color": p[5],
+            }
+            errorSemantic(data_error)
+    elif p[1] == ("clear" or "flip"):
+        if not (ModelProcedure(p[2], booleansOfWorlds)):
+            data_error = {
+                "type": "Booleano " + p[2] + " No existe en el mudno ",
                 "line": p.lineno(2),
                 "column": p.lexpos(2) + 1,
                 "color": p[5],
