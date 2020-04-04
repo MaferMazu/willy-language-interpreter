@@ -181,6 +181,22 @@ class World:
           return self.objectsInBasket
 
      def setObjectsInBasket(self,id,amount):
+          if self.isObject(id) and self.getCapacityOfBasket()>0:
+               if not self.isObjectBasket(id):
+                    self.objectsInBasket.append([id,amount])
+               else:
+                    for y in self.objectsInBasket:
+                         if y[0]==id:
+                              y[1] = y[1] + amount
+
+               newcapacity=self.getCapacityOfBasket()-amount
+               self.setCapacityOfBasket(newcapacity)
+               return True
+          else:
+               return False
+
+
+     def addObjectsInBasket(self,id,amount):
           ready=False
           #Verifico si puedo agarrar objetos por mi basket capacity ysi el id existe
           if self.isObject(id) and self.getCapacityOfBasket()>0:
@@ -191,22 +207,14 @@ class World:
                     #Verifico si en la celda en la que estoy en el area de objetos tengo a
                     #alguien con el id y que la cantidad sea mayor a lo que quiero recoger
                     if listObjInCell[i][0]==id and listObjInCell[i][1]>=amount:
-                         #Si no tengo en mi canasta agrego sino solo sumo
-                         if not self.isObjectBasket(id):
-                              self.objectsInBasket.append([listObjInCell[i][0],amount])
-                         else:
-                              for y in self.objectsInBasket:
-                                   if y[0]==id:
-                                        y[1] = y[1] + amount
+                         self.setObjectsInBasket(id,amount)
                          #Modifico la lista de objects
                          for y in self.getObjects():
                               if y[0]==id:
                                    y[1]= y[1]-amount
+                         
                          #Modifico la cantidad en la celda en la que estoy
                          listObjInCell[i][1]=listObjInCell[i][1]-amount
-                         #Reduzco mi capacidad de basket
-                         newcapacity=self.getCapacityOfBasket()-amount
-                         self.setCapacityOfBasket(newcapacity)
                          ready=True
                          if listObjInCell[i][1]==0:
                               index=i
@@ -482,16 +490,16 @@ class World:
          print(World1)
          print(World1.objects)
          World1.setCapacityOfBasket(20)
-         print("agarrar 3 flores ",World1.setObjectsInBasket("flor",3))
+         print("agarrar 3 flores ",World1.addObjectsInBasket("flor",3))
          print("13 - 3 flores ",World1.objects)
          print("20-3 ",World1.capacityOfBasket)
          print("3 flores ",World1.objectsInBasket)
          print("Mirror: ", World1.setObjects("mirror","blue"))
          print("Table: ", World1.setObjects("table","gray"))
          print("2 mirror en pos actual:",World1.setObjectInWorld("mirror",2,[2,1]))
-         print("agarrar 1 mirror ",World1.setObjectsInBasket("mirror",1))
+         print("agarrar 1 mirror ",World1.addObjectsInBasket("mirror",1))
          print("pickObject",World1.pickObject("mirror"))
-         print("agarrar 2 flores ",World1.setObjectsInBasket("flor",2))
+         print("agarrar 2 flores ",World1.addObjectsInBasket("flor",2))
          print("obj ",World1.objects)
          print("basket capacity",World1.capacityOfBasket)
          print("my basket ",World1.objectsInBasket)

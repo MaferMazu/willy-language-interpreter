@@ -45,7 +45,7 @@ class Task:
         return True
 
     def pickObject(self,id):
-        return self.world.setObjectsInBasket(id,1)
+        return self.world.addObjectsInBasket(id,1)
 
     def dropObject(self,id):
         return self.world.setFreeObjectsInBasket(id,1)
@@ -119,16 +119,16 @@ def main():
         print(World1)
         print(World1.objects)
         World1.setCapacityOfBasket(20)
-        print("agarrar 3 flores ",World1.setObjectsInBasket("flor",3))
+        print("agarrar 3 flores ",World1.addObjectsInBasket("flor",3))
         print("13 - 3 flores ",World1.objects)
         print("20-3 ",World1.capacityOfBasket)
         print("3 flores ",World1.objectsInBasket)
         print("Mirror: ", World1.setObjects("mirror","blue"))
         print("Table: ", World1.setObjects("table","gray"))
         print("2 mirror en pos actual:",World1.setObjectInWorld("mirror",2,[2,1]))
-        print("agarrar 1 mirror ",World1.setObjectsInBasket("mirror",1))
+        print("agarrar 1 mirror ",World1.addObjectsInBasket("mirror",1))
         print("pickObject",Task1.pickObject("mirror"))
-        print("agarrar 2 flores ",World1.setObjectsInBasket("flor",2))
+        print("agarrar 2 flores ",World1.addObjectsInBasket("flor",2))
         print("obj ",World1.objects)
         print("basket capacity",World1.capacityOfBasket)
         print("my basket ",World1.objectsInBasket)
