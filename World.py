@@ -414,7 +414,7 @@ class World:
           else:
                return False
 
-def main():
+""" def main():
     print("Corriendo!")
     if __name__== "__main__" :
          print("####\nEmpezó la prueba\n####\n\n")
@@ -460,7 +460,7 @@ def main():
          print("setObjectInWorld + 1  flores en 1,1 pero hay wall:",World1.setObjectInWorld("flor",1,[1,1]))
          print("isBool willhappy: ", World1.isBool("willhappy"))
          print("isBool happy: ", World1.isBool("happy"))
-         """"print("Insertar a Willy en 7,9",World1.setWillyPosition([7,9],"north"))"""
+         print("Insertar a Willy en 7,9",World1.setWillyPosition([7,9],"north"))
          print(World1)
          front,left,right = World1.whereIsMyFrontLeftRight([1,1],"west")
          print("1,1 My front left right",front,left,right)
@@ -526,4 +526,4 @@ def main():
          World1.setGoals("goal1","WillyIsAt",[1,2])
          print(World1.getGoals())
 
-main()
+main() """
