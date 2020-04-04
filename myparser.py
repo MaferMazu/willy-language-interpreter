@@ -764,6 +764,7 @@ def p_instructions(p):
                     | whileInst
                     | TkBegin multiInstructions TkEnd
                     | instructionDefineAs instructions
+                    | TkSemicolon
                     """
     if len(p)==2:
         p[0]= Node("Instructions",[p[1]])

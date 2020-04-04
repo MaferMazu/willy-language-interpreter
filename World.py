@@ -13,6 +13,7 @@ class World:
           self.directions=["north","west","south","east"]
           self.goals=[] #Formato [id,tipo,objectOrPosition,position/None]
           self.finalgoal=[None,""] #Formato [Nodo,string]
+          self.repobj=["o","+","x","#"]
 
      def __str__(self):
           return self.printBoard("","willy")
@@ -205,6 +206,7 @@ class World:
           if self.isCellWallFree(pair):
                self.positionF = [pair,direction]
                pos = self.positionInBoard(pair)
+               print("pase por aqui#######################")
                self.board[pos[0]][pos[1]][1]="w"
                self.changeLookingBools(direction)
                self.changeFLRBools(self.getWillyPosition()[0],direction)
@@ -389,9 +391,12 @@ class World:
                     else:
                          if elem[1]==" ":
                               if elem[2]!=[]:
-                                   rep += "[ * ]   "
+                                   for x in range(0,len(self.objects)):
+                                        if self.objects[x][0] == elem[2][0]:
+                                             rep += "[ "+ self.repobj[x%4] + " ]   "
+                                             break
                               else:
-                                   rep += "[   ]   "
+                              rep += "[   ]   "
                          else:
                               if elem[2]!=[]:
                                    rep += "[ W ]   "
