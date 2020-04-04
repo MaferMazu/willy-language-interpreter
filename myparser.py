@@ -360,6 +360,10 @@ def p_newBoolean(p):
         stack.insert(p[2], attributesObjects)
         worldInstBool = True
 
+    global booleansOfWorlds
+    booleansOfWorlds.append([p[2],attributesObjects])
+
+
 def p_newGoal(p):
     """newGoal : TkGoal ids TkIs TkWilly TkIs TkAt TkNum TkNum
             | TkGoal ids TkIs TkNum ids TkObjectsLower TkIn TkBasket
@@ -405,16 +409,16 @@ def p_newGoal(p):
         worldInstBool = True
 
 def p_finalGoal(p):
-    '''finalGoal : TkFinalG TkIs finalGoalTest'''
+    """finalGoal : TkFinalG TkIs finalGoalTest"""
     p[0]=Node("FinalGoal",[p[3]],[p[1],p[2]])
 
 def p_finalGoalTest(p):
-    '''finalGoalTest : ids
+    """finalGoalTest : ids
                      | disyuncionGoal
                      | conjuncionGoal
                      | negacionGoal
                      | TkParenL finalGoalTest TkParenR
-    '''
+    """
     if len(p)==2:
         p[0]=Node("FinalGoal",[p[1]])
     else:
@@ -442,10 +446,10 @@ def p_taskBlock(p):
     """taskBlock : taskDefinition TkOn ids multiInstructions TkEndTask"""
     global taskBool
     global createdWorlds
-    print("###################################")
-    print("ESTO ES TAAAAASSSKKK",p[0])
-    print("ESTO ES TAAAAASSSKKK " + str(ModelProcedure.find(p[3], p[3], createdWorlds)))
-    print("###################################")
+    # print("###################################")
+    # print("ESTO ES TAAAAASSSKKK",p[0])
+    # print("ESTO ES TAAAAASSSKKK " + str(ModelProcedure.find(p[3], p[3], createdWorlds)))
+    # print("###################################")
     if ModelProcedure.find(p[3], p[3], createdWorlds):
         attributesObjects = {
             "type": "Task",
@@ -514,6 +518,16 @@ def p_primitiveInstructions(p):
                              | TkTerminate
     """
     global taskBool
+    global objectsInWorlds
+    if p[1] == "drop":
+        if not (ModelProcedure(p[2], objectsInWorlds)):
+            data_error = {
+                "type": "Objeto " + p[2] + " No existe en el mudno ",
+                "line": p.lineno(2),
+                "column": p.lexpos(2) + 1,
+                "color": p[5],
+            }
+            errorSemantic(data_error)
     if len(p)==2:
         p[0]=Node("PrimitiveInstruction:",[p[1]])
         # print("(####################)")
@@ -604,7 +618,7 @@ def p_instructions(p):
     elif len(p)==4:
         p[0]= Node("Instructions",[p[2]],[p[1],p[3]])
     elif len(p)==5:
-        if p[1]=="TkRepeat":
+        if p[1]=="repeat":
             if p[2] <= 0:
                 int = p[2]
                 data_error = {
