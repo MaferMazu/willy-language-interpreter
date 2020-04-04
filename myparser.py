@@ -297,6 +297,7 @@ def p_colors(p):
                 | TkYellow
     """
     p[0]=p[1]
+    p.set_lineno(0,p.lineno(1))
 
 def p_setPlaceObjWorld(p):
     """setPlaceObjWorld : TkPlace TkNum TkOf ids TkAt TkNum TkNum
@@ -517,7 +518,7 @@ def p_taskBlock(p):
         attributesObjects = {
             "type": "Task",
             "line": p.lineno(2),
-            "column": p.lexpos(2) + 1,
+            "column": p.lexspan(2)[0] + 1,
         }
         p[0] = Node("Task", [p[1], p[3], p[4]])
         # print("###################################")
@@ -679,6 +680,7 @@ def p_primitiveBoolean(p):
                         | TkLookingW
                         """
     p[0]=p[1]
+    p.set_lineno(0,p.lineno(1))
 
 def p_instructions(p):
     """instructions : primitiveInstructions
