@@ -705,7 +705,7 @@ def p_booleanTests(p):
         p[0]=Node("BooleanTest",[p[1]])
     if len(p)==5:
         if p[1] == "found":
-            if activeWorld.isCellWithObject(activeWorld.getWillyPosition(), p[3]):
+            if activeWorld.isCellWithObject(activeWorld.getWillyPosition()[0], p[3]):
                 print("El objeto " + p[3] + " se encuentra en  " + str(activeWorld.getWillyPosition()))
         elif p[1] == "carrying" :
             aux = activeWorld.isObjectBasket(p[3])
