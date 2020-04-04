@@ -195,6 +195,7 @@ def p_worldBlock(p):
     id = p[1].children[0]
     global blockNumber
     global validateFinalGoal
+    global createdWorlds
     attributesObjects = {
         "type" : "World",
         "line" : p.lineno(2),
@@ -219,7 +220,8 @@ def p_worldBlock(p):
     validateFinalGoal = False
     stack.pop()
     stack.insert(id,attributesObjects)
-    createdWorlds.append([id,dataFlag])
+    createdWorlds.append(newWorld)
+    print(newWorld)
     print("Despues del pop")
 #     # print(stack)
     
@@ -254,7 +256,7 @@ def p_newObjType(p):
     global newWorld
     id = p[2]
     print(p[2])
-    if procedures.find(id, programBlock):
+    if procedures.findObj(id, programBlock):
         data_error = {
             "type": "Objeto " + id + " contiene nombre de un World o Task",
             "line": p.lineno(2),
@@ -361,6 +363,7 @@ def p_setStartPosition(p):
 
 def p_setBasketCapacity(p):
     """setBasketCapacity : TkBasket TkOf TkCapacity TkNum"""
+    global newWorld
     if p[4] == 0:
         data_error = {
             "type": "No permitido " + p[4] + " capacidad de Basket" ,
@@ -369,12 +372,14 @@ def p_setBasketCapacity(p):
         }
         errorSemantic(data_error)
     else:
+        newWorld.setCapacityOfBasket(p[4])
         p[0]=Node("BasketCapacity",[],[p[1],p[2],p[3],p[4]])
 
 def p_newBoolean(p):
     """newBoolean : TkBoolean ids TkWith TkInitial TkValue TkTrue
                   | TkBoolean ids TkWith TkInitial TkValue TkFalse
     """
+    global newWorld
     p[0]=Node("NewBoolean",[p[2]],[p[1],p[3],p[4],p[5],p[6]])
     global worldInstBool
     attributesObjects = {
@@ -390,7 +395,7 @@ def p_newBoolean(p):
         stack.push(table)
         stack.insert(p[2], attributesObjects)
         worldInstBool = True
-
+    newWorld.setBool(p[2], p[6])
     global booleansOfWorlds
     booleansOfWorlds.append([p[2],attributesObjects])
 
@@ -400,9 +405,10 @@ def p_newGoal(p):
             | TkGoal ids TkIs TkNum ids TkObjectsLower TkIn TkBasket
             | TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum
     """
+    global newWorld
     global worldInstBool
     if len(p)==9:
-        if p[4]=="TkWilly":
+        if p[4]=="willy":
             p[0]=Node("NewGoal",[p[2]],[p[1],p[3],p[4],p[5],p[6],p[7],p[8]])
             attributesObjects = {
                 "type" : "WillyIsAt",
@@ -411,6 +417,7 @@ def p_newGoal(p):
                 "column_": p[7],
                 "row": p[8]
             }
+            newWorld.setGoals(p[2],attributesObjects["type"],[p[7],p[8]])
         else:
             p[0]=Node("NewGoal: Object in Basket",[p[2],p[5]],[p[1],p[3],p[4],p[6],p[7],p[8]])
             attributesObjects = {
@@ -420,6 +427,7 @@ def p_newGoal(p):
                 "amount": p[4],
                 "id-object": p[5],
             }
+            newWorld.setGoals(p[2], attributesObjects["type"], p[5], p[4])
     else:
         p[0]=Node("NewGoal: Object at position",[p[2],p[5]],[p[1],p[3],p[4],p[6],p[7],p[8],p[9]])
         attributesObjects = {
@@ -431,6 +439,7 @@ def p_newGoal(p):
             "column_": p[8],
             "row": p[9]
         }
+        newWorld.setGoals(p[2], attributesObjects["type"],p[5], p[4], [p[8], p[9]])
     if worldInstBool:
         stack.insert(p[2], attributesObjects)
     else:

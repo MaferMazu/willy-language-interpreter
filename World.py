@@ -61,6 +61,11 @@ class World:
                return True
           else:
                return False
+
+
+
+         ###Init of objects
+
      
      def getObjects(self):
           return self.objects
@@ -152,6 +157,9 @@ class World:
           self.finalgoal[0]= nodo
           self.finalgoal[1]= self.finalgoal[1] + input
 
+     """
+     Init of Booleans
+     """
      ####
      # Get y Set Bool
      ####
