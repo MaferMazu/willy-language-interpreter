@@ -121,23 +121,28 @@ class World:
 
      def getValueGoals(self,goal):
           if goal==True or goal==False:
+               print(goal,goal)
                return goal
           if self.isGoal(goal):
                for x in self.goals:
                     if x[0]==goal:
                          if x[1]=="WillyIsAt":
+                              print(goal,x[2][1]==self.getWillyPosition()[0][1] and x[2][0]==self.getWillyPosition()[0][0])
                               return x[2][1]==self.getWillyPosition()[0][1] and x[2][0]==self.getWillyPosition()[0][0]
 
                          elif x[1]=="ObjectInBasket":
                               if self.isObjectBasket(x[2]):
+                                   print(goal,self.howMuchObjectsInBasket(x[2])==x[3])
                                    return self.howMuchObjectsInBasket(x[2])==x[3]
                               else:
                                    return False 
 
                          elif x[1]=="ObjectInPosition":
                               if self.isCellWithObject(x[4],x[2]):
+                                   print(goal,self.howMuchObjectsInCell(x[4],x[2])==x[3])
                                    return self.howMuchObjectsInCell(x[4],x[2])==x[3]
                               else:
+                                   print(goal,False)
                                    return False
      
      def getValueFinalGoal(self):
@@ -190,6 +195,7 @@ class World:
      ####
      def setWillyStart(self,pair,direction):
           self.positionI = [pair,direction]
+          self.setWillyPosition(pair,direction)
           return True
 
      def getWillyStart(self):

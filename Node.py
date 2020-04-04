@@ -41,26 +41,27 @@ class Node:
      def finalGoalValue(self,mundo):
           mybool = True
           if isinstance(mundo,World):
-
-               if self.type=="Conjuncion" :
-                    left = self.children[0].finalGoalValue()
-                    rigth = self.children[1].finalGoalValue()
+               print(self.type)
+               if self.type=="Conjuncion":
+                    left = self.children[0].finalGoalValue(mundo)
+                    rigth = self.children[1].finalGoalValue(mundo)
                     mybool= mybool and (mundo.getValueGoals(left) and mundo.getValueGoals(rigth))
                elif self.type=="Disyuncion":
-                    left = self.children[0].finalGoalValue()
-                    rigth = self.children[1].finalGoalValue()
+                    left = self.children[0].finalGoalValue(mundo)
+                    rigth = self.children[1].finalGoalValue(mundo)
                     mybool= mybool and (mundo.getValueGoals(left) or mundo.getValueGoals(rigth))
                elif self.type=="Parentesis":
-                    u = self.children[0].finalGoalValue()
+                    u = self.children[0].finalGoalValue(mundo)
                     mybool= mybool and ((u))
                elif self.type=="Not":
-                    u = self.children[0].finalGoalValue()
+                    u = self.children[0].finalGoalValue(mundo)
                     mybool= mybool and (not u)
                else:
                     for child in self.children:
                          if isinstance(child,Node):
-                              mybool= mybool and (child.finalGoalValue())
+                              mybool= mybool and (child.finalGoalValue(mundo))
                          else:
+                              print("soy leaf y mi valor es:",child,mundo.getGoals(),mundo.getValueGoals(child))
                               mybool=mybool and mundo.getValueGoals(child)
                     
                return mybool

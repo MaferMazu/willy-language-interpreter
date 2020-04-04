@@ -439,6 +439,8 @@ def p_newGoal(p):
             "column_": p[8],
             "row": p[9]
         }
+        print("SOY P9999999999")
+        print(p[9])
         newWorld.setGoals(p[2], attributesObjects["type"],p[5], p[4], [p[8], p[9]])
     if worldInstBool:
         stack.insert(p[2], attributesObjects)
@@ -468,6 +470,8 @@ def p_finalGoal(p):
         print("###########################")
         validateFinalGoal=True
         newWorld.setFinalGoal(p[3],ret)
+        print("Mi final goal",newWorld.getFinalGoal())
+        print("Resultado Mi final goal",newWorld.getValueFinalGoal())
 
 
 
@@ -597,9 +601,10 @@ def p_primitiveInstructions(p):
     elif p[1] == "terminate":
         data_error = {
             "type": "Se ha detenido la ejecucion del programa",
-            "line": p.lineno(2),
-            "column": p.lexpos(2) + 1,
+            "line": p.lineno(1),
+            "column": p.lexpos(1) + 1,
         }
+        print(newWorld)
         errorSemantic(data_error)
     if len(p)==2:
         p[0]=Node("PrimitiveInstruction:",[p[1]])
