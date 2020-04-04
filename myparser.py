@@ -635,6 +635,14 @@ def p_primitiveInstructions(p):
                 activeWorld.changeBool(p[2], auxBool)
             else:
                 activeWorld.changeBool(p[2], True)
+    elif p[1] == "move":
+        activeWorld.moveWilly()
+    elif p[1] == "turn-left":
+        dir = "left"
+        activeWorld.turnWilly(dir)
+    elif p[1] == "turn-right":
+        dir = "right"
+        activeWorld.turnWilly(dir)
     elif p[1] == "terminate":
         data_error = {
             "type": "Ha finalizado la corrida con exito",
