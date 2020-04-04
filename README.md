@@ -49,6 +49,8 @@ El diseño de esta gramática comprende la forma en que se determina si un progr
 
 La gramática consta de varios elementos: las variables (que vienen a ser las definiciones que se crearon para que el constructor del parser funcionara), los símbolos terminales que son los tokens, las reglas de producción que también están especificadas en el archivo myparser.py y el símbolo inicial que es representado por “program”. 
 
+
+
 ## Conclusión
 Para desarrollar un interpretador es importante usar la estrategia de dividir y vencer.
 Dividiendo la entrada con el programa en tokens y almacenar información pertinente sobre la línea en la que se encuentra o la columna ayudará a que luego podamos darle estructura al lenguaje que se está leyendo y así lograr entender e implementar de forma correcta el funcionamiento del programa de entrada.

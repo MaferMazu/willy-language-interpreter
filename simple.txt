@@ -1,5 +1,5 @@
 begin-world maferBaila2
-World 8 8
+World 3 3
 Object-type sky of color yellow;
 Object-type dog of color green;
 Object-type alo of color blue;
@@ -40,7 +40,7 @@ Final goal is goal1 or goal2 and goal3
 Final goal is not goal2 and goal3
 Final goal is goal1 and goal2 and goal3;
 end-world
-begin-task task1 on world11
+begin-task task1 on world1
 define fun as begin
     move;
     pick flower;

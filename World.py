@@ -1,5 +1,6 @@
 class World:
-     def __init__(self):
+     def __init__(self, id):
+          self.id = id
           self.dimensions=[1,1]
           self.objects=[] #Formato [idObjeto,amountObject,colorObject] tienen amount si fueron puestos en el mundo
           self.board=[] #Esto es una matriz con elementos de la forma [pair([x,y]),willy(W) o wall(/),lista de pares([idObje,amount])]
