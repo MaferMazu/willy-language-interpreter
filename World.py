@@ -205,6 +205,7 @@ class World:
           if self.isCellWallFree(pair):
                self.positionF = [pair,direction]
                pos = self.positionInBoard(pair)
+               print("pase por aqui#######################")
                self.board[pos[0]][pos[1]][1]="w"
                self.changeLookingBools(direction)
                self.changeFLRBools(self.getWillyPosition()[0],direction)

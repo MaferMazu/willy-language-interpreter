@@ -97,8 +97,7 @@ def p_worldInstSet(p):
             p[0]=Node("WorldInstancia:",[p[1],p[2]])
 
 def p_worldInst(p):
-    """ worldInst : worldSet
-                | wallSet
+    """ worldInst : worldIns wallSet
                 | newObjType
                 | setPlaceObjWorld
                 | setStartPosition
@@ -108,6 +107,7 @@ def p_worldInst(p):
                 | finalGoal
     """
     p[0]=Node("WorldInstructions",[p[1]])
+
 
 def p_wallSet(p):
     """wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum"""
@@ -174,7 +174,6 @@ def p_wallSet(p):
         errorSemantic(None)
         print('Bad definition of wall in World')
 
-
 def p_worldDefinition(p):
     """
     worldDefinition : TkBeginWorld ids
@@ -228,6 +227,7 @@ def p_worldBlock(p):
     print("Despues del pop")
 #     # print(stack)
     
+
 
 def p_worldSet(p):
     """worldSet : TkWorld TkNum TkNum
@@ -364,6 +364,7 @@ def p_setStartPosition(p):
         else:
             newWorld.setWillyStart([p[3],p[4]], p[6])
             p[0]=Node("WillyStartPosition",[p[6]],[p[1],p[2],p[3],p[4],p[5]])
+            print(newWorld)
 
 def p_setBasketCapacity(p):
     """setBasketCapacity : TkBasket TkOf TkCapacity TkNum"""

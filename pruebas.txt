@@ -1,10 +1,11 @@
 begin-world mimundo
 
-  Start at 1 1 heading north;
+  
   Basket of capacity 99999999;
 
   Boolean mytrue with initial value true;
   World 10 10;
+  Start at 1 1 heading north;
 
   Object-type northArrow of color green;
   Object-type westArrow of color green;
