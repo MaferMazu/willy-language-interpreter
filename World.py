@@ -12,7 +12,7 @@ class World:
           self.bools = [["front-clear",False], ["left-clear",False], ["right-clear",False], ["looking-north",False], ["looking-east",False], ["looking-south",False],["looking-west",False]] #Formato [id,value]
           self.directions=["north","west","south","east"]
           self.goals=[] #Formato [id,tipo,objectOrPosition,position/None]
-          self.finalgoal=""
+          self.finalgoal=[None,""] #Formato [Nodo,string]
 
      def __str__(self):
           return self.printBoard("","willy")
@@ -120,35 +120,43 @@ class World:
           return self.goals
 
      def getValueGoals(self,goal):
+          if goal==True or goal==False:
+               print(goal,goal)
+               return goal
           if self.isGoal(goal):
                for x in self.goals:
                     if x[0]==goal:
                          if x[1]=="WillyIsAt":
+                              print(goal,x[2][1]==self.getWillyPosition()[0][1] and x[2][0]==self.getWillyPosition()[0][0])
                               return x[2][1]==self.getWillyPosition()[0][1] and x[2][0]==self.getWillyPosition()[0][0]
 
                          elif x[1]=="ObjectInBasket":
                               if self.isObjectBasket(x[2]):
+                                   print(goal,self.howMuchObjectsInBasket(x[2])==x[3])
                                    return self.howMuchObjectsInBasket(x[2])==x[3]
                               else:
                                    return False 
 
                          elif x[1]=="ObjectInPosition":
                               if self.isCellWithObject(x[4],x[2]):
+                                   print(goal,self.howMuchObjectsInCell(x[4],x[2])==x[3])
                                    return self.howMuchObjectsInCell(x[4],x[2])==x[3]
                               else:
+                                   print(goal,False)
                                    return False
      
      def getValueFinalGoal(self):
-          token=self.finalgoal.split(" ")
-          for i in range(0,len(token)):
-               if token[i]!="and" and token[i]!="or" and token[i]!="not":
-                    self.getValueGoals(token[i])
+          if self.finalgoal[1]!="":
+               return self.finalgoal[0].finalGoalValue(self)
+          else:
+               return False
 
      def getFinalGoal(self):
-          return self.finalgoal
+          return self.finalgoal[1]
 
-     def setFinalGoal(self,input):
-          self.finalgoal= self.finalgoal + input
+     def setFinalGoal(self,nodo,input):
+          self.finalgoal[0]= nodo
+          self.finalgoal[1]= self.finalgoal[1] + input
 
      """
      Init of Booleans
@@ -187,6 +195,7 @@ class World:
      ####
      def setWillyStart(self,pair,direction):
           self.positionI = [pair,direction]
+          self.setWillyPosition(pair,direction)
           return True
 
      def getWillyStart(self):

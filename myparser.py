@@ -297,6 +297,7 @@ def p_colors(p):
                 | TkYellow
     """
     p[0]=p[1]
+    p.set_lineno(0,p.lineno(1))
 
 def p_setPlaceObjWorld(p):
     """setPlaceObjWorld : TkPlace TkNum TkOf ids TkAt TkNum TkNum
@@ -439,6 +440,8 @@ def p_newGoal(p):
             "column_": p[8],
             "row": p[9]
         }
+        print("SOY P9999999999")
+        print(p[9])
         newWorld.setGoals(p[2], attributesObjects["type"],p[5], p[4], [p[8], p[9]])
     if worldInstBool:
         stack.insert(p[2], attributesObjects)
@@ -460,15 +463,16 @@ def p_finalGoal(p):
         errorSemantic(data_error)
     else:
         p[0] = Node("FinalGoal", [p[3]], [p[1], p[2]])
-        ret = p[3].toString()
-        validateFinalGoal = True
+        ret = p[3].finalGoalToString()
         print("###########################")
         print("###########################")
         print(ret)
         print("###########################")
         print("###########################")
         validateFinalGoal=True
-        newWorld.setFinalGoal(ret)
+        newWorld.setFinalGoal(p[3],ret)
+        print("Mi final goal",newWorld.getFinalGoal())
+        print("Resultado Mi final goal",newWorld.getValueFinalGoal())
 
 
 
@@ -514,7 +518,7 @@ def p_taskBlock(p):
         attributesObjects = {
             "type": "Task",
             "line": p.lineno(2),
-            "column": p.lexpos(2) + 1,
+            "column": p.lexspan(2)[0] + 1,
         }
         p[0] = Node("Task", [p[1], p[3], p[4]])
         # print("###################################")
@@ -598,9 +602,10 @@ def p_primitiveInstructions(p):
     elif p[1] == "terminate":
         data_error = {
             "type": "Se ha detenido la ejecucion del programa",
-            "line": p.lineno(2),
-            "column": p.lexpos(2) + 1,
+            "line": p.lineno(1),
+            "column": p.lexpos(1) + 1,
         }
+        print(newWorld)
         errorSemantic(data_error)
     if len(p)==2:
         p[0]=Node("PrimitiveInstruction:",[p[1]])
@@ -675,6 +680,7 @@ def p_primitiveBoolean(p):
                         | TkLookingW
                         """
     p[0]=p[1]
+    p.set_lineno(0,p.lineno(1))
 
 def p_instructions(p):
     """instructions : primitiveInstructions

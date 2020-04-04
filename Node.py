@@ -1,3 +1,4 @@
+from World import *
 class Node:
      def __init__(self,type,children=None,leaf=None):
           self.type = type
@@ -17,22 +18,52 @@ class Node:
                     ret += " " + str(child) + "\n"
           return ret
 
-     def toString(self):
+     def finalGoalToString(self):
           ret=""
 
           if self.type=="Conjuncion" :
-               ret += self.children[0].toString() + " or " + self.children[1].toString()
+               ret += self.children[0].finalGoalToString() + " and " + self.children[1].finalGoalToString()
           elif self.type=="Disyuncion":
-               ret += self.children[0].toString() + " and " + self.children[1].toString()
+               ret += self.children[0].finalGoalToString() + " or " + self.children[1].finalGoalToString()
           elif self.type=="Parentesis":
-               ret += "(" + self.children[0].toString() + ")"
+               ret += "(" + self.children[0].finalGoalToString() + ")"
           elif self.type=="Not":
-               ret += "not "+ self.children[0].toString()
+               ret += "not "+ self.children[0].finalGoalToString()
           else:
                for child in self.children:
                     if isinstance(child,Node):
-                         ret += child.toString()
+                         ret += child.finalGoalToString()
                     else:
                          ret = ret.rstrip("\n")
                          ret += str(child)
           return ret
+
+     def finalGoalValue(self,mundo):
+          mybool = True
+          if isinstance(mundo,World):
+               print(self.type)
+               if self.type=="Conjuncion":
+                    left = self.children[0].finalGoalValue(mundo)
+                    rigth = self.children[1].finalGoalValue(mundo)
+                    mybool= mybool and (mundo.getValueGoals(left) and mundo.getValueGoals(rigth))
+               elif self.type=="Disyuncion":
+                    left = self.children[0].finalGoalValue(mundo)
+                    rigth = self.children[1].finalGoalValue(mundo)
+                    mybool= mybool and (mundo.getValueGoals(left) or mundo.getValueGoals(rigth))
+               elif self.type=="Parentesis":
+                    u = self.children[0].finalGoalValue(mundo)
+                    mybool= mybool and ((u))
+               elif self.type=="Not":
+                    u = self.children[0].finalGoalValue(mundo)
+                    mybool= mybool and (not u)
+               else:
+                    for child in self.children:
+                         if isinstance(child,Node):
+                              mybool= mybool and (child.finalGoalValue(mundo))
+                         else:
+                              print("soy leaf y mi valor es:",child,mundo.getGoals(),mundo.getValueGoals(child))
+                              mybool=mybool and mundo.getValueGoals(child)
+                    
+               return mybool
+          else:
+               return False
