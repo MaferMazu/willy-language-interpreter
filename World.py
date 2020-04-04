@@ -12,7 +12,7 @@ class World:
           self.bools = [["front-clear",False], ["left-clear",False], ["right-clear",False], ["looking-north",False], ["looking-east",False], ["looking-south",False],["looking-west",False]] #Formato [id,value]
           self.directions=["north","west","south","east"]
           self.goals=[] #Formato [id,tipo,objectOrPosition,position/None]
-          self.finalgoal=""
+          self.finalgoal=[None,""] #Formato [Nodo,string]
 
      def __str__(self):
           return self.printBoard("","willy")
@@ -115,6 +115,8 @@ class World:
           return self.goals
 
      def getValueGoals(self,goal):
+          if goal==True or goal==False:
+               return goal
           if self.isGoal(goal):
                for x in self.goals:
                     if x[0]==goal:
@@ -134,16 +136,21 @@ class World:
                                    return False
      
      def getValueFinalGoal(self):
-          token=self.finalgoal.split(" ")
-          for i in range(0,len(token)):
-               if token[i]!="and" and token[i]!="or" and token[i]!="not":
-                    self.getValueGoals(token[i])
+          if self.finalgoal!="":
+               token=self.finalgoal.split(" ")
+               for i in range(0,len(token)):
+                    if token[i]!="and" and token[i]!="or" and token[i]!="not":
+                         if token[i]=="":
+                              pass
+                         else:
+                              token[i]=self.getValueGoals(token[i])
 
      def getFinalGoal(self):
-          return self.finalgoal
+          return self.finalgoal[1]
 
-     def setFinalGoal(self,input):
-          self.finalgoal= self.finalgoal + input
+     def setFinalGoal(self,nodo,input):
+          self.finalgoal[0]= nodo
+          self.finalgoal[1]= self.finalgoal[1] + input
 
      ####
      # Get y Set Bool

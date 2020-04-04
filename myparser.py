@@ -451,14 +451,14 @@ def p_finalGoal(p):
         errorSemantic(data_error)
     else:
         p[0] = Node("FinalGoal", [p[3]], [p[1], p[2]])
-        ret = p[3].toString()
+        ret = p[3].finalGoalToString()
         print("###########################")
         print("###########################")
         print(ret)
         print("###########################")
         print("###########################")
         validateFinalGoal=True
-        newWorld.setFinalGoal(ret)
+        newWorld.setFinalGoal(p[3],ret)
 
 
 
