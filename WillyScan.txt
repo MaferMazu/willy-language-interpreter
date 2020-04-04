@@ -74,9 +74,9 @@ if looking-west then turn-left else turn-right;
 define walk as
 begin 
 if front-clear then move else myturn;
-if found(pain) then drop(heart);
-if found(heart) then pick(heart);
-if found(medal) then pick(medal);
+if found(pain) then drop heart;
+if found(heart) then pick heart ;
+if found(medal) then pick medal ;
 if found(medal) then terminate;
 end
 walk;

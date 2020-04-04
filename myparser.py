@@ -625,33 +625,42 @@ def p_primitiveInstructions(p):
     global currentTask
     attributesObjects = {}
     if p[1] == ("drop" or "pick"):
-        if not (procedures.findObj(p[2], objectsInWorlds)):
+        print(p[2])
+        print(activeWorld.id)
+        print(activeWorld.isObject(p[2]))
+        if activeWorld.isObject(p[2]):
+            if p[1] == "pick":
+                currentTask.pickObject(p[2])
+            elif p[1] == "drop":
+                currentTask.dropObject(p[2])
+        elif activeWorld.isObjectBasket(p[2]):
+            if p[1] == "drop":
+                currentTask.dropObject(p[2])
+            elif p[1] == "pick":
+                currentTask.pickObject(p[2])
+        else:
             data_error = {
                 "type": "Objeto " + p[2] + " No existe en el mudno ",
                 "line": p.lineno(2),
                 "column": p.lexpos(2) + 1,
             }
             errorSemantic(data_error)
-        else:
-            if p[1] == "drop":
-                currentTask.dropObject(p[2])
-            elif p[1] == "pick":
-                currentTask.pickObject(p[2])
 
     elif p[1] == ("clear" or "flip"):
-        if not (procedures.findObj(p[2], booleansOfWorlds)):
+        if activeWorld.isBool(p[2]):
+            if p[1] == "clear":
+                activeWorld.changeBool(p[2], False)
+            elif p[1] == "flip":
+                boolAux = activeWorld.getValueBool(p[1])
+                activeWorld.changeBool(p[2], not boolAux)
+        else:
             data_error = {
                 "type": "Booleano " + p[2] + " No existe en el mudno ",
                 "line": p.lineno(2),
                 "column": p.lexpos(2) + 1,
             }
             errorSemantic(data_error)
-        else:
-            if p[1] == "clear":
-                activeWorld.changeBool(p[2], False)
-            elif p[1] == "flip":
-                boolAux = activeWorld.getValueBool(p[1])
-                activeWorld.changeBool(p[2], not boolAux)
+
     elif p[1] == 'set':
         if activeWorld.isBool(p[2]):
             if len(p) == 5:
@@ -776,18 +785,18 @@ def p_instructions(p):
     elif len(p)==3:
         p[0]= Node("Instructions",[p[1],p[2]])
         global defineAsBool
-        print("#####IN RUN DEFINE")
+        # print("#####IN RUN DEFINE")
         attributesObjects = {
             "type": "Instruction",
             "line": p.lineno(1),
             "column": p.lineno(1) + 1,
         }
-        print(stack)
+        # print(stack)
         stack.pop()
         stack.insert(p[1].children[0], attributesObjects)
-        print(stack)
+        # print(stack)
         defineAsBool = False
-        print("#####IN RUN DEFINE")
+        # print("#####IN RUN DEFINE")
     elif len(p)==4:
         p[0]= Node("Instructions",[p[2]],[p[1],p[3]])
     elif len(p)==5:
@@ -840,9 +849,9 @@ def p_instructionDefineAs(p):
     # print(p[2])
     p[0]=Node("Define function as",[p[2]])
     global defineAsBool
-    print("Define" + str(p[2]))
-    print(stack)
-    print("Define")
+    # print("Define" + str(p[2]))
+    # print(stack)
+    # print("Define")
     defineAsBool = False
 
     """ attributesObjects = {
@@ -858,9 +867,9 @@ def p_instructionDefineAs(p):
         # print("Aqui estuvo el stack")
         table = []
         stack.push(table)
-        print("Nuevo Contexto")
-        print(stack)
-        print("Nuevo Contexto")
+        # print("Nuevo Contexto")
+        # print(stack)
+        # print("Nuevo Contexto")
         defineAsBool = True
 
 def p_directions(p):
