@@ -629,7 +629,7 @@ def p_primitiveInstructions(p):
                 boolAux = activeWorld.getValueBool(p[1])
                 activeWorld.changeBool(p[2], not boolAux)
     elif p[1] == 'set':
-        if activeWorld.isBool(p[2]) == "Bool":
+        if activeWorld.isBool(p[2]):
             if len(p) == 5:
                 auxBool = p[4]
                 activeWorld.changeBool(p[2], auxBool)
@@ -676,6 +676,7 @@ def p_primitiveInstructions(p):
     pass
 
 def p_booleanTests(p):
+
     """booleanTests : ids
                     | primitiveBoolean
                     | TkFound TkParenL ids TkParenR
@@ -685,23 +686,34 @@ def p_booleanTests(p):
                     | negacionBool
                     | TkParenL booleanTests TkParenR
                     """
+    global activeWorld
+    global currentTask
     if len(p)==2:
         p[0]=Node("BooleanTest",[p[1]])
     if len(p)==5:
+        if p[1] == "found":
+            if activeWorld.isCellWithObject(activeWorld.getWillyPosition(), p[3]):
+                print("El objeto " + p[3] + " se encuentra en  " + str(activeWorld.getWillyPosition()))
+        elif p[1] == "carrying" :
+            aux = activeWorld.isObjectBasket(p[3])
+            if aux:
+                print("El objeto " + p[3] + " se encuentra en el Basket")
         p[0]=Node("BooleanTest",[p[3]],[p[1],p[2],p[4]])
     if len(p)==4:
         p[0]=Node("BooleanTest",[p[2]],[p[1],p[3]])
 
+
+
 def p_disyuncionBool(p):
-    '''disyuncionBool : booleanTests TkOr booleanTests'''
+    """disyuncionBool : booleanTests TkOr booleanTests"""
     p[0]=Node("Disyuncion",[p[1],p[3]],p[2])
 
 def p_conjuncionBool(p):
-    '''conjuncionBool : booleanTests TkAnd booleanTests'''
+    """conjuncionBool : booleanTests TkAnd booleanTests"""
     p[0]=Node("Conjuncion",[p[1],p[3]],p[2])
 
 def p_negacionBool(p):
-    '''negacionBool : TkNot booleanTests'''
+    """negacionBool : TkNot booleanTests"""
     p[0]=Node("Negación",[p[2]],p[1])
 
 def p_primitiveBoolean(p):
