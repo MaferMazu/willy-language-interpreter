@@ -26,7 +26,7 @@ ParserErrors = []
 
 procedures= ModelProcedure()
 
-newWorld = World()
+newWorld = Any
 
 stack = myStack()
 stack.push_empty_table()
@@ -108,6 +108,7 @@ def p_worldInst(p):
 
 def p_wallSet(p):
     """wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum"""
+    global newWorld
     actualDir = p[2].children[0]
     print(actualDir, p[4], p[7])
     print(actualDir, p[5], p[8])
@@ -115,6 +116,7 @@ def p_wallSet(p):
         print("norte")
         if p[4]==p[7] and p[5]<=p[8]:
             p[0] = Node("WallSet:", [actualDir, p[3], p[4], p[5], p[6], p[7], p[8]])
+            newWorld.setWall([p[4],p[5]],[p[7],p[8]],actualDir)
         else:
             data_error = {
                 "type": "Bad token of " + actualDir + "Dimentions",
@@ -126,6 +128,7 @@ def p_wallSet(p):
         print("south")
         if p[4]==p[7] and p[5]>=p[8]:
             p[0] = Node("WallSet:", [actualDir, p[3], p[4], p[5], p[6], p[7], p[8]])
+            newWorld.setWall([p[4], p[5]], [p[7], p[8]], actualDir)
         else:
             data_error = {
                 "type": "Bad token of " + actualDir + "Dimentions",
@@ -137,6 +140,7 @@ def p_wallSet(p):
         print("east")
         if p[5]==p[8] and p[4]>=p[7]:
             p[0] = Node("WallSet:", [actualDir, p[3], p[4], p[5], p[6], p[7], p[8]])
+            newWorld.setWall([p[4], p[5]], [p[7], p[8]], actualDir)
         else:
             data_error = {
                 "type": "Bad token of " + actualDir + "Dimentions",
@@ -148,6 +152,7 @@ def p_wallSet(p):
         print("west")
         if p[5]==p[8] and p[4]<=p[7]:
             p[0] = Node("WallSet:", [actualDir, p[3], p[4], p[5], p[6], p[7], p[8]])
+            newWorld.setWall([p[4], p[5]], [p[7], p[8]], actualDir)
         else:
             data_error = {
                 "type": "Bad token of " + actualDir + "Dimentions",
@@ -174,11 +179,11 @@ def p_worldDefinition(p):
     type = {
         "type": "World"
     }
-
+    global newWorld
     # if p[2]
     p[0] = Node("",[p[2]])
     data = [p[0].children[0], type]
-
+    newWorld = World(p[2])
     programBlock.append(data)
     
 
@@ -237,38 +242,47 @@ def p_worldSet(p):
         }
         errorSemantic(data_error)
         print("No puedes setear en 0 ninguno de los valores del mundo")
-    print(newWorld.getDimension())
+    print("Dimensiones del mundo" + str(newWorld.getDimension()))
 
 
 
 def p_newObjType(p):
     """newObjType : TkObjType ids TkOf TkColor colors"""
     global worldInstBool
+    global newWorld
     id = p[2]
     print(p[2])
-    p[0]=Node("NewObjectType",[p[2],p[5]],[p[1],p[3],p[4]])
-    attributesObjects = {
-        "type" : "Object-type",
-        "line" : p.lineno(2),
-        "column" : p.lexpos(2) + 1,
-        "color": p[5],
-    }
-    print(stack)
-    print(programBlock)
-    print("space")
-    print(procedures.find(id, programBlock))
-    if worldInstBool:
-        if procedures.find(id, programBlock):
-            print("Este elemento ya existe como Mundo o tarea")
-            errorSemantic(attributesObjects)
+    if procedures.find(id, programBlock):
+        data_error = {
+            "type": "Objeto " + id + " contiene nombre de un World o Task",
+            "line": p.lineno(2),
+            "column": p.lexpos(2) + 1,
+        }
+        errorSemantic(data_error)
+        print("Este elemento ya existe como Mundo o tarea")
+    else:
+        p[0] = Node("NewObjectType", [p[2], p[5]], [p[1], p[3], p[4]])
+        attributesObjects = {
+            "type": "Object-type",
+            "line": p.lineno(2),
+            "column": p.lexpos(2) + 1,
+            "color": p[5],
+        }
+        # print(stack)
+        # print(programBlock)
+        # print("space")
+        # print(procedures.find(id, programBlock))
+
+        if worldInstBool:
+            stack.insert(p[2], attributesObjects)
 
         else:
-            stack.insert(p[2],attributesObjects)
-    else:
-        table = []
-        stack.push(table)
-        stack.insert(p[2], attributesObjects)
-        worldInstBool = True
+            table = []
+            stack.push(table)
+            stack.insert(p[2], attributesObjects)
+            worldInstBool = True
+        newWorld.setObjects(id, attributesObjects["color"])
+
 
 def p_colors(p):
     """colors : TkRed
@@ -284,14 +298,18 @@ def p_setPlaceObjWorld(p):
     """setPlaceObjWorld : TkPlace TkNum TkOf ids TkAt TkNum TkNum
                         | TkPlace TkNum TkOf ids TkIn TkBasketLower
     """
+    global newWorld
+    id = p[4]
+    # print("#####ELEMENTOS")
+    # print(id)
+    amount = p[2]
     if p[2] != 0:
         if len(p) == 8:
             if (p[6] or p[7]) > 0:
                 p[0] = Node("PlaceObjWorld", [p[4]], [p[1], p[2], p[3], p[5], p[6], p[7]])
-
+                newWorld.setObjectInWorld(id, amount, [p[6],p[7]])
                 # TODO : Falta validar la posicion en el mundo con respecto a las posiciones del mundo
             else:
-                print("No puedes setear 0 elementos o una cantidad negativa")
                 data_error = {
                     "type": "Posicion nula del mundo en a la hora de colocar objetos",
                     "line": p.lineno(2),
@@ -302,7 +320,6 @@ def p_setPlaceObjWorld(p):
         else:
             p[0] = Node("PlaceObjWorld", [p[4]], [p[1], p[2], p[3], p[5], p[6]])
     else:
-        print("No puedes setear 0 elementos en el mundo")
         data_error = {
             "type": "No puede colocar 0 objetos",
             "line": p.lineno(2),
@@ -525,7 +542,6 @@ def p_primitiveInstructions(p):
                 "type": "Objeto " + p[2] + " No existe en el mudno ",
                 "line": p.lineno(2),
                 "column": p.lexpos(2) + 1,
-                "color": p[5],
             }
             errorSemantic(data_error)
     elif p[1] == ("clear" or "flip"):
@@ -534,9 +550,15 @@ def p_primitiveInstructions(p):
                 "type": "Booleano " + p[2] + " No existe en el mudno ",
                 "line": p.lineno(2),
                 "column": p.lexpos(2) + 1,
-                "color": p[5],
             }
             errorSemantic(data_error)
+    elif p[1] == "terminate":
+        data_error = {
+            "type": "Se ha detenido la ejecucion del programa",
+            "line": p.lineno(2),
+            "column": p.lexpos(2) + 1,
+        }
+        errorSemantic(data_error)
     if len(p)==2:
         p[0]=Node("PrimitiveInstruction:",[p[1]])
         # print("(####################)")
