@@ -45,6 +45,7 @@ worldInstBool = False
 taskBool = False
 defineAsBool = False
 validateFinalGoal = False
+hasSetted = False
 blockNumber = 0
 
 
@@ -97,7 +98,8 @@ def p_worldInstSet(p):
             p[0]=Node("WorldInstancia:",[p[1],p[2]])
 
 def p_worldInst(p):
-    """ worldInst : worldIns wallSet
+    """ worldInst : worldSet
+                | wallSet
                 | newObjType
                 | setPlaceObjWorld
                 | setStartPosition
@@ -107,7 +109,6 @@ def p_worldInst(p):
                 | finalGoal
     """
     p[0]=Node("WorldInstructions",[p[1]])
-
 
 def p_wallSet(p):
     """wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum"""
@@ -174,6 +175,7 @@ def p_wallSet(p):
         errorSemantic(None)
         print('Bad definition of wall in World')
 
+
 def p_worldDefinition(p):
     """
     worldDefinition : TkBeginWorld ids
@@ -228,28 +230,37 @@ def p_worldBlock(p):
 #     # print(stack)
     
 
-
 def p_worldSet(p):
     """worldSet : TkWorld TkNum TkNum
                 | empty"""
     global newWorld
-
-    if 0 != (p[2] or p[3]):
-        if len(p) == 4:
-            p[0] = Node("WorldSet", [], [p[1], p[2], p[3]])
-            newWorld.setDimension([p[2],p[3]])
+    global hasSetted
+    if not hasSetted:
+        if 0 != (p[2] or p[3]):
+            if len(p) == 4:
+                p[0] = Node("WorldSet", [], [p[1], p[2], p[3]])
+                newWorld.setDimension([p[2], p[3]])
+            else:
+                newWorld.setDimension([1, 1])
+                p[0] = p[1]
         else:
-            newWorld.setDimension([1, 1])
-            p[0] = p[1]
+            data_error = {
+                "type": "0 dimention of World",
+                "line": p.lineno(2),
+                "column": p.lexpos(2) + 1,
+            }
+            errorSemantic(data_error)
+            print("No puedes setear en 0 ninguno de los valores del mundo")
+        print("Dimensiones del mundo" + str(newWorld.getDimension()))
     else:
         data_error = {
-            "type": "0 dimention of World",
+            "type": ("To place objects in World:" + newWorld.id + "need to declare dimentions at start" + "\n" + "Can't replace dimentions"),
             "line": p.lineno(2),
             "column": p.lexpos(2) + 1,
         }
         errorSemantic(data_error)
-        print("No puedes setear en 0 ninguno de los valores del mundo")
-    print("Dimensiones del mundo" + str(newWorld.getDimension()))
+
+
 
 
 
@@ -307,6 +318,8 @@ def p_setPlaceObjWorld(p):
                         | TkPlace TkNum TkOf ids TkIn TkBasketLower
     """
     global newWorld
+    global hasSetted
+    hasSetted = True
     id = p[4]
     # print("#####ELEMENTOS")
     # print(id)
@@ -341,6 +354,8 @@ def p_setPlaceObjWorld(p):
 def p_setStartPosition(p):
     """setStartPosition : TkStart TkAt TkNum TkNum TkHeading directions"""
     global newWorld
+    global hasSetted
+    hasSetted = True
     print("######Esto es el dir: " + str(p[6]))
     if (p[3] or p[4]) <= 0:
         data_error = {
@@ -364,7 +379,6 @@ def p_setStartPosition(p):
         else:
             newWorld.setWillyStart([p[3],p[4]], p[6])
             p[0]=Node("WillyStartPosition",[p[6]],[p[1],p[2],p[3],p[4],p[5]])
-            print(newWorld)
 
 def p_setBasketCapacity(p):
     """setBasketCapacity : TkBasket TkOf TkCapacity TkNum"""
@@ -750,6 +764,7 @@ def p_instructions(p):
                     | TkWhile booleanTests TkDo instructions
                     | TkBegin multiInstructions TkEnd
                     | instructionDefineAs instructions
+                    | TkSemicolon
                     """
     if len(p)==2:
         p[0]= Node("Instructions",[p[1]])
