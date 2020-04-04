@@ -129,7 +129,7 @@ class World:
 
                          elif x[1]=="ObjectInPosition":
                               if self.isCellWithObject(x[4],x[0]):
-                                   return self.howMuchObjectsInCell(x[4],x[0])
+                                   return self.howMuchObjectsInCell(x[4],x[0])==x[3]
                               else:
                                    return False 
 
