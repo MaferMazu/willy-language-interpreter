@@ -1,3 +1,20 @@
+{{
+    WallyScan
+        Es un programa que: Ejecuta un mundo 20 x 20
+        con paredes y 3 tipos de objetos: hearts, medals y pain
+
+        Inicializa a Willy en la posición (1,2) y con 3 hearts.
+        
+        El movimiento de willy consiste en moverse al frente siempre que pueda,
+        sino revisa su lado izquierdo, si este está libre gira a la izquierda,
+        sino gira a la derecha.
+
+        Por cada pain que Willy encuentre se pierde un heart,
+        y por cada heart que encuentre se aumenta la vida.
+        
+        El objetivo es que Willy consiga la medalla sin perder todas las vidas(hearts).}}
+
+
 begin-world world1
 
 {{mundo con 20 columas y 20 filas}}
@@ -52,8 +69,8 @@ Place 3 of heart in basket
 {{Inicio de Wally}}
 Start at 1 2 heading south
 Basket of capacity 30
-Boolean willyhappy with initial value true
-Boolean willyhavehearts with initial value true
+Boolean willyisalive with initial value true
+
 
 {{Goals}}
 Goal goal1 is willy is at 1 18
@@ -75,9 +92,14 @@ define walk as
 begin 
 if front-clear then move else myturn;
 if found(pain) then drop heart;
-if found(heart) then pick heart ;
-if found(medal) then pick medal ;
-if found(medal) then terminate;
+if found(heart) then pick heart;
+if found(medal) then pick medal;
+if found(medal) or not carrying(heart) then
+begin flip willyisalive;
+terminate;
 end
-walk;
+
+{{Ejecuto}}
+while willyisalive do walk;
+
 end-task
