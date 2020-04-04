@@ -361,6 +361,7 @@ def p_setStartPosition(p):
 
 def p_setBasketCapacity(p):
     """setBasketCapacity : TkBasket TkOf TkCapacity TkNum"""
+    global newWorld
     if p[4] == 0:
         data_error = {
             "type": "No permitido " + p[4] + " capacidad de Basket" ,
@@ -369,12 +370,14 @@ def p_setBasketCapacity(p):
         }
         errorSemantic(data_error)
     else:
+        newWorld.setCapacityOfBasket(p[4])
         p[0]=Node("BasketCapacity",[],[p[1],p[2],p[3],p[4]])
 
 def p_newBoolean(p):
     """newBoolean : TkBoolean ids TkWith TkInitial TkValue TkTrue
                   | TkBoolean ids TkWith TkInitial TkValue TkFalse
     """
+    global newWorld
     p[0]=Node("NewBoolean",[p[2]],[p[1],p[3],p[4],p[5],p[6]])
     global worldInstBool
     attributesObjects = {
@@ -390,7 +393,7 @@ def p_newBoolean(p):
         stack.push(table)
         stack.insert(p[2], attributesObjects)
         worldInstBool = True
-
+    newWorld.setBool(p[2], p[6])
     global booleansOfWorlds
     booleansOfWorlds.append([p[2],attributesObjects])
 
@@ -402,7 +405,7 @@ def p_newGoal(p):
     """
     global worldInstBool
     if len(p)==9:
-        if p[4]=="TkWilly":
+        if p[4]=="willy":
             p[0]=Node("NewGoal",[p[2]],[p[1],p[3],p[4],p[5],p[6],p[7],p[8]])
             attributesObjects = {
                 "type" : "Goal-IsAt",

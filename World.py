@@ -61,6 +61,11 @@ class World:
                return True
           else:
                return False
+
+
+
+         ###Init of objects
+
      
      def getObjects(self):
           return self.objects
@@ -118,6 +123,9 @@ class World:
      def setFinalGoal(self,input):
           self.finalgoal= self.finalgoal + input
 
+     """
+     Init of Booleans
+     """
      ####
      # Get y Set Bool
      ####
