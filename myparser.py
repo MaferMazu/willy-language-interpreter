@@ -408,7 +408,7 @@ def p_newGoal(p):
         if p[4]=="willy":
             p[0]=Node("NewGoal",[p[2]],[p[1],p[3],p[4],p[5],p[6],p[7],p[8]])
             attributesObjects = {
-                "type" : "Goal-IsAt",
+                "type" : "WillyIsAt",
                 "line" : p.lineno(2),
                 "column" : p.lexpos(2) + 1,
                 "column_": p[7],
@@ -417,7 +417,7 @@ def p_newGoal(p):
         else:
             p[0]=Node("NewGoal: Object in Basket",[p[2],p[5]],[p[1],p[3],p[4],p[6],p[7],p[8]])
             attributesObjects = {
-                "type" : "Goal-InBasket",
+                "type" : "ObjectInBasket",
                 "line" : p.lineno(2),
                 "column" : p.lexpos(2) + 1,
                 "amount": p[4],
@@ -426,7 +426,7 @@ def p_newGoal(p):
     else:
         p[0]=Node("NewGoal: Object at position",[p[2],p[5]],[p[1],p[3],p[4],p[6],p[7],p[8],p[9]])
         attributesObjects = {
-            "type" : "Goal-ObjectIn",
+            "type" : "ObjectInPosition",
             "line" : p.lineno(2),
             "column" : p.lexpos(2) + 1,
             "amount": p[4],
@@ -461,6 +461,8 @@ def p_finalGoal(p):
         print(ret)
         print("###########################")
         print("###########################")
+        validateFinalGoal=True
+        newWorld.setFinalGoal(ret)
 
 
 
