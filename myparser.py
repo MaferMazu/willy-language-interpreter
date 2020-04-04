@@ -42,6 +42,7 @@ activeWorld = Any
 worldInstBool = False
 taskBool = False
 defineAsBool = False
+validateFinalGoal = False
 blockNumber = 0
 
 
@@ -193,6 +194,7 @@ def p_worldBlock(p):
     """
     id = p[1].children[0]
     global blockNumber
+    global validateFinalGoal
     attributesObjects = {
         "type" : "World",
         "line" : p.lineno(2),
@@ -214,7 +216,7 @@ def p_worldBlock(p):
     else:
         stack.insert("WorldBlock" + str(blockNumber), dataFlag)
         blockNumber = blockNumber + 1
-
+    validateFinalGoal = False
     stack.pop()
     stack.insert(id,attributesObjects)
     createdWorlds.append([id,dataFlag])
@@ -364,7 +366,6 @@ def p_setBasketCapacity(p):
             "type": "No permitido " + p[4] + " capacidad de Basket" ,
             "line": p.lineno(2),
             "column": p.lexpos(2) + 1,
-            "color": p[5],
         }
         errorSemantic(data_error)
     else:
@@ -440,13 +441,24 @@ def p_newGoal(p):
 
 def p_finalGoal(p):
     """finalGoal : TkFinalG TkIs finalGoalTest"""
-    p[0]=Node("FinalGoal",[p[3]],[p[1],p[2]])
-    ret = p[3].toString()
-    print("###########################")
-    print("###########################")
-    print(ret)
-    print("###########################")
-    print("###########################")
+    global validateFinalGoal
+    if validateFinalGoal:
+        data_error = {
+            "type": "Only one final goal",
+            "line": p.lineno(2),
+            "column": p.lexpos(2) + 1,
+        }
+        errorSemantic(data_error)
+    else:
+        p[0] = Node("FinalGoal", [p[3]], [p[1], p[2]])
+        ret = p[3].toString()
+        print("###########################")
+        print("###########################")
+        print(ret)
+        print("###########################")
+        print("###########################")
+
+
 
 def p_finalGoalTest(p):
     """finalGoalTest : TkParenL finalGoalTest TkParenR
