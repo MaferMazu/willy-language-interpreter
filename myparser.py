@@ -318,6 +318,7 @@ def p_setPlaceObjWorld(p):
                 }
                 errorSemantic(data_error)
         else:
+            newWorld.setObjectsInBasket(id, amount)
             p[0] = Node("PlaceObjWorld", [p[4]], [p[1], p[2], p[3], p[5], p[6]])
     else:
         data_error = {
@@ -331,18 +332,30 @@ def p_setPlaceObjWorld(p):
 
 def p_setStartPosition(p):
     """setStartPosition : TkStart TkAt TkNum TkNum TkHeading directions"""
-    if (p[3] or p[4]) == 0:
+    global newWorld
+    print("######Esto es el dir: " + str(p[6]))
+    if (p[3] or p[4]) <= 0:
         data_error = {
             "type": "Start posicion en 0 no es valido",
             "line": p.lineno(2),
             "column": p.lexpos(2) + 1,
-            "color": p[5],
         }
         errorSemantic(data_error)
     else:
         #Verificar las dimensiones del mundo
         print("dimesiones mundo: " + str(newWorld.getDimension()))
-        p[0]=Node("WillyStartPosition",[p[6]],[p[1],p[2],p[3],p[4],p[5]])
+        dimen = newWorld.getDimension()
+
+        if (p[3] > dimen[0]) or (p[4] > dimen[1]):
+            data_error = {
+                "type": "Willy is out of world",
+                "line": p.lineno(2),
+                "column": p.lexpos(2) + 1,
+            }
+            errorSemantic(data_error)
+        else:
+            newWorld.setWillyStart([p[3],p[4]], p[6])
+            p[0]=Node("WillyStartPosition",[p[6]],[p[1],p[2],p[3],p[4],p[5]])
 
 def p_setBasketCapacity(p):
     """setBasketCapacity : TkBasket TkOf TkCapacity TkNum"""
