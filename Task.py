@@ -1,3 +1,4 @@
-class World:
-     def __init__(self):
-         self.instructions=[] #elems de la forma [ids,nivel,instrucciones internas]
+class Task:
+    def __init__(self,World):
+        self.instructions="" #todas mis instrucciones
+        self.world=World
