@@ -122,14 +122,14 @@ class World:
                               return x[2][1]==self.getWillyPosition()[0][1] and x[2][0]==self.getWillyPosition()[0][0]
 
                          elif x[1]=="ObjectInBasket":
-                              if self.isObjectBasket(x[0]):
-                                   return self.howMuchObjectsInBasket(x[0])==x[3]
+                              if self.isObjectBasket(x[2]):
+                                   return self.howMuchObjectsInBasket(x[2])==x[3]
                               else:
                                    return False 
 
                          elif x[1]=="ObjectInPosition":
-                              if self.isCellWithObject(x[4],x[0]):
-                                   return self.howMuchObjectsInCell(x[4],x[0])==x[3]
+                              if self.isCellWithObject(x[4],x[2]):
+                                   return self.howMuchObjectsInCell(x[4],x[2])==x[3]
                               else:
                                    return False 
 
