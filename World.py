@@ -10,6 +10,8 @@ class World:
           self.objectsInBasket = [] #Formato [idObjeto,amountObject,colorObject]
           self.bools = [["front-clear",False], ["left-clear",False], ["right-clear",False], ["looking-north",False], ["looking-east",False], ["looking-south",False],["looking-west",False]] #Formato [id,value]
           self.directions=["north","west","south","east"]
+          self.goals=[] #Formato diccionario con atributos id, tipo y otras cosas
+          self.finalgoal=None #Formato diccionario
 
      def __str__(self):
           return self.printBoard("","willy")
@@ -89,6 +91,39 @@ class World:
                     return True
           else:
                return False
+
+     def setGoals(self,id,typeOf,objectOrPosition,position=None):
+          if not self.isGoal(id):
+               if typeOf== "WillyIsAt" and isinstance(objectOrPosition,list):
+                    goal={
+                         "id":id,
+                         "type":"WillyIsAt",
+                         "position":objectOrPosition,
+                         }
+               elif typeOf== "ObjectInBasket" and isinstance(objectOrPosition,str):
+                    goal={
+                         "id":id,
+                         "type":"WillyIsAt",
+                         "object":objectOrPosition,
+                         }
+               elif typeOf== "ObjectInPosition" and isinstance(objectOrPosition,str) and isinstance(position,list):
+                    goal={
+                         "id":id,
+                         "type":"WillyIsAt",
+                         "object":objectOrPosition,
+                         "position":position,
+                         }
+               
+               self.goals.append(goal)
+               return True
+          else:
+               return False
+
+     def getGoals(self):
+          return self.goals
+
+     def getFinalGoal(self):
+          return self.finalgoal
 
      ####
      # Get y Set Bool
@@ -251,26 +286,33 @@ class World:
      # Some Questions
      ####
 
-     def isObjectBasket(self,objectname):
-          for x in self.objectsInBasket:
-               if x[0]==objectname:
-                    return True
-          else:
-               return False
-
-     def isObject(self,objectname):
-          for x in self.getObjects():
-               if x[0]==objectname:
-                    return True
-          else:
-               return False
-     
-     def isBool(self,id):
-          for x in self.bools:
+     def isGeneric(self,id,typeOf):
+          if typeOf=="ObjectBasket":
+               mylist=self.objectsInBasket
+          elif typeOf=="Object":
+               mylist=self.objects
+          elif typeOf=="Bool":
+               mylist=self.bools
+          elif typeOf=="Goal":
+               mylist=self.goals
+          
+          for x in mylist:
                if x[0]==id:
                     return True
           else:
                return False
+
+     def isObjectBasket(self,objectname):
+          return self.isGeneric(objectname,"ObjectBasket")
+
+     def isObject(self,objectname):
+          return self.isGeneric(objectname,"Object")
+     
+     def isBool(self,id):
+          return self.isGeneric(id,"Bool")
+
+     def isGoal(self,id):
+          return self.isGeneric(id,"Goal")
 
      def isCellWallFree(self,pair):
           if len(pair)==2:
@@ -527,5 +569,8 @@ def main():
          print(World1.moveWilly())
          print(World1.moveWilly())
          print(World1)
+         
+         World1.setGoals("goal1","WillyIsAt",[1,2])
+         print(World1.getGoals())
 
 main()
