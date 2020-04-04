@@ -185,6 +185,9 @@ def p_worldDefinition(p):
     }
     global newWorld
     # if p[2]
+    print("###Reading world")
+    print(stack)
+    print("###Reading world")
     p[0] = Node("",[p[2]])
     data = [p[0].children[0], type]
     newWorld = World(p[2])
@@ -222,6 +225,7 @@ def p_worldBlock(p):
         stack.insert("WorldBlock" + str(blockNumber), dataFlag)
         blockNumber = blockNumber + 1
     validateFinalGoal = False
+    print(stack)
     stack.pop()
     stack.insert(id,attributesObjects)
     createdWorlds.append(newWorld)
@@ -831,15 +835,16 @@ def p_instructionDefineAs(p):
     # print(p[2])
     p[0]=Node("Define function as",[p[2]])
     global defineAsBool
-    defineAsBool = False
+    print(stack)
+
     """ attributesObjects = {
         "type" : "Instruction",
         "line" : p.lineno(2),
         "column" : p.lexpos(2) + 1,
         } """
     if defineAsBool:
+        defineAsBool = False
         # print("La variable es TRUE")
-        pass
     else:
         # print("la variable es false, procedemos a pusherar" + "\n")
         # # print(stack)

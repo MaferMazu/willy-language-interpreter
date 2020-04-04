@@ -6,6 +6,7 @@ class myStack:
         self.level = 0
 
     def find(self,symbol):
+        print(self.stack)
         table = self.stack[len(self.stack) - 1]
         iFoundIt = False
         for element in table:
