@@ -390,20 +390,17 @@ class World:
                          rep += "["+str(elem[0][0]+1)+", "+str(elem[0][1]+1)+"]" + "   "
                     else:
                          if elem[1]==" ":
-                              if elem[2]:
-                                   for x in range(0,len(self.objects)):
-                                        if self.objects[x][0] == elem[2][0]:
-                                             rep += "[ "+ self.repobj[x%4] + " ]   "
-                                             break
+                              if elem[2]!=[]:
+                                   rep += "[ * ]   "
                               else:
                                    rep += "[   ]   "
                          else:
-                              if elem[2]:
+                              if elem[2]!=[]:
                                    rep += "[ W ]   "
                               else:
                                    rep += "[ "+str(elem[1]) + " ]   "
                rep += "\n"
-          if reprint is None:
+          if reprint==None:
                print(rep)
           return rep
 
