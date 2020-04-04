@@ -10,8 +10,8 @@ class World:
           self.objectsInBasket = [] #Formato [idObjeto,amountObject,colorObject]
           self.bools = [["front-clear",False], ["left-clear",False], ["right-clear",False], ["looking-north",False], ["looking-east",False], ["looking-south",False],["looking-west",False]] #Formato [id,value]
           self.directions=["north","west","south","east"]
-          self.goals=[] #Formato diccionario con atributos id, tipo y otras cosas
-          self.finalgoal=None #Formato diccionario
+          self.goals=[] #Formato [id,tipo,objectOrPosition,position/None]
+          self.finalgoal=""
 
      def __str__(self):
           return self.printBoard("","willy")
@@ -94,28 +94,17 @@ class World:
 
      def setGoals(self,id,typeOf,objectOrPosition,position=None):
           if not self.isGoal(id):
-               if typeOf== "WillyIsAt" and isinstance(objectOrPosition,list):
-                    goal={
-                         "id":id,
-                         "type":"WillyIsAt",
-                         "position":objectOrPosition,
-                         }
-               elif typeOf== "ObjectInBasket" and isinstance(objectOrPosition,str):
-                    goal={
-                         "id":id,
-                         "type":"WillyIsAt",
-                         "object":objectOrPosition,
-                         }
+               if (typeOf== "WillyIsAt" and isinstance(objectOrPosition,list)) or (typeOf== "ObjectInBasket" and isinstance(objectOrPosition,str)):
+                    goal=[id,typeOf,objectOrPosition,None]
+                    self.goals.append(goal)
+                    return True
                elif typeOf== "ObjectInPosition" and isinstance(objectOrPosition,str) and isinstance(position,list):
-                    goal={
-                         "id":id,
-                         "type":"WillyIsAt",
-                         "object":objectOrPosition,
-                         "position":position,
-                         }
-               
-               self.goals.append(goal)
-               return True
+                    goal=[id,typeOf,objectOrPosition,position]
+                    self.goals.append(goal)
+                    return True
+
+               else:
+                    return False
           else:
                return False
 
@@ -124,6 +113,9 @@ class World:
 
      def getFinalGoal(self):
           return self.finalgoal
+
+     def setFinalGoal(self,input):
+          self.finalgoal= self.finalgoal + input
 
      ####
      # Get y Set Bool
