@@ -16,3 +16,12 @@ class Node:
                     ret = ret.rstrip("\n")
                     ret += " " + str(child) + "\n"
           return ret
+
+     def toString(self):
+          ret=""
+          for child in self.children:
+               if isinstance(child,Node):
+                    ret += child.toString()
+               else:
+                    ret += " " + str(child)
+          return ret
