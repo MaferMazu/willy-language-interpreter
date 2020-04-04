@@ -93,24 +93,45 @@ class World:
           else:
                return False
 
-     def setGoals(self,id,typeOf,objectOrPosition,position=None):
+     def setGoals(self,id,typeOf,objectOrPosition,amount=None,position2=None):
           if not self.isGoal(id):
-               if (typeOf== "WillyIsAt" and isinstance(objectOrPosition,list)) or (typeOf== "ObjectInBasket" and isinstance(objectOrPosition,str)):
-                    goal=[id,typeOf,objectOrPosition,None]
+               if typeOf== "WillyIsAt" and isinstance(objectOrPosition,list):
+                    goal=[id,typeOf,objectOrPosition,None,None]
                     self.goals.append(goal)
                     return True
-               elif typeOf== "ObjectInPosition" and isinstance(objectOrPosition,str) and isinstance(position,list):
-                    goal=[id,typeOf,objectOrPosition,position]
+               elif typeOf== "ObjectInBasket" and isinstance(objectOrPosition,str) and isinstance(amount,int):
+                    goal=[id,typeOf,objectOrPosition,amount,None]
                     self.goals.append(goal)
                     return True
-
-               else:
-                    return False
+               elif typeOf== "ObjectInPosition" and isinstance(objectOrPosition,str) and isinstance(position2,list) and isinstance(amount,int):
+                    goal=[id,typeOf,objectOrPosition,amount,position2]
+                    self.goals.append(goal)
+                    return True
           else:
                return False
+          
 
      def getGoals(self):
           return self.goals
+
+     def getValueGoals(self,goal):
+          if self.isGoal(goal):
+               for x in self.goals:
+                    if x[0]==goal:
+                         if x[1]=="WillyIsAt":
+                              return x[2][1]==self.getWillyPosition()[0][1] and x[2][0]==self.getWillyPosition()[0][0]
+
+                         elif x[1]=="ObjectInBasket":
+                              if self.isObjectBasket(x[0]):
+                                   return self.howMuchObjectsInBasket(x[0])==x[3]
+                              else:
+                                   return False 
+
+                         elif x[1]=="ObjectInPosition":
+                              if self.isCellWithObject(x[4],x[0]):
+                                   return self.howMuchObjectsInCell(x[4],x[0])
+                              else:
+                                   return False 
 
      def getFinalGoal(self):
           return self.finalgoal
