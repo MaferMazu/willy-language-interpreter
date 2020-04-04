@@ -23,12 +23,19 @@ class ModelProcedure:
         print("Init ModelProcedure")
         table = array
         i_found_it = False
+        element =  None
         for element in table:
-            print(element)
-            print(element.id)
-            print(symbol)
+            # print(element)
+            # print("#### ### ###")
+            # print(not True)
             if element.id == symbol:
                 i_found_it = True
                 break
+
         print("End MdodelProcedure")
-        return i_found_it
+
+        if i_found_it:
+            print(element.id)
+            return element
+        else:
+            return None

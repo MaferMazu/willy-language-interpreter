@@ -13,8 +13,8 @@ begin-world world1
 World 8 8
 {{paredes}}
 Wall north from 1 4 to 1 4
-Wall west from 1 2 to 5 2
-Wall south from 7 2 to 7 1
+Wall west from 1 2 to 6 2
+Wall south from 7 4 to 7 1
 {{objetos}}
 Object-type flower of color yellow
 Object-type mirror of color green

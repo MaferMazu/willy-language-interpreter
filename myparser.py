@@ -8,6 +8,7 @@ from Structure import Structure
 from myStack import myStack
 from Node import *
 from World import *
+from Task import *
 from ModelProcedure import *
 
 DEBUG_MODE = True
@@ -38,6 +39,7 @@ booleansOfWorlds = []
 tasks = []
 
 activeWorld = Any
+currentTask = Any
 
 worldInstBool = False
 taskBool = False
@@ -507,49 +509,62 @@ def p_ids(p):
     p.set_lexpos(0, p.lexpos(1))
 
 def p_taskBlock(p):
-    """taskBlock : taskDefinition TkOn ids multiInstructions TkEndTask"""
+    """taskBlock : taskDefinition multiInstructions TkEndTask"""
     global taskBool
     global createdWorlds
-    # print("###################################")
-    # print("ESTO ES TAAAAASSSKKK",p[0])
-    # print("ESTO ES TAAAAASSSKKK " + str(ModelProcedure.find(p[3], p[3], createdWorlds)))
-    # print("###################################")
-    if ModelProcedure.find(p[3], p[3], createdWorlds):
-        attributesObjects = {
-            "type": "Task",
-            "line": p.lineno(2),
-            "column": p.lexspan(2)[0] + 1,
+
+    attributesObjects = {
+        "type": "Task",
+        "line": p.lineno(2),
+        "column": p.lexspan(2)[0] + 1,
+    }
+
+    p[0] = Node("Task", [p[1], p[2]])
+
+    print("Antes del pop")
+    stack.pop()
+    stack.insert(p[1].children[0], attributesObjects)
+
+    print("fin del task")
+
+
+
+
+def p_taskDefinition(p):
+    """
+    taskDefinition : TkBeginTask ids TkOn ids
+    """
+    global activeWorld
+    global programBlock
+    global currentTask
+
+
+    # print(procedures.find(p[4], createdWorlds).id)
+    if procedures.find(p[4], createdWorlds) != None:
+
+        activeWorld = procedures.find(p[4], createdWorlds)
+        # print("######### elemento")
+        # print(activeWorld)
+        # print(activeWorld.id)
+        # print(activeWorld.getDimension())
+        # print("elemento  #########")
+        type = {
+            "type": "Task"
         }
-        p[0] = Node("Task", [p[1], p[3], p[4]])
-        # print("###################################")
-        # print("ESTO ES BLOCK P[0]",p[0])
-        print("Antes del pop")
-        # print(stack)
-        stack.pop()
-        stack.insert(p[1].children[0], attributesObjects)
-        # print("Despues del pop")
-        # print(stack)
-        print("fin del task")
+        p[0] = Node("", [p[2], p[1]])
+        data = [p[0].children[0], type]
+        currentTask = Task(p[2], p[4])
+        programBlock.append(data)
         # print(stack)
     else:
         data_error = {
-            "type": "Invalid name of World: " + p[2] + " in " + p[1].children[0],
+            "type": "Invalid name of World: " + p[2] + " in " + p[4],
             "line": p.lineno(2),
             "column": p.lexpos(2) + 1,
         }
         errorSemantic(data_error)
 
 
-def p_taskDefinition(p):
-    """
-    taskDefinition : TkBeginTask ids
-    """
-    type = {
-        "type" : "Task"
-    }
-    p[0] = Node("", [p[2],p[1]])
-    data = [p[0].children[0], type]
-    programBlock.append(data)
 
 def p_multiInstructions(p):
     """multiInstructions : instructions
@@ -581,27 +596,48 @@ def p_primitiveInstructions(p):
                              | TkId
                              | TkTerminate
     """
+    global activeWorld
     global taskBool
     global objectsInWorlds
+    global currentTask
     if p[1] == ("drop" or "pick"):
-        if not (ModelProcedure(p[2], objectsInWorlds)):
+        if not (procedures.findObj(p[2], objectsInWorlds)):
             data_error = {
                 "type": "Objeto " + p[2] + " No existe en el mudno ",
                 "line": p.lineno(2),
                 "column": p.lexpos(2) + 1,
             }
             errorSemantic(data_error)
+        else:
+            if p[1] == "drop":
+                currentTask.dropObject(p[2])
+            elif p[1] == "pick":
+                currentTask.pickObject(p[2])
+
     elif p[1] == ("clear" or "flip"):
-        if not (ModelProcedure(p[2], booleansOfWorlds)):
+        if not (procedures.findObj(p[2], booleansOfWorlds)):
             data_error = {
                 "type": "Booleano " + p[2] + " No existe en el mudno ",
                 "line": p.lineno(2),
                 "column": p.lexpos(2) + 1,
             }
             errorSemantic(data_error)
+        else:
+            if p[1] == "clear":
+                activeWorld.changeBool(p[2], False)
+            elif p[1] == "flip":
+                boolAux = activeWorld.getValueBool(p[1])
+                activeWorld.changeBool(p[2], not boolAux)
+    elif p[1] == 'set':
+        if activeWorld.isBool(p[2]) == "Bool":
+            if len(p) == 5:
+                auxBool = p[4]
+                activeWorld.changeBool(p[2], auxBool)
+            else:
+                activeWorld.changeBool(p[2], True)
     elif p[1] == "terminate":
         data_error = {
-            "type": "Se ha detenido la ejecucion del programa",
+            "type": "Ha finalizado la corrida con exito",
             "line": p.lineno(1),
             "column": p.lexpos(1) + 1,
         }
@@ -609,8 +645,6 @@ def p_primitiveInstructions(p):
         errorSemantic(data_error)
     if len(p)==2:
         p[0]=Node("PrimitiveInstruction:",[p[1]])
-        # print("(####################)")
-        # print("isInstance p[1]",isinstance(p[1],Node),p[1])
     if len(p)==3:
         p[0]=Node("PrimitiveInstruction:",[p[1],p[2]])
     elif len(p)>= 4:
