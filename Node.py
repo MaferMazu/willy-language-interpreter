@@ -19,9 +19,20 @@ class Node:
 
      def toString(self):
           ret=""
-          for child in self.children:
-               if isinstance(child,Node):
-                    ret += child.toString()
-               else:
-                    ret += " " + str(child)
+
+          if self.type=="Conjuncion" :
+               ret += self.children[0].toString() + " or " + self.children[1].toString()
+          elif self.type=="Disyuncion":
+               ret += self.children[0].toString() + " and " + self.children[1].toString()
+          elif self.type=="Parentesis":
+               ret += "(" + self.children[0].toString() + ")"
+          elif self.type=="Not":
+               ret += "not "+ self.children[0].toString()
+          else:
+               for child in self.children:
+                    if isinstance(child,Node):
+                         ret += "" + child.toString()
+                    else:
+                         ret = ret.rstrip("\n")
+                         ret += "" + str(child)
           return ret

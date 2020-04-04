@@ -441,18 +441,24 @@ def p_newGoal(p):
 def p_finalGoal(p):
     """finalGoal : TkFinalG TkIs finalGoalTest"""
     p[0]=Node("FinalGoal",[p[3]],[p[1],p[2]])
+    ret = p[3].toString()
+    print("###########################")
+    print("###########################")
+    print(ret)
+    print("###########################")
+    print("###########################")
 
 def p_finalGoalTest(p):
-    """finalGoalTest : ids
-                     | disyuncionGoal
-                     | conjuncionGoal
+    """finalGoalTest : TkParenL finalGoalTest TkParenR
                      | negacionGoal
-                     | TkParenL finalGoalTest TkParenR
+                     | conjuncionGoal
+                     | disyuncionGoal
+                     | ids
     """
     if len(p)==2:
         p[0]=Node("FinalGoal",[p[1]])
     else:
-        p[0]=Node("FinalGoal",[p[2]],[p[1],p[3]])
+        p[0]=Node("Parentesis",[p[2]],[p[1],p[3]])
 
 def p_disyuncionGoal(p):
     """disyuncionGoal : finalGoalTest TkOr finalGoalTest"""
@@ -464,7 +470,7 @@ def p_conjuncionGoal(p):
 
 def p_negacionGoal(p):
     """negacionGoal : TkNot finalGoalTest"""
-    p[0]=Node("Negación",[p[2]],p[1])
+    p[0]=Node("Not",[p[2]],p[1])
 
 def p_ids(p):
     "ids : TkId"
