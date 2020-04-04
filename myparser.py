@@ -33,6 +33,11 @@ stack.push_empty_table()
 
 programBlock = []
 createdWorlds = []
+objectsInWorlds = []
+booleansOfWorlds = []
+tasks = []
+
+activeWorld = Any
 
 worldInstBool = False
 taskBool = False
@@ -103,20 +108,62 @@ def p_worldInst(p):
 
 def p_wallSet(p):
     """wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum"""
-    if ((p[2]=="north" and p[4]==p[7] and p[5]<=p[8]) or
-            (p[2]=="south" and p[4]==p[7] and p[5]>=p[8]) or
-            (p[2]=="east" and p[5]==p[8] and p[4]>=p[7]) or
-            (p[2]=="west" and p[5]==p[8] and p[4]<=p[7])):
-        p[0]= Node("WallSet:",[p[2],p[3],p[4],p[5],p[6],p[7],p[8]])
+    actualDir = p[2].children[0]
+    print(actualDir, p[4], p[7])
+    print(actualDir, p[5], p[8])
+    if actualDir == "north":
+        print("norte")
+        if p[4]==p[7] and p[5]<=p[8]:
+            p[0] = Node("WallSet:", [actualDir, p[3], p[4], p[5], p[6], p[7], p[8]])
+        else:
+            data_error = {
+                "type": "Bad token of " + actualDir + "Dimentions",
+                "line": p.lineno(2),
+                "column": p.lexpos(2) + 1,
+            }
+            errorSemantic(data_error)
+    elif actualDir == "south":
+        print("south")
+        if p[4]==p[7] and p[5]>=p[8]:
+            p[0] = Node("WallSet:", [actualDir, p[3], p[4], p[5], p[6], p[7], p[8]])
+        else:
+            data_error = {
+                "type": "Bad token of " + actualDir + "Dimentions",
+                "line": p.lineno(2),
+                "column": p.lexpos(2) + 1,
+            }
+            errorSemantic(data_error)
+    elif actualDir == "east":
+        print("east")
+        if p[5]==p[8] and p[4]>=p[7]:
+            p[0] = Node("WallSet:", [actualDir, p[3], p[4], p[5], p[6], p[7], p[8]])
+        else:
+            data_error = {
+                "type": "Bad token of " + actualDir + "Dimentions",
+                "line": p.lineno(2),
+                "column": p.lexpos(2) + 1,
+            }
+            errorSemantic(data_error)
+    elif actualDir == "west":
+        print("west")
+        if p[5]==p[8] and p[4]<=p[7]:
+            p[0] = Node("WallSet:", [actualDir, p[3], p[4], p[5], p[6], p[7], p[8]])
+        else:
+            data_error = {
+                "type": "Bad token of " + actualDir + "Dimentions",
+                "line": p.lineno(2),
+                "column": p.lexpos(2) + 1,
+            }
+            errorSemantic(data_error)
     else:
         data_error ={
-            "type": "Bad Wall Def",
+            "type": "Bad token of Direcction" + actualDir,
             "line": p.lineno(2),
             "column": p.lexpos(2) + 1,
         }
         ##Deberia lanzarme error pero mientras colocaré pass
         # p_statement_print_error(p)
-        #p_error(data_error)
+        errorSemantic(None)
         print('Bad definition of wall in World')
 
 
@@ -148,6 +195,7 @@ def p_worldBlock(p):
     }
     dataFlag = {
         "ownerPrev" : id,
+        "WorldClass" : "Aqui estara la clase del mundo"
     }
     if len(p)==4:
         p[0] = Node("WorldBlock",[p[2]],[p[1],p[3]])
@@ -164,6 +212,7 @@ def p_worldBlock(p):
 
     stack.pop()
     stack.insert(id,attributesObjects)
+    createdWorlds.append([id,dataFlag])
     print("Despues del pop")
 #     # print(stack)
     
@@ -186,7 +235,7 @@ def p_worldSet(p):
             "line": p.lineno(2),
             "column": p.lexpos(2) + 1,
         }
-        p_error(data_error)
+        errorSemantic(data_error)
         print("No puedes setear en 0 ninguno de los valores del mundo")
     print(newWorld.getDimension())
 
@@ -211,7 +260,7 @@ def p_newObjType(p):
     if worldInstBool:
         if procedures.find(id, programBlock):
             print("Este elemento ya existe como Mundo o tarea")
-            p_error(attributesObjects)
+            errorSemantic(attributesObjects)
 
         else:
             stack.insert(p[2],attributesObjects)
@@ -249,7 +298,7 @@ def p_setPlaceObjWorld(p):
                     "column": p.lexpos(2) + 1,
                     "color": p[5],
                 }
-                p_error(data_error)
+                errorSemantic(data_error)
         else:
             p[0] = Node("PlaceObjWorld", [p[4]], [p[1], p[2], p[3], p[5], p[6]])
     else:
@@ -260,16 +309,36 @@ def p_setPlaceObjWorld(p):
             "column": p.lexpos(2) + 1,
             "color": p[5],
         }
-        p_error(data_error)
+        errorSemantic(data_error)
 
 
 def p_setStartPosition(p):
     """setStartPosition : TkStart TkAt TkNum TkNum TkHeading directions"""
-    p[0]=Node("WillyStartPosition",[p[6]],[p[1],p[2],p[3],p[4],p[5]])
+    if (p[3] or p[4]) == 0:
+        data_error = {
+            "type": "Start posicion en 0 no es valido",
+            "line": p.lineno(2),
+            "column": p.lexpos(2) + 1,
+            "color": p[5],
+        }
+        errorSemantic(data_error)
+    else:
+        #Verificar las dimensiones del mundo
+        print("dimesiones mundo: " + str(newWorld.getDimension()))
+        p[0]=Node("WillyStartPosition",[p[6]],[p[1],p[2],p[3],p[4],p[5]])
 
 def p_setBasketCapacity(p):
     """setBasketCapacity : TkBasket TkOf TkCapacity TkNum"""
-    p[0]=Node("BasketCapacity",[],[p[1],p[2],p[3],p[4]])
+    if p[4] == 0:
+        data_error = {
+            "type": "No permitido " + p[4] + " capacidad de Basket" ,
+            "line": p.lineno(2),
+            "column": p.lexpos(2) + 1,
+            "color": p[5],
+        }
+        errorSemantic(data_error)
+    else:
+        p[0]=Node("BasketCapacity",[],[p[1],p[2],p[3],p[4]])
 
 def p_newBoolean(p):
     """newBoolean : TkBoolean ids TkWith TkInitial TkValue TkTrue
@@ -372,22 +441,36 @@ def p_ids(p):
 def p_taskBlock(p):
     """taskBlock : taskDefinition TkOn ids multiInstructions TkEndTask"""
     global taskBool
-    attributesObjects = {
-            "type" : "Task",
-            "line" : p.lineno(2),
-            "column" : p.lexpos(2) + 1,
-        }
-    p[0]=Node("Task",[p[1],p[3],p[4]])
+    global createdWorlds
     print("###################################")
-    print("ESTO ES BLOCK P[0]",p[0])
-    print("Antes del pop")
-    # print(stack)
-    stack.pop()
-    stack.insert(p[1].children[0], attributesObjects)
-    # print("Despues del pop")
-    # print(stack)
-    print("fin del task")
-    # print(stack)
+    print("ESTO ES TAAAAASSSKKK",p[0])
+    print("ESTO ES TAAAAASSSKKK " + str(ModelProcedure.find(p[3], p[3], createdWorlds)))
+    print("###################################")
+    if ModelProcedure.find(p[3], p[3], createdWorlds):
+        attributesObjects = {
+            "type": "Task",
+            "line": p.lineno(2),
+            "column": p.lexpos(2) + 1,
+        }
+        p[0] = Node("Task", [p[1], p[3], p[4]])
+        # print("###################################")
+        # print("ESTO ES BLOCK P[0]",p[0])
+        print("Antes del pop")
+        # print(stack)
+        stack.pop()
+        stack.insert(p[1].children[0], attributesObjects)
+        # print("Despues del pop")
+        # print(stack)
+        print("fin del task")
+        # print(stack)
+    else:
+        data_error = {
+            "type": "Invalid name of World: " + p[2] + " in " + p[1].children[0],
+            "line": p.lineno(2),
+            "column": p.lexpos(2) + 1,
+        }
+        errorSemantic(data_error)
+
 
 def p_taskDefinition(p):
     """
@@ -433,8 +516,8 @@ def p_primitiveInstructions(p):
     global taskBool
     if len(p)==2:
         p[0]=Node("PrimitiveInstruction:",[p[1]])
-        print("(####################)")
-        print("isInstance p[1]",isinstance(p[1],Node),p[1])
+        # print("(####################)")
+        # print("isInstance p[1]",isinstance(p[1],Node),p[1])
     if len(p)==3:
         p[0]=Node("PrimitiveInstruction:",[p[1],p[2]])
     elif len(p)>= 4:
@@ -522,7 +605,17 @@ def p_instructions(p):
         p[0]= Node("Instructions",[p[2]],[p[1],p[3]])
     elif len(p)==5:
         if p[1]=="TkRepeat":
-            p[0]= Node("Instructions",[p[4]],[p[1],p[2],p[3]])
+            if p[2] <= 0:
+                int = p[2]
+                data_error = {
+                    "type": "Bad definition number of iteration for repeat - actual: " + int,
+                    "line": p.lineno(2),
+                    "column": p.lexpos(2) + 1,
+                }
+                errorSemantic(data_error)
+            else:
+                p[0] = Node("Instructions", [p[4]], [p[1], p[2], p[3]])
+
         else:
             p[0] = Node("Instructions",[p[2],p[4]],[p[1],p[3]])
     elif len(p)==7:
@@ -548,8 +641,9 @@ def p_instructions(p):
 #     stack.pop()
 
 def p_instructionDefineAs(p):
-    '''instructionDefineAs : TkDefine ids TkAs'''
+    """instructionDefineAs : TkDefine ids TkAs"""
     print("EUREKA")
+    print(p[2])
     p[0]=Node("Define function as",[p[2]])
     global defineAsBool
     defineAsBool = False
@@ -569,11 +663,12 @@ def p_instructionDefineAs(p):
         defineAsBool = True
 
 def p_directions(p):
-    '''directions : TkNorth 
-                | TkEast 
-                | TkSouth 
-                | TkWest'''
-    p[0]=Node("Direction",[],p[1])
+    """directions : TkNorth
+                | TkEast
+                | TkSouth
+                | TkWest
+    """
+    p[0]=Node("Direction",[p[1]],p[1])
 
 
 def p_empty(p):
@@ -587,11 +682,25 @@ def p_empty(p):
 
 def p_error(p):
     global ParserErrors
-    if p != None:
-        error = 'Error del Parser "' + str(p["type"]) + '" en fila ' \
-            + str(p["line"]) + ', columna ' + str(p["column"])
+    print(p)
+    if p is not None:
+        error = 'Error del Parser "' + str(p.type) + '" en fila ' \
+                + str(p.lineno) + ', columna ' + str(p.lexpos)
         ParserErrors.append(error)
+        print(ParserErrors)
+    else:
+        print("Syntax error at EOF")
 
+    sys.exit()
+
+def errorSemantic(err):
+    global ParserErrors
+    print(err)
+    if err is not None:
+        error = 'Error del Parser "' + str(err["type"]) + '" en fila ' \
+                + str(err["line"]) + ', columna ' + str(err["column"])
+        ParserErrors.append(error)
+        print(ParserErrors)
 
     else:
         print("Syntax error at EOF")

@@ -1,8 +1,9 @@
+DEBUG_MODE = True
+import sys
+
 class ModelProcedure:
-
     def __init__(self):
-
-        self.symbol = ""
+        self.symbol = []
 
     def find(self, symbol, array):
         print("Init ModelProcedure")
