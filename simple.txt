@@ -37,7 +37,7 @@ Goal goal1 is willy is at 8 1
 Goal goal2 is 300 mirror objects in Basket
 Goal goal3 is 10 table objects at 5 4
 Final goal is goal1 or goal2 and goal3
-Final goal is not goal2 and goal3
+Final goal is (not goal2) and goal3
 Final goal is goal1 and goal2 and goal3;
 end-world
 begin-task task1 on world1
