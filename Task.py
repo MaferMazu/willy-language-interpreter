@@ -1,9 +1,10 @@
 from World import World #Despues tengo que comentar esto
 
 class Task:
-    def __init__(self,World):
-        self.instructions="" #todas mis instrucciones
-        self.world=World
+    def __init__(self, id, instanceWorld):
+        self.instructions = "" #todas mis instrucciones
+        self.world = instanceWorld
+        self.id = id
 
     def getInstructions(self):
         return self.instructions
@@ -30,7 +31,10 @@ class Task:
             return False
 
     def turnWilly(self,directionLR):
+        print("1111#########HEY#####")
+        print(self.world)
         pos = self.world.getWillyPosition()[1]
+        print("0000#####HEY#####")
         index = 0
         for x in range(0,4):
             if self.world.directions[x]== pos:

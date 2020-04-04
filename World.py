@@ -309,6 +309,11 @@ class World:
           if len(pair)==2:
                # position = [pair([x,y]),willy(W) o wall(X),lista de pares([idObje,attributes])]
                position = self.positionInBoard(pair)
+               print("Position Here: ")
+               print(position)
+               # print(self.board)
+               print(self)
+               print("Position Up ^ ")
                if 1<=pair[0]<= self.dimensions[0] and 1<=pair[1]<=self.dimensions[1]:
                     return self.board[position[0]][position[1]][1] != "/"
           else:
@@ -366,6 +371,11 @@ class World:
      
      def positionInBoard(self,position):
           dimension = self.getDimension()
+          print("0000#####HEY#####")
+          print(position)
+          print(isinstance(position[1],int))
+          print(dimension)
+          print("1111#####HEY#####")
           pair = [dimension[1]-position[1],position[0]-1]
           return pair
 
