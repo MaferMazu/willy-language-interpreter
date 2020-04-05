@@ -324,7 +324,7 @@ class World:
      def isCellWithObject(self,pair,objectname):
           if len(pair)==2:
                # position = [pair([x,y]),willy(W) o wall(X),lista de pares([idObje,amount])]
-               if pair[0]<=self.dimensions[0] and pair[1]<=self.dimensions:
+               if pair[0]<=self.dimensions[0] and pair[1]<=self.dimensions[1]:
                     position = self.positionInBoard(pair)
                     print("inicial pair",pair)
                     print("isCellWithObj position:",position)

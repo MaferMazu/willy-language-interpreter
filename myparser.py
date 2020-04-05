@@ -546,6 +546,7 @@ def p_taskBlock(p):
     stack.pop()
     stack.insert(p[1].children[0], attributesObjects)
     p[0].executeMyTask(currentTask)
+    print(activeWorld)
 
     print("fin del task")
 
