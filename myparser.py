@@ -731,16 +731,12 @@ def p_booleanTests(p):
         if p[1] == "found":
             p[0]=Node("Found",[p[3]])
         elif p[1] == "carrying" :
-            aux = activeWorld.isObjectBasket(p[3])
             p[0] = Node("Carrying", [p[3]])
-            if aux:
-                print("El objeto " + p[3] + " se encuentra en el Basket")
-        p[0]=Node("BooleanTest",[p[3]],[p[1],p[2],p[4]])
+            
     elif len(p)==4:
-        p[0]=Node("Parentesis",p[2],[p[1],p[3]])
-        print(p[0])
-        print([p2])
-        sys.exit()
+        p[0]=Node("Parentesis",[p[2]],[p[1],p[3]])
+
+        #sys.exit()
 
 
 
