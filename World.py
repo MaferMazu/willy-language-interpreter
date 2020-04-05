@@ -45,7 +45,7 @@ class World:
                          position = self.board[pair[0]][pair[1]]
                          position[1]="/"
                if direction=="south":
-                    for x in range(fin[1],ini[1]):
+                    for x in range(fin[1],ini[1]+1):
                          pair=self.positionInBoard([ini[0],x])
                          position = self.board[pair[0]][pair[1]]
                          position[1]="/"
