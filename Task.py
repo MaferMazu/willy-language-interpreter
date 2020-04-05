@@ -11,7 +11,7 @@ class Task:
         return self.instructions
 
     def setInstructions(self,input):
-        self.instructions=self.instructions + input
+        self.instructions.append(input)
 
     ####
     # Instructions

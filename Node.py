@@ -1,13 +1,13 @@
 from World import *
 from Task import *
 class Node:
-     def __init__(self,type,children=None,leaf=None):
+     def __init__(self,type,children=None):
           self.type = type
           if children:
                self.children = children
           else:
                self.children = [ ]
-          self.leaf = leaf
+
 
      def __str__(self, level=0):
           ret = "  " * level + self.type + "\n"
