@@ -60,7 +60,7 @@ class Node:
                else:
                     for child in self.children:
                          if isinstance(child,Node):
-                              mybool= mybool and (child.finalGoalValue(mundo))
+                              mybool= mybool and (child.finalGoalValue(mundo,mybool))
                          else:
                               print("soy leaf y mi valor es:",child,mundo.getGoals(),mundo.getValueGoals(child))
                               mybool=mybool and mundo.getValueGoals(child)
