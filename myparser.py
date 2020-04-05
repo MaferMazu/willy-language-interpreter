@@ -539,7 +539,7 @@ def p_taskBlock(p):
         "column": p.lexspan(2)[0] + 1,
     }
 
-    p[0] = Node("Task", [p[1], p[2]])
+    p[0] = Node("Task", [p[1]])
 
     print("Antes del pop")
     stack.pop()
@@ -595,9 +595,9 @@ def p_multiInstructions(p):
                          | instructions TkSemicolon multiInstructions
     """
     if len(p)==2:
-        p[0]=p[1]
+        p[0]=Node("MultiInstruction",[p[1]])
     else:
-        p[0]=Node("MultiInstruction:",[p[1],p[3]])
+        p[0]=Node("MultiInstruction",[p[1],p[3]])
 
 
 def p_primitiveInstructions(p):
@@ -629,15 +629,12 @@ def p_primitiveInstructions(p):
         print(activeWorld.id)
         print(activeWorld.isObject(p[2]))
         if activeWorld.isObject(p[2]):
-            if p[1] == "pick":
-                currentTask.pickObject(p[2])
-            elif p[1] == "drop":
-                currentTask.dropObject(p[2])
-        elif activeWorld.isObjectBasket(p[2]):
-            if p[1] == "drop":
-                currentTask.dropObject(p[2])
-            elif p[1] == "pick":
-                currentTask.pickObject(p[2])
+            if p[1] == "pick" and activeWorld.isCellWithObject(activeWorld.getWillyPosition()[0],p[2]):
+                p[0] = Node("Pick",[p[2]])
+                
+            elif p[1] == "drop" and activeWorld.isObjectBasket(p[2]):
+                p[0] = Node("Drop",[p[2]])
+                
         else:
             data_error = {
                 "type": "Objeto " + p[2] + " No existe en el mudno ",
@@ -649,10 +646,11 @@ def p_primitiveInstructions(p):
     elif p[1] == ("clear" or "flip"):
         if activeWorld.isBool(p[2]):
             if p[1] == "clear":
-                activeWorld.changeBool(p[2], False)
+                p[0] = Node("Clear",[p[2]])
+                
             elif p[1] == "flip":
-                boolAux = activeWorld.getValueBool(p[1])
-                activeWorld.changeBool(p[2], not boolAux)
+                p[0] = Node("Flip",[p[2]])
+                
         else:
             data_error = {
                 "type": "Booleano " + p[2] + " No existe en el mudno ",
@@ -664,32 +662,30 @@ def p_primitiveInstructions(p):
     elif p[1] == 'set':
         if activeWorld.isBool(p[2]):
             if len(p) == 5:
-                auxBool = p[4]
-                activeWorld.changeBool(p[2], auxBool)
+                p[0]=Node("SetBool",[p[2],p[4]])
+                
             else:
-                activeWorld.changeBool(p[2], True)
+                p[0]=Node("SetBool",[p[2]])
     elif p[1] == "move":
-        currentTask.moveWilly()
+        p[0]=Node("Move",[p[1]])
     elif p[1] == "turn-left":
-        dir = "left"
-        currentTask.turnWilly(dir)
+        p[0]=Node("TL",[p[1]])
+        
     elif p[1] == "turn-right":
-        dir = "right"
-        currentTask.turnWilly(dir)
+        p[0]=Node("TR",[p[1]])
+        
+        
     elif p[1] == "terminate":
         data_error = {
             "type": "Ha finalizado la corrida con exito",
             "line": p.lineno(1),
             "column": p.lexpos(1) + 1,
         }
-        print(newWorld)
+        p[0]=Node("Terminate",[p[1]])
+        
         finish(data_error)
-    if len(p)==2:
-        p[0]=Node("PrimitiveInstruction:",[p[1]])
-    if len(p)==3:
-        p[0]=Node("PrimitiveInstruction:",[p[1],p[2]])
-    elif len(p)>= 4:
-        p[0]=Node("PrimitiveInstruction:",[p[1],p[2],p[len(p)-1]])
+    
+    
     if p[1] == "set":
         if len(p) == 3:
             attributesObjects = {
@@ -733,8 +729,7 @@ def p_booleanTests(p):
         p[0]=Node("BooleanTest",[p[1]])
     if len(p)==5:
         if p[1] == "found":
-            if activeWorld.isCellWithObject(activeWorld.getWillyPosition()[0], p[3]):
-                print("El objeto " + p[3] + " se encuentra en  " + str(activeWorld.getWillyPosition()))
+            p[0]=Node("Found",[p[3]])
         elif p[1] == "carrying" :
             aux = activeWorld.isObjectBasket(p[3])
             if aux:
@@ -755,7 +750,7 @@ def p_conjuncionBool(p):
 
 def p_negacionBool(p):
     """negacionBool : TkNot booleanTests"""
-    p[0]=Node("Negación",[p[2]],p[1])
+    p[0]=Node("Not",[p[2]],p[1])
 
 def p_primitiveBoolean(p):
     """primitiveBoolean : TkFrontCl
@@ -783,7 +778,7 @@ def p_instructions(p):
         p[0]= Node("Instructions",[p[1]])
 
     elif len(p)==3:
-        p[0]= Node("DefineAs",p[2])
+        p[0]= Node("Define As",[p[1],p[2]])
         global defineAsBool
         # print("#####IN RUN DEFINE")
         attributesObjects = {
@@ -809,11 +804,8 @@ def p_instructions(p):
                     "column": p.lexpos(2) + 1,
                 }
                 errorSemantic(data_error)
-            else:
                 p[0] = Node("Instructions", [p[4]], [p[1], p[2], p[3]])
 
-        else:
-            p[0] = Node("Instructions",[p[2],p[4]],[p[1],p[3]])
     elif len(p)==7:
         p[0]= Node("Instructions",[p[2],p[4],p[6]],[p[1],p[3],p[5]])
 
@@ -847,7 +839,7 @@ def p_instructionDefineAs(p):
     """instructionDefineAs : TkDefine ids TkAs"""
     # print("EUREKA")
     # print(p[2])
-    p[0]=Node("Define function as",[p[2]])
+    p[0]=Node("Define as",[p[2]])
     global defineAsBool
     # print("Define" + str(p[2]))
     # print(stack)

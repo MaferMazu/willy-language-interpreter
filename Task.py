@@ -2,9 +2,10 @@ from World import World #Despues tengo que comentar esto
 
 class Task:
     def __init__(self, id, instanceWorld):
-        self.instructions = "" #todas mis instrucciones
+        self.instructions = [] #todas mis instrucciones
         self.world = instanceWorld
         self.id = id
+        self.node=None
 
     def getInstructions(self):
         return self.instructions
