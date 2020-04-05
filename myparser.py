@@ -540,7 +540,7 @@ def p_taskBlock(p):
         "column": p.lexspan(2)[0] + 1,
     }
 
-    p[0] = Node("Task", [p[1]])
+    p[0] = Node("Task", [p[1],p[2]])
 
     print("Antes del pop")
     stack.pop()

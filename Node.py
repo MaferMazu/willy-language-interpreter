@@ -111,6 +111,7 @@ class Node:
                print(self.type)
 
                if self.type=="Drop":
+                    
                     if task.world.isObjectBasket(self.children[0]) and task.world.isObject(self.children[0]):
                          task.dropObject(self.children[0])
                     print("####HEELL YEA")

@@ -18,6 +18,17 @@ willy [nombredearchivoexistente]
 o con willy exclusivamente. (Luego se le pedira ingresar el txt)
 
 # Estado Actual del Programa
+Versión 2.0
+05/04/2020 04:00
+
+Actualizaciones:
+- Se implementaron más archivos de prueba.
+- Se realizó el árbol con las instrucciones para ser ejecutadas.
+- Se acomodaron varios errores.
+
+Falta: revisar porqué en parser al hacerle un método a un nodo en particular este no responde. (línea 548 en myparser.py)
+
+
 03/04/2020 23:50
 
 El proyecto no se encuentra terminado en su totalidad, sin embargo esta implementado:
