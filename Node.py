@@ -106,6 +106,7 @@ class Node:
 
      def executeMyTask(self,task):
           
+
           if isinstance(task,Task):
                print(self.type)
 
@@ -156,6 +157,3 @@ class Node:
                          for child in self.children:
                               if isinstance(child,Node):
                                    child.executeMyTask(task)
-                              else:
-                                   print("soy leaf y mi valor es:",child)
-                                   mybool = mybool and task.world.getValueGoals(child)

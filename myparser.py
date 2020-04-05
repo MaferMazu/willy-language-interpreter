@@ -532,6 +532,7 @@ def p_taskBlock(p):
     """taskBlock : taskDefinition multiInstructions TkEndTask"""
     global taskBool
     global createdWorlds
+    global currentTask
 
     attributesObjects = {
         "type": "Task",
@@ -544,6 +545,7 @@ def p_taskBlock(p):
     print("Antes del pop")
     stack.pop()
     stack.insert(p[1].children[0], attributesObjects)
+    p[0].executeMyTask(currentTask)
 
     print("fin del task")
 
