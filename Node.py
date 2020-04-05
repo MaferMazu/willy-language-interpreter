@@ -105,7 +105,8 @@ class Node:
 
 
      def executeMyTask(self,task):
-          
+          print("####HEELL YEA")
+          print(task)
           if isinstance(task,Task):
                print(self.type)
 
@@ -113,9 +114,11 @@ class Node:
                     
                     if task.world.isObjectBasket(self.children[0]) and task.world.isObject(self.children[0]):
                          task.dropObject(self.children[0])
+                    print("####HEELL YEA")
                elif self.type=="Pick":
                     if task.world.isCellWithObject(task.world.getWillyPosition()[0],self.children[0]) and task.world.isObject(self.children[0]):
                          task.pickObject(self.children[0])
+                    print("####HEELL YEA")
                elif self.type=="Clear":
                     task.world.changeBool(self.children[0], False)
                elif self.type=="Flip":
@@ -144,6 +147,7 @@ class Node:
                elif self.type =="whileInst":
                     while self.children[0].boolValue(task.world,True):
                          self.children[1].executeMyTask(task)
+                    print("####HEELL YEA")
                elif self.type =="Define As":
                     task.instructions.append([self.children[0].children[0],self.children[1]])
                elif self.type=="Repeat":
@@ -151,8 +155,11 @@ class Node:
                          self.children[1].executeMyTask(task)
                else:
                     defineas=False
+                    print("No hemos encontrado el instruction")
+                    print(task.instructions)
                     for x in task.instructions:
                          if self.type==x[0]:
+                              print(x[0])
                               defineas = True
                               x[1].executeMyTask(task)
                     if not defineas:
