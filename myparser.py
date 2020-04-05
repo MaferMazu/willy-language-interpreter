@@ -93,7 +93,7 @@ def p_worldInstSet(p):
         p[0]=Node("WorldInstancia:",[p[1],p[3]])
     else:
         if p[2]==";":
-            p[0]=Node("WorldInstancia:",[p[1]],p[2])
+            p[0]=Node("WorldInstancia:",[p[1]])
         else:
             p[0]=Node("WorldInstancia:",[p[1],p[2]])
 
@@ -119,7 +119,7 @@ def p_wallSet(p):
     if actualDir == "north":
         print("norte")
         if p[4]==p[7] and p[5]<=p[8]:
-            p[0] = Node("WallSet:", [actualDir, p[3], p[4], p[5], p[6], p[7], p[8]])
+            p[0] = Node("WallSet:", [p[2]])
             newWorld.setWall([p[4],p[5]],[p[7],p[8]],actualDir)
         else:
             data_error = {
@@ -131,7 +131,7 @@ def p_wallSet(p):
     elif actualDir == "south":
         print("south")
         if p[4]==p[7] and p[5]>=p[8]:
-            p[0] = Node("WallSet:", [actualDir, p[3], p[4], p[5], p[6], p[7], p[8]])
+            p[0] = Node("WallSet:", [p[2]])
             newWorld.setWall([p[4], p[5]], [p[7], p[8]], actualDir)
         else:
             data_error = {
@@ -143,7 +143,7 @@ def p_wallSet(p):
     elif actualDir == "east":
         print("east")
         if p[5]==p[8] and p[4]>=p[7]:
-            p[0] = Node("WallSet:", [actualDir, p[3], p[4], p[5], p[6], p[7], p[8]])
+            p[0] = Node("WallSet:", [p[2]])
             newWorld.setWall([p[4], p[5]], [p[7], p[8]], actualDir)
         else:
             data_error = {
@@ -155,7 +155,7 @@ def p_wallSet(p):
     elif actualDir == "west":
         print("west")
         if p[5]==p[8] and p[4]<=p[7]:
-            p[0] = Node("WallSet:", [actualDir, p[3], p[4], p[5], p[6], p[7], p[8]])
+            p[0] = Node("WallSet:", [p[2]])
             newWorld.setWall([p[4], p[5]], [p[7], p[8]], actualDir)
         else:
             data_error = {
@@ -213,9 +213,9 @@ def p_worldBlock(p):
         "WorldClass" : "Aqui estara la clase del mundo"
     }
     if len(p)==4:
-        p[0] = Node("WorldBlock",[p[2]],[p[1],p[3]])
+        p[0] = Node("WorldBlock",[p[2]])
     else:
-        p[0] = Node("WorldBlock",[p[2]],[p[1]])
+        p[0] = Node("WorldBlock",[p[2]])
     # print("Antes del pop")
     # print(stack)
     if blockNumber == 0:
@@ -242,7 +242,7 @@ def p_worldSet(p):
     if not hasSetted:
         if 0 != (p[2] or p[3]):
             if len(p) == 4:
-                p[0] = Node("WorldSet", [], [p[1], p[2], p[3]])
+                p[0] = Node("WorldSet", [])
                 newWorld.setDimension([p[2], p[3]])
             else:
                 newWorld.setDimension([1, 1])
@@ -283,7 +283,7 @@ def p_newObjType(p):
         errorSemantic(data_error)
         print("Este elemento ya existe como Mundo o tarea")
     else:
-        p[0] = Node("NewObjectType", [p[2], p[5]], [p[1], p[3], p[4]])
+        p[0] = Node("NewObjectType", [p[2], p[5]])
         attributesObjects = {
             "type": "Object-type",
             "line": p.lineno(2),
@@ -331,7 +331,7 @@ def p_setPlaceObjWorld(p):
     if p[2] != 0:
         if len(p) == 8:
             if (p[6] or p[7]) > 0:
-                p[0] = Node("PlaceObjWorld", [p[4]], [p[1], p[2], p[3], p[5], p[6], p[7]])
+                p[0] = Node("PlaceObjWorld", [p[4]])
                 newWorld.setObjectInWorld(id, amount, [p[6],p[7]])
                 # TODO : Falta validar la posicion en el mundo con respecto a las posiciones del mundo
             else:
@@ -344,7 +344,7 @@ def p_setPlaceObjWorld(p):
                 errorSemantic(data_error)
         else:
             newWorld.setObjectsInBasket(id, amount)
-            p[0] = Node("PlaceObjWorld", [p[4]], [p[1], p[2], p[3], p[5], p[6]])
+            p[0] = Node("PlaceObjWorld", [p[4]])
     else:
         data_error = {
             "type": "No puede colocar 0 objetos",
@@ -382,7 +382,7 @@ def p_setStartPosition(p):
             errorSemantic(data_error)
         else:
             newWorld.setWillyStart([p[3],p[4]], p[6])
-            p[0]=Node("WillyStartPosition",[p[6]],[p[1],p[2],p[3],p[4],p[5]])
+            p[0]=Node("WillyStartPosition",[p[6]])
 
 def p_setBasketCapacity(p):
     """setBasketCapacity : TkBasket TkOf TkCapacity TkNum"""
@@ -396,14 +396,14 @@ def p_setBasketCapacity(p):
         errorSemantic(data_error)
     else:
         newWorld.setCapacityOfBasket(p[4])
-        p[0]=Node("BasketCapacity",[],[p[1],p[2],p[3],p[4]])
+        p[0]=Node("BasketCapacity",[])
 
 def p_newBoolean(p):
     """newBoolean : TkBoolean ids TkWith TkInitial TkValue TkTrue
                   | TkBoolean ids TkWith TkInitial TkValue TkFalse
     """
     global newWorld
-    p[0]=Node("NewBoolean",[p[2]],[p[1],p[3],p[4],p[5],p[6]])
+    p[0]=Node("NewBoolean",[p[2]])
     global worldInstBool
     attributesObjects = {
         "type" : "Bool",
@@ -432,7 +432,7 @@ def p_newGoal(p):
     global worldInstBool
     if len(p)==9:
         if p[4]=="willy":
-            p[0]=Node("NewGoal",[p[2]],[p[1],p[3],p[4],p[5],p[6],p[7],p[8]])
+            p[0]=Node("NewGoal",[p[2]])
             attributesObjects = {
                 "type" : "WillyIsAt",
                 "line" : p.lineno(2),
@@ -442,7 +442,7 @@ def p_newGoal(p):
             }
             newWorld.setGoals(p[2],attributesObjects["type"],[p[7],p[8]])
         else:
-            p[0]=Node("NewGoal: Object in Basket",[p[2],p[5]],[p[1],p[3],p[4],p[6],p[7],p[8]])
+            p[0]=Node("NewGoal: Object in Basket",[p[2],p[5]])
             attributesObjects = {
                 "type" : "ObjectInBasket",
                 "line" : p.lineno(2),
@@ -452,7 +452,7 @@ def p_newGoal(p):
             }
             newWorld.setGoals(p[2], attributesObjects["type"], p[5], p[4])
     else:
-        p[0]=Node("NewGoal: Object at position",[p[2],p[5]],[p[1],p[3],p[4],p[6],p[7],p[8],p[9]])
+        p[0]=Node("NewGoal: Object at position",[p[2],p[5]])
         attributesObjects = {
             "type" : "ObjectInPosition",
             "line" : p.lineno(2),
@@ -484,7 +484,7 @@ def p_finalGoal(p):
         }
         errorSemantic(data_error)
     else:
-        p[0] = Node("FinalGoal", [p[3]], [p[1], p[2]])
+        p[0] = Node("FinalGoal", [p[3]])
         ret = p[3].finalGoalToString()
         print("###########################")
         print("###########################")
@@ -508,19 +508,19 @@ def p_finalGoalTest(p):
     if len(p)==2:
         p[0]=Node("FinalGoal",[p[1]])
     else:
-        p[0]=Node("Parentesis",[p[2]],[p[1],p[3]])
+        p[0]=Node("Parentesis",[p[2]])
 
 def p_disyuncionGoal(p):
     """disyuncionGoal : finalGoalTest TkOr finalGoalTest"""
-    p[0]=Node("Disyuncion",[p[1],p[3]],p[2])
+    p[0]=Node("Disyuncion",[p[1],p[3]])
 
 def p_conjuncionGoal(p):
     """conjuncionGoal : finalGoalTest TkAnd finalGoalTest"""
-    p[0]=Node("Conjuncion",[p[1],p[3]],p[2])
+    p[0]=Node("Conjuncion",[p[1],p[3]])
 
 def p_negacionGoal(p):
     """negacionGoal : TkNot finalGoalTest"""
-    p[0]=Node("Not",[p[2]],p[1])
+    p[0]=Node("Not",[p[2]])
 
 def p_ids(p):
     "ids : TkId"
@@ -736,7 +736,7 @@ def p_booleanTests(p):
             p[0] = Node("Carrying", [p[3]])
             
     elif len(p)==4:
-        p[0]=Node("Parentesis",[p[2]],[p[1],p[3]])
+        p[0]=Node("Parentesis",[p[2]])
 
         #sys.exit()
 
@@ -744,15 +744,15 @@ def p_booleanTests(p):
 
 def p_disyuncionBool(p):
     """disyuncionBool : booleanTests TkOr booleanTests"""
-    p[0]=Node("Disyuncion",[p[1],p[3]],p[2])
+    p[0]=Node("Disyuncion",[p[1],p[3]])
 
 def p_conjuncionBool(p):
     """conjuncionBool : booleanTests TkAnd booleanTests"""
-    p[0]=Node("Conjuncion",[p[1],p[3]],p[2])
+    p[0]=Node("Conjuncion",[p[1],p[3]])
 
 def p_negacionBool(p):
     """negacionBool : TkNot booleanTests"""
-    p[0]=Node("Not",[p[2]],p[1])
+    p[0]=Node("Not",[p[2]])
 
 def p_primitiveBoolean(p):
     """primitiveBoolean : TkFrontCl
@@ -795,7 +795,7 @@ def p_instructions(p):
         defineAsBool = False
         # print("#####IN RUN DEFINE")
     elif len(p)==4:
-        p[0]= Node("Begin",[p[2]],[p[1],p[3]])
+        p[0]= Node("Begin",[p[2]])
     elif len(p)==5:
         if p[1]=="repeat":
             if p[2] <= 0:
@@ -807,10 +807,7 @@ def p_instructions(p):
                 }
                 errorSemantic(data_error)
             else:
-                p[0] = Node("Repeat", [p[2],p[4]], [p[1], p[3]])
-
-    elif len(p)==7:
-        p[0]= Node("Instructions",[p[2],p[4],p[6]],[p[1],p[3],p[5]])
+                p[0] = Node("Repeat", [p[2],p[4]])
 
     # print("Primer elemento de p: ")
     # print(p)
@@ -825,17 +822,17 @@ def p_instructions(p):
 def p_ifSimple(p):
     """ ifSimple : TkIf booleanTests TkThen instructions
     """
-    p[0] = Node('ifSimple', [p[2],p[4]],[p[1],p[3]])
+    p[0] = Node('ifSimple', [p[2],p[4]])
 
 def p_ifCompound(p):
     """ ifCompound : TkIf booleanTests TkThen instructions TkElse instructions
     """
-    p[0] = Node('ifCompound', [p[2],p[4],p[6]], [p[1],p[3],p[5]])
+    p[0] = Node('ifCompound', [p[2],p[4],p[6]])
 
 def p_whileInst(p):
     """ whileInst : TkWhile booleanTests TkDo instructions
     """
-    p[0] = Node('whileInst', [p[2],p[4]],[p[1],p[3]])
+    p[0] = Node('whileInst', [p[2],p[4]])
 
 
 def p_instructionDefineAs(p):
@@ -873,7 +870,7 @@ def p_directions(p):
                 | TkSouth
                 | TkWest
     """
-    p[0]=Node("Direction",[p[1]],p[1])
+    p[0]=Node("Direction",[p[1]])
 
 
 def p_empty(p):
