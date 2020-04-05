@@ -783,7 +783,7 @@ def p_instructions(p):
         p[0]= Node("Instructions",[p[1]])
 
     elif len(p)==3:
-        p[0]= Node("Instructions",[p[1],p[2]])
+        p[0]= Node("DefineAs",p[2])
         global defineAsBool
         # print("#####IN RUN DEFINE")
         attributesObjects = {
