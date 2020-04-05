@@ -67,7 +67,6 @@ end-world
 begin-task pickall on room
 
 
-
 {{Ejecuto}}
 terminate;
 
