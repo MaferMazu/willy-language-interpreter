@@ -1,0 +1,11 @@
+{{
+    WallyCleanEasyVersion
+        Es un programa que: Ejecuta un mundo 4 x 5
+        que representa el cuarto de Willy. 
+        En el cuarto hay laptop, libros, ropa sucia y ropa limpia.
+
+        Inicializa a Willy en la posición (2,5)
+        
+        El movimiento de willy consiste en 
+        
+        El objetivo es que Willy ordene su cuarto y también deje su celular en donde va}}

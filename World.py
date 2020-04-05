@@ -11,7 +11,7 @@ class World:
           self.objectsInBasket = [] #Formato [idObjeto,amountObject,colorObject]
           self.bools = [["front-clear",False], ["left-clear",False], ["right-clear",False], ["looking-north",False], ["looking-east",False], ["looking-south",False],["looking-west",False]] #Formato [id,value]
           self.directions=["north","west","south","east"]
-          self.goals=[] #Formato [id,tipo,objectOrPosition,position/None]
+          self.goals=[] #Formato [id,tipo,objectOrPosition,amount,position/None]
           self.finalgoal=[None,""] #Formato [Nodo,string]
           self.repobj=["o","+","x","#"]
 
@@ -324,11 +324,14 @@ class World:
      def isCellWithObject(self,pair,objectname):
           if len(pair)==2:
                # position = [pair([x,y]),willy(W) o wall(X),lista de pares([idObje,amount])]
-               position = self.positionInBoard(pair)
-               for x in self.board[position[0]][position[1]][2]:
-                    #x = [idObjeto,amountObject,colorObject]
-                    if x[0]==objectname:
-                         return True
+               if pair[0]<=self.dimensions[0] and pair[1]<=self.dimensions:
+                    position = self.positionInBoard(pair)
+                    print("inicial pair",pair)
+                    print("isCellWithObj position:",position)
+                    for x in self.board[position[0]][position[1]][2]:
+                         #x = [idObjeto,amountObject,colorObject]
+                         if x[0]==objectname:
+                              return True
                return False
      
      def howMuchObjectsInCell(self,pair,objectname):

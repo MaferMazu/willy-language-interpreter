@@ -1,14 +1,3 @@
-{{
-    WallyCleanEasyVersion
-        Es un programa que: Ejecuta un mundo 4 x 5
-        que representa el cuarto de Willy. 
-        En el cuarto hay laptop, libros, ropa sucia y ropa limpia.
-
-        Inicializa a Willy en la posición (2,5)
-        
-        El movimiento de willy consiste en 
-        
-        El objetivo es que Willy ordene su cuarto y también deje su celular en donde va}}
 
 begin-world room
 
@@ -45,8 +34,8 @@ Place 3 of dirtyclothes at 2 4
 Place 2 of dirtyclothes at 2 3
 Place 5 of dirtyclothes at 3 3
 Place 5 of cleanclothes at 3 1
-Place 1 of cell at basket
-Place 1 of mybasket ar 5 1
+Place 1 of cell in basket
+Place 1 of mybasket at 4 1
 
 
 {{Inicio de Wally}}
@@ -56,11 +45,11 @@ Boolean aLotOfObjectsInPosition with initial value false
 
 
 {{Goals}}
-Goal cleanclothesinposition is 10 cleanclothes at 5 1
-Goal dirtyclothesinposition is 20 dirtyclothes at 5 1
-Goal laptopinposition is 1 laptop at 5 1
-Goal booksinposition is 5 books at 5 1
-Goal cellinposition is 1 cell at 5 1
+Goal cleanclothesinposition is 10 cleanclothes objects at 4 1
+Goal dirtyclothesinposition is 20 dirtyclothes objects at 4 1
+Goal laptopinposition is 1 laptop objects at 4 1
+Goal booksinposition is 5 books objects at 4 1
+Goal cellinposition is 1 cell objects at 4 1
 
 Final goal is cleanclothesinposition and dirtyclothesinposition and laptopinposition and booksinposition and cellinposition;
 end-world
