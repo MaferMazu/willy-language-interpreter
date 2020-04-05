@@ -89,6 +89,8 @@ class Node:
                     mybool= mybool and (not u)
                elif self.type=="Found":
                     mybool= mybool and mundo.isCellWithObject(mundo.getWillyPosition()[0],self.children[0])
+               elif self.type == "Carrying":
+                    mybool = mybool and mundo.isObjectBasket(mundo.getWillyPosition()[0], self.children[0])
                else:
                     for child in self.children:
                          if isinstance(child,Node):
@@ -156,4 +158,4 @@ class Node:
                                    child.executeMyTask(task)
                               else:
                                    print("soy leaf y mi valor es:",child)
-                                   mybool=mybool and task.world.getValueGoals(child)
+                                   mybool = mybool and task.world.getValueGoals(child)
