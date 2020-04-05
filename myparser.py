@@ -793,7 +793,7 @@ def p_instructions(p):
         defineAsBool = False
         # print("#####IN RUN DEFINE")
     elif len(p)==4:
-        p[0]= Node("Instructions",[p[2]],[p[1],p[3]])
+        p[0]= Node("Begin",[p[2]],[p[1],p[3]])
     elif len(p)==5:
         if p[1]=="repeat":
             if p[2] <= 0:
@@ -804,7 +804,8 @@ def p_instructions(p):
                     "column": p.lexpos(2) + 1,
                 }
                 errorSemantic(data_error)
-                p[0] = Node("Instructions", [p[4]], [p[1], p[2], p[3]])
+            else:
+                p[0] = Node("Repeat", [p[2],p[4]], [p[1], p[3]])
 
     elif len(p)==7:
         p[0]= Node("Instructions",[p[2],p[4],p[6]],[p[1],p[3],p[5]])

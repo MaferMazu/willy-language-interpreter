@@ -39,7 +39,7 @@ Goal goal3 is 10 table objects at 5 4
 Final goal is goal1 or goal2 and goal3;
 end-world
 begin-task task1 on world1
-if found flower ) then fun
+if found (flower ) then fun;
 define fun as begin
     move;
     pick flower;

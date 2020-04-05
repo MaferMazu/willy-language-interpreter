@@ -39,23 +39,23 @@ class Node:
                          ret += str(child)
           return ret
 
-     def finalGoalValue(self,mundo):
-          mybool = True
+     def finalGoalValue(self,mundo,mybool):
+          
           if isinstance(mundo,World):
                print(self.type)
                if self.type=="Conjuncion":
-                    left = self.children[0].finalGoalValue(mundo)
-                    rigth = self.children[1].finalGoalValue(mundo)
+                    left = self.children[0].finalGoalValue(mundo,mybool)
+                    rigth = self.children[1].finalGoalValue(mundo,mybool)
                     mybool= mybool and (mundo.getValueGoals(left) and mundo.getValueGoals(rigth))
                elif self.type=="Disyuncion":
-                    left = self.children[0].finalGoalValue(mundo)
-                    rigth = self.children[1].finalGoalValue(mundo)
+                    left = self.children[0].finalGoalValue(mundo,mybool)
+                    rigth = self.children[1].finalGoalValue(mundo,mybool)
                     mybool= mybool and (mundo.getValueGoals(left) or mundo.getValueGoals(rigth))
                elif self.type=="Parentesis":
-                    u = self.children[0].finalGoalValue(mundo)
+                    u = self.children[0].finalGoalValue(mundo,mybool)
                     mybool= mybool and ((u))
                elif self.type=="Not":
-                    u = self.children[0].finalGoalValue(mundo)
+                    u = self.children[0].finalGoalValue(mundo,mybool)
                     mybool= mybool and (not u)
                else:
                     for child in self.children:
@@ -69,23 +69,23 @@ class Node:
           else:
                return False
 
-     def boolValue(self,mundo):
-          mybool = True
+     def boolValue(self,mundo,mybool):
+          
           if isinstance(mundo,World):
                print(self.type)
                if self.type=="Conjuncion":
-                    left = self.children[0].boolValue(mundo)
-                    rigth = self.children[1].boolValue(mundo)
+                    left = self.children[0].boolValue(mundo,mybool)
+                    rigth = self.children[1].boolValue(mundo,mybool)
                     mybool= mybool and (mundo.getValueGoals(left) and mundo.getValueGoals(rigth))
                elif self.type=="Disyuncion":
-                    left = self.children[0].boolValue(mundo)
-                    rigth = self.children[1].boolValue(mundo)
+                    left = self.children[0].boolValue(mundo,mybool)
+                    rigth = self.children[1].boolValue(mundo,mybool)
                     mybool= mybool and (mundo.getValueGoals(left) or mundo.getValueGoals(rigth))
                elif self.type=="Parentesis":
-                    u = self.children[0].boolValue(mundo)
+                    u = self.children[0].boolValue(mundo,mybool)
                     mybool= mybool and ((u))
                elif self.type=="Not":
-                    u = self.children[0].boolValue(mundo)
+                    u = self.children[0].boolValue(mundo,mybool)
                     mybool= mybool and (not u)
                elif self.type=="Found":
                     mybool= mybool and mundo.isCellWithObject(mundo.getWillyPosition()[0],self.children[0])
@@ -94,7 +94,7 @@ class Node:
                else:
                     for child in self.children:
                          if isinstance(child,Node):
-                              mybool= mybool and (child.boolValue(mundo))
+                              mybool= mybool and (child.boolValue(mundo,mybool))
                          else:
                               print("soy leaf y mi valor es:",child,mundo.getGoals(),mundo.getValueGoals(child))
                               mybool=mybool and mundo.getValueBool(child)
@@ -133,19 +133,21 @@ class Node:
                elif self.type=="Terminate":
                     print(task.world)
                elif self.type=="ifSimple":
-                    if self.children[0].boolValue(task.world):
+                    if self.children[0].boolValue(task.world,True):
                          self.children[1].executeMyTask(task)
                elif self.type=="ifCompound":
-                    if self.children[0].boolValue(task.world):
+                    if self.children[0].boolValue(task.world,True):
                          self.children[1].executeMyTask(task)
                     else:
                          self.children[2].executeMyTask(task)
                elif self.type =="whileInst":
-                    while self.children[0].boolValue(task.world):
+                    while self.children[0].boolValue(task.world,True):
                          self.children[1].executeMyTask(task)
                elif self.type =="Define As":
                     task.instructions.append([self.children[0].children[0],self.children[1]])
-
+               elif self.type=="Repeat":
+                    for i in range(0,self.children[0]+1):
+                         self.children[1].executeMyTask(task)
                else:
                     defineas=False
                     for x in task.instructions:
@@ -156,6 +158,4 @@ class Node:
                          for child in self.children:
                               if isinstance(child,Node):
                                    child.executeMyTask(task)
-                              else:
-                                   print("soy leaf y mi valor es:",child)
-                                   mybool = mybool and task.world.getValueGoals(child)
+                              
