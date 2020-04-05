@@ -47,13 +47,13 @@ define fun as begin
     define fun1 as begin
         move;
         pick flower;
-        set willyishungry;
-        set willyisangry to false;
+        set willyishungry1;
+        set willyisangry1 to false;
         define fun2 as begin
             move;
             pick flower;
-            set willyishungry;
-            set willyisangry to false;
+            set willyishungry2;
+            set willyisangry2 to false;
         end
     end
 end

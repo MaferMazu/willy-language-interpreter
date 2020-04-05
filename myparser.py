@@ -185,6 +185,9 @@ def p_worldDefinition(p):
     }
     global newWorld
     # if p[2]
+    print("###Reading world")
+    print(stack)
+    print("###Reading world")
     p[0] = Node("",[p[2]])
     data = [p[0].children[0], type]
     newWorld = World(p[2])
@@ -222,6 +225,7 @@ def p_worldBlock(p):
         stack.insert("WorldBlock" + str(blockNumber), dataFlag)
         blockNumber = blockNumber + 1
     validateFinalGoal = False
+    print(stack)
     stack.pop()
     stack.insert(id,attributesObjects)
     createdWorlds.append(newWorld)
@@ -556,7 +560,7 @@ def p_taskDefinition(p):
 
 
     # print(procedures.find(p[4], createdWorlds).id)
-    if procedures.find(p[4], createdWorlds) != None:
+    if procedures.find(p[4], createdWorlds) is not None:
 
         activeWorld = procedures.find(p[4], createdWorlds)
         # print("######### elemento")
@@ -621,33 +625,42 @@ def p_primitiveInstructions(p):
     global currentTask
     attributesObjects = {}
     if p[1] == ("drop" or "pick"):
-        if not (procedures.findObj(p[2], objectsInWorlds)):
+        print(p[2])
+        print(activeWorld.id)
+        print(activeWorld.isObject(p[2]))
+        if activeWorld.isObject(p[2]):
+            if p[1] == "pick":
+                currentTask.pickObject(p[2])
+            elif p[1] == "drop":
+                currentTask.dropObject(p[2])
+        elif activeWorld.isObjectBasket(p[2]):
+            if p[1] == "drop":
+                currentTask.dropObject(p[2])
+            elif p[1] == "pick":
+                currentTask.pickObject(p[2])
+        else:
             data_error = {
                 "type": "Objeto " + p[2] + " No existe en el mudno ",
                 "line": p.lineno(2),
                 "column": p.lexpos(2) + 1,
             }
             errorSemantic(data_error)
-        else:
-            if p[1] == "drop":
-                currentTask.dropObject(p[2])
-            elif p[1] == "pick":
-                currentTask.pickObject(p[2])
 
     elif p[1] == ("clear" or "flip"):
-        if not (procedures.findObj(p[2], booleansOfWorlds)):
+        if activeWorld.isBool(p[2]):
+            if p[1] == "clear":
+                activeWorld.changeBool(p[2], False)
+            elif p[1] == "flip":
+                boolAux = activeWorld.getValueBool(p[1])
+                activeWorld.changeBool(p[2], not boolAux)
+        else:
             data_error = {
                 "type": "Booleano " + p[2] + " No existe en el mudno ",
                 "line": p.lineno(2),
                 "column": p.lexpos(2) + 1,
             }
             errorSemantic(data_error)
-        else:
-            if p[1] == "clear":
-                activeWorld.changeBool(p[2], False)
-            elif p[1] == "flip":
-                boolAux = activeWorld.getValueBool(p[1])
-                activeWorld.changeBool(p[2], not boolAux)
+
     elif p[1] == 'set':
         if activeWorld.isBool(p[2]):
             if len(p) == 5:
@@ -768,8 +781,22 @@ def p_instructions(p):
                     """
     if len(p)==2:
         p[0]= Node("Instructions",[p[1]])
+
     elif len(p)==3:
         p[0]= Node("Instructions",[p[1],p[2]])
+        global defineAsBool
+        # print("#####IN RUN DEFINE")
+        attributesObjects = {
+            "type": "Instruction",
+            "line": p.lineno(1),
+            "column": p.lineno(1) + 1,
+        }
+        # print(stack)
+        stack.pop()
+        stack.insert(p[1].children[0], attributesObjects)
+        # print(stack)
+        defineAsBool = False
+        # print("#####IN RUN DEFINE")
     elif len(p)==4:
         p[0]= Node("Instructions",[p[2]],[p[1],p[3]])
     elif len(p)==5:
@@ -792,16 +819,7 @@ def p_instructions(p):
 
     # print("Primer elemento de p: ")
     # print(p)
-    if len(p)==3:
-        global defineAsBool
-        attributesObjects = {
-            "type": "Instruction",
-            "line": p.lineno(1),
-            "column": p.lineno(1) + 1,
-        }
-        stack.pop()
-        stack.insert(p[1].children[0],attributesObjects)
-        defineAsBool = False
+
 
 
 # def p_instructionDefine(p):
@@ -831,21 +849,27 @@ def p_instructionDefineAs(p):
     # print(p[2])
     p[0]=Node("Define function as",[p[2]])
     global defineAsBool
+    # print("Define" + str(p[2]))
+    # print(stack)
+    # print("Define")
     defineAsBool = False
+
     """ attributesObjects = {
         "type" : "Instruction",
         "line" : p.lineno(2),
         "column" : p.lexpos(2) + 1,
         } """
     if defineAsBool:
-        # print("La variable es TRUE")
-        pass
+        defineAsBool = False
     else:
         # print("la variable es false, procedemos a pusherar" + "\n")
         # # print(stack)
         # print("Aqui estuvo el stack")
         table = []
         stack.push(table)
+        # print("Nuevo Contexto")
+        # print(stack)
+        # print("Nuevo Contexto")
         defineAsBool = True
 
 def p_directions(p):

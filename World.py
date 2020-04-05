@@ -373,11 +373,11 @@ class World:
      
      def positionInBoard(self,position):
           dimension = self.getDimension()
-          print("0000#####HEY#####")
-          print(position)
-          print(isinstance(position[1],int))
-          print(dimension)
-          print("1111#####HEY#####")
+          # print("0000#####HEY#####")
+          # print(position)
+          # print(isinstance(position[1],int))
+          # print(dimension)
+          # print("1111#####HEY#####")
           pair = [dimension[1]-position[1],position[0]-1]
           return pair
 
