@@ -148,7 +148,7 @@ class World:
      
      def getValueFinalGoal(self):
           if self.finalgoal[1]!="":
-               return self.finalgoal[0].finalGoalValue(self)
+               return self.finalgoal[0].finalGoalValue(self,True)
           else:
                return False
 
