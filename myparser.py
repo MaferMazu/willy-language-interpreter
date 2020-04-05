@@ -546,7 +546,7 @@ def p_taskBlock(p):
     stack.pop()
     stack.insert(p[1].children[0], attributesObjects)
     print(p[0])
-    # currentTask.instructions.append(p[1])
+
     p[0].executeMyTask(currentTask)
     print(activeWorld)
     print("fin del task")
@@ -792,6 +792,7 @@ def p_instructions(p):
         }
         # print(stack)
         stack.pop()
+        currentTask.instructions.append(p[2])
         stack.insert(p[1].children[0], attributesObjects)
         # print(stack)
         defineAsBool = False
