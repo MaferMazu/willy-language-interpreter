@@ -24,6 +24,7 @@ Object-type heart of color red
 Object-type sky of color blue
 {{Colocar objetos}}
 Place 3 of flower at 2 3
+Place 3 of flower at 8 4
 Place 5 of heart at 8 1
 Place 1 of sky1 at 1 1
 Place 10 of table in basket
@@ -39,10 +40,10 @@ Goal goal3 is 10 table objects at 5 4
 Final goal is goal1 or goal2 and goal3;
 end-world
 begin-task task1 on world1
-if found (flower ) then fun;
+
 define fun as begin
-    move;
     pick flower;
+    move;
     set willyishungry;
     set willyisangry to false;
     define fun1 as begin
@@ -58,4 +59,5 @@ define fun as begin
         end
     end
 end
+if found (flower ) then fun;
 end-task
