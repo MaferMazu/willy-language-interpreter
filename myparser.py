@@ -738,9 +738,9 @@ def p_booleanTests(p):
         p[0]=Node("BooleanTest",[p[3]],[p[1],p[2],p[4]])
     elif len(p)==4:
         p[0]=Node("Parentesis",p[2],[p[1],p[3]])
-        print(p[0])
-        print([p2])
-        sys.exit()
+        # print(p[0])
+        # print([p2])
+        # sys.exit()
 
 
 
