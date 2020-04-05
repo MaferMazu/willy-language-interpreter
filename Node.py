@@ -157,11 +157,12 @@ class Node:
                     defineas=False
                     print("No hemos encontrado el instruction")
                     print(task.instructions)
-                    for x in task.instructions:
-                         if self.type==x[0]:
-                              print(x[0])
-                              defineas = True
-                              x[1].executeMyTask(task)
+                    if task.instructions!=[]:
+                         for x in task.instructions:
+                              if self.type==x[0]:
+                                   print(x[0])
+                                   defineas = True
+                                   x[1].executeMyTask(task)
                     if not defineas:
                          for child in self.children:
                               if isinstance(child,Node):

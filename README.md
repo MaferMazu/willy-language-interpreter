@@ -18,6 +18,11 @@ willy [nombredearchivoexistente]
 o con willy exclusivamente. (Luego se le pedira ingresar el txt)
 
 # Estado Actual del Programa
+Versión 2.1
+05/04/2020 04:35
+
+Se descubrió que falta resolver en la recursión lo que debe hacer el método de ejecución con los nodos intermedios a las producciones principales de instrucciones.
+
 Versión 2.0
 05/04/2020 04:00
 
@@ -28,7 +33,7 @@ Actualizaciones:
 
 Falta: revisar porqué en parser al hacerle un método a un nodo en particular este no responde. (línea 548 en myparser.py)
 
-
+Versión 1.0
 03/04/2020 23:50
 
 El proyecto no se encuentra terminado en su totalidad, sin embargo esta implementado:
