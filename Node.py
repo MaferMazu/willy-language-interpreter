@@ -105,7 +105,6 @@ class Node:
 
 
      def executeMyTask(self,task):
-          print("####HEELL YEA")
           print(task)
           if isinstance(task,Task):
                print(self.type)
@@ -147,7 +146,7 @@ class Node:
                elif self.type =="whileInst":
                     while self.children[0].boolValue(task.world,True):
                          self.children[1].executeMyTask(task)
-                    print("####HEELL YEA")
+                    # print("####HEELL YEA")
                elif self.type =="Define As":
                     task.instructions.append([self.children[0].children[0],self.children[1]])
                elif self.type=="Repeat":
@@ -155,7 +154,7 @@ class Node:
                          self.children[1].executeMyTask(task)
                else:
                     defineas=False
-                    print("No hemos encontrado el instruction")
+                    # print("No hemos encontrado el instruction")
                     print(task.instructions)
                     if task.instructions!=[]:
                          for x in task.instructions:
