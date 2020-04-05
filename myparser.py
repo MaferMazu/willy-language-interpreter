@@ -545,9 +545,10 @@ def p_taskBlock(p):
     print("Antes del pop")
     stack.pop()
     stack.insert(p[1].children[0], attributesObjects)
+    print(p[0])
+    # currentTask.instructions.append(p[1])
     p[0].executeMyTask(currentTask)
     print(activeWorld)
-
     print("fin del task")
 
 
@@ -686,7 +687,7 @@ def p_primitiveInstructions(p):
         }
         p[0]=Node("Terminate",[p[1]])
         
-        finish(data_error)
+        #finish(data_error)
     
     
     if p[1] == "set":
