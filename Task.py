@@ -1,15 +1,17 @@
 from World import World #Despues tengo que comentar esto
 
 class Task:
-    def __init__(self,World):
-        self.instructions="" #todas mis instrucciones
-        self.world=World
+    def __init__(self, id, instanceWorld):
+        self.instructions = [] #todas mis instrucciones
+        self.world = instanceWorld
+        self.id = id
+        self.node=None
 
     def getInstructions(self):
         return self.instructions
 
     def setInstructions(self,input):
-        self.instructions=self.instructions + input
+        self.instructions.append(input)
 
     ####
     # Instructions
@@ -30,7 +32,10 @@ class Task:
             return False
 
     def turnWilly(self,directionLR):
+        print("1111#########HEY#####")
+        print(self.world)
         pos = self.world.getWillyPosition()[1]
+        print("0000#####HEY#####")
         index = 0
         for x in range(0,4):
             if self.world.directions[x]== pos:
@@ -45,12 +50,12 @@ class Task:
         return True
 
     def pickObject(self,id):
-        return self.world.setObjectsInBasket(id,1)
+        return self.world.addObjectsInBasket(id,1)
 
     def dropObject(self,id):
         return self.world.setFreeObjectsInBasket(id,1)
 
-def main():
+""" def main():
     print("Corriendo!")
     if __name__== "__main__" :
         print("####\nEmpezó la prueba\n####\n\n")
@@ -119,16 +124,16 @@ def main():
         print(World1)
         print(World1.objects)
         World1.setCapacityOfBasket(20)
-        print("agarrar 3 flores ",World1.setObjectsInBasket("flor",3))
+        print("agarrar 3 flores ",World1.addObjectsInBasket("flor",3))
         print("13 - 3 flores ",World1.objects)
         print("20-3 ",World1.capacityOfBasket)
         print("3 flores ",World1.objectsInBasket)
         print("Mirror: ", World1.setObjects("mirror","blue"))
         print("Table: ", World1.setObjects("table","gray"))
         print("2 mirror en pos actual:",World1.setObjectInWorld("mirror",2,[2,1]))
-        print("agarrar 1 mirror ",World1.setObjectsInBasket("mirror",1))
+        print("agarrar 1 mirror ",World1.addObjectsInBasket("mirror",1))
         print("pickObject",Task1.pickObject("mirror"))
-        print("agarrar 2 flores ",World1.setObjectsInBasket("flor",2))
+        print("agarrar 2 flores ",World1.addObjectsInBasket("flor",2))
         print("obj ",World1.objects)
         print("basket capacity",World1.capacityOfBasket)
         print("my basket ",World1.objectsInBasket)
@@ -162,4 +167,4 @@ def main():
         World1.setGoals("goal1","WillyIsAt",[1,2])
         print(World1.getGoals())
 
-main() 
+main()  """

@@ -11,8 +11,9 @@ class World:
           self.objectsInBasket = [] #Formato [idObjeto,amountObject,colorObject]
           self.bools = [["front-clear",False], ["left-clear",False], ["right-clear",False], ["looking-north",False], ["looking-east",False], ["looking-south",False],["looking-west",False]] #Formato [id,value]
           self.directions=["north","west","south","east"]
-          self.goals=[] #Formato [id,tipo,objectOrPosition,position/None]
-          self.finalgoal=""
+          self.goals=[] #Formato [id,tipo,objectOrPosition,amount,position/None]
+          self.finalgoal=[None,""] #Formato [Nodo,string]
+          self.repobj=["o","+","x","#"]
 
      def __str__(self):
           return self.printBoard("","willy")
@@ -44,7 +45,7 @@ class World:
                          position = self.board[pair[0]][pair[1]]
                          position[1]="/"
                if direction=="south":
-                    for x in range(fin[1],ini[1]):
+                    for x in range(fin[1],ini[1]+1):
                          pair=self.positionInBoard([ini[0],x])
                          position = self.board[pair[0]][pair[1]]
                          position[1]="/"
@@ -61,6 +62,11 @@ class World:
                return True
           else:
                return False
+
+
+
+         ###Init of objects
+
      
      def getObjects(self):
           return self.objects
@@ -93,31 +99,69 @@ class World:
           else:
                return False
 
-     def setGoals(self,id,typeOf,objectOrPosition,position=None):
+     def setGoals(self,id,typeOf,objectOrPosition,amount=None,position2=None):
           if not self.isGoal(id):
-               if (typeOf== "WillyIsAt" and isinstance(objectOrPosition,list)) or (typeOf== "ObjectInBasket" and isinstance(objectOrPosition,str)):
-                    goal=[id,typeOf,objectOrPosition,None]
+               if typeOf== "WillyIsAt" and isinstance(objectOrPosition,list):
+                    goal=[id,typeOf,objectOrPosition,None,None]
                     self.goals.append(goal)
                     return True
-               elif typeOf== "ObjectInPosition" and isinstance(objectOrPosition,str) and isinstance(position,list):
-                    goal=[id,typeOf,objectOrPosition,position]
+               elif typeOf== "ObjectInBasket" and isinstance(objectOrPosition,str) and isinstance(amount,int):
+                    goal=[id,typeOf,objectOrPosition,amount,None]
                     self.goals.append(goal)
                     return True
-
-               else:
-                    return False
+               elif typeOf== "ObjectInPosition" and isinstance(objectOrPosition,str) and isinstance(position2,list) and isinstance(amount,int):
+                    goal=[id,typeOf,objectOrPosition,amount,position2]
+                    self.goals.append(goal)
+                    return True
           else:
                return False
+          
 
      def getGoals(self):
           return self.goals
 
+     def getValueGoals(self,goal):
+          if goal==True or goal==False:
+               print(goal,goal)
+               return goal
+          if self.isGoal(goal):
+               for x in self.goals:
+                    if x[0]==goal:
+                         if x[1]=="WillyIsAt":
+                              print(goal,x[2][1]==self.getWillyPosition()[0][1] and x[2][0]==self.getWillyPosition()[0][0])
+                              return x[2][1]==self.getWillyPosition()[0][1] and x[2][0]==self.getWillyPosition()[0][0]
+
+                         elif x[1]=="ObjectInBasket":
+                              if self.isObjectBasket(x[2]):
+                                   print(goal,self.howMuchObjectsInBasket(x[2])==x[3])
+                                   return self.howMuchObjectsInBasket(x[2])==x[3]
+                              else:
+                                   return False 
+
+                         elif x[1]=="ObjectInPosition":
+                              if self.isCellWithObject(x[4],x[2]):
+                                   print(goal,self.howMuchObjectsInCell(x[4],x[2])==x[3])
+                                   return self.howMuchObjectsInCell(x[4],x[2])==x[3]
+                              else:
+                                   print(goal,False)
+                                   return False
+     
+     def getValueFinalGoal(self):
+          if self.finalgoal[1]!="":
+               return self.finalgoal[0].finalGoalValue(self,True)
+          else:
+               return False
+
      def getFinalGoal(self):
-          return self.finalgoal
+          return self.finalgoal[1]
 
-     def setFinalGoal(self,input):
-          self.finalgoal= self.finalgoal + input
+     def setFinalGoal(self,nodo,input):
+          self.finalgoal[0]= nodo
+          self.finalgoal[1]= self.finalgoal[1] + input
 
+     """
+     Init of Booleans
+     """
      ####
      # Get y Set Bool
      ####
@@ -152,6 +196,7 @@ class World:
      ####
      def setWillyStart(self,pair,direction):
           self.positionI = [pair,direction]
+          self.setWillyPosition(pair,direction)
           return True
 
      def getWillyStart(self):
@@ -161,6 +206,7 @@ class World:
           if self.isCellWallFree(pair):
                self.positionF = [pair,direction]
                pos = self.positionInBoard(pair)
+               print("pase por aqui#######################")
                self.board[pos[0]][pos[1]][1]="w"
                self.changeLookingBools(direction)
                self.changeFLRBools(self.getWillyPosition()[0],direction)
@@ -182,6 +228,22 @@ class World:
           return self.objectsInBasket
 
      def setObjectsInBasket(self,id,amount):
+          if self.isObject(id) and self.getCapacityOfBasket()>0:
+               if not self.isObjectBasket(id):
+                    self.objectsInBasket.append([id,amount])
+               else:
+                    for y in self.objectsInBasket:
+                         if y[0]==id:
+                              y[1] = y[1] + amount
+
+               newcapacity=self.getCapacityOfBasket()-amount
+               self.setCapacityOfBasket(newcapacity)
+               return True
+          else:
+               return False
+
+
+     def addObjectsInBasket(self,id,amount):
           ready=False
           #Verifico si puedo agarrar objetos por mi basket capacity ysi el id existe
           if self.isObject(id) and self.getCapacityOfBasket()>0:
@@ -192,22 +254,14 @@ class World:
                     #Verifico si en la celda en la que estoy en el area de objetos tengo a
                     #alguien con el id y que la cantidad sea mayor a lo que quiero recoger
                     if listObjInCell[i][0]==id and listObjInCell[i][1]>=amount:
-                         #Si no tengo en mi canasta agrego sino solo sumo
-                         if not self.isObjectBasket(id):
-                              self.objectsInBasket.append([listObjInCell[i][0],amount])
-                         else:
-                              for y in self.objectsInBasket:
-                                   if y[0]==id:
-                                        y[1] = y[1] + amount
+                         self.setObjectsInBasket(id,amount)
                          #Modifico la lista de objects
                          for y in self.getObjects():
                               if y[0]==id:
                                    y[1]= y[1]-amount
+                         
                          #Modifico la cantidad en la celda en la que estoy
                          listObjInCell[i][1]=listObjInCell[i][1]-amount
-                         #Reduzco mi capacidad de basket
-                         newcapacity=self.getCapacityOfBasket()-amount
-                         self.setCapacityOfBasket(newcapacity)
                          ready=True
                          if listObjInCell[i][1]==0:
                               index=i
@@ -257,6 +311,11 @@ class World:
           if len(pair)==2:
                # position = [pair([x,y]),willy(W) o wall(X),lista de pares([idObje,attributes])]
                position = self.positionInBoard(pair)
+               print("Position Here: ")
+               print(position)
+               # print(self.board)
+               print(self)
+               print("Position Up ^ ")
                if 1<=pair[0]<= self.dimensions[0] and 1<=pair[1]<=self.dimensions[1]:
                     return self.board[position[0]][position[1]][1] != "/"
           else:
@@ -265,11 +324,14 @@ class World:
      def isCellWithObject(self,pair,objectname):
           if len(pair)==2:
                # position = [pair([x,y]),willy(W) o wall(X),lista de pares([idObje,amount])]
-               position = self.positionInBoard(pair)
-               for x in self.board[position[0]][position[1]][2]:
-                    #x = [idObjeto,amountObject,colorObject]
-                    if x[0]==objectname:
-                         return True
+               if pair[0]<=self.dimensions[0] and pair[1]<=self.dimensions[1]:
+                    position = self.positionInBoard(pair)
+                    print("inicial pair",pair)
+                    print("isCellWithObj position:",position)
+                    for x in self.board[position[0]][position[1]][2]:
+                         #x = [idObjeto,amountObject,colorObject]
+                         if x[0]==objectname:
+                              return True
                return False
      
      def howMuchObjectsInCell(self,pair,objectname):
@@ -314,29 +376,37 @@ class World:
      
      def positionInBoard(self,position):
           dimension = self.getDimension()
+          # print("0000#####HEY#####")
+          # print(position)
+          # print(isinstance(position[1],int))
+          # print(dimension)
+          # print("1111#####HEY#####")
           pair = [dimension[1]-position[1],position[0]-1]
           return pair
 
-     def printBoard(self,itype=None,reprint=None):
+     def printBoard(self, itype=None, reprint=None):
           ##Imprime matriz y el type dice qué imprimir
           rep = ""
           for column in self.board:
                for elem in column:
-                    if itype=="index":
-                         rep += "["+str(elem[0][0]+1)+", "+str(elem[0][1]+1)+"]" + "   "
+                    if itype == "index":
+                         rep += "[" + str(elem[0][0] + 1) + ", " + str(elem[0][1] + 1) + "]" + " "
                     else:
-                         if elem[1]==" ":
+                         if elem[1] == " ":
                               if elem[2]!=[]:
-                                   rep += "[ * ]   "
+                                   for x in range(0, len(self.objects)):
+                                        if self.objects[x][0] == elem[2][0][0]:
+                                             rep += "[" + self.repobj[x % 4] + "] "
+                                             break
                               else:
-                                   rep += "[   ]   "
+                                   rep += "[ ] "
                          else:
                               if elem[2]!=[]:
-                                   rep += "[ W ]   "
+                                   rep += "[W] "
                               else:
-                                   rep += "[ "+str(elem[1]) + " ]   "
+                                   rep += "[" + str(elem[1]) + "] "
                rep += "\n"
-          if reprint==None:
+          if reprint is None:
                print(rep)
           return rep
 
@@ -483,16 +553,16 @@ class World:
          print(World1)
          print(World1.objects)
          World1.setCapacityOfBasket(20)
-         print("agarrar 3 flores ",World1.setObjectsInBasket("flor",3))
+         print("agarrar 3 flores ",World1.addObjectsInBasket("flor",3))
          print("13 - 3 flores ",World1.objects)
          print("20-3 ",World1.capacityOfBasket)
          print("3 flores ",World1.objectsInBasket)
          print("Mirror: ", World1.setObjects("mirror","blue"))
          print("Table: ", World1.setObjects("table","gray"))
          print("2 mirror en pos actual:",World1.setObjectInWorld("mirror",2,[2,1]))
-         print("agarrar 1 mirror ",World1.setObjectsInBasket("mirror",1))
+         print("agarrar 1 mirror ",World1.addObjectsInBasket("mirror",1))
          print("pickObject",World1.pickObject("mirror"))
-         print("agarrar 2 flores ",World1.setObjectsInBasket("flor",2))
+         print("agarrar 2 flores ",World1.addObjectsInBasket("flor",2))
          print("obj ",World1.objects)
          print("basket capacity",World1.capacityOfBasket)
          print("my basket ",World1.objectsInBasket)

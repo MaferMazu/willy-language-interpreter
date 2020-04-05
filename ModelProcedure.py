@@ -5,7 +5,7 @@ class ModelProcedure:
     def __init__(self):
         self.symbol = []
 
-    def find(self, symbol, array):
+    def findObj(self, symbol, array):
         print("Init ModelProcedure")
         table = array
         i_found_it = False
@@ -18,3 +18,24 @@ class ModelProcedure:
                 break
         print("End MdodelProcedure")
         return i_found_it
+
+    def find(self, symbol, array):
+        print("Init ModelProcedure")
+        table = array
+        i_found_it = False
+        element =  None
+        for element in table:
+            # print(element)
+            # print("#### ### ###")
+            # print(not True)
+            if element.id == symbol:
+                i_found_it = True
+                break
+
+        print("End MdodelProcedure")
+
+        if i_found_it:
+            print(element.id)
+            return element
+        else:
+            return None

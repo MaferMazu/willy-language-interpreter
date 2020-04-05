@@ -18,6 +18,22 @@ willy [nombredearchivoexistente]
 o con willy exclusivamente. (Luego se le pedira ingresar el txt)
 
 # Estado Actual del Programa
+Versión 2.1
+05/04/2020 04:35
+
+Se descubrió que falta resolver en la recursión lo que debe hacer el método de ejecución con los nodos intermedios a las producciones principales de instrucciones.
+
+Versión 2.0
+05/04/2020 04:00
+
+Actualizaciones:
+- Se implementaron más archivos de prueba.
+- Se realizó el árbol con las instrucciones para ser ejecutadas.
+- Se acomodaron varios errores.
+
+Falta: revisar porqué en parser al hacerle un método a un nodo en particular este no responde. (línea 548 en myparser.py)
+
+Versión 1.0
 03/04/2020 23:50
 
 El proyecto no se encuentra terminado en su totalidad, sin embargo esta implementado:
@@ -67,6 +83,10 @@ El diseño de esta gramática comprende la forma en que se determina si un progr
 La gramática consta de varios elementos: las variables (que vienen a ser las definiciones que se crearon para que el constructor del parser funcionara), los símbolos terminales que son los tokens, las reglas de producción que también están especificadas en el archivo myparser.py y el símbolo inicial que es representado por “program”. 
 
 ## Sobre el Interpretador
+
+Para el interpretador, lo que se hizo fue aprovechar la estructura Nodo que se creó y se fue instanciando recursivamente en el parser para así crear métodos en la clase Nodo que pudiesen ejecutar las instrucciones recorriendo el nodo como si se tratara de un árbol.
+
+En particular se crearon 3 métodos que son exclusivos para tipos determinados de nodos. Estos se implementan en el parser y de esta forma las instrucciones del programa Willy pueden ir ejecutándose una tras otra sin generar inconvenientes.
 
 
 

@@ -13,8 +13,8 @@ begin-world world1
 World 8 8
 {{paredes}}
 Wall north from 1 4 to 1 4
-Wall west from 1 2 to 5 2
-Wall south from 7 2 to 7 1
+Wall west from 1 2 to 6 2
+Wall south from 7 4 to 7 1
 {{objetos}}
 Object-type flower of color yellow
 Object-type mirror of color green
@@ -24,6 +24,7 @@ Object-type heart of color red
 Object-type sky of color blue
 {{Colocar objetos}}
 Place 3 of flower at 2 3
+Place 3 of flower at 8 4
 Place 5 of heart at 8 1
 Place 1 of sky1 at 1 1
 Place 10 of table in basket
@@ -36,27 +37,27 @@ Boolean willycanlearn1 with initial value false
 Goal goal1 is willy is at 8 1
 Goal goal2 is 300 mirror objects in Basket
 Goal goal3 is 10 table objects at 5 4
-Final goal is goal1 or goal2 and goal3
-Final goal is not goal2 and goal3
-Final goal is goal1 and goal2 and goal3;
+Final goal is goal1 or goal2 and goal3;
 end-world
 begin-task task1 on world1
+
 define fun as begin
-    move;
     pick flower;
+    move;
     set willyishungry;
     set willyisangry to false;
     define fun1 as begin
         move;
         pick flower;
-        set willyishungry;
-        set willyisangry to false;
+        set willyishungry1;
+        set willyisangry1 to false;
         define fun2 as begin
             move;
             pick flower;
-            set willyishungry;
-            set willyisangry to false;
-        end
-    end
-end
+            set willyishungry2;
+            set willyisangry2 to false;
+        end;
+    end;
+end;
+if found (flower ) then fun;
 end-task
