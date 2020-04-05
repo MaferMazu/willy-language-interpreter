@@ -56,8 +56,8 @@ define fun as begin
             pick flower;
             set willyishungry2;
             set willyisangry2 to false;
-        end
-    end
-end
+        end;
+    end;
+end;
 if found (flower ) then fun;
 end-task

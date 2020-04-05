@@ -55,7 +55,7 @@ class Task:
     def dropObject(self,id):
         return self.world.setFreeObjectsInBasket(id,1)
 
-def main():
+""" def main():
     print("Corriendo!")
     if __name__== "__main__" :
         print("####\nEmpezó la prueba\n####\n\n")
@@ -167,4 +167,4 @@ def main():
         World1.setGoals("goal1","WillyIsAt",[1,2])
         print(World1.getGoals())
 
-main() 
+main()  """
