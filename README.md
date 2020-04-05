@@ -79,6 +79,10 @@ La gramática consta de varios elementos: las variables (que vienen a ser las de
 
 ## Sobre el Interpretador
 
+Para el interpretador, lo que se hizo fue aprovechar la estructura Nodo que se creó y se fue instanciando recursivamente en el parser para así crear métodos en la clase Nodo que pudiesen ejecutar las instrucciones recorriendo el nodo como si se tratara de un árbol.
+
+En particular se crearon 3 métodos que son exclusivos para tipos determinados de nodos. Estos se implementan en el parser y de esta forma las instrucciones del programa Willy pueden ir ejecutándose una tras otra sin generar inconvenientes.
+
 
 
 # Conclusión
