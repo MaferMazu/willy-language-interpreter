@@ -60,13 +60,6 @@ begin-task pickall on room
 move;
 pick dirtyclothes;
 pick dirtyclothes;
-pick dirtyclothes;
-<<<<<<< HEAD
-
-=======
->>>>>>> 7671ecaed9220f5e5574a049f6007dddb47ce9a7
-
-
 
 {{Ejecuto}}
 terminate;

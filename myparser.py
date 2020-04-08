@@ -643,23 +643,12 @@ def p_primitiveInstructions(p):
         # print("PRIMITIVE INSTRCTIONS")
         # print(p[1])
         if activeWorld.isObject(p[2]):
-<<<<<<< HEAD
-            
-            if p[1] == "pick" :
-                print("ENTRE",p[1])
-                p[0] = Node("Pick",[p[2]])
-                
-                
-            elif p[1] == "drop":
-                p[0] = Node("Drop",[p[2]])
-                
-=======
+
             print("holaaaaaaaa")
             print(p[2])
             print(p[1])
             p[0] = Node("Pick",[p[2]])
             print(p)
->>>>>>> 7671ecaed9220f5e5574a049f6007dddb47ce9a7
         else:
             data_error = {
                 "type": "Objeto " + p[2] + " No existe en el mudno ",
