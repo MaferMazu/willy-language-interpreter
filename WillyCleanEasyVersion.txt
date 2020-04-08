@@ -90,6 +90,25 @@ pickeverything;
 if found(mybasket) then dropeverything;
 if found(mybasket) and found(dirtyclothes) and found(cleanclothes) and found(laptop) and found(books) and found(cell) then set aLotOfObjectsInPosition;
 end;
+walk;
+walk;
+walk;
+walk;
+walk;
+walk;
+walk;
+walk;
+walk;
+walk;
+walk;
+walk;
+walk;
+walk;
+walk;
+walk;
+walk;
+walk;
+walk;
 
 {{Ejecuto}}
 while not aLotOfObjectsInPosition do walk;

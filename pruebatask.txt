@@ -1,4 +1,3 @@
-
 begin-world room
 
 {{mundo con 4 columas y 5 filas}}

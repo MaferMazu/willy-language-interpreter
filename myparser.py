@@ -691,7 +691,6 @@ def p_primitiveInstructions(p):
         if activeWorld.isBool(p[2]):
             if len(p) == 5:
                 p[0] = Node("SetBool", [p[2], p[4]])
-
             else:
                 p[0] = Node("SetTrue", [p[2]])
         if len(p) == 3:
@@ -710,15 +709,6 @@ def p_primitiveInstructions(p):
                 "value": p[4],
             }
 
-        if taskBool:
-            stack.insert(p[2],attributesObjects)
-
-
-        else:
-            table = []
-            stack.push(table)
-            stack.insert(p[2], attributesObjects)
-            taskBool = True
 
 
 
