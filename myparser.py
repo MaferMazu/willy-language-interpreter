@@ -548,7 +548,7 @@ def p_taskBlock(p):
     print(p[0])
     # currentTask.instructions.append(p[1])
     p[0].executeMyTask(currentTask)
-    print(activeWorld)
+    
     print("fin del task")
 
 
@@ -669,23 +669,28 @@ def p_primitiveInstructions(p):
                 p[0]=Node("SetBool",[p[2],p[4]])
                 
             else:
-                p[0]=Node("SetBool",[p[2]])
-    elif p[1] == "move":
-        p[0]=Node("Move",[p[1]])
-    elif p[1] == "turn-left":
-        p[0]=Node("TL",[p[1]])
+                p[0]=Node("SetTrue",[p[2]])
+    
+    if len(p)==1:
+        if p[1] == "move":
+            p[0]=Node("Move",[p[1]])
+        elif p[1] == "turn-left":
+            p[0]=Node("TL",[p[1]])
+            
+        elif p[1] == "turn-right":
+            p[0]=Node("TR",[p[1]])
+            
+            
+        elif p[1] == "terminate":
+            data_error = {
+                "type": "Ha finalizado la corrida con exito",
+                "line": p.lineno(1),
+                "column": p.lexpos(1) + 1,
+            }
+            p[0]=Node("Terminate",[p[1]])
         
-    elif p[1] == "turn-right":
-        p[0]=Node("TR",[p[1]])
-        
-        
-    elif p[1] == "terminate":
-        data_error = {
-            "type": "Ha finalizado la corrida con exito",
-            "line": p.lineno(1),
-            "column": p.lexpos(1) + 1,
-        }
-        p[0]=Node("Terminate",[p[1]])
+        else:
+            p[0]=Node("MyInstruction",[p[1]])
         
         #finish(data_error)
     

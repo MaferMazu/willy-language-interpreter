@@ -111,34 +111,40 @@ class Node:
                print(self.type)
 
                if self.type=="Drop":
-                    
                     if task.world.isObjectBasket(self.children[0]) and task.world.isObject(self.children[0]):
                          task.dropObject(self.children[0])
-                    print("####HEELL YEA")
+                    print("Drop")
                elif self.type=="Pick":
                     if task.world.isCellWithObject(task.world.getWillyPosition()[0],self.children[0]) and task.world.isObject(self.children[0]):
                          task.pickObject(self.children[0])
-                    print("####HEELL YEA")
+                    print("Pick")
                elif self.type=="Clear":
                     task.world.changeBool(self.children[0], False)
+                    print("Clear")
                elif self.type=="Flip":
                     boolAux = task.world.getValueBool(self.children[0])
                     task.world.changeBool(self.children[0], not boolAux)
+                    print("Flip")
                elif self.type=="SetBool":
                     task.world.changeBool(self.children[0],self.children[1])
+                    print("SetBool")
                elif self.type=="SetTrue":
                     task.world.changeBool(self.children[0],True)
                elif self.type=="Move":
                     task.moveWilly()
+                    print("Move")
                elif self.type=="TL":
                     task.turnWilly("left")
+                    print("TL")
                elif self.type=="TR":
                     task.turnWilly("right")
+                    print("TR")
                elif self.type=="Terminate":
                     print(task.world)
                elif self.type=="ifSimple":
                     if self.children[0].boolValue(task.world,True):
                          self.children[1].executeMyTask(task)
+                         print("Ifsimpledentro")
                elif self.type=="ifCompound":
                     if self.children[0].boolValue(task.world,True):
                          self.children[1].executeMyTask(task)
@@ -147,24 +153,18 @@ class Node:
                elif self.type =="whileInst":
                     while self.children[0].boolValue(task.world,True):
                          self.children[1].executeMyTask(task)
-                    print("####HEELL YEA")
                elif self.type =="Define As":
                     task.instructions.append([self.children[0].children[0],self.children[1]])
                elif self.type=="Repeat":
                     for i in range(0,self.children[0]+1):
                          self.children[1].executeMyTask(task)
-               else:
-                    defineas=False
-                    print("No hemos encontrado el instruction")
-                    print(task.instructions)
+               elif self.type=="MyInstruction":
                     if task.instructions!=[]:
                          for x in task.instructions:
-                              if self.type==x[0]:
-                                   print(x[0])
-                                   defineas = True
+                              if self.children[0]==x[0]:
                                    x[1].executeMyTask(task)
-                    if not defineas:
-                         for child in self.children:
-                              if isinstance(child,Node):
-                                   child.executeMyTask(task)
+               else:
+                    for child in self.children:
+                         if isinstance(child,Node):
+                              child.executeMyTask(task)
                               
