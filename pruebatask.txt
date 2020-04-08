@@ -60,8 +60,7 @@ begin-task pickall on room
 move;
 pick dirtyclothes;
 pick dirtyclothes;
-drop dirtyclothes;
-drop dirtyclothes;
+pick dirtyclothes;
 
 
 

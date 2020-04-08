@@ -635,21 +635,19 @@ def p_primitiveInstructions(p):
     global currentTask
     attributesObjects = {}
     # print(stack)
-    print(p[1])
-    if (p[1] == "drop") or (p[1] =="pick"):
+    # print(p[1])
+    if (p[1] =="pick"):
         # print(p[2])
         # print(activeWorld.id)
         # print(activeWorld.isObject(p[2]))
-        print("PRIMITIVE INSTRCTIONS")
-        print(p[1])
+        # print("PRIMITIVE INSTRCTIONS")
+        # print(p[1])
         if activeWorld.isObject(p[2]):
-            if p[1] == "pick" and activeWorld.isCellWithObject(activeWorld.getWillyPosition()[0],p[2]):
-                print(p[1])
-                p[0] = Node("Pick",[p[2]])
-                
-            elif p[1] == "drop" and activeWorld.isObjectBasket(p[2]):
-                p[0] = Node("Drop",[p[2]])
-                
+            print("holaaaaaaaa")
+            print(p[2])
+            print(p[1])
+            p[0] = Node("Pick",[p[2]])
+            print(p)
         else:
             data_error = {
                 "type": "Objeto " + p[2] + " No existe en el mudno ",
@@ -657,15 +655,21 @@ def p_primitiveInstructions(p):
                 "column": p.lexpos(2) + 1,
             }
             errorSemantic(data_error)
-
-    elif (p[1] == "clear") or p[1] == ( "flip"):
+    elif p[1] == "drop":
+        if activeWorld.isObject(p[2]):
+            p[0] = Node("Drop",[p[2]])
+        else:
+            data_error = {
+                "type": "Objeto " + p[2] + " No existe en el mudno ",
+                "line": p.lineno(2),
+                "column": p.lexpos(2) + 1,
+            }
+            errorSemantic(data_error)
+    elif p[1] == "clear":
         if activeWorld.isBool(p[2]):
             if p[1] == "clear":
                 p[0] = Node("Clear",[p[2]])
-                
-            elif p[1] == "flip":
-                p[0] = Node("Flip",[p[2]])
-                
+
         else:
             data_error = {
                 "type": "Booleano " + p[2] + " No existe en el mudno ",
@@ -673,14 +677,49 @@ def p_primitiveInstructions(p):
                 "column": p.lexpos(2) + 1,
             }
             errorSemantic(data_error)
-
-    elif p[1] == 'set':
+    elif p[1] == "flip":
+        if activeWorld.isBool(p[2]):
+            p[0] = Node("Flip", [p[2]])
+        else:
+            data_error = {
+                "type": "Booleano " + p[2] + " No existe en el mudno ",
+                "line": p.lineno(2),
+                "column": p.lexpos(2) + 1,
+            }
+    elif p[1] == "set":
         if activeWorld.isBool(p[2]):
             if len(p) == 5:
-                p[0]=Node("SetBool",[p[2],p[4]])
-                
+                p[0] = Node("SetBool", [p[2], p[4]])
+
             else:
-                p[0]=Node("SetTrue",[p[2]])
+                p[0] = Node("SetTrue", [p[2]])
+        if len(p) == 3:
+            attributesObjects = {
+                "type" : "Bool",
+                "line" : p.lineno(2),
+                "column" : p.lexpos(2) + 1,
+                "value": "true",
+            }
+
+        elif len(p) == 5:
+            attributesObjects = {
+                "type" : "Bool",
+                "line" : p.lineno(2),
+                "column" : p.lexpos(2) + 1,
+                "value": p[4],
+            }
+
+        if taskBool:
+            stack.insert(p[2],attributesObjects)
+
+
+        else:
+            table = []
+            stack.push(table)
+            stack.insert(p[2], attributesObjects)
+            taskBool = True
+
+
 
     if len(p)==2:
         if p[1] == 'move':
@@ -705,32 +744,9 @@ def p_primitiveInstructions(p):
             p[0] = Node("MyInstruction", [p[1]])
     
     
-    if p[1] == "set":
-        if len(p) == 3:
-            attributesObjects = {
-                "type" : "Bool",
-                "line" : p.lineno(2),
-                "column" : p.lexpos(2) + 1,
-                "value": "true",
-            }
-
-        if len(p) == 5:
-            attributesObjects = {
-                "type" : "Bool",
-                "line" : p.lineno(2),
-                "column" : p.lexpos(2) + 1,
-                "value": p[4],
-            }
-
-        if taskBool:
-            stack.insert(p[2],attributesObjects)
 
 
-        else:
-            table = []
-            stack.push(table)
-            stack.insert(p[2], attributesObjects)
-            taskBool = True
+
     print("PRIMITIVE")
     print(stack)
 

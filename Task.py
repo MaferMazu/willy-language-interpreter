@@ -31,6 +31,7 @@ class Task:
             self.world.board[position[0]][position[1]][1]="w"
             self.world.changeFLRBools(self.world.getWillyPosition()[0],self.world.getWillyPosition()[1])
             self.world.board[pos[0]][pos[1]][1]=" "
+            self.world.getWillyPosition()
             print("true")
             return True
         else:
