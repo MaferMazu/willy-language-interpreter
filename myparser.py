@@ -861,6 +861,10 @@ def p_ifCompound(p):
 def p_whileInst(p):
     """ whileInst : TkWhile booleanTests TkDo instructions
     """
+    print("Hemos entrado en el while")
+    print(p[2])
+    print(p[4])
+    print("parser while")
     p[0] = Node('whileInst', [p[2],p[4]])
 
 

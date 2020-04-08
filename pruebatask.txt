@@ -57,20 +57,14 @@ end-world
 {{Task}}
 begin-task pickall on room
 {{2,4}}
-move;
 
-repeat 3 times pick dirtyclothes;
-turn-left;
-move;
-turn-right;
 
-set aLotOfObjectsInPosition;
-if aLotOfObjectsInPosition then flip aLotOfObjectsInPosition;
-if not aLotOfObjectsInPosition then move;
-set aLotOfObjectsInPosition;
-clear aLotOfObjectsInPosition;
-if not aLotOfObjectsInPosition then move;
-if not aLotOfObjectsInPosition then move;
+while not aLotOfObjectsInPosition do begin
+    move;
+    pick dirtyclothes;
+
+end;
+
 
 {{Ejecuto}}
 terminate;

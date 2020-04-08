@@ -90,7 +90,7 @@ class Node:
                elif self.type=="Found":
                     mybool= mybool and mundo.isCellWithObject(mundo.getWillyPosition()[0],self.children[0])
                elif self.type == "Carrying":
-                    mybool = mybool and mundo.isObjectBasket(mundo.getWillyPosition()[0], self.children[0])
+                    mybool = mybool and mundo.isObjectBasket(self.children[0])
                else:
                     for child in self.children:
                          if isinstance(child,Node):
@@ -154,8 +154,15 @@ class Node:
                     else:
                          self.children[2].executeMyTask(task)
                elif self.type =="whileInst":
+                    print("INIT WHILE NODE")
+                    print(self.children[0])
+                    print("#################")
+                    print(self.children[1])
+                    print("#################")
                     while self.children[0].boolValue(task.world,True):
                          self.children[1].executeMyTask(task)
+
+                    print("END WHILE NODE")
                elif self.type =="Define As":
                     task.instructions.append([self.children[0].children[0],self.children[1]])
                elif self.type=="Repeat":
