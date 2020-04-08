@@ -152,18 +152,12 @@ class Node:
                elif self.type=="Repeat":
                     for i in range(0,self.children[0]+1):
                          self.children[1].executeMyTask(task)
-               else:
-                    defineas=False
-                    # print("No hemos encontrado el instruction")
-                    print(task.instructions)
-                    if task.instructions!=[]:
+               elif self.type == "MyInstruction":
+                    if task.instructions != []:
                          for x in task.instructions:
-                              if self.type==x[0]:
-                                   print(x[0])
-                                   defineas = True
+                              if self.children[0] == x[0]:
                                    x[1].executeMyTask(task)
-                    if not defineas:
-                         for child in self.children:
-                              if isinstance(child,Node):
-                                   child.executeMyTask(task)
-                              
+               else:
+                    for child in self.children:
+                         if isinstance(child,Node):
+                              child.executeMyTask(task)

@@ -669,25 +669,28 @@ def p_primitiveInstructions(p):
                 p[0]=Node("SetBool",[p[2],p[4]])
                 
             else:
-                p[0]=Node("SetBool",[p[2]])
-    elif p[1] == "move":
-        p[0]=Node("Move",[p[1]])
-    elif p[1] == "turn-left":
-        p[0]=Node("TL",[p[1]])
-        
-    elif p[1] == "turn-right":
-        p[0]=Node("TR",[p[1]])
-        
-        
-    elif p[1] == "terminate":
-        data_error = {
-            "type": "Ha finalizado la corrida con exito",
-            "line": p.lineno(1),
-            "column": p.lexpos(1) + 1,
-        }
-        p[0]=Node("Terminate",[p[1]])
-        
-        #finish(data_error)
+                p[0]=Node("SetTrue",[p[2]])
+
+    if len(p)==1:
+        if p[1] == 'move':
+            p[0]=Node("Move",[p[1]])
+        elif p[1] == "turn-left":
+            p[0]=Node("TL",[p[1]])
+
+        elif p[1] == "turn-right":
+            p[0]=Node("TR",[p[1]])
+
+
+        elif p[1] == "terminate":
+            data_error = {
+                "type": "Ha finalizado la corrida con exito",
+                "line": p.lineno(1),
+                "column": p.lexpos(1) + 1,
+            }
+            p[0]=Node("Terminate",[p[1]])
+            #finish(data_error)
+        else:
+            p[0] = Node("MyInstruction", [p[1]])
     
     
     if p[1] == "set":
@@ -772,11 +775,12 @@ def p_instructions(p):
     """instructions : primitiveInstructions
                     | ifSimple
                     | ifCompound
-                    | TkRepeat TkNum TkTimes instructions
+                    | TkSemicolon
                     | whileInst
                     | TkBegin multiInstructions TkEnd
+                    | TkRepeat TkNum TkTimes instructions
                     | instructionDefineAs instructions
-                    | TkSemicolon
+
                     """
     if len(p)==2:
         p[0]= Node("Instructions",[p[1]])
@@ -792,7 +796,7 @@ def p_instructions(p):
         }
         # print(stack)
         stack.pop()
-        currentTask.instructions.append(p[2])
+        # currentTask.instructions.append(p[2])
         stack.insert(p[1].children[0], attributesObjects)
         # print(stack)
         defineAsBool = False
