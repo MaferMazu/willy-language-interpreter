@@ -420,11 +420,18 @@ def p_newBoolean(p):
     global newWorld
     p[0]=Node("NewBoolean",[p[2]])
     global worldInstBool
+    auxVal = False
+
+    if p[6] == "true":
+        auxVal = True
+    elif p[6] == "false":
+        auxVal = False
+
     attributesObjects = {
         "type" : "Bool",
         "line" : p.lineno(2),
         "column" : p.lexpos(2) + 1,
-        "value": p[6],
+        "value": auxVal,
     }
     if worldInstBool:
         stack.insert(p[2],attributesObjects)
@@ -433,7 +440,7 @@ def p_newBoolean(p):
         stack.push(table)
         stack.insert(p[2], attributesObjects)
         worldInstBool = True
-    newWorld.setBool(p[2], p[6])
+    newWorld.setBool(p[2], auxVal)
     global booleansOfWorlds
     booleansOfWorlds.append([p[2],attributesObjects])
 
@@ -646,6 +653,7 @@ def p_primitiveInstructions(p):
     global taskBool
     global objectsInWorlds
     global currentTask
+    auxBool = False
     attributesObjects = {}
     # print(stack)
     # print(p[1])
@@ -703,7 +711,11 @@ def p_primitiveInstructions(p):
     elif p[1] == "set":
         if activeWorld.isBool(p[2]):
             if len(p) == 5:
-                p[0] = Node("SetBool", [p[2], p[4]])
+                if p[4] == "true":
+                    auxBool = True
+                elif p[4] == "false":
+                    auxBool = False
+                p[0] = Node("SetBool", [p[2], auxBool])
             else:
                 p[0] = Node("SetTrue", [p[2]])
         if len(p) == 3:
@@ -711,15 +723,19 @@ def p_primitiveInstructions(p):
                 "type" : "Bool",
                 "line" : p.lineno(2),
                 "column" : p.lexpos(2) + 1,
-                "value": "true",
+                "value": True,
             }
 
         elif len(p) == 5:
+            if p[4] == "true":
+                auxBool = True
+            elif p[4] == "false":
+                auxBool = False
             attributesObjects = {
                 "type" : "Bool",
                 "line" : p.lineno(2),
                 "column" : p.lexpos(2) + 1,
-                "value": p[4],
+                "value": auxBool,
             }
 
 
@@ -874,6 +890,10 @@ def p_ifCompound(p):
 def p_whileInst(p):
     """ whileInst : TkWhile booleanTests TkDo instructions
     """
+    print("Hemos entrado en el while")
+    print(p[2])
+    print(p[4])
+    print("parser while")
     p[0] = Node('whileInst', [p[2],p[4]])
 
 

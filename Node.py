@@ -102,7 +102,7 @@ class Node:
                          else:
                               print("soy leaf y mi valor es:",child,mundo.getBools(),mundo.getValueBool(child))
                               mybool=mybool and mundo.getValueBool(child)
-                    
+                              print(mybool)
                return mybool
           else:
                return False
