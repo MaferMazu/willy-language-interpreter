@@ -70,7 +70,13 @@ if not aLotOfObjectsInPosition then move;
 set aLotOfObjectsInPosition;
 clear aLotOfObjectsInPosition;
 if not aLotOfObjectsInPosition then move;
-if not aLotOfObjectsInPosition then move;
+set aLotOfObjectsInPosition to true;
+if carrying(dirtyclothes) and carrying(cell) then repeat 3 times drop dirtyclothes;
+if found(dirtyclothes) then drop cell;
+{{deberia quedar en 3,1}}
+if not carrying(cell) then move;
+if found(cleanclothes) then pick cleanclothes;
+if not carrying(cleanclothes) or found(cleanclothes) then begin turn-left; move; end;
 
 {{Ejecuto}}
 terminate;

@@ -20,6 +20,11 @@ logging.basicConfig(
         format = "%(filename)10s:%(lineno)4d:%(message)s"
     )
 
+precedence = (
+    ('left', 'TkAnd', 'TkOr'),
+    ('right', 'TkNot'),            # Unary minus operator
+ )
+
 
 # import some required globals from tokenizer
 tokens = lexer.tokens
