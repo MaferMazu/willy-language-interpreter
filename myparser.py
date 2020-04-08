@@ -219,14 +219,16 @@ def p_worldBlock(p):
     # print("Antes del pop")
     # print(stack)
     if blockNumber == 0:
-        stack.insert("WorldBlock" + str(blockNumber), dataFlag)
+        #stack.insert("WorldBlock" + str(blockNumber), dataFlag)
         blockNumber = blockNumber + 1
     else:
-        stack.insert("WorldBlock" + str(blockNumber), dataFlag)
+        #stack.insert("WorldBlock" + str(blockNumber), dataFlag)
         blockNumber = blockNumber + 1
     validateFinalGoal = False
     print(stack)
-    stack.pop()
+    print(len(stack.stack))
+    if len(stack.stack) > 1:
+        stack.pop()
     stack.insert(id,attributesObjects)
     createdWorlds.append(newWorld)
     print(newWorld)
@@ -543,10 +545,12 @@ def p_taskBlock(p):
     p[0] = Node("Task", [p[1],p[2]])
 
     print("Antes del pop")
-    stack.pop()
+    print()
+    if len(stack.stack) > 1:
+        stack.pop()
     stack.insert(p[1].children[0], attributesObjects)
     print(p[0])
-
+    print(stack)
     p[0].executeMyTask(currentTask)
     print(activeWorld)
     print("fin del task")
