@@ -60,9 +60,9 @@ begin-task pickall on room
 move;
 
 repeat 3 times pick dirtyclothes;
-turn-right;
-move;
 turn-left;
+move;
+turn-right;
 move;
 
 {{Ejecuto}}
