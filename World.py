@@ -322,8 +322,15 @@ class World:
                return False
 
      def isCellWithObject(self,pair,objectname):
+          print("isCellWithObject")
+          print(pair)
+          print(self.getWillyPosition())
+          print(objectname)
+          print(self.dimensions)
+          print("endCellWithObject")
           if len(pair)==2:
                # position = [pair([x,y]),willy(W) o wall(X),lista de pares([idObje,amount])]
+
                if pair[0]<=self.dimensions[0] and pair[1]<=self.dimensions[1]:
                     position = self.positionInBoard(pair)
                     print("inicial pair",pair)
@@ -412,6 +419,9 @@ class World:
 
      def whereIsMyFrontLeftRight(self,position,direction):
           front=left=right = None
+          print("Estanis en el world")
+          print(position)
+          print(direction)
           if 1<= position[0]<= self.dimensions[0] and 1<= position[1]<= self.dimensions[1]:
                if direction=="north":
                     if 1<= position[1]+1 <= self.dimensions[1]:
@@ -444,6 +454,7 @@ class World:
                          left = [position[0],position[1]-1]
                     if 1<= position[0]-1 <= self.dimensions[0]:
                          front = [position[0]-1,position[1]]
+          print("Salimos del world")
           return front,left,right
 
      def changeFLRBools(self,position,direction):

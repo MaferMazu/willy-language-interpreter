@@ -1,4 +1,3 @@
-
 begin-world room
 
 {{mundo con 4 columas y 5 filas}}
@@ -54,64 +53,24 @@ Goal cellinposition is 1 cell objects at 4 1
 Final goal is cleanclothesinposition and dirtyclothesinposition and laptopinposition and booksinposition and cellinposition;
 end-world
 
-
+{{Hola}}
 {{Task}}
 begin-task pickall on room
+{{2,4}}
+move;
 
+repeat 3 times pick dirtyclothes;
+turn-left;
+move;
+turn-right;
 
-{{Defino myturn}}
-define myturn as
-if looking-west then turn-left else turn-right;
-
-{{Defino pickeverything}}
-define pickeverything as
-begin
-if found(dirtyclothes) then begin while found(dirtyclothes) do pick dirtyclothes end;
-if found(cleanclothes) then begin while found(cleanclothes) do pick cleanclothes end;
-if found(laptop) then begin while found(laptop) do pick laptop end;
-if found(books) then begin while found(books) do pick books end;
-end;
-
-{{Defino dropeverything}}
-define dropeverything as
-begin
-if carrying(dirtyclothes) then begin while carrying(dirtyclothes) do drop dirtyclothes end;
-if carrying(cleanclothes) then begin while carrying(cleanclothes) do drop cleanclothes end;
-if carrying(laptop) then begin while carrying(laptop) do drop laptop end;
-if carrying(books) then begin while carrying(books) do drop books end;
-if carrying(cell) then begin while carrying(cell) do drop cell end;
-end;
-
-{{Defino walk}}
-define walk as
-begin 
-if front-clear then move else myturn;
-pickeverything;
-if found(mybasket) then dropeverything;
-if found(mybasket) and found(dirtyclothes) and found(cleanclothes) and found(laptop) and found(books) and found(cell) then set aLotOfObjectsInPosition;
-end;
-walk;
-walk;
-walk;
-walk;
-walk;
-walk;
-walk;
-walk;
-walk;
-walk;
-walk;
-walk;
-walk;
-walk;
-walk;
-walk;
-walk;
-walk;
-walk;
-
-{{Ejecuto}}
-while not aLotOfObjectsInPosition do walk;
+set aLotOfObjectsInPosition;
+if aLotOfObjectsInPosition then flip aLotOfObjectsInPosition;
+if not aLotOfObjectsInPosition then move;
+set aLotOfObjectsInPosition;
+clear aLotOfObjectsInPosition;
+if not aLotOfObjectsInPosition then move;
+if not aLotOfObjectsInPosition then move;
 
 {{Ejecuto}}
 terminate;

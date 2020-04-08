@@ -106,39 +106,48 @@ class Node:
 
      def executeMyTask(self,task):
           print("####HEELL YEA")
-          print(task)
+          # print(task)
           if isinstance(task,Task):
                print(self.type)
 
                if self.type=="Drop":
-                    
                     if task.world.isObjectBasket(self.children[0]) and task.world.isObject(self.children[0]):
-                         task.dropObject(self.children[0])
-                    print("####HEELL YEA")
+                         if not task.dropObject(self.children[0]):
+                              print("No se puede hacer el drop con:",self.children[0])
                elif self.type=="Pick":
+                    print("ESTAMOS RECOGIENDO")
                     if task.world.isCellWithObject(task.world.getWillyPosition()[0],self.children[0]) and task.world.isObject(self.children[0]):
-                         task.pickObject(self.children[0])
-                    print("####HEELL YEA")
+                         if not task.pickObject(self.children[0]):
+                              print("No se puede hacer el pick con:",self.children[0])
+                    print("Pick")
                elif self.type=="Clear":
-                    task.world.changeBool(self.children[0], False)
+                    if not task.world.changeBool(self.children[0], False):
+                         print("No se puede hacer el clear con:",self.children[0])
                elif self.type=="Flip":
                     boolAux = task.world.getValueBool(self.children[0])
-                    task.world.changeBool(self.children[0], not boolAux)
+                    if not task.world.changeBool(self.children[0], not boolAux):
+                         print("No se puede hacer el flip con:",self.children[0])
                elif self.type=="SetBool":
-                    task.world.changeBool(self.children[0],self.children[1])
+                    if not task.world.changeBool(self.children[0],self.children[1]):
+                         print("No se puede hacer el setbool con:",self.children[0])
                elif self.type=="SetTrue":
-                    task.world.changeBool(self.children[0],True)
+                    if not task.world.changeBool(self.children[0],True):
+                         print("No se puede hacer el settrue con:",self.children[0])
                elif self.type=="Move":
-                    task.moveWilly()
+                    if not task.moveWilly():
+                         print("Willy no se pudo mover, y su configuración actual es:",task.world.getWillyPosition())
                elif self.type=="TL":
-                    task.turnWilly("left")
+                    if not task.turnWilly("left"):
+                         print("No pudo haver turn-left:")
                elif self.type=="TR":
-                    task.turnWilly("right")
+                    if not task.turnWilly("right"):
+                         print("No pudo haver turn-right:")
                elif self.type=="Terminate":
                     print(task.world)
                elif self.type=="ifSimple":
                     if self.children[0].boolValue(task.world,True):
                          self.children[1].executeMyTask(task)
+                         print("Ifsimpledentro")
                elif self.type=="ifCompound":
                     if self.children[0].boolValue(task.world,True):
                          self.children[1].executeMyTask(task)
@@ -147,24 +156,18 @@ class Node:
                elif self.type =="whileInst":
                     while self.children[0].boolValue(task.world,True):
                          self.children[1].executeMyTask(task)
-                    print("####HEELL YEA")
                elif self.type =="Define As":
                     task.instructions.append([self.children[0].children[0],self.children[1]])
                elif self.type=="Repeat":
                     for i in range(0,self.children[0]+1):
                          self.children[1].executeMyTask(task)
-               else:
-                    defineas=False
-                    print("No hemos encontrado el instruction")
-                    print(task.instructions)
+               elif self.type=="MyInstruction":
                     if task.instructions!=[]:
                          for x in task.instructions:
-                              if self.type==x[0]:
-                                   print(x[0])
-                                   defineas = True
+                              if self.children[0]==x[0]:
                                    x[1].executeMyTask(task)
-                    if not defineas:
-                         for child in self.children:
-                              if isinstance(child,Node):
-                                   child.executeMyTask(task)
+               else:
+                    for child in self.children:
+                         if isinstance(child,Node):
+                              child.executeMyTask(task)
                               

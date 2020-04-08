@@ -219,14 +219,16 @@ def p_worldBlock(p):
     # print("Antes del pop")
     # print(stack)
     if blockNumber == 0:
-        stack.insert("WorldBlock" + str(blockNumber), dataFlag)
+        #stack.insert("WorldBlock" + str(blockNumber), dataFlag)
         blockNumber = blockNumber + 1
     else:
-        stack.insert("WorldBlock" + str(blockNumber), dataFlag)
+        #stack.insert("WorldBlock" + str(blockNumber), dataFlag)
         blockNumber = blockNumber + 1
     validateFinalGoal = False
     print(stack)
-    stack.pop()
+    print(len(stack.stack))
+    if len(stack.stack) > 1:
+        stack.pop()
     stack.insert(id,attributesObjects)
     createdWorlds.append(newWorld)
     print(newWorld)
@@ -381,7 +383,7 @@ def p_setStartPosition(p):
             }
             errorSemantic(data_error)
         else:
-            newWorld.setWillyStart([p[3],p[4]], p[6])
+            newWorld.setWillyStart([p[3],p[4]], p[6].children[0])
             p[0]=Node("WillyStartPosition",[p[6]])
 
 def p_setBasketCapacity(p):
@@ -530,7 +532,7 @@ def p_ids(p):
 
 def p_taskBlock(p):
     """taskBlock : taskDefinition multiInstructions TkEndTask"""
-    global taskBool
+    global taskBoolz
     global createdWorlds
     global currentTask
 
@@ -543,10 +545,12 @@ def p_taskBlock(p):
     p[0] = Node("Task", [p[1],p[2]])
 
     print("Antes del pop")
-    stack.pop()
+    print()
+    if len(stack.stack) > 1:
+        stack.pop()
     stack.insert(p[1].children[0], attributesObjects)
     print(p[0])
-    # currentTask.instructions.append(p[1])
+    print(stack)
     p[0].executeMyTask(currentTask)
     print(activeWorld)
     print("fin del task")
@@ -598,6 +602,8 @@ def p_multiInstructions(p):
                          | empty
                          | instructions TkSemicolon multiInstructions
     """
+    print(stack)
+    print("AQUIESTA")
     if len(p)==2:
         p[0]=Node("MultiInstruction",[p[1]])
     else:
@@ -628,17 +634,21 @@ def p_primitiveInstructions(p):
     global objectsInWorlds
     global currentTask
     attributesObjects = {}
-    if p[1] == ("drop" or "pick"):
-        print(p[2])
-        print(activeWorld.id)
-        print(activeWorld.isObject(p[2]))
+    # print(stack)
+    # print(p[1])
+    if (p[1] =="pick"):
+        # print(p[2])
+        # print(activeWorld.id)
+        # print(activeWorld.isObject(p[2]))
+        # print("PRIMITIVE INSTRCTIONS")
+        # print(p[1])
         if activeWorld.isObject(p[2]):
-            if p[1] == "pick" and activeWorld.isCellWithObject(activeWorld.getWillyPosition()[0],p[2]):
-                p[0] = Node("Pick",[p[2]])
-                
-            elif p[1] == "drop" and activeWorld.isObjectBasket(p[2]):
-                p[0] = Node("Drop",[p[2]])
-                
+
+            print("holaaaaaaaa")
+            print(p[2])
+            print(p[1])
+            p[0] = Node("Pick",[p[2]])
+            print(p)
         else:
             data_error = {
                 "type": "Objeto " + p[2] + " No existe en el mudno ",
@@ -646,15 +656,21 @@ def p_primitiveInstructions(p):
                 "column": p.lexpos(2) + 1,
             }
             errorSemantic(data_error)
-
-    elif p[1] == ("clear" or "flip"):
+    elif p[1] == "drop":
+        if activeWorld.isObject(p[2]):
+            p[0] = Node("Drop",[p[2]])
+        else:
+            data_error = {
+                "type": "Objeto " + p[2] + " No existe en el mudno ",
+                "line": p.lineno(2),
+                "column": p.lexpos(2) + 1,
+            }
+            errorSemantic(data_error)
+    elif p[1] == "clear":
         if activeWorld.isBool(p[2]):
             if p[1] == "clear":
                 p[0] = Node("Clear",[p[2]])
-                
-            elif p[1] == "flip":
-                p[0] = Node("Flip",[p[2]])
-                
+
         else:
             data_error = {
                 "type": "Booleano " + p[2] + " No existe en el mudno ",
@@ -662,35 +678,21 @@ def p_primitiveInstructions(p):
                 "column": p.lexpos(2) + 1,
             }
             errorSemantic(data_error)
-
-    elif p[1] == 'set':
+    elif p[1] == "flip":
+        if activeWorld.isBool(p[2]):
+            p[0] = Node("Flip", [p[2]])
+        else:
+            data_error = {
+                "type": "Booleano " + p[2] + " No existe en el mudno ",
+                "line": p.lineno(2),
+                "column": p.lexpos(2) + 1,
+            }
+    elif p[1] == "set":
         if activeWorld.isBool(p[2]):
             if len(p) == 5:
-                p[0]=Node("SetBool",[p[2],p[4]])
-                
+                p[0] = Node("SetBool", [p[2], p[4]])
             else:
-                p[0]=Node("SetBool",[p[2]])
-    elif p[1] == "move":
-        p[0]=Node("Move",[p[1]])
-    elif p[1] == "turn-left":
-        p[0]=Node("TL",[p[1]])
-        
-    elif p[1] == "turn-right":
-        p[0]=Node("TR",[p[1]])
-        
-        
-    elif p[1] == "terminate":
-        data_error = {
-            "type": "Ha finalizado la corrida con exito",
-            "line": p.lineno(1),
-            "column": p.lexpos(1) + 1,
-        }
-        p[0]=Node("Terminate",[p[1]])
-        
-        #finish(data_error)
-    
-    
-    if p[1] == "set":
+                p[0] = Node("SetTrue", [p[2]])
         if len(p) == 3:
             attributesObjects = {
                 "type" : "Bool",
@@ -699,7 +701,7 @@ def p_primitiveInstructions(p):
                 "value": "true",
             }
 
-        if len(p) == 5:
+        elif len(p) == 5:
             attributesObjects = {
                 "type" : "Bool",
                 "line" : p.lineno(2),
@@ -707,14 +709,37 @@ def p_primitiveInstructions(p):
                 "value": p[4],
             }
 
-        if taskBool:
-            stack.insert(p[2],attributesObjects)
+
+
+
+    if len(p)==2:
+        if p[1] == 'move':
+            print("Parseamos Move")
+            p[0]=Node("Move",[p[1]])
+        elif p[1] == "turn-left":
+            p[0]=Node("TL",[p[1]])
+
+        elif p[1] == "turn-right":
+            p[0]=Node("TR",[p[1]])
+
+
+        elif p[1] == "terminate":
+            data_error = {
+                "type": "Ha finalizado la corrida con exito",
+                "line": p.lineno(1),
+                "column": p.lexpos(1) + 1,
+            }
+            p[0]=Node("Terminate",[p[1]])
+            #finish(data_error)
         else:
-            table = []
-            stack.push(table)
-            stack.insert(p[2], attributesObjects)
-            taskBool = True
-    pass
+            p[0] = Node("MyInstruction", [p[1]])
+    
+    
+
+
+
+    print("PRIMITIVE")
+    print(stack)
 
 def p_booleanTests(p):
 
@@ -772,11 +797,12 @@ def p_instructions(p):
     """instructions : primitiveInstructions
                     | ifSimple
                     | ifCompound
-                    | TkRepeat TkNum TkTimes instructions
+                    | TkSemicolon
                     | whileInst
                     | TkBegin multiInstructions TkEnd
+                    | TkRepeat TkNum TkTimes instructions
                     | instructionDefineAs instructions
-                    | TkSemicolon
+
                     """
     if len(p)==2:
         p[0]= Node("Instructions",[p[1]])
@@ -792,6 +818,7 @@ def p_instructions(p):
         }
         # print(stack)
         stack.pop()
+        # currentTask.instructions.append(p[2])
         stack.insert(p[1].children[0], attributesObjects)
         # print(stack)
         defineAsBool = False
