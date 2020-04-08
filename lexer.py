@@ -133,7 +133,7 @@ tokens += list(reserved.values())
 
 # Especificaciones de los tokens
 t_TkSemicolon = r';'
-t_TkTab = r' \t'
+
 t_TkParenL  = r'\('
 t_TkParenR  = r'\)'
 
@@ -142,6 +142,7 @@ t_TkParenR  = r'\)'
 t_ignore_TkCommentsBlock = r'[\{]{2}.*[}]{2}'
 t_ignore_TkComments = r'[\-]{2}.*'
 t_ignore_TkSpace = r'\s'
+t_ignore_TkTab = r' \t'
 
 
 #ValidTokens = []  # Coleccion de tokens validos

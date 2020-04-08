@@ -6,36 +6,36 @@ class ModelProcedure:
         self.symbol = []
 
     def findObj(self, symbol, array):
-        print("Init ModelProcedure")
+        # print("Init ModelProcedure")
         table = array
         i_found_it = False
         for element in table:
-            print(element)
-            print(element[0])
-            print(symbol)
+            # print(element)
+            # print(element[0])
+            # print(symbol)
             if element[0] == symbol:
                 i_found_it = True
                 break
-        print("End MdodelProcedure")
+        # print("End MdodelProcedure")
         return i_found_it
 
     def find(self, symbol, array):
-        print("Init ModelProcedure")
+        # print("Init ModelProcedure")
         table = array
         i_found_it = False
         element =  None
         for element in table:
-            # print(element)
-            # print("#### ### ###")
-            # print(not True)
+#             # print(element)
+#             # print("#### ### ###")
+#             # print(not True)
             if element.id == symbol:
                 i_found_it = True
                 break
 
-        print("End MdodelProcedure")
+        # print("End MdodelProcedure")
 
         if i_found_it:
-            print(element.id)
+            # print(element.id)
             return element
         else:
             return None

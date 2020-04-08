@@ -1,20 +1,3 @@
-{{
-        WallyScan
-        Es un programa que: Ejecuta un mundo 20 x 20
-        con paredes y 3 tipos de objetos: hearts, medals y pain
-
-        Inicializa a Willy en la posición (1,2) y con 3 hearts.
-
-        El movimiento de willy consiste en moverse al frente siempre que pueda,
-        sino revisa su lado izquierdo, si este está libre gira a la izquierda,
-        sino gira a la derecha.
-
-        Por cada pain que Willy encuentre se pierde un heart,
-        y por cada heart que encuentre se aumenta la vida.
-
-        El objetivo es que Willy consiga la medalla sin perder todas las vidas(hearts).
-
-}}
 
 
 begin-world world1

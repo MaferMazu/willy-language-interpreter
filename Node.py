@@ -42,7 +42,7 @@ class Node:
      def finalGoalValue(self,mundo,mybool):
           
           if isinstance(mundo,World):
-               print(self.type)
+               # print(self.type)
                if self.type=="Conjuncion":
                     left = self.children[0].finalGoalValue(mundo,mybool)
                     rigth = self.children[1].finalGoalValue(mundo,mybool)
@@ -62,7 +62,7 @@ class Node:
                          if isinstance(child,Node):
                               mybool= mybool and (child.finalGoalValue(mundo,mybool))
                          else:
-                              print("soy leaf y mi valor es:",child,mundo.getGoals(),mundo.getValueGoals(child))
+                              # print("soy leaf y mi valor es:",child,mundo.getGoals(),mundo.getValueGoals(child))
                               mybool=mybool and mundo.getValueGoals(child)
                     
                return mybool
@@ -72,7 +72,7 @@ class Node:
      def boolValue(self,mundo,mybool):
           
           if isinstance(mundo,World):
-               print(self.type)
+               # print(self.type)
                if self.type=="Conjuncion":
                     left = self.children[0].boolValue(mundo,mybool)
                     rigth = self.children[1].boolValue(mundo,mybool)
@@ -80,16 +80,16 @@ class Node:
                elif self.type=="Disyuncion":
                     left = self.children[0].boolValue(mundo,mybool)
                     rigth = self.children[1].boolValue(mundo,mybool)
-                    print("SOYYYYYYYYYYYYYYYYYYYYYYYYYYYYY EL SEXY OOOOOOOO")
+                    # print("SOYYYYYYYYYYYYYYYYYYYYYYYYYYYYY EL SEXY OOOOOOOO")
                     mybool= mybool and (mundo.getValueGoals(left) or mundo.getValueGoals(rigth))
-                    print(mybool)
+                    # print(mybool)
                elif self.type=="Parentesis":
                     u = self.children[0].boolValue(mundo,mybool)
                     mybool= mybool and ((u))
                elif self.type=="Not":
                     u = self.children[0].boolValue(mundo,mybool)
                     mybool= mybool and (not u)
-                    print("Despues soy not")
+                    # print("Despues soy not")
                elif self.type=="Found":
                     mybool= mybool and mundo.isCellWithObject(mundo.getWillyPosition()[0],self.children[0])
                elif self.type == "Carrying":
@@ -99,37 +99,39 @@ class Node:
                          if isinstance(child,Node):
                               mybool= mybool and (child.boolValue(mundo,mybool))
                          else:
-                              print("soy leaf y mi valor es:", child, mundo.getBools(), mundo.getValueBool(child))
+                              # print("soy leaf y mi valor es:", child, mundo.getBools(), mundo.getValueBool(child))
                               mybool=mybool and mundo.getValueBool(child)
-                              print(mybool)
+                              # print(mybool)
                return mybool
           else:
                return False
 
 
      def executeMyTask(self,task):
-          print("####HEELL YEA")
-          # print(task)
+          # print("####HEELL YEA")
+          # # print(task)
           if isinstance(task,Task):
-               print(self.type)
+               # print(self.type)
 
                if self.type=="Drop":
                     if task.world.isObjectBasket(self.children[0]) and task.world.isObject(self.children[0]):
                          if not task.dropObject(self.children[0]):
                               print("No se puede hacer el drop con:",self.children[0])
                elif self.type=="Pick":
-                    print("ESTAMOS RECOGIENDO")
+                    # print("ESTAMOS RECOGIENDO")
                     if task.world.isCellWithObject(task.world.getWillyPosition()[0],self.children[0]) and task.world.isObject(self.children[0]):
                          if not task.pickObject(self.children[0]):
                               print("No se puede hacer el pick con:",self.children[0])
-                    print("Pick")
+                    # print("Pick")
                elif self.type=="Clear":
                     if not task.world.changeBool(self.children[0], False):
                          print("No se puede hacer el clear con:",self.children[0])
+
                elif self.type=="Flip":
                     boolAux = task.world.getValueBool(self.children[0])
                     if not task.world.changeBool(self.children[0], not boolAux):
                          print("No se puede hacer el flip con:",self.children[0])
+
                elif self.type=="SetBool":
                     if not task.world.changeBool(self.children[0],self.children[1]):
                          print("No se puede hacer el setbool con:",self.children[0])
@@ -150,22 +152,22 @@ class Node:
                elif self.type=="ifSimple":
                     if self.children[0].boolValue(task.world,True):
                          self.children[1].executeMyTask(task)
-                         print("Ifsimpledentro")
+                         # print("Ifsimpledentro")
                elif self.type=="ifCompound":
                     if self.children[0].boolValue(task.world,True):
                          self.children[1].executeMyTask(task)
                     else:
                          self.children[2].executeMyTask(task)
                elif self.type =="whileInst":
-                    print("INIT WHILE NODE")
-                    print(self.children[0])
-                    print("#################")
-                    print(self.children[1])
-                    print("#################")
+                    # print("INIT WHILE NODE")
+                    # print(self.children[0])
+                    # print("#################")
+                    # print(self.children[1])
+                    # print("#################")
                     while self.children[0].boolValue(task.world,True):
                          self.children[1].executeMyTask(task)
 
-                    print("END WHILE NODE")
+                    # print("END WHILE NODE")
                elif self.type =="Define As":
                     task.instructions.append([self.children[0].children[0],self.children[1]])
                elif self.type=="Repeat":
@@ -178,6 +180,9 @@ class Node:
                                    x[1].executeMyTask(task)
                else:
                     for child in self.children:
-                         if isinstance(child,Node):
-                              child.executeMyTask(task)
-                              
+                         if isinstance(child, Node):
+                              if child.type == "Terminate":
+                                   child.executeMyTask(task)
+                                   break
+                              else:
+                                   child.executeMyTask(task)

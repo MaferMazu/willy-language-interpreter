@@ -1,14 +1,4 @@
-{{
-    WallyCleanItsRoom
-        Es un programa que: Ejecuta un mundo 4 x 5
-        que representa el cuarto de Willy. 
-        En el cuarto hay laptop, libros, ropa sucia y ropa limpia.
 
-        Inicializa a Willy en la posición (2,5)
-        
-        El movimiento de willy consiste en 
-        
-        El objetivo es que Willy ordene su cuarto y también deje su celular en donde va}}
 
 begin-world room
 
@@ -44,7 +34,7 @@ Place 3 of dirtyclothes at 2 4
 Place 2 of dirtyclothes at 2 3
 Place 5 of dirtyclothes at 3 3
 Place 5 of cleanclothes at 3 1
-Place 1 of cell at basket 
+Place 1 of cell in basket
 
 
 {{Inicio de Wally}}
