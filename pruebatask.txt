@@ -41,6 +41,10 @@ Place 1 of mybasket at 4 1
 Start at 2 5 heading south
 Basket of capacity 50
 Boolean aLotOfObjectsInPosition with initial value false
+Boolean a with initial value true
+Boolean b with initial value false
+Boolean c with initial value true
+
 
 
 {{Goals}}
@@ -55,16 +59,19 @@ end-world
 
 {{Hola}}
 {{Task}}
+
+{{Task}}
 begin-task pickall on room
-{{2,4}}
+
 
 
 while not aLotOfObjectsInPosition do begin
-    move;
-    pick dirtyclothes;
-
+move;
+set aLotOfObjectsInPosition;
+set a to false;
+set b to true;
+set c to true;
 end;
-
 
 {{Ejecuto}}
 terminate;

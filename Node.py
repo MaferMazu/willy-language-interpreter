@@ -80,13 +80,16 @@ class Node:
                elif self.type=="Disyuncion":
                     left = self.children[0].boolValue(mundo,mybool)
                     rigth = self.children[1].boolValue(mundo,mybool)
+                    print("SOYYYYYYYYYYYYYYYYYYYYYYYYYYYYY EL SEXY OOOOOOOO")
                     mybool= mybool and (mundo.getValueGoals(left) or mundo.getValueGoals(rigth))
+                    print(mybool)
                elif self.type=="Parentesis":
                     u = self.children[0].boolValue(mundo,mybool)
                     mybool= mybool and ((u))
                elif self.type=="Not":
                     u = self.children[0].boolValue(mundo,mybool)
                     mybool= mybool and (not u)
+                    print("Despues soy not")
                elif self.type=="Found":
                     mybool= mybool and mundo.isCellWithObject(mundo.getWillyPosition()[0],self.children[0])
                elif self.type == "Carrying":
@@ -96,9 +99,9 @@ class Node:
                          if isinstance(child,Node):
                               mybool= mybool and (child.boolValue(mundo,mybool))
                          else:
-                              print("soy leaf y mi valor es:",child,mundo.getGoals(),mundo.getValueGoals(child))
+                              print("soy leaf y mi valor es:", child, mundo.getBools(), mundo.getValueBool(child))
                               mybool=mybool and mundo.getValueBool(child)
-                    
+                              print(mybool)
                return mybool
           else:
                return False
