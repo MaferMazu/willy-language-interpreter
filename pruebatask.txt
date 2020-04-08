@@ -58,8 +58,12 @@ end-world
 {{Task}}
 begin-task pickall on room
 move;
-pick dirtyclothes;
-pick dirtyclothes;
+
+repeat 3 times pick dirtyclothes;
+turn-right;
+move;
+turn-left;
+move;
 
 {{Ejecuto}}
 terminate;

@@ -20,7 +20,9 @@ class Task:
     def moveWilly(self):
         actualposition = self.world.getWillyPosition()
         pos = self.world.positionInBoard(actualposition[0])
-        newfront,newleft,newright = self.world.whereIsMyFrontLeftRight(actualposition[0],actualposition[1].children[0])
+        print(self.world.getWillyPosition())
+        print(actualposition)
+        newfront,newleft,newright = self.world.whereIsMyFrontLeftRight(actualposition[0],actualposition[1])
         print(self.world.whereIsMyFrontLeftRight(actualposition[0], actualposition[1]))
         print(newfront)
         print(newleft)

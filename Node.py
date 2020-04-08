@@ -134,7 +134,7 @@ class Node:
                     if not task.world.changeBool(self.children[0],True):
                          print("No se puede hacer el settrue con:",self.children[0])
                elif self.type=="Move":
-                    if not task.moveWilly()
+                    if not task.moveWilly():
                          print("Willy no se pudo mover, y su configuración actual es:",task.world.getWillyPosition())
                elif self.type=="TL":
                     if not task.turnWilly("left"):

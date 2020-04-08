@@ -383,7 +383,7 @@ def p_setStartPosition(p):
             }
             errorSemantic(data_error)
         else:
-            newWorld.setWillyStart([p[3],p[4]], p[6])
+            newWorld.setWillyStart([p[3],p[4]], p[6].children[0])
             p[0]=Node("WillyStartPosition",[p[6]])
 
 def p_setBasketCapacity(p):
@@ -532,7 +532,7 @@ def p_ids(p):
 
 def p_taskBlock(p):
     """taskBlock : taskDefinition multiInstructions TkEndTask"""
-    global taskBool
+    global taskBoolz
     global createdWorlds
     global currentTask
 
