@@ -54,7 +54,7 @@ Goal cellinposition is 1 cell objects at 4 1
 Final goal is cleanclothesinposition and dirtyclothesinposition and laptopinposition and booksinposition and cellinposition;
 end-world
 
-
+{{Hola}}
 {{Task}}
 begin-task pickall on room
 move;
