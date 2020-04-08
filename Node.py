@@ -112,39 +112,36 @@ class Node:
 
                if self.type=="Drop":
                     if task.world.isObjectBasket(self.children[0]) and task.world.isObject(self.children[0]):
-                         task.dropObject(self.children[0])
-                    print("Drop")
+                         if not task.dropObject(self.children[0]):
+                              print("No se puede hacer el drop con:",self.children[0])
                elif self.type=="Pick":
                     print("ESTAMOS RECOGIENDO")
                     if task.world.isCellWithObject(task.world.getWillyPosition()[0],self.children[0]) and task.world.isObject(self.children[0]):
-                         task.pickObject(self.children[0])
-                         print("ESTAMOS RECOGIENDO")
+                         if not task.pickObject(self.children[0]):
+                              print("No se puede hacer el pick con:",self.children[0])
                     print("Pick")
                elif self.type=="Clear":
-                    task.world.changeBool(self.children[0], False)
-                    print("Clear")
+                    if not task.world.changeBool(self.children[0], False):
+                         print("No se puede hacer el clear con:",self.children[0])
                elif self.type=="Flip":
                     boolAux = task.world.getValueBool(self.children[0])
-                    task.world.changeBool(self.children[0], not boolAux)
-                    print("Flip")
+                    if not task.world.changeBool(self.children[0], not boolAux):
+                         print("No se puede hacer el flip con:",self.children[0])
                elif self.type=="SetBool":
-                    task.world.changeBool(self.children[0],self.children[1])
-                    print("SetBool")
+                    if not task.world.changeBool(self.children[0],self.children[1]):
+                         print("No se puede hacer el setbool con:",self.children[0])
                elif self.type=="SetTrue":
-                    task.world.changeBool(self.children[0],True)
+                    if not task.world.changeBool(self.children[0],True):
+                         print("No se puede hacer el settrue con:",self.children[0])
                elif self.type=="Move":
-                    print("NOS ESTAMOS MOVIENDO")
-                    print(task.id)
-                    print(task.world)
-                    print(task.world.id)
-                    task.moveWilly()
-                    print("Move")
+                    if not task.moveWilly()
+                         print("Willy no se pudo mover, y su configuración actual es:",task.world.getWillyPosition())
                elif self.type=="TL":
-                    task.turnWilly("left")
-                    print("TL")
+                    if not task.turnWilly("left"):
+                         print("No pudo haver turn-left:")
                elif self.type=="TR":
-                    task.turnWilly("right")
-                    print("TR")
+                    if not task.turnWilly("right"):
+                         print("No pudo haver turn-right:")
                elif self.type=="Terminate":
                     print(task.world)
                elif self.type=="ifSimple":

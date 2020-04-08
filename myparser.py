@@ -643,11 +643,13 @@ def p_primitiveInstructions(p):
         print("PRIMITIVE INSTRCTIONS")
         print(p[1])
         if activeWorld.isObject(p[2]):
-            if p[1] == "pick" and activeWorld.isCellWithObject(activeWorld.getWillyPosition()[0],p[2]):
-                print(p[1])
+            
+            if p[1] == "pick" :
+                print("ENTRE",p[1])
                 p[0] = Node("Pick",[p[2]])
                 
-            elif p[1] == "drop" and activeWorld.isObjectBasket(p[2]):
+                
+            elif p[1] == "drop":
                 p[0] = Node("Drop",[p[2]])
                 
         else:
