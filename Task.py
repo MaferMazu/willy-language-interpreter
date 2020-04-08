@@ -20,15 +20,21 @@ class Task:
     def moveWilly(self):
         actualposition = self.world.getWillyPosition()
         pos = self.world.positionInBoard(actualposition[0])
-        newfront,newleft,newright = self.world.whereIsMyFrontLeftRight(actualposition[0],actualposition[1])
+        newfront,newleft,newright = self.world.whereIsMyFrontLeftRight(actualposition[0],actualposition[1].children[0])
+        print(self.world.whereIsMyFrontLeftRight(actualposition[0], actualposition[1]))
+        print(newfront)
+        print(newleft)
+        print(newright)
         if newfront!=None and self.world.isCellWallFree(newfront):
             self.world.positionF = [newfront,actualposition[1]]
             position = self.world.positionInBoard(self.world.getWillyPosition()[0])
             self.world.board[position[0]][position[1]][1]="w"
             self.world.changeFLRBools(self.world.getWillyPosition()[0],self.world.getWillyPosition()[1])
             self.world.board[pos[0]][pos[1]][1]=" "
+            print("true")
             return True
         else:
+            print("false")
             return False
 
     def turnWilly(self,directionLR):

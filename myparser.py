@@ -602,6 +602,8 @@ def p_multiInstructions(p):
                          | empty
                          | instructions TkSemicolon multiInstructions
     """
+    print(stack)
+    print("AQUIESTA")
     if len(p)==2:
         p[0]=Node("MultiInstruction",[p[1]])
     else:
@@ -632,12 +634,17 @@ def p_primitiveInstructions(p):
     global objectsInWorlds
     global currentTask
     attributesObjects = {}
-    if p[1] == ("drop" or "pick"):
-        print(p[2])
-        print(activeWorld.id)
-        print(activeWorld.isObject(p[2]))
+    # print(stack)
+    print(p[1])
+    if (p[1] == "drop") or (p[1] =="pick"):
+        # print(p[2])
+        # print(activeWorld.id)
+        # print(activeWorld.isObject(p[2]))
+        print("PRIMITIVE INSTRCTIONS")
+        print(p[1])
         if activeWorld.isObject(p[2]):
             if p[1] == "pick" and activeWorld.isCellWithObject(activeWorld.getWillyPosition()[0],p[2]):
+                print(p[1])
                 p[0] = Node("Pick",[p[2]])
                 
             elif p[1] == "drop" and activeWorld.isObjectBasket(p[2]):
@@ -651,7 +658,7 @@ def p_primitiveInstructions(p):
             }
             errorSemantic(data_error)
 
-    elif p[1] == ("clear" or "flip"):
+    elif (p[1] == "clear") or p[1] == ( "flip"):
         if activeWorld.isBool(p[2]):
             if p[1] == "clear":
                 p[0] = Node("Clear",[p[2]])
@@ -675,8 +682,9 @@ def p_primitiveInstructions(p):
             else:
                 p[0]=Node("SetTrue",[p[2]])
 
-    if len(p)==1:
+    if len(p)==2:
         if p[1] == 'move':
+            print("Parseamos Move")
             p[0]=Node("Move",[p[1]])
         elif p[1] == "turn-left":
             p[0]=Node("TL",[p[1]])
@@ -716,12 +724,15 @@ def p_primitiveInstructions(p):
 
         if taskBool:
             stack.insert(p[2],attributesObjects)
+
+
         else:
             table = []
             stack.push(table)
             stack.insert(p[2], attributesObjects)
             taskBool = True
-    pass
+    print("PRIMITIVE")
+    print(stack)
 
 def p_booleanTests(p):
 

@@ -412,6 +412,9 @@ class World:
 
      def whereIsMyFrontLeftRight(self,position,direction):
           front=left=right = None
+          print("Estanis en el world")
+          print(position)
+          print(direction)
           if 1<= position[0]<= self.dimensions[0] and 1<= position[1]<= self.dimensions[1]:
                if direction=="north":
                     if 1<= position[1]+1 <= self.dimensions[1]:
@@ -444,6 +447,7 @@ class World:
                          left = [position[0],position[1]-1]
                     if 1<= position[0]-1 <= self.dimensions[0]:
                          front = [position[0]-1,position[1]]
+          print("Salimos del world")
           return front,left,right
 
      def changeFLRBools(self,position,direction):

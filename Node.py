@@ -106,7 +106,7 @@ class Node:
 
      def executeMyTask(self,task):
           print("####HEELL YEA")
-          print(task)
+          # print(task)
           if isinstance(task,Task):
                print(self.type)
 
@@ -115,8 +115,10 @@ class Node:
                          task.dropObject(self.children[0])
                     print("Drop")
                elif self.type=="Pick":
+                    print("ESTAMOS RECOGIENDO")
                     if task.world.isCellWithObject(task.world.getWillyPosition()[0],self.children[0]) and task.world.isObject(self.children[0]):
                          task.pickObject(self.children[0])
+                         print("ESTAMOS RECOGIENDO")
                     print("Pick")
                elif self.type=="Clear":
                     task.world.changeBool(self.children[0], False)
@@ -131,6 +133,10 @@ class Node:
                elif self.type=="SetTrue":
                     task.world.changeBool(self.children[0],True)
                elif self.type=="Move":
+                    print("NOS ESTAMOS MOVIENDO")
+                    print(task.id)
+                    print(task.world)
+                    print(task.world.id)
                     task.moveWilly()
                     print("Move")
                elif self.type=="TL":
