@@ -56,27 +56,10 @@ end-world
 {{Hola}}
 {{Task}}
 begin-task pickall on room
-{{2,4}}
-move;
 
-repeat 3 times pick dirtyclothes;
-turn-left;
-move;
-turn-right;
 
-set aLotOfObjectsInPosition;
-if aLotOfObjectsInPosition then flip aLotOfObjectsInPosition;
-if not aLotOfObjectsInPosition then move;
-set aLotOfObjectsInPosition;
-clear aLotOfObjectsInPosition;
-if not aLotOfObjectsInPosition then move;
-set aLotOfObjectsInPosition to true;
-if carrying(dirtyclothes) and carrying(cell) then repeat 3 times drop dirtyclothes;
-if found(dirtyclothes) then drop cell;
-{{deberia quedar en 3,1}}
-if not carrying(cell) then move;
-if found(cleanclothes) then pick cleanclothes;
-if not carrying(cleanclothes) or found(cleanclothes) then begin turn-left; move; end;
+
+while not aLotOfObjectsInPosition do begin repeat 2 times move;clear aLotOfObjectsInPosition;end;
 
 {{Ejecuto}}
 terminate;
