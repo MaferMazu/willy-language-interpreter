@@ -1,4 +1,3 @@
-
 begin-world room
 
 {{mundo con 4 columas y 5 filas}}
@@ -57,13 +56,21 @@ end-world
 {{Hola}}
 {{Task}}
 begin-task pickall on room
+{{2,4}}
 move;
 
 repeat 3 times pick dirtyclothes;
 turn-left;
 move;
 turn-right;
-move;
+
+set aLotOfObjectsInPosition;
+if aLotOfObjectsInPosition then flip aLotOfObjectsInPosition;
+if not aLotOfObjectsInPosition then move;
+set aLotOfObjectsInPosition;
+clear aLotOfObjectsInPosition;
+if not aLotOfObjectsInPosition then move;
+if not aLotOfObjectsInPosition then move;
 
 {{Ejecuto}}
 terminate;
