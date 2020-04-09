@@ -122,28 +122,28 @@ class World:
 
      def getValueGoals(self,goal):
           if goal==True or goal==False:
-               print(goal,goal)
+               # print(goal,goal)
                return goal
           if self.isGoal(goal):
                for x in self.goals:
                     if x[0]==goal:
                          if x[1]=="WillyIsAt":
-                              print(goal,x[2][1]==self.getWillyPosition()[0][1] and x[2][0]==self.getWillyPosition()[0][0])
+                              # print(goal,x[2][1]==self.getWillyPosition()[0][1] and x[2][0]==self.getWillyPosition()[0][0])
                               return x[2][1]==self.getWillyPosition()[0][1] and x[2][0]==self.getWillyPosition()[0][0]
 
                          elif x[1]=="ObjectInBasket":
                               if self.isObjectBasket(x[2]):
-                                   print(goal,self.howMuchObjectsInBasket(x[2])==x[3])
+                                   # print(goal,self.howMuchObjectsInBasket(x[2])==x[3])
                                    return self.howMuchObjectsInBasket(x[2])==x[3]
                               else:
                                    return False 
 
                          elif x[1]=="ObjectInPosition":
                               if self.isCellWithObject(x[4],x[2]):
-                                   print(goal,self.howMuchObjectsInCell(x[4],x[2])==x[3])
+                                   # print(goal,self.howMuchObjectsInCell(x[4],x[2])==x[3])
                                    return self.howMuchObjectsInCell(x[4],x[2])==x[3]
                               else:
-                                   print(goal,False)
+                                   # print(goal,False)
                                    return False
      
      def getValueFinalGoal(self):
@@ -206,7 +206,7 @@ class World:
           if self.isCellWallFree(pair):
                self.positionF = [pair,direction]
                pos = self.positionInBoard(pair)
-               print("pase por aqui#######################")
+               # print("pase por aqui#######################")
                self.board[pos[0]][pos[1]][1]="w"
                self.changeLookingBools(direction)
                self.changeFLRBools(self.getWillyPosition()[0],direction)
@@ -311,30 +311,30 @@ class World:
           if len(pair)==2:
                # position = [pair([x,y]),willy(W) o wall(X),lista de pares([idObje,attributes])]
                position = self.positionInBoard(pair)
-               print("Position Here: ")
-               print(position)
-               # print(self.board)
-               print(self)
-               print("Position Up ^ ")
+               # print("Position Here: ")
+               # print(position)
+               # # print(self.board)
+               # print(self)
+               # print("Position Up ^ ")
                if 1<=pair[0]<= self.dimensions[0] and 1<=pair[1]<=self.dimensions[1]:
                     return self.board[position[0]][position[1]][1] != "/"
           else:
                return False
 
      def isCellWithObject(self,pair,objectname):
-          print("isCellWithObject")
-          print(pair)
-          print(self.getWillyPosition())
-          print(objectname)
-          print(self.dimensions)
-          print("endCellWithObject")
+          # print("isCellWithObject")
+          # print(pair)
+          # print(self.getWillyPosition())
+          # print(objectname)
+          # print(self.dimensions)
+          # print("endCellWithObject")
           if len(pair)==2:
                # position = [pair([x,y]),willy(W) o wall(X),lista de pares([idObje,amount])]
 
                if pair[0]<=self.dimensions[0] and pair[1]<=self.dimensions[1]:
                     position = self.positionInBoard(pair)
-                    print("inicial pair",pair)
-                    print("isCellWithObj position:",position)
+                    # print("inicial pair",pair)
+                    # print("isCellWithObj position:",position)
                     for x in self.board[position[0]][position[1]][2]:
                          #x = [idObjeto,amountObject,colorObject]
                          if x[0]==objectname:
@@ -383,11 +383,11 @@ class World:
      
      def positionInBoard(self,position):
           dimension = self.getDimension()
-          # print("0000#####HEY#####")
-          # print(position)
-          # print(isinstance(position[1],int))
-          # print(dimension)
-          # print("1111#####HEY#####")
+#           # print("0000#####HEY#####")
+#           # print(position)
+#           # print(isinstance(position[1],int))
+#           # print(dimension)
+#           # print("1111#####HEY#####")
           pair = [dimension[1]-position[1],position[0]-1]
           return pair
 
@@ -413,15 +413,15 @@ class World:
                               else:
                                    rep += "[" + str(elem[1]) + "] "
                rep += "\n"
-          if reprint is None:
-               print(rep)
+          # if reprint is None:
+          #      print(rep)
           return rep
 
      def whereIsMyFrontLeftRight(self,position,direction):
           front=left=right = None
-          print("Estanis en el world")
-          print(position)
-          print(direction)
+          # print("Estanis en el world")
+          # print(position)
+          # print(direction)
           if 1<= position[0]<= self.dimensions[0] and 1<= position[1]<= self.dimensions[1]:
                if direction=="north":
                     if 1<= position[1]+1 <= self.dimensions[1]:
@@ -454,7 +454,7 @@ class World:
                          left = [position[0],position[1]-1]
                     if 1<= position[0]-1 <= self.dimensions[0]:
                          front = [position[0]-1,position[1]]
-          print("Salimos del world")
+          # print("Salimos del world")
           return front,left,right
 
      def changeFLRBools(self,position,direction):
@@ -497,115 +497,115 @@ class World:
                return False
 
 """ def main():
-    print("Corriendo!")
+    # print("Corriendo!")
     if __name__== "__main__" :
-         print("####\nEmpezó la prueba\n####\n\n")
+         # print("####\nEmpezó la prueba\n####\n\n")
          World1 = World()
-         print("####\nInicializado\n####")
-         print("Dimensiones: ",World1.getDimension())
+         # print("####\nInicializado\n####")
+         # print("Dimensiones: ",World1.getDimension())
          World1.setDimension([7,9])
-         print("SetDimension 7 9 then print board with index")
-         World1.printBoard("index")
-         print("getWalls: ",World1.getWalls())
-         print("Insert wall [1,1],[1,3],north")
+         # print("SetDimension 7 9 then print board with index")
+         # World1.printBoard("index")
+         # print("getWalls: ",World1.getWalls())
+         # print("Insert wall [1,1],[1,3],north")
          World1.setWall([1,1],[1,3],"north")
-         print("Insert wall [2,2],[3,2],north que NO se debe insertar porque la direccion no corresponde")
-         print("Impresion del retorno: ",World1.setWall([2,2],[3,2],"north"))
-         print("Insert wall [2,2],[3,2],west si debería")
-         print("Impresion del retorno: ",World1.setWall([2,2],[3,2],"west"))
-         World1.printBoard()
-         print("Verifico mi list wall",World1.getWalls())
+         # print("Insert wall [2,2],[3,2],north que NO se debe insertar porque la direccion no corresponde")
+         # print("Impresion del retorno: ",World1.setWall([2,2],[3,2],"north"))
+         # print("Insert wall [2,2],[3,2],west si debería")
+         # print("Impresion del retorno: ",World1.setWall([2,2],[3,2],"west"))
+         # World1.printBoard()
+         # print("Verifico mi list wall",World1.getWalls())
          World1.setWall([7,7],[5,7],"east")
          World1.setWall([5,7],[5,2],"south")
          World1.setWall([1,7],[3,7],"west")
-         print("inserto walls 7,7-5,7  5,7-5,2 y 1,7-3,7")
-         World1.printBoard()
-         print("Añadiendo un objeto con id flor, sin amount y color verde, debería decir true: ", World1.setObjects("flor","cyan"))
-         print("lista de objetos: ", World1.getObjects())
-         print("metodo isObject para flor: ",World1.isObject("flor"))
-         print("metodo isObject para mirror: ",World1.isObject("mirror"))
-         print("setObjectInWorld 3 flores en 4,4:",World1.setObjectInWorld("flor",3,[4,4]))
-         print("lista de objetos: ", World1.getObjects())
-         World1.printBoard()
-         print("setObjectInWorld + 5  flores en 4,4:",World1.setObjectInWorld("flor",5,[4,4]))
-         print("lista de objetos: ", World1.getObjects())
-         print("isCellWithObject con cel 4,4 y flor: ",World1.isCellWithObject([4,4],"flor"))
-         print("howMuchObjectsInCell con cel 4,4 y flor: ",World1.howMuchObjectsInCell([4,4],"flor"))
-         print("what color is flor: ",World1.whatColorIs("flor"))
-         print("isCellWithObject con cel 1,1 y flor: ",World1.isCellWithObject([1,1],"flor"))
+         # print("inserto walls 7,7-5,7  5,7-5,2 y 1,7-3,7")
+         # World1.printBoard()
+         # print("Añadiendo un objeto con id flor, sin amount y color verde, debería decir true: ", World1.setObjects("flor","cyan"))
+         # print("lista de objetos: ", World1.getObjects())
+         # print("metodo isObject para flor: ",World1.isObject("flor"))
+         # print("metodo isObject para mirror: ",World1.isObject("mirror"))
+         # print("setObjectInWorld 3 flores en 4,4:",World1.setObjectInWorld("flor",3,[4,4]))
+         # print("lista de objetos: ", World1.getObjects())
+         # World1.printBoard()
+         # print("setObjectInWorld + 5  flores en 4,4:",World1.setObjectInWorld("flor",5,[4,4]))
+         # print("lista de objetos: ", World1.getObjects())
+         # print("isCellWithObject con cel 4,4 y flor: ",World1.isCellWithObject([4,4],"flor"))
+         # print("howMuchObjectsInCell con cel 4,4 y flor: ",World1.howMuchObjectsInCell([4,4],"flor"))
+         # print("what color is flor: ",World1.whatColorIs("flor"))
+         # print("isCellWithObject con cel 1,1 y flor: ",World1.isCellWithObject([1,1],"flor"))
          ("howMuchObjectsInCell con cel 4,4 y mirror: ",World1.howMuchObjectsInCell([4,4],"mirror"))
-         print("isObject mirror: ", World1.isObject("mirror"))
-         print("setBool willhapyy true: ",World1.setBool("willhappy",True))
-         print("añadirlo una segunda vez willhapyy true: ",World1.setBool("willhappy",True))
-         print("change willhapyy to false: ",World1.changeBool("willhappy",False))
-         print("getValue willhapyy: ",World1.getValueBool("willhappy"))
-         print("setObjectInWorld + 1  flores en 1,1 pero hay wall:",World1.setObjectInWorld("flor",1,[1,1]))
-         print("isBool willhappy: ", World1.isBool("willhappy"))
-         print("isBool happy: ", World1.isBool("happy"))
-         print("Insertar a Willy en 7,9",World1.setWillyPosition([7,9],"north"))
-         print(World1)
+         # print("isObject mirror: ", World1.isObject("mirror"))
+         # print("setBool willhapyy true: ",World1.setBool("willhappy",True))
+         # print("añadirlo una segunda vez willhapyy true: ",World1.setBool("willhappy",True))
+         # print("change willhapyy to false: ",World1.changeBool("willhappy",False))
+         # print("getValue willhapyy: ",World1.getValueBool("willhappy"))
+         # print("setObjectInWorld + 1  flores en 1,1 pero hay wall:",World1.setObjectInWorld("flor",1,[1,1]))
+         # print("isBool willhappy: ", World1.isBool("willhappy"))
+         # print("isBool happy: ", World1.isBool("happy"))
+         # print("Insertar a Willy en 7,9",World1.setWillyPosition([7,9],"north"))
+         # print(World1)
          front,left,right = World1.whereIsMyFrontLeftRight([1,1],"west")
-         print("1,1 My front left right",front,left,right)
-         print("setWilly 2,1 west",World1.setWillyPosition([2,1],"west"))
-         print(World1)
-         print(World1.getBools())
-         print(World1.moveWilly())
-         print(World1.getBools())
-         print(World1.getBools())
-         print("turn willy left (miro al north)",World1.turnWilly("left"))
-         print("turn willy left (miro al este)",World1.turnWilly("left"))
-         print("turn willy right (miro al norte)",World1.turnWilly("right"))
-         print(World1.getBools())
-         print("set 5 flor en ",World1.setObjectInWorld("flor",5,[2,1]))
-         print(World1)
-         print(World1.getWillyPosition()[1])
+         # print("1,1 My front left right",front,left,right)
+         # print("setWilly 2,1 west",World1.setWillyPosition([2,1],"west"))
+         # print(World1)
+         # print(World1.getBools())
+         # print(World1.moveWilly())
+         # print(World1.getBools())
+         # print(World1.getBools())
+         # print("turn willy left (miro al north)",World1.turnWilly("left"))
+         # print("turn willy left (miro al este)",World1.turnWilly("left"))
+         # print("turn willy right (miro al norte)",World1.turnWilly("right"))
+         # print(World1.getBools())
+         # print("set 5 flor en ",World1.setObjectInWorld("flor",5,[2,1]))
+         # print(World1)
+         # print(World1.getWillyPosition()[1])
          World1.turnWilly("left")
          World1.moveWilly()
-         print(World1)
-         print(World1.objects)
+         # print(World1)
+         # print(World1.objects)
          World1.setCapacityOfBasket(20)
-         print("agarrar 3 flores ",World1.addObjectsInBasket("flor",3))
-         print("13 - 3 flores ",World1.objects)
-         print("20-3 ",World1.capacityOfBasket)
-         print("3 flores ",World1.objectsInBasket)
-         print("Mirror: ", World1.setObjects("mirror","blue"))
-         print("Table: ", World1.setObjects("table","gray"))
-         print("2 mirror en pos actual:",World1.setObjectInWorld("mirror",2,[2,1]))
-         print("agarrar 1 mirror ",World1.addObjectsInBasket("mirror",1))
-         print("pickObject",World1.pickObject("mirror"))
-         print("agarrar 2 flores ",World1.addObjectsInBasket("flor",2))
-         print("obj ",World1.objects)
-         print("basket capacity",World1.capacityOfBasket)
-         print("my basket ",World1.objectsInBasket)
-         print("drop 1 flor ",World1.dropObject("flor"))
-         print("obj ",World1.objects)
-         print("basket capacity",World1.capacityOfBasket)
-         print("my basket ",World1.objectsInBasket)
-         print("drop 2 mirrors ",World1.setFreeObjectsInBasket("mirror",2))
-         print("obj ",World1.objects)
-         print("basket capacity",World1.capacityOfBasket)
-         print("my basket ",World1.objectsInBasket)
-         print("head ",World1.getWillyPosition()[1])
+         # print("agarrar 3 flores ",World1.addObjectsInBasket("flor",3))
+         # print("13 - 3 flores ",World1.objects)
+         # print("20-3 ",World1.capacityOfBasket)
+         # print("3 flores ",World1.objectsInBasket)
+         # print("Mirror: ", World1.setObjects("mirror","blue"))
+         # print("Table: ", World1.setObjects("table","gray"))
+         # print("2 mirror en pos actual:",World1.setObjectInWorld("mirror",2,[2,1]))
+         # print("agarrar 1 mirror ",World1.addObjectsInBasket("mirror",1))
+         # print("pickObject",World1.pickObject("mirror"))
+         # print("agarrar 2 flores ",World1.addObjectsInBasket("flor",2))
+         # print("obj ",World1.objects)
+         # print("basket capacity",World1.capacityOfBasket)
+         # print("my basket ",World1.objectsInBasket)
+         # print("drop 1 flor ",World1.dropObject("flor"))
+         # print("obj ",World1.objects)
+         # print("basket capacity",World1.capacityOfBasket)
+         # print("my basket ",World1.objectsInBasket)
+         # print("drop 2 mirrors ",World1.setFreeObjectsInBasket("mirror",2))
+         # print("obj ",World1.objects)
+         # print("basket capacity",World1.capacityOfBasket)
+         # print("my basket ",World1.objectsInBasket)
+         # print("head ",World1.getWillyPosition()[1])
          World1.turnWilly("right")
          World1.turnWilly("right")
          World1.moveWilly()
-         print("drop flor y mirror:",World1.dropObject("flor"),World1.dropObject("mirror"))
+         # print("drop flor y mirror:",World1.dropObject("flor"),World1.dropObject("mirror"))
          World1.moveWilly()
          World1.turnWilly("left")
          World1.turnWilly("left")
          World1.moveWilly()
-         print("pick flor y mirror:",World1.pickObject("flor"),World1.pickObject("mirror"))
+         # print("pick flor y mirror:",World1.pickObject("flor"),World1.pickObject("mirror"))
          World1.turnWilly("right")
          World1.turnWilly("right")
          World1.moveWilly()
          World1.moveWilly()
          World1.turnWilly("left")
-         print(World1.moveWilly())
-         print(World1.moveWilly())
-         print(World1.moveWilly())
-         print(World1)
+         # print(World1.moveWilly())
+         # print(World1.moveWilly())
+         # print(World1.moveWilly())
+         # print(World1)
          
          World1.setGoals("goal1","WillyIsAt",[1,2])
-         print(World1.getGoals())
+         # print(World1.getGoals())
 
 main() """

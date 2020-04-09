@@ -1,23 +1,27 @@
 begin-world mimundo
 
-  Start at 1 1 heading east;
-  Basket of capacity 3;
+  World 8 8
 
-  Boolean mimundo with initial value  true;
-  World 7 7;
-  Wall north from 2 2 to 2 3;;
-  Wall north from 4 2 to 4 3;;
-  Wall north from 3 5 to 3 5;;
-  Wall east from 6 6 to 6 6;;
-  Wall north from 4 6 to 4 6;;
+  Start at 1 1 heading east
+  Basket of capacity 3
+
+  Boolean mimundo with initial value  true
+
+  Wall north from 2 2 to 2 3
+  Wall north from 4 2 to 4 3
+  Wall north from 3 5 to 3 5
+  Wall east from 6 6 to 6 6
+  Wall north from 4 6 to 4 6
 
 
-  Object-type ball of color blue;
-  Place 2 of ball at 4 5;
-  Place 1 of ball at 6 3;
+  Object-type ball of color blue
+  Place 2 of ball at 4 5
+  Place 1 of ball at 6 3
 
-  Goal mygoal is 3 ball objects in Basket;
+  Goal mygoal is 3 ball objects in Basket
   Final goal is mygoal;
+
+
 
 end-world
 

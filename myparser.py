@@ -20,6 +20,11 @@ logging.basicConfig(
         format = "%(filename)10s:%(lineno)4d:%(message)s"
     )
 
+precedence = (
+    ('left', 'TkAnd', 'TkOr'),
+    ('right', 'TkNot'),            # Unary minus operator
+ )
+
 
 # import some required globals from tokenizer
 tokens = lexer.tokens
@@ -46,6 +51,7 @@ taskBool = False
 defineAsBool = False
 validateFinalGoal = False
 hasSetted = False
+isBasketDeclared = False
 blockNumber = 0
 
 
@@ -53,12 +59,12 @@ blockNumber = 0
 
 def p_correctProgram(p):
     "correctProgram : program"
-    print("Tu programa esta correcto")
+    # print("Tu programa esta correcto")
     p[0] = p[1]
-    # print(p[1].type,p[1].children)
-    # print(p[1].children[0].type,p[1].children[1].type)
-    # print(isinstance(p[0],Node))
-    # print(str(p[0]))
+#     # print(p[1].type,p[1].children)
+#     # print(p[1].children[0].type,p[1].children[1].type)
+#     # print(isinstance(p[0],Node))
+#     # print(str(p[0]))
 
 def p_program(p):
     """
@@ -71,13 +77,13 @@ def p_program(p):
         p[0]=Node("Program Block:",[p[1]])
     else:
         p[0]=Node("Program Block:",[p[1],p[2]])
-    print("Stack luego de leer un bloque" + "\n")
-    print(stack)
-    print("programBlock")
-    print(programBlock[0][0])
+    # print("Stack luego de leer un bloque" + "\n")
+    # print(stack)
+    # print("programBlock")
+    # print(programBlock[0][0])
     r = programBlock[0][1]["type"]
-    print(r)
-    print("\n")
+    # print(r)
+    # print("\n")
 
 
 def p_worldInstSet(p):
@@ -114,10 +120,10 @@ def p_wallSet(p):
     """wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum"""
     global newWorld
     actualDir = p[2].children[0]
-    print(actualDir, p[4], p[7])
-    print(actualDir, p[5], p[8])
+    # print(actualDir, p[4], p[7])
+    # print(actualDir, p[5], p[8])
     if actualDir == "north":
-        print("norte")
+        # print("norte")
         if p[4]==p[7] and p[5]<=p[8]:
             p[0] = Node("WallSet:", [p[2]])
             newWorld.setWall([p[4],p[5]],[p[7],p[8]],actualDir)
@@ -129,7 +135,7 @@ def p_wallSet(p):
             }
             errorSemantic(data_error)
     elif actualDir == "south":
-        print("south")
+        # print("south")
         if p[4]==p[7] and p[5]>=p[8]:
             p[0] = Node("WallSet:", [p[2]])
             newWorld.setWall([p[4], p[5]], [p[7], p[8]], actualDir)
@@ -141,7 +147,7 @@ def p_wallSet(p):
             }
             errorSemantic(data_error)
     elif actualDir == "east":
-        print("east")
+        # print("east")
         if p[5]==p[8] and p[4]>=p[7]:
             p[0] = Node("WallSet:", [p[2]])
             newWorld.setWall([p[4], p[5]], [p[7], p[8]], actualDir)
@@ -153,7 +159,7 @@ def p_wallSet(p):
             }
             errorSemantic(data_error)
     elif actualDir == "west":
-        print("west")
+        # print("west")
         if p[5]==p[8] and p[4]<=p[7]:
             p[0] = Node("WallSet:", [p[2]])
             newWorld.setWall([p[4], p[5]], [p[7], p[8]], actualDir)
@@ -171,9 +177,9 @@ def p_wallSet(p):
             "column": p.lexpos(2) + 1,
         }
         ##Deberia lanzarme error pero mientras colocaré pass
-        # p_statement_print_error(p)
+#         # p_statement_print_error(p)
         errorSemantic(None)
-        print('Bad definition of wall in World')
+        # print('Bad definition of wall in World')
 
 
 def p_worldDefinition(p):
@@ -185,9 +191,9 @@ def p_worldDefinition(p):
     }
     global newWorld
     # if p[2]
-    print("###Reading world")
-    print(stack)
-    print("###Reading world")
+    # print("###Reading world")
+    # print(stack)
+    # print("###Reading world")
     p[0] = Node("",[p[2]])
     data = [p[0].children[0], type]
     newWorld = World(p[2])
@@ -216,8 +222,8 @@ def p_worldBlock(p):
         p[0] = Node("WorldBlock",[p[2]])
     else:
         p[0] = Node("WorldBlock",[p[2]])
-    # print("Antes del pop")
-    # print(stack)
+#     # print("Antes del pop")
+#     # print(stack)
     if blockNumber == 0:
         #stack.insert("WorldBlock" + str(blockNumber), dataFlag)
         blockNumber = blockNumber + 1
@@ -225,15 +231,22 @@ def p_worldBlock(p):
         #stack.insert("WorldBlock" + str(blockNumber), dataFlag)
         blockNumber = blockNumber + 1
     validateFinalGoal = False
-    print(stack)
-    print(len(stack.stack))
+    # print(stack)
+    # print(len(stack.stack))
     if len(stack.stack) > 1:
         stack.pop()
     stack.insert(id,attributesObjects)
     createdWorlds.append(newWorld)
+
+    print("###############")
+    print("Estado inicial de " + "\n" + str(newWorld))
+    print("La posición de Willy es: "+ str(newWorld.getWillyPosition()[0]) + " mirando hacia el " + str(newWorld.getWillyPosition()[1]))
+    print("Lo que tiene en el basket es:\n", newWorld.getObjectsInBasket())
+    print("El estado de los bools es:\n", newWorld.getBools())
+    print("El estado de los goals es:\n", newWorld.getGoals())
+    print("El final goal es:\n" + newWorld.getFinalGoal())
+    print("El valor es: ",newWorld.getValueFinalGoal())
     print(newWorld)
-    print("Despues del pop")
-#     # print(stack)
 
 
 def p_worldSet(p):
@@ -242,7 +255,7 @@ def p_worldSet(p):
     global newWorld
     global hasSetted
     if not hasSetted:
-        if 0 != (p[2] or p[3]):
+        if 0 != p[2] or (0 != p[3]):
             if len(p) == 4:
                 p[0] = Node("WorldSet", [])
                 newWorld.setDimension([p[2], p[3]])
@@ -256,8 +269,8 @@ def p_worldSet(p):
                 "column": p.lexpos(2) + 1,
             }
             errorSemantic(data_error)
-            print("No puedes setear en 0 ninguno de los valores del mundo")
-        print("Dimensiones del mundo" + str(newWorld.getDimension()))
+        #     print("No puedes setear en 0 ninguno de los valores del mundo")
+        # print("Dimensiones del mundo" + str(newWorld.getDimension()))
     else:
         data_error = {
             "type": ("To place objects in World:" + newWorld.id + "need to declare dimentions at start" + "\n" + "Can't replace dimentions"),
@@ -275,7 +288,7 @@ def p_newObjType(p):
     global worldInstBool
     global newWorld
     id = p[2]
-    print(p[2])
+    # print(p[2])
     if procedures.findObj(id, programBlock):
         data_error = {
             "type": "Objeto " + id + " contiene nombre de un World o Task",
@@ -283,7 +296,7 @@ def p_newObjType(p):
             "column": p.lexpos(2) + 1,
         }
         errorSemantic(data_error)
-        print("Este elemento ya existe como Mundo o tarea")
+        # print("Este elemento ya existe como Mundo o tarea")
     else:
         p[0] = Node("NewObjectType", [p[2], p[5]])
         attributesObjects = {
@@ -292,10 +305,10 @@ def p_newObjType(p):
             "column": p.lexpos(2) + 1,
             "color": p[5],
         }
-        # print(stack)
-        # print(programBlock)
-        # print("space")
-        # print(procedures.find(id, programBlock))
+#         # print(stack)
+#         # print(programBlock)
+#         # print("space")
+#         # print(procedures.find(id, programBlock))
 
         if worldInstBool:
             stack.insert(p[2], attributesObjects)
@@ -325,10 +338,11 @@ def p_setPlaceObjWorld(p):
     """
     global newWorld
     global hasSetted
+    global isBasketDeclared
     hasSetted = True
     id = p[4]
-    # print("#####ELEMENTOS")
-    # print(id)
+#     # print("#####ELEMENTOS")
+#     # print(id)
     amount = p[2]
     if p[2] != 0:
         if len(p) == 8:
@@ -345,8 +359,17 @@ def p_setPlaceObjWorld(p):
                 }
                 errorSemantic(data_error)
         else:
-            newWorld.setObjectsInBasket(id, amount)
-            p[0] = Node("PlaceObjWorld", [p[4]])
+            if isBasketDeclared:
+                newWorld.setObjectsInBasket(id, amount)
+                p[0] = Node("PlaceObjWorld", [p[4]])
+            else:
+                data_error = {
+                    "type": "No puede colocar elementos en un Basket sin capacidad" + str(id),
+                    "line": p.lineno(2),
+                    "column": p.lexpos(2) + 1,
+                    "objeto": id,
+                }
+                errorSemantic(data_error)
     else:
         data_error = {
             "type": "No puede colocar 0 objetos",
@@ -362,7 +385,7 @@ def p_setStartPosition(p):
     global newWorld
     global hasSetted
     hasSetted = True
-    print("######Esto es el dir: " + str(p[6]))
+    # print("######Esto es el dir: " + str(p[6]))
     if (p[3] or p[4]) <= 0:
         data_error = {
             "type": "Start posicion en 0 no es valido",
@@ -372,7 +395,7 @@ def p_setStartPosition(p):
         errorSemantic(data_error)
     else:
         #Verificar las dimensiones del mundo
-        print("dimesiones mundo: " + str(newWorld.getDimension()))
+        # print("dimesiones mundo: " + str(newWorld.getDimension()))
         dimen = newWorld.getDimension()
 
         if (p[3] > dimen[0]) or (p[4] > dimen[1]):
@@ -389,6 +412,7 @@ def p_setStartPosition(p):
 def p_setBasketCapacity(p):
     """setBasketCapacity : TkBasket TkOf TkCapacity TkNum"""
     global newWorld
+    global isBasketDeclared
     if p[4] == 0:
         data_error = {
             "type": "No permitido " + p[4] + " capacidad de Basket" ,
@@ -397,6 +421,7 @@ def p_setBasketCapacity(p):
         }
         errorSemantic(data_error)
     else:
+        isBasketDeclared = True
         newWorld.setCapacityOfBasket(p[4])
         p[0]=Node("BasketCapacity",[])
 
@@ -407,11 +432,18 @@ def p_newBoolean(p):
     global newWorld
     p[0]=Node("NewBoolean",[p[2]])
     global worldInstBool
+    auxVal = False
+
+    if p[6] == "true":
+        auxVal = True
+    elif p[6] == "false":
+        auxVal = False
+
     attributesObjects = {
         "type" : "Bool",
         "line" : p.lineno(2),
         "column" : p.lexpos(2) + 1,
-        "value": p[6],
+        "value": auxVal,
     }
     if worldInstBool:
         stack.insert(p[2],attributesObjects)
@@ -420,7 +452,7 @@ def p_newBoolean(p):
         stack.push(table)
         stack.insert(p[2], attributesObjects)
         worldInstBool = True
-    newWorld.setBool(p[2], p[6])
+    newWorld.setBool(p[2], auxVal)
     global booleansOfWorlds
     booleansOfWorlds.append([p[2],attributesObjects])
 
@@ -464,8 +496,8 @@ def p_newGoal(p):
             "column_": p[8],
             "row": p[9]
         }
-        print("SOY P9999999999")
-        print(p[9])
+        # print("SOY P9999999999")
+        # print(p[9])
         newWorld.setGoals(p[2], attributesObjects["type"],p[5], p[4], [p[8], p[9]])
     if worldInstBool:
         stack.insert(p[2], attributesObjects)
@@ -488,15 +520,15 @@ def p_finalGoal(p):
     else:
         p[0] = Node("FinalGoal", [p[3]])
         ret = p[3].finalGoalToString()
-        print("###########################")
-        print("###########################")
-        print(ret)
-        print("###########################")
-        print("###########################")
+        # print("###########################")
+        # print("###########################")
+        # print(ret)
+        # print("###########################")
+        # print("###########################")
         validateFinalGoal=True
         newWorld.setFinalGoal(p[3],ret)
-        print("Mi final goal",newWorld.getFinalGoal())
-        print("Resultado Mi final goal",newWorld.getValueFinalGoal())
+        # print("Mi final goal",newWorld.getFinalGoal())
+        # print("Resultado Mi final goal",newWorld.getValueFinalGoal())
 
 
 
@@ -544,16 +576,16 @@ def p_taskBlock(p):
 
     p[0] = Node("Task", [p[1],p[2]])
 
-    print("Antes del pop")
-    print()
+    # print("Antes del pop")
+    # print()
     if len(stack.stack) > 1:
         stack.pop()
     stack.insert(p[1].children[0], attributesObjects)
-    print(p[0])
-    print(stack)
+    # print(p[0])
+    # print(stack)
     p[0].executeMyTask(currentTask)
-    print(activeWorld)
-    print("fin del task")
+    # print(activeWorld)
+    # print("fin del task")
 
 
 
@@ -567,26 +599,26 @@ def p_taskDefinition(p):
     global currentTask
 
 
-    # print(procedures.find(p[4], createdWorlds).id)
+#     # print(procedures.find(p[4], createdWorlds).id)
     if procedures.find(p[4], createdWorlds) is not None:
 
         activeWorld = procedures.find(p[4], createdWorlds)
-        # print("######### elemento")
-        # print(activeWorld)
-        # print(activeWorld.id)
-        # print(activeWorld.getDimension())
-        # print("elemento  #########")
+#         # print("######### elemento")
+#         # print(activeWorld)
+#         # print(activeWorld.id)
+#         # print(activeWorld.getDimension())
+#         # print("elemento  #########")
         type = {
             "type": "Task"
         }
         p[0] = Node("", [p[2], p[1]])
         data = [p[0].children[0], type]
-        # print("11111 INSTANCIA")
-        # print(isinstance(activeWorld, World))
-        # print("22222 INSTANCIA")
+#         # print("11111 INSTANCIA")
+#         # print(isinstance(activeWorld, World))
+#         # print("22222 INSTANCIA")
         currentTask = Task(p[2], activeWorld)
         programBlock.append(data)
-        # print(stack)
+#         # print(stack)
     else:
         data_error = {
             "type": "Invalid name of World: " + p[2] + " in " + p[4],
@@ -602,8 +634,8 @@ def p_multiInstructions(p):
                          | empty
                          | instructions TkSemicolon multiInstructions
     """
-    print(stack)
-    print("AQUIESTA")
+    # print(stack)
+    # print("AQUIESTA")
     if len(p)==2:
         p[0]=Node("MultiInstruction",[p[1]])
     else:
@@ -633,22 +665,23 @@ def p_primitiveInstructions(p):
     global taskBool
     global objectsInWorlds
     global currentTask
+    auxBool = False
     attributesObjects = {}
-    # print(stack)
-    # print(p[1])
+#     # print(stack)
+#     # print(p[1])
     if (p[1] =="pick"):
-        # print(p[2])
-        # print(activeWorld.id)
-        # print(activeWorld.isObject(p[2]))
-        # print("PRIMITIVE INSTRCTIONS")
-        # print(p[1])
+#         # print(p[2])
+#         # print(activeWorld.id)
+#         # print(activeWorld.isObject(p[2]))
+#         # print("PRIMITIVE INSTRCTIONS")
+#         # print(p[1])
         if activeWorld.isObject(p[2]):
 
-            print("holaaaaaaaa")
-            print(p[2])
-            print(p[1])
+            # print("holaaaaaaaa")
+            # print(p[2])
+            # print(p[1])
             p[0] = Node("Pick",[p[2]])
-            print(p)
+            # print(p)
         else:
             data_error = {
                 "type": "Objeto " + p[2] + " No existe en el mudno ",
@@ -690,7 +723,11 @@ def p_primitiveInstructions(p):
     elif p[1] == "set":
         if activeWorld.isBool(p[2]):
             if len(p) == 5:
-                p[0] = Node("SetBool", [p[2], p[4]])
+                if p[4] == "true":
+                    auxBool = True
+                elif p[4] == "false":
+                    auxBool = False
+                p[0] = Node("SetBool", [p[2], auxBool])
             else:
                 p[0] = Node("SetTrue", [p[2]])
         if len(p) == 3:
@@ -698,15 +735,19 @@ def p_primitiveInstructions(p):
                 "type" : "Bool",
                 "line" : p.lineno(2),
                 "column" : p.lexpos(2) + 1,
-                "value": "true",
+                "value": True,
             }
 
         elif len(p) == 5:
+            if p[4] == "true":
+                auxBool = True
+            elif p[4] == "false":
+                auxBool = False
             attributesObjects = {
                 "type" : "Bool",
                 "line" : p.lineno(2),
                 "column" : p.lexpos(2) + 1,
-                "value": p[4],
+                "value": auxBool,
             }
 
 
@@ -714,7 +755,7 @@ def p_primitiveInstructions(p):
 
     if len(p)==2:
         if p[1] == 'move':
-            print("Parseamos Move")
+            # print("Parseamos Move")
             p[0]=Node("Move",[p[1]])
         elif p[1] == "turn-left":
             p[0]=Node("TL",[p[1]])
@@ -738,8 +779,8 @@ def p_primitiveInstructions(p):
 
 
 
-    print("PRIMITIVE")
-    print(stack)
+    # print("PRIMITIVE")
+    # print(stack)
 
 def p_booleanTests(p):
 
@@ -810,19 +851,19 @@ def p_instructions(p):
     elif len(p)==3:
         p[0]= Node("Define As",[p[1],p[2]])
         global defineAsBool
-        # print("#####IN RUN DEFINE")
+#         # print("#####IN RUN DEFINE")
         attributesObjects = {
             "type": "Instruction",
             "line": p.lineno(1),
             "column": p.lineno(1) + 1,
         }
-        # print(stack)
+#         # print(stack)
         stack.pop()
         # currentTask.instructions.append(p[2])
         stack.insert(p[1].children[0], attributesObjects)
-        # print(stack)
+#         # print(stack)
         defineAsBool = False
-        # print("#####IN RUN DEFINE")
+#         # print("#####IN RUN DEFINE")
     elif len(p)==4:
         p[0]= Node("Begin",[p[2]])
     elif len(p)==5:
@@ -838,8 +879,8 @@ def p_instructions(p):
             else:
                 p[0] = Node("Repeat", [p[2],p[4]])
 
-    # print("Primer elemento de p: ")
-    # print(p)
+#     # print("Primer elemento de p: ")
+#     # print(p)
 
 
 
@@ -861,18 +902,22 @@ def p_ifCompound(p):
 def p_whileInst(p):
     """ whileInst : TkWhile booleanTests TkDo instructions
     """
+    # print("Hemos entrado en el while")
+    # print(p[2])
+    # print(p[4])
+    # print("parser while")
     p[0] = Node('whileInst', [p[2],p[4]])
 
 
 def p_instructionDefineAs(p):
     """instructionDefineAs : TkDefine ids TkAs"""
-    # print("EUREKA")
-    # print(p[2])
+#     # print("EUREKA")
+#     # print(p[2])
     p[0]=Node("Define as",[p[2]])
     global defineAsBool
-    # print("Define" + str(p[2]))
-    # print(stack)
-    # print("Define")
+#     # print("Define" + str(p[2]))
+#     # print(stack)
+#     # print("Define")
     defineAsBool = False
 
     """ attributesObjects = {
@@ -883,14 +928,14 @@ def p_instructionDefineAs(p):
     if defineAsBool:
         defineAsBool = False
     else:
-        # print("la variable es false, procedemos a pusherar" + "\n")
-        # # print(stack)
-        # print("Aqui estuvo el stack")
+#         # print("la variable es false, procedemos a pusherar" + "\n")
+#         # # print(stack)
+#         # print("Aqui estuvo el stack")
         table = []
         stack.push(table)
-        # print("Nuevo Contexto")
-        # print(stack)
-        # print("Nuevo Contexto")
+#         # print("Nuevo Contexto")
+#         # print(stack)
+#         # print("Nuevo Contexto")
         defineAsBool = True
 
 def p_directions(p):
@@ -907,13 +952,13 @@ def p_empty(p):
     pass
 
 
-# def p_statement_print_error(p):
-#     'statement : PRINT error'
-#     print("Syntax error in print statement. Bad expression")
+# # def p_statement_print_error(p):
+# #     'statement : PRINT error'
+# #     print("Syntax error in print statement. Bad expression")
 
 def p_error(p):
     global ParserErrors
-    print(p)
+    # print(p)
     if p is not None:
         error = 'Error del Parser "' + str(p.type) + '" en fila ' \
                 + str(p.lineno) + ', columna ' + str(p.lexpos)
@@ -926,7 +971,7 @@ def p_error(p):
 
 def errorSemantic(err):
     global ParserErrors
-    print(err)
+    # print(err)
     if err is not None:
         error = 'Error del Parser "' + str(err["type"]) + '" en fila ' \
                 + str(err["line"]) + ', columna ' + str(err["column"])

@@ -21,6 +21,7 @@ Object-type dirtyclothes of color blue
 Object-type books of color magenta
 Object-type cell of color green
 Object-type mybasket of color red
+Basket of capacity 50
 
 {{Colocar objetos}}
 Place 1 of laptop at 1 3
@@ -39,8 +40,12 @@ Place 1 of mybasket at 4 1
 
 {{Inicio de Wally}}
 Start at 2 5 heading south
-Basket of capacity 50
+
 Boolean aLotOfObjectsInPosition with initial value false
+Boolean a with initial value true
+Boolean b with initial value false
+Boolean c with initial value true
+
 
 
 {{Goals}}
@@ -55,22 +60,19 @@ end-world
 
 {{Hola}}
 {{Task}}
+
+{{Task}}
 begin-task pickall on room
-{{2,4}}
-move;
 
-repeat 3 times pick dirtyclothes;
-turn-left;
-move;
-turn-right;
 
+
+while not aLotOfObjectsInPosition do begin
+move;
 set aLotOfObjectsInPosition;
-if aLotOfObjectsInPosition then flip aLotOfObjectsInPosition;
-if not aLotOfObjectsInPosition then move;
-set aLotOfObjectsInPosition;
-clear aLotOfObjectsInPosition;
-if not aLotOfObjectsInPosition then move;
-if not aLotOfObjectsInPosition then move;
+set a to false;
+set b to true;
+set c to true;
+end;
 
 {{Ejecuto}}
 terminate;
