@@ -239,7 +239,7 @@ def p_worldBlock(p):
     createdWorlds.append(newWorld)
 
     print("###############")
-    print("Estado inicial de " + "\n" + str(newWorld))
+    print("Estado inicial de "+ str(newWorld.id))
     print("La posición de Willy es: "+ str(newWorld.getWillyPosition()[0]) + " mirando hacia el " + str(newWorld.getWillyPosition()[1]))
     print("Lo que tiene en el basket es:\n", newWorld.getObjectsInBasket())
     print("El estado de los bools es:\n", newWorld.getBools())

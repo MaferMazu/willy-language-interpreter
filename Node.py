@@ -88,7 +88,6 @@ class Node:
                     mybool= mybool and ((u))
                elif self.type=="Not":
                     u = self.children[0].boolValue(mundo,mybool)
-                    print("Valor de mi hijo",u)
                     mybool= mybool and (not u)
 
                elif self.type=="Found":
