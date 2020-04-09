@@ -391,7 +391,7 @@ class World:
           pair = [dimension[1]-position[1],position[0]-1]
           return pair
 
-     # def printBoard(self, itype=None, reprint=None):
+     def printBoard(self, itype=None, reprint=None):
           ##Imprime matriz y el type dice qué imprimir
           rep = ""
           for column in self.board:

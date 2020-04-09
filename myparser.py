@@ -51,6 +51,7 @@ taskBool = False
 defineAsBool = False
 validateFinalGoal = False
 hasSetted = False
+isBasketDeclared = False
 blockNumber = 0
 
 
@@ -236,9 +237,16 @@ def p_worldBlock(p):
         stack.pop()
     stack.insert(id,attributesObjects)
     createdWorlds.append(newWorld)
-#     print(newWorld)
-#     print("Despues del pop")
-# #     # print(stack)
+
+    print("###############")
+    print("Estado inicial de " + "\n" + str(newWorld))
+    print("La posición de Willy es: "+ str(newWorld.getWillyPosition()[0]) + " mirando hacia el " + str(newWorld.getWillyPosition()[1]))
+    print("Lo que tiene en el basket es:\n", newWorld.getObjectsInBasket())
+    print("El estado de los bools es:\n", newWorld.getBools())
+    print("El estado de los goals es:\n", newWorld.getGoals())
+    print("El final goal es:\n" + newWorld.getFinalGoal())
+    print("El valor es: ",newWorld.getValueFinalGoal())
+    print(newWorld)
 
 
 def p_worldSet(p):
@@ -330,6 +338,7 @@ def p_setPlaceObjWorld(p):
     """
     global newWorld
     global hasSetted
+    global isBasketDeclared
     hasSetted = True
     id = p[4]
 #     # print("#####ELEMENTOS")
@@ -350,8 +359,17 @@ def p_setPlaceObjWorld(p):
                 }
                 errorSemantic(data_error)
         else:
-            newWorld.setObjectsInBasket(id, amount)
-            p[0] = Node("PlaceObjWorld", [p[4]])
+            if isBasketDeclared:
+                newWorld.setObjectsInBasket(id, amount)
+                p[0] = Node("PlaceObjWorld", [p[4]])
+            else:
+                data_error = {
+                    "type": "No puede colocar elementos en un Basket sin capacidad" + str(id),
+                    "line": p.lineno(2),
+                    "column": p.lexpos(2) + 1,
+                    "objeto": id,
+                }
+                errorSemantic(data_error)
     else:
         data_error = {
             "type": "No puede colocar 0 objetos",
@@ -394,6 +412,7 @@ def p_setStartPosition(p):
 def p_setBasketCapacity(p):
     """setBasketCapacity : TkBasket TkOf TkCapacity TkNum"""
     global newWorld
+    global isBasketDeclared
     if p[4] == 0:
         data_error = {
             "type": "No permitido " + p[4] + " capacidad de Basket" ,
@@ -402,6 +421,7 @@ def p_setBasketCapacity(p):
         }
         errorSemantic(data_error)
     else:
+        isBasketDeclared = True
         newWorld.setCapacityOfBasket(p[4])
         p[0]=Node("BasketCapacity",[])
 
