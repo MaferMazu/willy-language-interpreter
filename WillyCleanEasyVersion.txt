@@ -17,7 +17,6 @@ Wall south from 4 5 to 4 3
 
 {{objetos}}
 Object-type laptop of color cyan
-Object-type cleanclothes of color yellow
 Object-type dirtyclothes of color blue
 Object-type books of color magenta
 Object-type cell of color green
@@ -27,47 +26,69 @@ Object-type mybasket of color red
 {{Inicio de Wally}}
 Start at 2 5 heading south
 Basket of capacity 50
-Boolean aLotOfObjectsInPosition with initial value false
 
 
 {{Colocar objetos}}
 Place 1 of laptop at 1 3
 Place 2 of dirtyclothes at 1 3
-Place 5 of cleanclothes at 3 5
 Place 5 of books at 3 4
 Place 5 of dirtyclothes at 4 2
 Place 3 of dirtyclothes at 3 4
 Place 3 of dirtyclothes at 2 4
 Place 2 of dirtyclothes at 2 3
 Place 5 of dirtyclothes at 3 3
-Place 5 of cleanclothes at 3 1
 Place 1 of cell in basket
 Place 1 of mybasket at 4 1
 
 
 {{Goals}}
-Goal cleanclothesinposition is 10 cleanclothes objects at 4 1
 Goal dirtyclothesinposition is 20 dirtyclothes objects at 4 1
-Goal laptopinposition is 1 laptop objects at 4 1
-Goal booksinposition is 5 books objects at 4 1
-Goal cellinposition is 1 cell objects at 4 1
+Goal laptopinposition is 1 laptop objects at 1 3
+Goal booksinposition is 5 books objects at 1 3
+Goal cellinposition is 1 cell objects at 1 3
 
-Final goal is cleanclothesinposition and dirtyclothesinposition and laptopinposition and booksinposition and cellinposition;
+Final goal is dirtyclothesinposition and laptopinposition and booksinposition and cellinposition;
 end-world
 
 
 {{Task}}
 begin-task pickall on room
 
+define mymove as begin move; 
+while found(dirtyclothes) and not found(mybasket) do pick dirtyclothes;
+while found(books) and not found(laptop) do pick books;
+while found(mybasket) and carrying(dirtyclothes) do drop dirtyclothes;
+while found(laptop) and carrying(books) do drop books;
+while found(laptop) and carrying(cell) do drop cell;
+ end;
 
-{{Defino dropeverything}}
-define dropeverything as
-begin
-if carrying(dirtyclothes) then begin while carrying(dirtyclothes) do drop dirtyclothes end;
-if carrying(cleanclothes) then begin while carrying(cleanclothes) do drop cleanclothes end;
-if carrying(laptop) then begin while carrying(laptop) do drop laptop end;
-if carrying(books) then begin while carrying(books) do drop books end;
-if carrying(cell) then begin while carrying(cell) do drop cell end;
+turn-left;
+repeat 8 times begin 
+while front-clear do mymove;
+if looking-east then begin turn-left; turn-left; while not right-clear and front-clear do mymove; turn-right; if front-clear then mymove; turn-left; end;
+while front-clear do mymove;
+if looking-west then begin turn-right; turn-right; while not left-clear and front-clear do mymove; turn-left;if front-clear then mymove; turn-right; end;
+end;
+
+repeat 8 times begin 
+while front-clear do mymove;
+if looking-west then begin turn-left; turn-left; while not right-clear and front-clear do mymove; turn-right;if front-clear then mymove; turn-left; end;
+while front-clear do mymove;
+if looking-east then begin turn-right; turn-right; while not left-clear and front-clear do mymove; turn-left;if front-clear then mymove; turn-right; end;
+end;
+
+repeat 8 times begin 
+while front-clear do mymove;
+if looking-east then begin turn-left; turn-left; while not right-clear and front-clear do mymove; turn-right; if front-clear then mymove; turn-left; end;
+while front-clear do mymove;
+if looking-west then begin turn-right; turn-right; while not left-clear and front-clear do mymove; turn-left;if front-clear then mymove; turn-right; end;
+end;
+
+repeat 8 times begin 
+while front-clear do mymove;
+if looking-west then begin turn-left; turn-left; while not right-clear and front-clear do mymove; turn-right;if front-clear then mymove; turn-left; end;
+while front-clear do mymove;
+if looking-east then begin turn-right; turn-right; while not left-clear and front-clear do mymove; turn-left;if front-clear then mymove; turn-right; end;
 end;
 
 

@@ -1,5 +1,5 @@
 
-begin-world garden
+begin-world sky
 
 {{mundo con 8 columas y 9 filas}}
 World 8 9
@@ -32,8 +32,8 @@ Place 1 of stars at 8 7
 Place 1 of stars at 8 8
 Place 1 of stars at 8 9
 Place 1 of stars at 7 9
-
 Place 1 of goal at 1 9
+
 
 
 
@@ -46,15 +46,15 @@ end-world
 
 
 {{Task}}
-begin-task pickstars on garden
+begin-task pickstars on sky
 
 define mymove as begin move; if found(stars) then pick stars end;
 
 repeat 5 times begin 
 while front-clear do mymove;
-if looking-west then begin turn-left; turn-left; while not right-clear do mymove; turn-right; mymove; turn-left; end;
+if looking-west then begin turn-left; turn-left; while not right-clear and front-clear do mymove; turn-right;if front-clear then mymove; turn-left; end;
 while front-clear do mymove;
-if looking-east then begin turn-right; turn-right; while not left-clear do mymove; turn-left;mymove; turn-right; end;
+if looking-east then begin turn-right; turn-right; while not left-clear and front-clear do mymove; turn-left;if front-clear then mymove; turn-right; end;
 end;
 
 end-task
