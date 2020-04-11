@@ -21,7 +21,8 @@ logging.basicConfig(
     )
 
 precedence = (
-    ('left', 'TkAnd', 'TkOr'),
+    ('left','TkThen'),
+    ('left', 'TkAnd', 'TkOr','TkElse'),
     ('right', 'TkNot'),            # Unary minus operator
  )
 
@@ -836,8 +837,7 @@ def p_primitiveBoolean(p):
 
 def p_instructions(p):
     """instructions : primitiveInstructions
-                    | ifSimple
-                    | ifCompound
+                    | ifInstruction
                     | TkSemicolon
                     | whileInst
                     | TkBegin multiInstructions TkEnd
@@ -889,15 +889,15 @@ def p_instructions(p):
 #     p[0]=Node("Define",[p[1],p[2]])
 #     stack.pop()
 
-def p_ifSimple(p):
-    """ ifSimple : TkIf booleanTests TkThen instructions
+def p_ifInstruction(p):
+    """ ifInstruction : TkIf booleanTests TkThen instructions
+                      | TkIf booleanTests TkThen instructions TkElse instructions
     """
-    p[0] = Node('ifSimple', [p[2],p[4]])
+    if len(p)==5:
+        p[0] = Node('ifSimple', [p[2],p[4]])
+    else:
+        p[0] = Node('ifCompound', [p[2],p[4],p[6]])
 
-def p_ifCompound(p):
-    """ ifCompound : TkIf booleanTests TkThen instructions TkElse instructions
-    """
-    p[0] = Node('ifCompound', [p[2],p[4],p[6]])
 
 def p_whileInst(p):
     """ whileInst : TkWhile booleanTests TkDo instructions
