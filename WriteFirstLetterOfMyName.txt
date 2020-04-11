@@ -23,8 +23,9 @@ Final goal is uno and dos and tres and cuatro and cinco
 end-world
 
 begin-task writefirstletterofmyname on page
-repeat 1 times begin
-while front-clear do begin drop colors; repeat 2 times move; end;
-repeat 2 times begin turn-right;move; end; end;
-terminate;
+repeat 2 times begin
+while front-clear do begin drop colors; if front-clear then repeat 2 times move; end;
+drop colors;
+repeat 2 times begin turn-right;if front-clear then move; end; end;
+
 end-task
