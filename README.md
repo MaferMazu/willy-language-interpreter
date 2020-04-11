@@ -141,6 +141,15 @@ Este es un programa que tiene un mundo llamado room con dimensiones 4 x 5 que re
 
 El objetivo de este es que Willy recoja su cuarto colocando su celular, su laptop y los libros en su mesa de trabajo (en donde está inicialmente su laptop) y que coloque toda la ropa sucia en la cesta de la ropa sucia.
 
+### EatClean.txt
+
+:cherries: :green_apple: :pizza: :chocolate_bar:
+
+Este programa contiene un mundo con comida saludable y comida no saludable.
+Willy con un caminar sencillo recorre todo el mundo.
+
+El final goal es llegar al final comiendose todas las frutas y no comiendose las pizzas.
+
 # Conclusión
 
 Para desarrollar un interpretador correctamente es importante realizarlo paso a paso. Primero definir cuáles van a ser las palabras que formaran parte del lenguaje, luego definir la estructura sintáctica que tendrán las instrucciones, para luego de haber verificado eso se pueda implementar la ejecución de un programa escrito en ese lenguaje.

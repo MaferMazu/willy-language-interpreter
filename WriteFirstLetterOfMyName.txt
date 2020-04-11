@@ -1,3 +1,5 @@
+{{Este programa consta de dos mundos en donde Willy escribe la W en dos tamaños distintos}}
+
 begin-world page
 
 {{mundo con 5 columas y 2 filas}}
@@ -30,6 +32,10 @@ repeat 2 times begin turn-right;if front-clear then move; end; end;
 
 end-task
 
+
+
+
+
 begin-world page2
 
 {{mundo con 7 columas y 4 filas}}
@@ -59,6 +65,9 @@ Final goal is uno and dos and tres and cuatro and cinco and seis and siete and o
 end-world
 
 begin-task writefirstletterofmyname2 on page2
+define pintoynopinto as repeat 2 times begin drop colors; repeat 2 times move; end;
+define giroizq as repeat 2 times begin turn-left;if front-clear then move; end;
+define giroder as repeat 2 times begin turn-right;if front-clear then move; end;
 drop colors;
 while front-clear do move;
 drop colors;
@@ -66,9 +75,12 @@ turn-right;
 if front-clear then move;
 turn-right;
 move;
-
 while front-clear do begin drop colors; if front-clear then repeat 2 times move; end;
-repeat 2 times begin turn-left;if front-clear then move; end;
-terminate; 
+giroizq;
+move;
+pintoynopinto;
+giroder;
+move;
+pintoynopinto;
 
 end-task

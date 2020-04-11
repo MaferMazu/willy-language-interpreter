@@ -74,6 +74,8 @@ def p_program(p):
             | worldBlock program
             | taskBlock program
     """
+    global hasSetted
+    hasSetted
     if len(p)==2:
         p[0]=Node("Program Block:",[p[1]])
     else:
@@ -239,6 +241,8 @@ def p_worldBlock(p):
         stack.pop()
     stack.insert(id,attributesObjects)
     createdWorlds.append(newWorld)
+    global hasSetted
+    hasSetted = False
 
     print("###############")
     print("Estado inicial de "+ str(newWorld.id))
