@@ -2,14 +2,14 @@
 # Willy*
 
 
-[TOC]
+[TOCM]
 
 
 # ¿Qué es?
 
-Willy **es un interpretador del lenguaje Willy***, que determina un ambiente de programación para un robot de nombre Willy.
+Willy **es un interpretador del lenguaje Willy***, que determina un ambiente de programación para un robot.
 
-:robot: Este robot puede interactuar con objetos en un mundo y desplazarse por el mismo a través de cuadrículas de tamaño finito.
+:robot: Este puede interactuar con objetos en un mundo y desplazarse por el mismo a través de cuadrículas de tamaño finito.
 
 Para más detalles del lenguaje Willy > [willy.pdf](https://github.com/MaferMazu/Willy/blob/Parser/willy.pdf)
 
@@ -124,7 +124,7 @@ executeMyTask(): Quién es la función responsable de que se ejecuten todas las 
 
 # Archivos de Prueba
 
-## PickStart.txt
+### PickStart.txt
 
 :robot: :speech_balloon: :star: :dart:
 
@@ -132,9 +132,9 @@ PickStart en un programa en lenguaje Willy que consta de un mundo llamado sky co
 
 El objetivo es que Willy logre llegar a la posición final con 3 estrellas en su cesta.
 
-## WillyCleanItsRoom.txt
+### WillyCleanItsRoom.txt
 
-:robot: :necktie: :running_shirt_with_sash: :jeans: :closed_book: :computer:
+:running_shirt_with_sash: :jeans: :closed_book: :computer:
 
 Este es un programa que tiene un mundo llamado room con dimensiones 4 x 5 que representa el cuarto de una persona.
 
