@@ -48,13 +48,31 @@ end-world
 {{Task}}
 begin-task pickstars on garden
 
-define mymove as begin move; if found(stars) then pick stars end;
+begin 
+    if looking-west then
+    begin
+        if not front-clear then
+        begin 
+            turn-left; 
+                if front-clear then
+                    begin 
+                        move; turn-left;
+                    end;
+        end;
+        else move;
+    end;
 
-repeat 5 times begin 
-while front-clear do mymove;
-if looking-west then begin turn-left; turn-left; while not right-clear do mymove; turn-right; mymove; turn-left; end;
-while front-clear do mymove;
-if looking-east then begin turn-right; turn-right; while not left-clear do mymove; turn-left;mymove; turn-right; end;
+    if looking-east then
+    begin
+        if not front-clear then
+        begin 
+            turn-right; 
+            if front-clear then
+                begin 
+                    move; turn-right;
+                end;
+        end;
+        else move;
+    end;
 end;
-
 end-task

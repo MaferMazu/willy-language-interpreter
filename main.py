@@ -55,7 +55,7 @@ try:
     parser = yacc.yacc(module=myparser, debug=True, debuglog=log)
 
 
-    result = parser.parse(string,lex,debug=log)
+    result = parser.parse(string,lex,debug=log,tracking=True)
 
     datacopy = data
     # pasamos la linea como data al lexer
