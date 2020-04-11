@@ -18,12 +18,13 @@ Goal tres is 1 colors objects at 3 2
 Goal cuatro is 1 colors objects at 4 1
 Goal cinco is 1 colors objects at 5 2
 
-Final goal is uno and dos and tres and cuatro and cinco;
+Final goal is uno and dos and tres and cuatro and cinco
 
 end-world
 
 begin-task writefirstletterofmyname on page
-repeat 2 times begin
+repeat 1 times begin
 while front-clear do begin drop colors; repeat 2 times move; end;
 repeat 2 times begin turn-right;move; end; end;
+terminate;
 end-task
