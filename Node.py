@@ -165,11 +165,10 @@ class Node:
                          else:
                               self.children[2].executeMyTask(task)
                     elif self.type =="whileInst":
-                         print("MY WHILEEEEEEEE condicion: ",self.children[0],self.children[0].boolValue(task.world,True))
+                         #print("MY WHILEEEEEEEE condicion: ",self.children[0],self.children[0].boolValue(task.world,True))
                          while self.children[0].boolValue(task.world,True):
                               if task.fin:
                                    break
-                              print("WHILE")
                               self.children[1].executeMyTask(task)
                     elif self.type =="Define As":
                          task.instructions.append([self.children[0].children[0],self.children[1]])

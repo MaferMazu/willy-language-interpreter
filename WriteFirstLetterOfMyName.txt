@@ -29,3 +29,46 @@ drop colors;
 repeat 2 times begin turn-right;if front-clear then move; end; end;
 
 end-task
+
+begin-world page2
+
+{{mundo con 7 columas y 4 filas}}
+World 7 4
+
+{{Objetos}}
+Object-type colors of color yellow
+
+{{Inicio de Wally}}
+Start at 1 4 heading west
+Basket of capacity 9
+Place 9 of colors in basket
+
+{{Goal}}
+Goal uno is 1 colors objects at 2 3
+Goal dos is 1 colors objects at 3 2
+Goal tres is 1 colors objects at 4 3
+Goal cuatro is 1 colors objects at 5 2
+Goal cinco is 1 colors objects at 6 3
+Goal seis is 1 colors objects at 1 4
+Goal siete is 1 colors objects at 7 4
+Goal ocho is 1 colors objects at 3 1
+Goal nueve is 1 colors objects at 5 1
+
+Final goal is uno and dos and tres and cuatro and cinco and seis and siete and ocho and nueve
+
+end-world
+
+begin-task writefirstletterofmyname2 on page2
+drop colors;
+while front-clear do move;
+drop colors;
+turn-right;
+if front-clear move;
+turn-right;
+move;
+
+while front-clear do begin drop colors; if front-clear then repeat 2 times move; end;
+repeat 2 times begin turn-left;if front-clear then move; end;
+terminate; 
+
+end-task
