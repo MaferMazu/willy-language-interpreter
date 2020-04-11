@@ -4,6 +4,7 @@
 
 [TOC]
 
+
 # ¿Qué es?
 
 Willy **es un interpretador del lenguaje Willy***, que determina un ambiente de programación para un robot de nombre Willy.
@@ -30,17 +31,17 @@ Y fue desarrollado por:
 
   `$ willy <nombredearchivoexistente>`
 
-     o 
+o
 
   `$ willy `
 
 # Versiones
-###Versión 2.1
+### Versión 2.1
 05/04/2020 04:35
 
 Se descubrió que falta resolver en la recursión lo que debe hacer el método de ejecución con los nodos intermedios a las producciones principales de instrucciones.
 
-###Versión 2.0
+### Versión 2.0
 05/04/2020 04:00
 
 Actualizaciones:
@@ -50,7 +51,7 @@ Actualizaciones:
 
 Falta: revisar porqué en parser al hacerle un método a un nodo en particular este no responde. (línea 548 en myparser.py)
 
-###Versión 1.0
+### Versión 1.0
 03/04/2020 23:50
 
 El proyecto no se encuentra terminado en su totalidad, sin embargo esta implementado:
@@ -103,13 +104,13 @@ Inicialmente se creó una **pila de símbolos** en donde se almacenan los distin
 
 Con respecto a la ejecución del programa se puede dividir en dos partes:
 
-###Interpretar los mundos
+### Interpretar los mundos
 
 Se creó una clase mundo con ciertos métodos y a partir del parser estos métodos fueron invocados para así tener registradas las caricterísticas del mismo y poder mostrarlo.
 
 Para esta etapa se crearon también algunos controladores en el parser para asegurar que la asignación de atributos del mundo esten correctas. Por ejemplo, detectar si se tiene un mundo de tamaño 1x1, no construir paredes en la columna 3.
 
-###Interpretar las tareas 
+### Interpretar las tareas 
 
 Se aprovechó la estructura del parser para crear nodos (estructuras que tienen un tipo e hijos), para que al ejecutar el parser la creación de nodos se fuera creando recursivamente para así obtener una estructura de árbol con todas las instrucciones, similar a un árbol de derivación.
 
@@ -123,7 +124,7 @@ executeMyTask(): Quién es la función responsable de que se ejecuten todas las 
 
 # Archivos de Prueba
 
-##PickStart.txt
+## PickStart.txt
 
 :robot: :speech_balloon: :star: :dart:
 
@@ -131,7 +132,7 @@ PickStart en un programa en lenguaje Willy que consta de un mundo llamado sky co
 
 :checkered_flag: El objetivo es que Willy logre llegar a la posición final con 3 estrellas en su cesta.
 
-##WillyCleanItsRoom.txt
+## WillyCleanItsRoom.txt
 
 :robot: :necktie: :running_shirt_with_sash: :jeans: :closed_book: :computer:
 
@@ -149,4 +150,4 @@ Otra estructura importante que se utilizó fue la del árbol que es la responsab
 
 Para finalizar es importante comentar que esto fue posible gracias a dividir la tarea de crear el interpretador en pequeñas etapas e ir resolviendo cada una de ellas para así lograr el resultado final y darle vida a Willy.
 
-:robot: *- Hello, World!  - :fa-heart: *
+:robot: *- Hello, World! -* :fa-heart:
