@@ -88,9 +88,8 @@ def p_program(p):
 
 
 def p_worldInstSet(p):
-    """worldInstSet : worldInst TkSemicolon worldInstSet
-                    | worldInst worldInstSet
-                    | worldInst TkSemicolon
+    """worldInstSet : worldInst worldInstSet
+                    | worldInst
     """
     global worldInstBool
 
@@ -98,11 +97,10 @@ def p_worldInstSet(p):
         worldInstBool = False
     if len(p)==4:
         p[0]=Node("WorldInstancia:",[p[1],p[3]])
+    elif len(p) == 2:
+        p[0] = Node("WorldInstancia:", [p[1]])
     else:
-        if p[2]==";":
-            p[0]=Node("WorldInstancia:",[p[1]])
-        else:
-            p[0]=Node("WorldInstancia:",[p[1],p[2]])
+        p[0] = Node("WorldInstancia:", [p[1], p[2]])
 
 def p_worldInst(p):
     """ worldInst : worldSet

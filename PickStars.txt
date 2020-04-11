@@ -30,7 +30,7 @@ Place 1 of stars at 8 2
 Place 1 of stars at 3 4
 Place 1 of stars at 4 6
 Place 1 of stars at 7 7
-Place 1 of stars at 7 8
+Place 1 of stars at 7 8;
 Place 1 of stars at 8 7
 Place 1 of stars at 8 8
 Place 1 of stars at 8 9
@@ -44,7 +44,7 @@ Place 1 of goal at 1 9
 Goal goal1 is willy is at 1 9
 Goal goal2 is 3 stars objects in Basket
 
-Final goal is goal1 and goal2;
+Final goal is goal1 and goal2
 end-world
 
 
