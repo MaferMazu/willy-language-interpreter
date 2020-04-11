@@ -50,7 +50,7 @@ Goal laptopinposition is 1 laptop objects at 1 3
 Goal booksinposition is 5 books objects at 1 3
 Goal cellinposition is 1 cell objects at 1 3
 
-Final goal is dirtyclothesinposition and laptopinposition and booksinposition and cellinposition;
+Final goal is dirtyclothesinposition and laptopinposition and booksinposition and cellinposition
 end-world
 
 

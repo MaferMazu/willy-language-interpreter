@@ -2,7 +2,7 @@
 # Willy*
 
 
-[TOCM]
+[TOC]
 
 
 # ¿Qué es?
@@ -16,8 +16,9 @@ Para más detalles del lenguaje Willy > [willy.pdf](https://github.com/MaferMazu
 Este interpretador se hizo como proyecto para la materia de Traductores de la Universidad Simón Bolívar, el trimestre Ene-Mar de 2020
 
 Y fue desarrollado por:
-:boy: @jcellomarcano 
-:girl:  @mafermazu
+
+- @jcellomarcano  :boy:
+- @mafermazu  :girl:
 
 # ¿Cómo correrlo? 
 

@@ -44,7 +44,7 @@ Place 1 of goal at 1 9
 Goal goal1 is willy is at 1 9
 Goal goal2 is 3 stars objects in Basket
 
-Final goal is goal1 and goal2;
+Final goal is goal1 and goal2
 end-world
 
 
