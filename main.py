@@ -47,7 +47,6 @@ try:
     
     data = f #.readline()
     output=""
-
     log = logging.getLogger()
     # Construimos lexer
     lexer = lex.lex(module=lexer)

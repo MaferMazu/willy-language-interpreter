@@ -6,6 +6,7 @@ class Task:
         self.world = instanceWorld
         self.id = id
         self.node=None
+        self.fin = False
 
     def getInstructions(self):
         return self.instructions

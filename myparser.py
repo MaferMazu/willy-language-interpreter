@@ -120,7 +120,7 @@ def p_worldInst(p):
 def p_wallSet(p):
     """wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum"""
     global newWorld
-    actualDir = p[2].children[0]
+    actualDir = p[2]
     # print(actualDir, p[4], p[7])
     # print(actualDir, p[5], p[8])
     if actualDir == "north":
@@ -246,7 +246,7 @@ def p_worldBlock(p):
     print("El estado de los bools es:\n", newWorld.getBools())
     print("El estado de los goals es:\n", newWorld.getGoals())
     print("El final goal es:\n" + newWorld.getFinalGoal())
-    print("El valor es: ",newWorld.getValueFinalGoal())
+    print("El valor del final goal es: ",newWorld.getValueFinalGoal())
     print(newWorld)
 
 
@@ -407,7 +407,7 @@ def p_setStartPosition(p):
             }
             errorSemantic(data_error)
         else:
-            newWorld.setWillyStart([p[3],p[4]], p[6].children[0])
+            newWorld.setWillyStart([p[3],p[4]], p[6])
             p[0]=Node("WillyStartPosition",[p[6]])
 
 def p_setBasketCapacity(p):
@@ -561,7 +561,7 @@ def p_ids(p):
     "ids : TkId"
     p[0]=p[1]
     p.set_lineno(0, p.lineno(1))
-    p.set_lexpos(0, p.lexpos(1))
+    
 
 def p_taskBlock(p):
     """taskBlock : taskDefinition multiInstructions TkEndTask"""
@@ -944,7 +944,7 @@ def p_directions(p):
                 | TkSouth
                 | TkWest
     """
-    p[0]=Node("Direction",[p[1]])
+    p[0]=p[1]
 
 
 def p_empty(p):
@@ -960,8 +960,8 @@ def p_error(p):
     global ParserErrors
     # print(p)
     if p is not None:
-        error = 'Error del Parser "' + str(p.type) + '" en fila ' \
-                + str(p.lineno) + ', columna ' + str(p.lexpos)
+        error = 'Error de sintaxis "' + str(p.value) + '" en fila ' \
+                + str(p.lineno)
         ParserErrors.append(error)
         print(ParserErrors)
     else:
@@ -973,8 +973,8 @@ def errorSemantic(err):
     global ParserErrors
     # print(err)
     if err is not None:
-        error = 'Error del Parser "' + str(err["type"]) + '" en fila ' \
-                + str(err["line"]) + ', columna ' + str(err["column"])
+        error = 'Error con "' + str(err["type"]) + '" en linea ' \
+                + str(err["line"])
         ParserErrors.append(error)
         print(ParserErrors)
 
