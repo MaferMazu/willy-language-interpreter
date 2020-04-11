@@ -63,7 +63,7 @@ drop colors;
 while front-clear do move;
 drop colors;
 turn-right;
-if front-clear move;
+if front-clear then move;
 turn-right;
 move;
 
