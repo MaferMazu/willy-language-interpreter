@@ -1,3 +1,6 @@
+{{PickStart en un programa en lenguaje Willy que consta de un mundo llamado sky con dimensiones 8 x 9 con estrellas.
+
+El objetivo es que Willy logre llegar a la posición final con 3 estrellas en su cesta.}}
 
 begin-world sky
 

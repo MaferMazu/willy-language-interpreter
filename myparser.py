@@ -959,8 +959,8 @@ def p_error(p):
     global ParserErrors
     # print(p)
     if p is not None:
-        error = 'Error del Parser "' + str(p.type) + '" en fila ' \
-                + str(p.lineno) + ', columna ' + str(p.lexpos)
+        error = 'Error de sintaxis "' + str(p.value) + '" en fila ' \
+                + str(p.lineno)
         ParserErrors.append(error)
         print(ParserErrors)
     else:
@@ -972,8 +972,8 @@ def errorSemantic(err):
     global ParserErrors
     # print(err)
     if err is not None:
-        error = 'Error del Parser "' + str(err["type"]) + '" en fila ' \
-                + str(err["line"]) + ', columna ' + str(err["column"])
+        error = 'Error con "' + str(err["type"]) + '" en linea ' \
+                + str(err["line"])
         ParserErrors.append(error)
         print(ParserErrors)
 
