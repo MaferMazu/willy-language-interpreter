@@ -88,8 +88,10 @@ def p_program(p):
 
 
 def p_worldInstSet(p):
+
     """worldInstSet : worldInst worldInstSet
                     | worldInst
+
     """
     global worldInstBool
 
@@ -97,10 +99,11 @@ def p_worldInstSet(p):
         worldInstBool = False
     if len(p)==4:
         p[0]=Node("WorldInstancia:",[p[1],p[3]])
-    elif len(p) == 2:
-        p[0] = Node("WorldInstancia:", [p[1]])
+
+    elif len(p)==2:
+            p[0]=Node("WorldInstancia:",[p[1]])
     else:
-        p[0] = Node("WorldInstancia:", [p[1], p[2]])
+            p[0]=Node("WorldInstancia:",[p[1],p[2]])
 
 def p_worldInst(p):
     """ worldInst : worldSet
@@ -242,7 +245,6 @@ def p_worldBlock(p):
     print("La posición de Willy es: "+ str(newWorld.getWillyPosition()[0]) + " mirando hacia el " + str(newWorld.getWillyPosition()[1]))
     print("Lo que tiene en el basket es:\n", newWorld.getObjectsInBasket())
     print("El estado de los bools es:\n", newWorld.getBools())
-    print("El estado de los goals es:\n", newWorld.getGoals())
     print("El final goal es:\n" + newWorld.getFinalGoal())
     print("El valor del final goal es: ",newWorld.getValueFinalGoal())
     print(newWorld)

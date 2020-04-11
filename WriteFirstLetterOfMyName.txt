@@ -1,0 +1,29 @@
+begin-world page
+
+{{mundo con 5 columas y 2 filas}}
+World 5 2
+
+{{Objetos}}
+Object-type colors of color cyan
+
+{{Inicio de Wally}}
+Start at 1 2 heading west
+Basket of capacity 5
+Place 5 of colors in basket
+
+{{Goal}}
+Goal uno is 1 colors objects at 1 2
+Goal dos is 1 colors objects at 2 1
+Goal tres is 1 colors objects at 3 2
+Goal cuatro is 1 colors objects at 4 1
+Goal cinco is 1 colors objects at 5 2
+
+Final goal is uno and dos and tres and cuatro and cinco;
+
+end-world
+
+begin-task writefirstletterofmyname on page
+repeat 2 times begin
+while front-clear do begin drop colors; repeat 2 times move; end;
+repeat 2 times begin turn-right;move; end; end;
+end-task

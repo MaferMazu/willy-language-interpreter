@@ -1,724 +1,588 @@
    yacc.py: 362:PLY: PARSE DEBUG START
    yacc.py: 410:
    yacc.py: 411:State  : 0
-   yacc.py: 435:Stack  : . LexToken(TkBeginWorld,'begin-world',2,83)
+   yacc.py: 435:Stack  : . LexToken(TkBeginWorld,'begin-world',1,0)
    yacc.py: 445:Action : Shift and goto state 7
    yacc.py: 410:
    yacc.py: 411:State  : 7
-   yacc.py: 435:Stack  : TkBeginWorld . LexToken(TkId,'garden',2,95)
+   yacc.py: 435:Stack  : TkBeginWorld . LexToken(TkId,'page',1,12)
    yacc.py: 445:Action : Shift and goto state 57
    yacc.py: 410:
    yacc.py: 411:State  : 57
-   yacc.py: 435:Stack  : TkBeginWorld TkId . LexToken(TkWorld,'World',5,137)
-   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['garden'] and goto state 56
-   yacc.py: 506:Result : <str @ 0x104886960> ('garden')
+   yacc.py: 435:Stack  : TkBeginWorld TkId . LexToken(TkWorld,'World',4,52)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['page'] and goto state 56
+   yacc.py: 506:Result : <str @ 0x10f839928> ('page')
    yacc.py: 410:
    yacc.py: 411:State  : 56
-   yacc.py: 435:Stack  : TkBeginWorld ids . LexToken(TkWorld,'World',5,137)
-   yacc.py: 471:Action : Reduce rule [worldDefinition -> TkBeginWorld ids] with ['begin-world','garden'] and goto state 5
-   yacc.py: 506:Result : <Node @ 0x1048869b0> (<Node.Node object at 0x1048869b0>)
+   yacc.py: 435:Stack  : TkBeginWorld ids . LexToken(TkWorld,'World',4,52)
+   yacc.py: 471:Action : Reduce rule [worldDefinition -> TkBeginWorld ids] with ['begin-world','page'] and goto state 5
+   yacc.py: 506:Result : <Node @ 0x10f839978> (<Node.Node object at 0x10f839978>)
    yacc.py: 410:
    yacc.py: 411:State  : 5
-   yacc.py: 435:Stack  : worldDefinition . LexToken(TkWorld,'World',5,137)
+   yacc.py: 435:Stack  : worldDefinition . LexToken(TkWorld,'World',4,52)
    yacc.py: 445:Action : Shift and goto state 23
    yacc.py: 410:
    yacc.py: 411:State  : 23
-   yacc.py: 435:Stack  : worldDefinition TkWorld . LexToken(TkNum,8,5,143)
+   yacc.py: 435:Stack  : worldDefinition TkWorld . LexToken(TkNum,5,4,58)
    yacc.py: 445:Action : Shift and goto state 61
    yacc.py: 410:
    yacc.py: 411:State  : 61
-   yacc.py: 435:Stack  : worldDefinition TkWorld TkNum . LexToken(TkNum,9,5,145)
+   yacc.py: 435:Stack  : worldDefinition TkWorld TkNum . LexToken(TkNum,2,4,60)
    yacc.py: 445:Action : Shift and goto state 107
    yacc.py: 410:
    yacc.py: 411:State  : 107
-   yacc.py: 435:Stack  : worldDefinition TkWorld TkNum TkNum . LexToken(TkWall,'Wall',8,158)
-   yacc.py: 471:Action : Reduce rule [worldSet -> TkWorld TkNum TkNum] with ['World',8,9] and goto state 14
-   yacc.py: 506:Result : <Node @ 0x104692198> (<Node.Node object at 0x104692198>)
+   yacc.py: 435:Stack  : worldDefinition TkWorld TkNum TkNum . LexToken(TkObjType,'Object-type',7,75)
+   yacc.py: 471:Action : Reduce rule [worldSet -> TkWorld TkNum TkNum] with ['World',5,2] and goto state 14
+   yacc.py: 506:Result : <Node @ 0x10f645160> (<Node.Node object at 0x10f645160>)
    yacc.py: 410:
    yacc.py: 411:State  : 14
-   yacc.py: 435:Stack  : worldDefinition worldSet . LexToken(TkWall,'Wall',8,158)
-   yacc.py: 471:Action : Reduce rule [worldInst -> worldSet] with [<Node @ 0x104692198>] and goto state 13
-   yacc.py: 506:Result : <Node @ 0x1048869e8> (<Node.Node object at 0x1048869e8>)
+   yacc.py: 435:Stack  : worldDefinition worldSet . LexToken(TkObjType,'Object-type',7,75)
+   yacc.py: 471:Action : Reduce rule [worldInst -> worldSet] with [<Node @ 0x10f645160>] and goto state 13
+   yacc.py: 506:Result : <Node @ 0x10f8399b0> (<Node.Node object at 0x10f8399b0>)
    yacc.py: 410:
    yacc.py: 411:State  : 13
-   yacc.py: 435:Stack  : worldDefinition worldInst . LexToken(TkWall,'Wall',8,158)
-   yacc.py: 445:Action : Shift and goto state 25
-   yacc.py: 410:
-   yacc.py: 411:State  : 25
-   yacc.py: 435:Stack  : worldDefinition worldInst TkWall . LexToken(TkWest,'west',8,163)
-   yacc.py: 445:Action : Shift and goto state 66
-   yacc.py: 410:
-   yacc.py: 411:State  : 66
-   yacc.py: 435:Stack  : worldDefinition worldInst TkWall TkWest . LexToken(TkFrom,'from',8,168)
-   yacc.py: 471:Action : Reduce rule [directions -> TkWest] with ['west'] and goto state 62
-   yacc.py: 506:Result : <str @ 0x104886b90> ('west')
-   yacc.py: 410:
-   yacc.py: 411:State  : 62
-   yacc.py: 435:Stack  : worldDefinition worldInst TkWall directions . LexToken(TkFrom,'from',8,168)
-   yacc.py: 445:Action : Shift and goto state 108
-   yacc.py: 410:
-   yacc.py: 411:State  : 108
-   yacc.py: 435:Stack  : worldDefinition worldInst TkWall directions TkFrom . LexToken(TkNum,1,8,173)
-   yacc.py: 445:Action : Shift and goto state 137
-   yacc.py: 410:
-   yacc.py: 411:State  : 137
-   yacc.py: 435:Stack  : worldDefinition worldInst TkWall directions TkFrom TkNum . LexToken(TkNum,2,8,175)
-   yacc.py: 445:Action : Shift and goto state 161
-   yacc.py: 410:
-   yacc.py: 411:State  : 161
-   yacc.py: 435:Stack  : worldDefinition worldInst TkWall directions TkFrom TkNum TkNum . LexToken(TkTo,'to',8,177)
-   yacc.py: 445:Action : Shift and goto state 181
-   yacc.py: 410:
-   yacc.py: 411:State  : 181
-   yacc.py: 435:Stack  : worldDefinition worldInst TkWall directions TkFrom TkNum TkNum TkTo . LexToken(TkNum,6,8,180)
-   yacc.py: 445:Action : Shift and goto state 190
-   yacc.py: 410:
-   yacc.py: 411:State  : 190
-   yacc.py: 435:Stack  : worldDefinition worldInst TkWall directions TkFrom TkNum TkNum TkTo TkNum . LexToken(TkNum,2,8,182)
-   yacc.py: 445:Action : Shift and goto state 195
-   yacc.py: 410:
-   yacc.py: 411:State  : 195
-   yacc.py: 435:Stack  : worldDefinition worldInst TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum . LexToken(TkWall,'Wall',9,184)
-   yacc.py: 471:Action : Reduce rule [wallSet -> TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum] with ['Wall','west','from',1,2,'to',6,2] and goto state 15
-   yacc.py: 506:Result : <Node @ 0x104886b70> (<Node.Node object at 0x104886b70>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 15
-   yacc.py: 435:Stack  : worldDefinition worldInst wallSet . LexToken(TkWall,'Wall',9,184)
-   yacc.py: 471:Action : Reduce rule [worldInst -> wallSet] with [<Node @ 0x104886b70>] and goto state 13
-   yacc.py: 506:Result : <Node @ 0x104886c50> (<Node.Node object at 0x104886c50>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 13
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst . LexToken(TkWall,'Wall',9,184)
-   yacc.py: 445:Action : Shift and goto state 25
-   yacc.py: 410:
-   yacc.py: 411:State  : 25
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst TkWall . LexToken(TkWest,'west',9,189)
-   yacc.py: 445:Action : Shift and goto state 66
-   yacc.py: 410:
-   yacc.py: 411:State  : 66
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst TkWall TkWest . LexToken(TkFrom,'from',9,194)
-   yacc.py: 471:Action : Reduce rule [directions -> TkWest] with ['west'] and goto state 62
-   yacc.py: 506:Result : <str @ 0x104886c00> ('west')
-   yacc.py: 410:
-   yacc.py: 411:State  : 62
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst TkWall directions . LexToken(TkFrom,'from',9,194)
-   yacc.py: 445:Action : Shift and goto state 108
-   yacc.py: 410:
-   yacc.py: 411:State  : 108
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst TkWall directions TkFrom . LexToken(TkNum,4,9,199)
-   yacc.py: 445:Action : Shift and goto state 137
-   yacc.py: 410:
-   yacc.py: 411:State  : 137
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst TkWall directions TkFrom TkNum . LexToken(TkNum,4,9,201)
-   yacc.py: 445:Action : Shift and goto state 161
-   yacc.py: 410:
-   yacc.py: 411:State  : 161
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst TkWall directions TkFrom TkNum TkNum . LexToken(TkTo,'to',9,203)
-   yacc.py: 445:Action : Shift and goto state 181
-   yacc.py: 410:
-   yacc.py: 411:State  : 181
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst TkWall directions TkFrom TkNum TkNum TkTo . LexToken(TkNum,8,9,206)
-   yacc.py: 445:Action : Shift and goto state 190
-   yacc.py: 410:
-   yacc.py: 411:State  : 190
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst TkWall directions TkFrom TkNum TkNum TkTo TkNum . LexToken(TkNum,4,9,208)
-   yacc.py: 445:Action : Shift and goto state 195
-   yacc.py: 410:
-   yacc.py: 411:State  : 195
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum . LexToken(TkWall,'Wall',10,210)
-   yacc.py: 471:Action : Reduce rule [wallSet -> TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum] with ['Wall','west','from',4,4,'to',8,4] and goto state 15
-   yacc.py: 506:Result : <Node @ 0x104886f60> (<Node.Node object at 0x104886f60>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 15
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst wallSet . LexToken(TkWall,'Wall',10,210)
-   yacc.py: 471:Action : Reduce rule [worldInst -> wallSet] with [<Node @ 0x104886f60>] and goto state 13
-   yacc.py: 506:Result : <Node @ 0x104886e48> (<Node.Node object at 0x104886e48>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 13
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst . LexToken(TkWall,'Wall',10,210)
-   yacc.py: 445:Action : Shift and goto state 25
-   yacc.py: 410:
-   yacc.py: 411:State  : 25
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst TkWall . LexToken(TkWest,'west',10,215)
-   yacc.py: 445:Action : Shift and goto state 66
-   yacc.py: 410:
-   yacc.py: 411:State  : 66
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst TkWall TkWest . LexToken(TkFrom,'from',10,220)
-   yacc.py: 471:Action : Reduce rule [directions -> TkWest] with ['west'] and goto state 62
-   yacc.py: 506:Result : <str @ 0x104886c70> ('west')
-   yacc.py: 410:
-   yacc.py: 411:State  : 62
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst TkWall directions . LexToken(TkFrom,'from',10,220)
-   yacc.py: 445:Action : Shift and goto state 108
-   yacc.py: 410:
-   yacc.py: 411:State  : 108
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst TkWall directions TkFrom . LexToken(TkNum,1,10,225)
-   yacc.py: 445:Action : Shift and goto state 137
-   yacc.py: 410:
-   yacc.py: 411:State  : 137
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst TkWall directions TkFrom TkNum . LexToken(TkNum,5,10,227)
-   yacc.py: 445:Action : Shift and goto state 161
-   yacc.py: 410:
-   yacc.py: 411:State  : 161
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum . LexToken(TkTo,'to',10,229)
-   yacc.py: 445:Action : Shift and goto state 181
-   yacc.py: 410:
-   yacc.py: 411:State  : 181
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum TkTo . LexToken(TkNum,2,10,232)
-   yacc.py: 445:Action : Shift and goto state 190
-   yacc.py: 410:
-   yacc.py: 411:State  : 190
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum TkTo TkNum . LexToken(TkNum,5,10,234)
-   yacc.py: 445:Action : Shift and goto state 195
-   yacc.py: 410:
-   yacc.py: 411:State  : 195
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum . LexToken(TkWall,'Wall',11,236)
-   yacc.py: 471:Action : Reduce rule [wallSet -> TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum] with ['Wall','west','from',1,5,'to',2,5] and goto state 15
-   yacc.py: 506:Result : <Node @ 0x104886b38> (<Node.Node object at 0x104886b38>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 15
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst wallSet . LexToken(TkWall,'Wall',11,236)
-   yacc.py: 471:Action : Reduce rule [worldInst -> wallSet] with [<Node @ 0x104886b38>] and goto state 13
-   yacc.py: 506:Result : <Node @ 0x104886f98> (<Node.Node object at 0x104886f98>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 13
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst . LexToken(TkWall,'Wall',11,236)
-   yacc.py: 445:Action : Shift and goto state 25
-   yacc.py: 410:
-   yacc.py: 411:State  : 25
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst TkWall . LexToken(TkWest,'west',11,241)
-   yacc.py: 445:Action : Shift and goto state 66
-   yacc.py: 410:
-   yacc.py: 411:State  : 66
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst TkWall TkWest . LexToken(TkFrom,'from',11,246)
-   yacc.py: 471:Action : Reduce rule [directions -> TkWest] with ['west'] and goto state 62
-   yacc.py: 506:Result : <str @ 0x104886ce0> ('west')
-   yacc.py: 410:
-   yacc.py: 411:State  : 62
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst TkWall directions . LexToken(TkFrom,'from',11,246)
-   yacc.py: 445:Action : Shift and goto state 108
-   yacc.py: 410:
-   yacc.py: 411:State  : 108
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst TkWall directions TkFrom . LexToken(TkNum,1,11,251)
-   yacc.py: 445:Action : Shift and goto state 137
-   yacc.py: 410:
-   yacc.py: 411:State  : 137
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum . LexToken(TkNum,6,11,253)
-   yacc.py: 445:Action : Shift and goto state 161
-   yacc.py: 410:
-   yacc.py: 411:State  : 161
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum . LexToken(TkTo,'to',11,255)
-   yacc.py: 445:Action : Shift and goto state 181
-   yacc.py: 410:
-   yacc.py: 411:State  : 181
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum TkTo . LexToken(TkNum,2,11,258)
-   yacc.py: 445:Action : Shift and goto state 190
-   yacc.py: 410:
-   yacc.py: 411:State  : 190
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum TkTo TkNum . LexToken(TkNum,6,11,260)
-   yacc.py: 445:Action : Shift and goto state 195
-   yacc.py: 410:
-   yacc.py: 411:State  : 195
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum . LexToken(TkWall,'Wall',12,262)
-   yacc.py: 471:Action : Reduce rule [wallSet -> TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum] with ['Wall','west','from',1,6,'to',2,6] and goto state 15
-   yacc.py: 506:Result : <Node @ 0x104886da0> (<Node.Node object at 0x104886da0>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 15
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst wallSet . LexToken(TkWall,'Wall',12,262)
-   yacc.py: 471:Action : Reduce rule [worldInst -> wallSet] with [<Node @ 0x104886da0>] and goto state 13
-   yacc.py: 506:Result : <Node @ 0x104886fd0> (<Node.Node object at 0x104886fd0>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 13
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst . LexToken(TkWall,'Wall',12,262)
-   yacc.py: 445:Action : Shift and goto state 25
-   yacc.py: 410:
-   yacc.py: 411:State  : 25
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkWall . LexToken(TkWest,'west',12,267)
-   yacc.py: 445:Action : Shift and goto state 66
-   yacc.py: 410:
-   yacc.py: 411:State  : 66
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkWall TkWest . LexToken(TkFrom,'from',12,272)
-   yacc.py: 471:Action : Reduce rule [directions -> TkWest] with ['west'] and goto state 62
-   yacc.py: 506:Result : <str @ 0x104886d18> ('west')
-   yacc.py: 410:
-   yacc.py: 411:State  : 62
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkWall directions . LexToken(TkFrom,'from',12,272)
-   yacc.py: 445:Action : Shift and goto state 108
-   yacc.py: 410:
-   yacc.py: 411:State  : 108
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkWall directions TkFrom . LexToken(TkNum,6,12,277)
-   yacc.py: 445:Action : Shift and goto state 137
-   yacc.py: 410:
-   yacc.py: 411:State  : 137
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum . LexToken(TkNum,6,12,279)
-   yacc.py: 445:Action : Shift and goto state 161
-   yacc.py: 410:
-   yacc.py: 411:State  : 161
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum . LexToken(TkTo,'to',12,281)
-   yacc.py: 445:Action : Shift and goto state 181
-   yacc.py: 410:
-   yacc.py: 411:State  : 181
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum TkTo . LexToken(TkNum,8,12,284)
-   yacc.py: 445:Action : Shift and goto state 190
-   yacc.py: 410:
-   yacc.py: 411:State  : 190
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum TkTo TkNum . LexToken(TkNum,6,12,286)
-   yacc.py: 445:Action : Shift and goto state 195
-   yacc.py: 410:
-   yacc.py: 411:State  : 195
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum . LexToken(TkWall,'Wall',13,288)
-   yacc.py: 471:Action : Reduce rule [wallSet -> TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum] with ['Wall','west','from',6,6,'to',8,6] and goto state 15
-   yacc.py: 506:Result : <Node @ 0x104886ef0> (<Node.Node object at 0x104886ef0>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 15
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst wallSet . LexToken(TkWall,'Wall',13,288)
-   yacc.py: 471:Action : Reduce rule [worldInst -> wallSet] with [<Node @ 0x104886ef0>] and goto state 13
-   yacc.py: 506:Result : <Node @ 0x104886dd8> (<Node.Node object at 0x104886dd8>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 13
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst . LexToken(TkWall,'Wall',13,288)
-   yacc.py: 445:Action : Shift and goto state 25
-   yacc.py: 410:
-   yacc.py: 411:State  : 25
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkWall . LexToken(TkWest,'west',13,293)
-   yacc.py: 445:Action : Shift and goto state 66
-   yacc.py: 410:
-   yacc.py: 411:State  : 66
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkWall TkWest . LexToken(TkFrom,'from',13,298)
-   yacc.py: 471:Action : Reduce rule [directions -> TkWest] with ['west'] and goto state 62
-   yacc.py: 506:Result : <str @ 0x104886bc8> ('west')
-   yacc.py: 410:
-   yacc.py: 411:State  : 62
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkWall directions . LexToken(TkFrom,'from',13,298)
-   yacc.py: 445:Action : Shift and goto state 108
-   yacc.py: 410:
-   yacc.py: 411:State  : 108
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkWall directions TkFrom . LexToken(TkNum,4,13,303)
-   yacc.py: 445:Action : Shift and goto state 137
-   yacc.py: 410:
-   yacc.py: 411:State  : 137
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum . LexToken(TkNum,7,13,305)
-   yacc.py: 445:Action : Shift and goto state 161
-   yacc.py: 410:
-   yacc.py: 411:State  : 161
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum . LexToken(TkTo,'to',13,307)
-   yacc.py: 445:Action : Shift and goto state 181
-   yacc.py: 410:
-   yacc.py: 411:State  : 181
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum TkTo . LexToken(TkNum,6,13,310)
-   yacc.py: 445:Action : Shift and goto state 190
-   yacc.py: 410:
-   yacc.py: 411:State  : 190
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum TkTo TkNum . LexToken(TkNum,7,13,312)
-   yacc.py: 445:Action : Shift and goto state 195
-   yacc.py: 410:
-   yacc.py: 411:State  : 195
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum . LexToken(TkWall,'Wall',14,314)
-   yacc.py: 471:Action : Reduce rule [wallSet -> TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum] with ['Wall','west','from',4,7,'to',6,7] and goto state 15
-   yacc.py: 506:Result : <Node @ 0x104886eb8> (<Node.Node object at 0x104886eb8>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 15
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst wallSet . LexToken(TkWall,'Wall',14,314)
-   yacc.py: 471:Action : Reduce rule [worldInst -> wallSet] with [<Node @ 0x104886eb8>] and goto state 13
-   yacc.py: 506:Result : <Node @ 0x104886d68> (<Node.Node object at 0x104886d68>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 13
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst . LexToken(TkWall,'Wall',14,314)
-   yacc.py: 445:Action : Shift and goto state 25
-   yacc.py: 410:
-   yacc.py: 411:State  : 25
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkWall . LexToken(TkNorth,'north',14,319)
-   yacc.py: 445:Action : Shift and goto state 63
-   yacc.py: 410:
-   yacc.py: 411:State  : 63
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkWall TkNorth . LexToken(TkFrom,'from',14,325)
-   yacc.py: 471:Action : Reduce rule [directions -> TkNorth] with ['north'] and goto state 62
-   yacc.py: 506:Result : <str @ 0x104886f10> ('north')
-   yacc.py: 410:
-   yacc.py: 411:State  : 62
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkWall directions . LexToken(TkFrom,'from',14,325)
-   yacc.py: 445:Action : Shift and goto state 108
-   yacc.py: 410:
-   yacc.py: 411:State  : 108
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkWall directions TkFrom . LexToken(TkNum,6,14,330)
-   yacc.py: 445:Action : Shift and goto state 137
-   yacc.py: 410:
-   yacc.py: 411:State  : 137
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum . LexToken(TkNum,8,14,332)
-   yacc.py: 445:Action : Shift and goto state 161
-   yacc.py: 410:
-   yacc.py: 411:State  : 161
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum . LexToken(TkTo,'to',14,334)
-   yacc.py: 445:Action : Shift and goto state 181
-   yacc.py: 410:
-   yacc.py: 411:State  : 181
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum TkTo . LexToken(TkNum,6,14,337)
-   yacc.py: 445:Action : Shift and goto state 190
-   yacc.py: 410:
-   yacc.py: 411:State  : 190
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum TkTo TkNum . LexToken(TkNum,9,14,339)
-   yacc.py: 445:Action : Shift and goto state 195
-   yacc.py: 410:
-   yacc.py: 411:State  : 195
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum . LexToken(TkObjType,'Object-type',18,355)
-   yacc.py: 471:Action : Reduce rule [wallSet -> TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum] with ['Wall','north','from',6,8,'to',6,9] and goto state 15
-   yacc.py: 506:Result : <Node @ 0x104886cc0> (<Node.Node object at 0x104886cc0>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 15
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst wallSet . LexToken(TkObjType,'Object-type',18,355)
-   yacc.py: 471:Action : Reduce rule [worldInst -> wallSet] with [<Node @ 0x104886cc0>] and goto state 13
-   yacc.py: 506:Result : <Node @ 0x104886a58> (<Node.Node object at 0x104886a58>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 13
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst . LexToken(TkObjType,'Object-type',18,355)
+   yacc.py: 435:Stack  : worldDefinition worldInst . LexToken(TkObjType,'Object-type',7,75)
    yacc.py: 445:Action : Shift and goto state 26
    yacc.py: 410:
    yacc.py: 411:State  : 26
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkObjType . LexToken(TkId,'stars',18,367)
+   yacc.py: 435:Stack  : worldDefinition worldInst TkObjType . LexToken(TkId,'colors',7,87)
    yacc.py: 445:Action : Shift and goto state 57
    yacc.py: 410:
    yacc.py: 411:State  : 57
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkObjType TkId . LexToken(TkOf,'of',18,373)
-   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['stars'] and goto state 67
-   yacc.py: 506:Result : <str @ 0x1048921f0> ('stars')
+   yacc.py: 435:Stack  : worldDefinition worldInst TkObjType TkId . LexToken(TkOf,'of',7,94)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['colors'] and goto state 67
+   yacc.py: 506:Result : <str @ 0x10f839b58> ('colors')
    yacc.py: 410:
    yacc.py: 411:State  : 67
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkObjType ids . LexToken(TkOf,'of',18,373)
+   yacc.py: 435:Stack  : worldDefinition worldInst TkObjType ids . LexToken(TkOf,'of',7,94)
    yacc.py: 445:Action : Shift and goto state 109
    yacc.py: 410:
    yacc.py: 411:State  : 109
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkObjType ids TkOf . LexToken(TkColor,'color',18,376)
+   yacc.py: 435:Stack  : worldDefinition worldInst TkObjType ids TkOf . LexToken(TkColor,'color',7,97)
    yacc.py: 445:Action : Shift and goto state 138
    yacc.py: 410:
    yacc.py: 411:State  : 138
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkObjType ids TkOf TkColor . LexToken(TkYellow,'yellow',18,382)
-   yacc.py: 445:Action : Shift and goto state 168
+   yacc.py: 435:Stack  : worldDefinition worldInst TkObjType ids TkOf TkColor . LexToken(TkCyan,'cyan',7,103)
+   yacc.py: 445:Action : Shift and goto state 166
    yacc.py: 410:
-   yacc.py: 411:State  : 168
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkObjType ids TkOf TkColor TkYellow . LexToken(TkObjType,'Object-type',19,389)
-   yacc.py: 471:Action : Reduce rule [colors -> TkYellow] with ['yellow'] and goto state 162
-   yacc.py: 506:Result : <str @ 0x104892110> ('yellow')
-   yacc.py: 410:
-   yacc.py: 411:State  : 162
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkObjType ids TkOf TkColor colors . LexToken(TkObjType,'Object-type',19,389)
-   yacc.py: 471:Action : Reduce rule [newObjType -> TkObjType ids TkOf TkColor colors] with ['Object-type','stars','of','color','yellow'] and goto state 16
-   yacc.py: 506:Result : <Node @ 0x1048922b0> (<Node.Node object at 0x1048922b0>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 16
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst newObjType . LexToken(TkObjType,'Object-type',19,389)
-   yacc.py: 471:Action : Reduce rule [worldInst -> newObjType] with [<Node @ 0x1048922b0>] and goto state 13
-   yacc.py: 506:Result : <Node @ 0x104886a20> (<Node.Node object at 0x104886a20>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 13
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst . LexToken(TkObjType,'Object-type',19,389)
-   yacc.py: 445:Action : Shift and goto state 26
-   yacc.py: 410:
-   yacc.py: 411:State  : 26
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkObjType . LexToken(TkId,'goal',19,401)
-   yacc.py: 445:Action : Shift and goto state 57
-   yacc.py: 410:
-   yacc.py: 411:State  : 57
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkObjType TkId . LexToken(TkOf,'of',19,406)
-   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['goal'] and goto state 67
-   yacc.py: 506:Result : <str @ 0x104892180> ('goal')
-   yacc.py: 410:
-   yacc.py: 411:State  : 67
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkObjType ids . LexToken(TkOf,'of',19,406)
-   yacc.py: 445:Action : Shift and goto state 109
-   yacc.py: 410:
-   yacc.py: 411:State  : 109
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkObjType ids TkOf . LexToken(TkColor,'color',19,409)
-   yacc.py: 445:Action : Shift and goto state 138
-   yacc.py: 410:
-   yacc.py: 411:State  : 138
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkObjType ids TkOf TkColor . LexToken(TkYellow,'yellow',19,415)
-   yacc.py: 445:Action : Shift and goto state 168
-   yacc.py: 410:
-   yacc.py: 411:State  : 168
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkObjType ids TkOf TkColor TkYellow . LexToken(TkStart,'Start',22,443)
-   yacc.py: 471:Action : Reduce rule [colors -> TkYellow] with ['yellow'] and goto state 162
-   yacc.py: 506:Result : <str @ 0x1048921b8> ('yellow')
+   yacc.py: 411:State  : 166
+   yacc.py: 435:Stack  : worldDefinition worldInst TkObjType ids TkOf TkColor TkCyan . LexToken(TkStart,'Start',10,129)
+   yacc.py: 471:Action : Reduce rule [colors -> TkCyan] with ['cyan'] and goto state 162
+   yacc.py: 506:Result : <str @ 0x10f839bc8> ('cyan')
    yacc.py: 410:
    yacc.py: 411:State  : 162
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkObjType ids TkOf TkColor colors . LexToken(TkStart,'Start',22,443)
-   yacc.py: 471:Action : Reduce rule [newObjType -> TkObjType ids TkOf TkColor colors] with ['Object-type','goal','of','color','yellow'] and goto state 16
-   yacc.py: 506:Result : <Node @ 0x1048920f0> (<Node.Node object at 0x1048920f0>)
+   yacc.py: 435:Stack  : worldDefinition worldInst TkObjType ids TkOf TkColor colors . LexToken(TkStart,'Start',10,129)
+   yacc.py: 471:Action : Reduce rule [newObjType -> TkObjType ids TkOf TkColor colors] with ['Object-type','colors','of','color','cyan'] and goto state 16
+   yacc.py: 506:Result : <Node @ 0x10f839cc0> (<Node.Node object at 0x10f839cc0>)
    yacc.py: 410:
    yacc.py: 411:State  : 16
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst newObjType . LexToken(TkStart,'Start',22,443)
-   yacc.py: 471:Action : Reduce rule [worldInst -> newObjType] with [<Node @ 0x1048920f0>] and goto state 13
-   yacc.py: 506:Result : <Node @ 0x1048924a8> (<Node.Node object at 0x1048924a8>)
+   yacc.py: 435:Stack  : worldDefinition worldInst newObjType . LexToken(TkStart,'Start',10,129)
+   yacc.py: 471:Action : Reduce rule [worldInst -> newObjType] with [<Node @ 0x10f839cc0>] and goto state 13
+   yacc.py: 506:Result : <Node @ 0x10f839c18> (<Node.Node object at 0x10f839c18>)
    yacc.py: 410:
    yacc.py: 411:State  : 13
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst . LexToken(TkStart,'Start',22,443)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst . LexToken(TkStart,'Start',10,129)
    yacc.py: 445:Action : Shift and goto state 28
    yacc.py: 410:
    yacc.py: 411:State  : 28
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkStart . LexToken(TkAt,'at',22,449)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst TkStart . LexToken(TkAt,'at',10,135)
    yacc.py: 445:Action : Shift and goto state 69
    yacc.py: 410:
    yacc.py: 411:State  : 69
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkStart TkAt . LexToken(TkNum,1,22,452)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst TkStart TkAt . LexToken(TkNum,1,10,138)
    yacc.py: 445:Action : Shift and goto state 111
    yacc.py: 410:
    yacc.py: 411:State  : 111
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkStart TkAt TkNum . LexToken(TkNum,1,22,454)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst TkStart TkAt TkNum . LexToken(TkNum,2,10,140)
    yacc.py: 445:Action : Shift and goto state 140
    yacc.py: 410:
    yacc.py: 411:State  : 140
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkStart TkAt TkNum TkNum . LexToken(TkHeading,'heading',22,456)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst TkStart TkAt TkNum TkNum . LexToken(TkHeading,'heading',10,142)
    yacc.py: 445:Action : Shift and goto state 171
    yacc.py: 410:
    yacc.py: 411:State  : 171
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkStart TkAt TkNum TkNum TkHeading . LexToken(TkWest,'west',22,464)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst TkStart TkAt TkNum TkNum TkHeading . LexToken(TkWest,'west',10,150)
    yacc.py: 445:Action : Shift and goto state 66
    yacc.py: 410:
    yacc.py: 411:State  : 66
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkStart TkAt TkNum TkNum TkHeading TkWest . LexToken(TkBasket,'Basket',23,469)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst TkStart TkAt TkNum TkNum TkHeading TkWest . LexToken(TkBasket,'Basket',11,155)
    yacc.py: 471:Action : Reduce rule [directions -> TkWest] with ['west'] and goto state 184
-   yacc.py: 506:Result : <str @ 0x104892538> ('west')
+   yacc.py: 506:Result : <str @ 0x10f839d50> ('west')
    yacc.py: 410:
    yacc.py: 411:State  : 184
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkStart TkAt TkNum TkNum TkHeading directions . LexToken(TkBasket,'Basket',23,469)
-   yacc.py: 471:Action : Reduce rule [setStartPosition -> TkStart TkAt TkNum TkNum TkHeading directions] with ['Start','at',1,1,'heading','west'] and goto state 18
-   yacc.py: 506:Result : <Node @ 0x104892630> (<Node.Node object at 0x104892630>)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst TkStart TkAt TkNum TkNum TkHeading directions . LexToken(TkBasket,'Basket',11,155)
+   yacc.py: 471:Action : Reduce rule [setStartPosition -> TkStart TkAt TkNum TkNum TkHeading directions] with ['Start','at',1,2,'heading','west'] and goto state 18
+   yacc.py: 506:Result : <Node @ 0x10f839f98> (<Node.Node object at 0x10f839f98>)
    yacc.py: 410:
    yacc.py: 411:State  : 18
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst setStartPosition . LexToken(TkBasket,'Basket',23,469)
-   yacc.py: 471:Action : Reduce rule [worldInst -> setStartPosition] with [<Node @ 0x104892630>] and goto state 13
-   yacc.py: 506:Result : <Node @ 0x1048926a0> (<Node.Node object at 0x1048926a0>)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst setStartPosition . LexToken(TkBasket,'Basket',11,155)
+   yacc.py: 471:Action : Reduce rule [worldInst -> setStartPosition] with [<Node @ 0x10f839f98>] and goto state 13
+   yacc.py: 506:Result : <Node @ 0x10f839ef0> (<Node.Node object at 0x10f839ef0>)
    yacc.py: 410:
    yacc.py: 411:State  : 13
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst . LexToken(TkBasket,'Basket',23,469)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst . LexToken(TkBasket,'Basket',11,155)
    yacc.py: 445:Action : Shift and goto state 29
    yacc.py: 410:
    yacc.py: 411:State  : 29
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkBasket . LexToken(TkOf,'of',23,476)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst TkBasket . LexToken(TkOf,'of',11,162)
    yacc.py: 445:Action : Shift and goto state 70
    yacc.py: 410:
    yacc.py: 411:State  : 70
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkBasket TkOf . LexToken(TkCapacity,'capacity',23,479)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst TkBasket TkOf . LexToken(TkCapacity,'capacity',11,165)
    yacc.py: 445:Action : Shift and goto state 112
    yacc.py: 410:
    yacc.py: 411:State  : 112
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkBasket TkOf TkCapacity . LexToken(TkNum,3,23,488)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst TkBasket TkOf TkCapacity . LexToken(TkNum,5,11,174)
    yacc.py: 445:Action : Shift and goto state 141
    yacc.py: 410:
    yacc.py: 411:State  : 141
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkBasket TkOf TkCapacity TkNum . LexToken(TkPlace,'Place',26,511)
-   yacc.py: 471:Action : Reduce rule [setBasketCapacity -> TkBasket TkOf TkCapacity TkNum] with ['Basket','of','capacity',3] and goto state 19
-   yacc.py: 506:Result : <Node @ 0x104892358> (<Node.Node object at 0x104892358>)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst TkBasket TkOf TkCapacity TkNum . LexToken(TkPlace,'Place',12,176)
+   yacc.py: 471:Action : Reduce rule [setBasketCapacity -> TkBasket TkOf TkCapacity TkNum] with ['Basket','of','capacity',5] and goto state 19
+   yacc.py: 506:Result : <Node @ 0x10f839b38> (<Node.Node object at 0x10f839b38>)
    yacc.py: 410:
    yacc.py: 411:State  : 19
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst setBasketCapacity . LexToken(TkPlace,'Place',26,511)
-   yacc.py: 471:Action : Reduce rule [worldInst -> setBasketCapacity] with [<Node @ 0x104892358>] and goto state 13
-   yacc.py: 506:Result : <Node @ 0x104892668> (<Node.Node object at 0x104892668>)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst setBasketCapacity . LexToken(TkPlace,'Place',12,176)
+   yacc.py: 471:Action : Reduce rule [worldInst -> setBasketCapacity] with [<Node @ 0x10f839b38>] and goto state 13
+   yacc.py: 506:Result : <Node @ 0x10f839eb8> (<Node.Node object at 0x10f839eb8>)
    yacc.py: 410:
    yacc.py: 411:State  : 13
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst . LexToken(TkPlace,'Place',26,511)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst . LexToken(TkPlace,'Place',12,176)
    yacc.py: 445:Action : Shift and goto state 27
    yacc.py: 410:
    yacc.py: 411:State  : 27
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace . LexToken(TkNum,1,26,517)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst TkPlace . LexToken(TkNum,5,12,182)
    yacc.py: 445:Action : Shift and goto state 68
    yacc.py: 410:
    yacc.py: 411:State  : 68
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum . LexToken(TkOf,'of',26,519)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst TkPlace TkNum . LexToken(TkOf,'of',12,184)
    yacc.py: 445:Action : Shift and goto state 110
    yacc.py: 410:
    yacc.py: 411:State  : 110
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf . LexToken(TkId,'stars',26,522)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst TkPlace TkNum TkOf . LexToken(TkId,'colors',12,187)
    yacc.py: 445:Action : Shift and goto state 57
    yacc.py: 410:
    yacc.py: 411:State  : 57
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf TkId . LexToken(TkAt,'at',26,528)
-   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['stars'] and goto state 139
-   yacc.py: 506:Result : <str @ 0x1048922d0> ('stars')
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst TkPlace TkNum TkOf TkId . LexToken(TkIn,'in',12,194)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['colors'] and goto state 139
+   yacc.py: 506:Result : <str @ 0x10f839a40> ('colors')
    yacc.py: 410:
    yacc.py: 411:State  : 139
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids . LexToken(TkAt,'at',26,528)
-   yacc.py: 445:Action : Shift and goto state 169
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids . LexToken(TkIn,'in',12,194)
+   yacc.py: 445:Action : Shift and goto state 170
    yacc.py: 410:
-   yacc.py: 411:State  : 169
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids TkAt . LexToken(TkNum,8,26,531)
-   yacc.py: 445:Action : Shift and goto state 182
+   yacc.py: 411:State  : 170
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids TkIn . LexToken(TkBasketLower,'basket',12,197)
+   yacc.py: 445:Action : Shift and goto state 183
    yacc.py: 410:
-   yacc.py: 411:State  : 182
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids TkAt TkNum . LexToken(TkNum,2,26,533)
-   yacc.py: 445:Action : Shift and goto state 191
-   yacc.py: 410:
-   yacc.py: 411:State  : 191
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids TkAt TkNum TkNum . LexToken(TkPlace,'Place',27,535)
-   yacc.py: 471:Action : Reduce rule [setPlaceObjWorld -> TkPlace TkNum TkOf ids TkAt TkNum TkNum] with ['Place',1,'of','stars','at',8,2] and goto state 17
-   yacc.py: 506:Result : <Node @ 0x104892780> (<Node.Node object at 0x104892780>)
+   yacc.py: 411:State  : 183
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids TkIn TkBasketLower . LexToken(TkGoal,'Goal',15,214)
+   yacc.py: 471:Action : Reduce rule [setPlaceObjWorld -> TkPlace TkNum TkOf ids TkIn TkBasketLower] with ['Place',5,'of','colors','in','basket'] and goto state 17
+   yacc.py: 506:Result : <Node @ 0x10f8399e8> (<Node.Node object at 0x10f8399e8>)
    yacc.py: 410:
    yacc.py: 411:State  : 17
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst setPlaceObjWorld . LexToken(TkPlace,'Place',27,535)
-   yacc.py: 471:Action : Reduce rule [worldInst -> setPlaceObjWorld] with [<Node @ 0x104892780>] and goto state 13
-   yacc.py: 506:Result : <Node @ 0x104892400> (<Node.Node object at 0x104892400>)
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst setPlaceObjWorld . LexToken(TkGoal,'Goal',15,214)
+   yacc.py: 471:Action : Reduce rule [worldInst -> setPlaceObjWorld] with [<Node @ 0x10f8399e8>] and goto state 13
+   yacc.py: 506:Result : <Node @ 0x10f839d30> (<Node.Node object at 0x10f839d30>)
    yacc.py: 410:
    yacc.py: 411:State  : 13
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst . LexToken(TkPlace,'Place',27,535)
-   yacc.py: 445:Action : Shift and goto state 27
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst . LexToken(TkGoal,'Goal',15,214)
+   yacc.py: 445:Action : Shift and goto state 31
    yacc.py: 410:
-   yacc.py: 411:State  : 27
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace . LexToken(TkNum,1,27,541)
-   yacc.py: 445:Action : Shift and goto state 68
-   yacc.py: 410:
-   yacc.py: 411:State  : 68
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum . LexToken(TkOf,'of',27,543)
-   yacc.py: 445:Action : Shift and goto state 110
-   yacc.py: 410:
-   yacc.py: 411:State  : 110
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf . LexToken(TkId,'stars',27,546)
+   yacc.py: 411:State  : 31
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkGoal . LexToken(TkId,'uno',15,219)
    yacc.py: 445:Action : Shift and goto state 57
    yacc.py: 410:
    yacc.py: 411:State  : 57
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf TkId . LexToken(TkAt,'at',27,552)
-   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['stars'] and goto state 139
-   yacc.py: 506:Result : <str @ 0x1048925e0> ('stars')
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkGoal TkId . LexToken(TkIs,'is',15,223)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['uno'] and goto state 72
+   yacc.py: 506:Result : <str @ 0x10f839c70> ('uno')
    yacc.py: 410:
-   yacc.py: 411:State  : 139
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids . LexToken(TkAt,'at',27,552)
-   yacc.py: 445:Action : Shift and goto state 169
+   yacc.py: 411:State  : 72
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkGoal ids . LexToken(TkIs,'is',15,223)
+   yacc.py: 445:Action : Shift and goto state 114
    yacc.py: 410:
-   yacc.py: 411:State  : 169
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids TkAt . LexToken(TkNum,3,27,555)
-   yacc.py: 445:Action : Shift and goto state 182
+   yacc.py: 411:State  : 114
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs . LexToken(TkNum,1,15,226)
+   yacc.py: 445:Action : Shift and goto state 144
    yacc.py: 410:
-   yacc.py: 411:State  : 182
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids TkAt TkNum . LexToken(TkNum,4,27,557)
-   yacc.py: 445:Action : Shift and goto state 191
-   yacc.py: 410:
-   yacc.py: 411:State  : 191
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids TkAt TkNum TkNum . LexToken(TkPlace,'Place',28,559)
-   yacc.py: 471:Action : Reduce rule [setPlaceObjWorld -> TkPlace TkNum TkOf ids TkAt TkNum TkNum] with ['Place',1,'of','stars','at',3,4] and goto state 17
-   yacc.py: 506:Result : <Node @ 0x1048925c0> (<Node.Node object at 0x1048925c0>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 17
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst setPlaceObjWorld . LexToken(TkPlace,'Place',28,559)
-   yacc.py: 471:Action : Reduce rule [worldInst -> setPlaceObjWorld] with [<Node @ 0x1048925c0>] and goto state 13
-   yacc.py: 506:Result : <Node @ 0x1048927f0> (<Node.Node object at 0x1048927f0>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 13
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst . LexToken(TkPlace,'Place',28,559)
-   yacc.py: 445:Action : Shift and goto state 27
-   yacc.py: 410:
-   yacc.py: 411:State  : 27
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace . LexToken(TkNum,1,28,565)
-   yacc.py: 445:Action : Shift and goto state 68
-   yacc.py: 410:
-   yacc.py: 411:State  : 68
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum . LexToken(TkOf,'of',28,567)
-   yacc.py: 445:Action : Shift and goto state 110
-   yacc.py: 410:
-   yacc.py: 411:State  : 110
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf . LexToken(TkId,'stars',28,570)
+   yacc.py: 411:State  : 144
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum . LexToken(TkId,'colors',15,228)
    yacc.py: 445:Action : Shift and goto state 57
    yacc.py: 410:
    yacc.py: 411:State  : 57
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf TkId . LexToken(TkAt,'at',28,576)
-   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['stars'] and goto state 139
-   yacc.py: 506:Result : <str @ 0x104892260> ('stars')
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum TkId . LexToken(TkObjectsLower,'objects',15,235)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['colors'] and goto state 174
+   yacc.py: 506:Result : <str @ 0x10f839f10> ('colors')
    yacc.py: 410:
-   yacc.py: 411:State  : 139
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids . LexToken(TkAt,'at',28,576)
-   yacc.py: 445:Action : Shift and goto state 169
+   yacc.py: 411:State  : 174
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids . LexToken(TkObjectsLower,'objects',15,235)
+   yacc.py: 445:Action : Shift and goto state 188
    yacc.py: 410:
-   yacc.py: 411:State  : 169
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids TkAt . LexToken(TkNum,4,28,579)
-   yacc.py: 445:Action : Shift and goto state 182
+   yacc.py: 411:State  : 188
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower . LexToken(TkAt,'at',15,243)
+   yacc.py: 445:Action : Shift and goto state 194
    yacc.py: 410:
-   yacc.py: 411:State  : 182
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids TkAt TkNum . LexToken(TkNum,6,28,581)
-   yacc.py: 445:Action : Shift and goto state 191
+   yacc.py: 411:State  : 194
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower TkAt . LexToken(TkNum,1,15,246)
+   yacc.py: 445:Action : Shift and goto state 198
    yacc.py: 410:
-   yacc.py: 411:State  : 191
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids TkAt TkNum TkNum . LexToken(TkPlace,'Place',29,583)
-   yacc.py: 471:Action : Reduce rule [setPlaceObjWorld -> TkPlace TkNum TkOf ids TkAt TkNum TkNum] with ['Place',1,'of','stars','at',4,6] and goto state 17
-   yacc.py: 506:Result : <Node @ 0x1048927b8> (<Node.Node object at 0x1048927b8>)
+   yacc.py: 411:State  : 198
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum . LexToken(TkNum,2,15,248)
+   yacc.py: 445:Action : Shift and goto state 199
    yacc.py: 410:
-   yacc.py: 411:State  : 17
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst setPlaceObjWorld . LexToken(TkPlace,'Place',29,583)
-   yacc.py: 471:Action : Reduce rule [worldInst -> setPlaceObjWorld] with [<Node @ 0x1048927b8>] and goto state 13
-   yacc.py: 506:Result : <Node @ 0x1048928d0> (<Node.Node object at 0x1048928d0>)
+   yacc.py: 411:State  : 199
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum . LexToken(TkGoal,'Goal',16,250)
+   yacc.py: 471:Action : Reduce rule [newGoal -> TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum] with ['Goal','uno','is',1,'colors','objects','at',1,2] and goto state 21
+   yacc.py: 506:Result : <Node @ 0x10f839b00> (<Node.Node object at 0x10f839b00>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 21
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst newGoal . LexToken(TkGoal,'Goal',16,250)
+   yacc.py: 471:Action : Reduce rule [worldInst -> newGoal] with [<Node @ 0x10f839b00>] and goto state 13
+   yacc.py: 506:Result : <Node @ 0x10f839e10> (<Node.Node object at 0x10f839e10>)
    yacc.py: 410:
    yacc.py: 411:State  : 13
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst . LexToken(TkPlace,'Place',29,583)
-   yacc.py: 445:Action : Shift and goto state 27
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst . LexToken(TkGoal,'Goal',16,250)
+   yacc.py: 445:Action : Shift and goto state 31
    yacc.py: 410:
-   yacc.py: 411:State  : 27
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace . LexToken(TkNum,1,29,589)
-   yacc.py: 445:Action : Shift and goto state 68
-   yacc.py: 410:
-   yacc.py: 411:State  : 68
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum . LexToken(TkOf,'of',29,591)
-   yacc.py: 445:Action : Shift and goto state 110
-   yacc.py: 410:
-   yacc.py: 411:State  : 110
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf . LexToken(TkId,'stars',29,594)
+   yacc.py: 411:State  : 31
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkGoal . LexToken(TkId,'dos',16,255)
    yacc.py: 445:Action : Shift and goto state 57
    yacc.py: 410:
    yacc.py: 411:State  : 57
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf TkId . LexToken(TkAt,'at',29,600)
-   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['stars'] and goto state 139
-   yacc.py: 506:Result : <str @ 0x1048926f8> ('stars')
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkGoal TkId . LexToken(TkIs,'is',16,259)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['dos'] and goto state 72
+   yacc.py: 506:Result : <str @ 0x10f839fb8> ('dos')
    yacc.py: 410:
-   yacc.py: 411:State  : 139
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids . LexToken(TkAt,'at',29,600)
-   yacc.py: 445:Action : Shift and goto state 169
+   yacc.py: 411:State  : 72
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids . LexToken(TkIs,'is',16,259)
+   yacc.py: 445:Action : Shift and goto state 114
    yacc.py: 410:
-   yacc.py: 411:State  : 169
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids TkAt . LexToken(TkNum,7,29,603)
-   yacc.py: 445:Action : Shift and goto state 182
+   yacc.py: 411:State  : 114
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs . LexToken(TkNum,1,16,262)
+   yacc.py: 445:Action : Shift and goto state 144
    yacc.py: 410:
-   yacc.py: 411:State  : 182
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids TkAt TkNum . LexToken(TkNum,7,29,605)
-   yacc.py: 445:Action : Shift and goto state 191
-   yacc.py: 410:
-   yacc.py: 411:State  : 191
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids TkAt TkNum TkNum . LexToken(TkPlace,'Place',30,607)
-   yacc.py: 471:Action : Reduce rule [setPlaceObjWorld -> TkPlace TkNum TkOf ids TkAt TkNum TkNum] with ['Place',1,'of','stars','at',7,7] and goto state 17
-   yacc.py: 506:Result : <Node @ 0x1048926d8> (<Node.Node object at 0x1048926d8>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 17
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst setPlaceObjWorld . LexToken(TkPlace,'Place',30,607)
-   yacc.py: 471:Action : Reduce rule [worldInst -> setPlaceObjWorld] with [<Node @ 0x1048926d8>] and goto state 13
-   yacc.py: 506:Result : <Node @ 0x104892860> (<Node.Node object at 0x104892860>)
-   yacc.py: 410:
-   yacc.py: 411:State  : 13
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst . LexToken(TkPlace,'Place',30,607)
-   yacc.py: 445:Action : Shift and goto state 27
-   yacc.py: 410:
-   yacc.py: 411:State  : 27
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace . LexToken(TkNum,1,30,613)
-   yacc.py: 445:Action : Shift and goto state 68
-   yacc.py: 410:
-   yacc.py: 411:State  : 68
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum . LexToken(TkOf,'of',30,615)
-   yacc.py: 445:Action : Shift and goto state 110
-   yacc.py: 410:
-   yacc.py: 411:State  : 110
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf . LexToken(TkId,'stars',30,618)
+   yacc.py: 411:State  : 144
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum . LexToken(TkId,'colors',16,264)
    yacc.py: 445:Action : Shift and goto state 57
    yacc.py: 410:
    yacc.py: 411:State  : 57
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf TkId . LexToken(TkAt,'at',30,624)
-   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['stars'] and goto state 139
-   yacc.py: 506:Result : <str @ 0x1048928f0> ('stars')
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum TkId . LexToken(TkObjectsLower,'objects',16,271)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['colors'] and goto state 174
+   yacc.py: 506:Result : <str @ 0x10f8440a0> ('colors')
    yacc.py: 410:
-   yacc.py: 411:State  : 139
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids . LexToken(TkAt,'at',30,624)
-   yacc.py: 445:Action : Shift and goto state 169
+   yacc.py: 411:State  : 174
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids . LexToken(TkObjectsLower,'objects',16,271)
+   yacc.py: 445:Action : Shift and goto state 188
    yacc.py: 410:
-   yacc.py: 411:State  : 169
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids TkAt . LexToken(TkNum,7,30,627)
-   yacc.py: 445:Action : Shift and goto state 182
+   yacc.py: 411:State  : 188
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower . LexToken(TkAt,'at',16,279)
+   yacc.py: 445:Action : Shift and goto state 194
    yacc.py: 410:
-   yacc.py: 411:State  : 182
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids TkAt TkNum . LexToken(TkNum,8,30,629)
-   yacc.py: 445:Action : Shift and goto state 191
+   yacc.py: 411:State  : 194
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower TkAt . LexToken(TkNum,2,16,282)
+   yacc.py: 445:Action : Shift and goto state 198
    yacc.py: 410:
-   yacc.py: 411:State  : 191
-   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids TkAt TkNum TkNum . LexToken(TkSemicolon,';',30,630)
-   yacc.py: 580:Error  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkPlace TkNum TkOf ids TkAt TkNum TkNum . LexToken(TkSemicolon,';',30,630)
+   yacc.py: 411:State  : 198
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum . LexToken(TkNum,1,16,284)
+   yacc.py: 445:Action : Shift and goto state 199
+   yacc.py: 410:
+   yacc.py: 411:State  : 199
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum . LexToken(TkGoal,'Goal',17,286)
+   yacc.py: 471:Action : Reduce rule [newGoal -> TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum] with ['Goal','dos','is',1,'colors','objects','at',2,1] and goto state 21
+   yacc.py: 506:Result : <Node @ 0x10f844198> (<Node.Node object at 0x10f844198>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 21
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst newGoal . LexToken(TkGoal,'Goal',17,286)
+   yacc.py: 471:Action : Reduce rule [worldInst -> newGoal] with [<Node @ 0x10f844198>] and goto state 13
+   yacc.py: 506:Result : <Node @ 0x10f839e48> (<Node.Node object at 0x10f839e48>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 13
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst . LexToken(TkGoal,'Goal',17,286)
+   yacc.py: 445:Action : Shift and goto state 31
+   yacc.py: 410:
+   yacc.py: 411:State  : 31
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal . LexToken(TkId,'tres',17,291)
+   yacc.py: 445:Action : Shift and goto state 57
+   yacc.py: 410:
+   yacc.py: 411:State  : 57
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal TkId . LexToken(TkIs,'is',17,296)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['tres'] and goto state 72
+   yacc.py: 506:Result : <str @ 0x10f839ce0> ('tres')
+   yacc.py: 410:
+   yacc.py: 411:State  : 72
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids . LexToken(TkIs,'is',17,296)
+   yacc.py: 445:Action : Shift and goto state 114
+   yacc.py: 410:
+   yacc.py: 411:State  : 114
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs . LexToken(TkNum,1,17,299)
+   yacc.py: 445:Action : Shift and goto state 144
+   yacc.py: 410:
+   yacc.py: 411:State  : 144
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum . LexToken(TkId,'colors',17,301)
+   yacc.py: 445:Action : Shift and goto state 57
+   yacc.py: 410:
+   yacc.py: 411:State  : 57
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum TkId . LexToken(TkObjectsLower,'objects',17,308)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['colors'] and goto state 174
+   yacc.py: 506:Result : <str @ 0x10f8441f0> ('colors')
+   yacc.py: 410:
+   yacc.py: 411:State  : 174
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids . LexToken(TkObjectsLower,'objects',17,308)
+   yacc.py: 445:Action : Shift and goto state 188
+   yacc.py: 410:
+   yacc.py: 411:State  : 188
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower . LexToken(TkAt,'at',17,316)
+   yacc.py: 445:Action : Shift and goto state 194
+   yacc.py: 410:
+   yacc.py: 411:State  : 194
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower TkAt . LexToken(TkNum,3,17,319)
+   yacc.py: 445:Action : Shift and goto state 198
+   yacc.py: 410:
+   yacc.py: 411:State  : 198
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum . LexToken(TkNum,2,17,321)
+   yacc.py: 445:Action : Shift and goto state 199
+   yacc.py: 410:
+   yacc.py: 411:State  : 199
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum . LexToken(TkGoal,'Goal',18,323)
+   yacc.py: 471:Action : Reduce rule [newGoal -> TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum] with ['Goal','tres','is',1,'colors','objects','at',3,2] and goto state 21
+   yacc.py: 506:Result : <Node @ 0x10f844128> (<Node.Node object at 0x10f844128>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 21
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst newGoal . LexToken(TkGoal,'Goal',18,323)
+   yacc.py: 471:Action : Reduce rule [worldInst -> newGoal] with [<Node @ 0x10f844128>] and goto state 13
+   yacc.py: 506:Result : <Node @ 0x10f839dd8> (<Node.Node object at 0x10f839dd8>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 13
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst . LexToken(TkGoal,'Goal',18,323)
+   yacc.py: 445:Action : Shift and goto state 31
+   yacc.py: 410:
+   yacc.py: 411:State  : 31
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal . LexToken(TkId,'cuatro',18,328)
+   yacc.py: 445:Action : Shift and goto state 57
+   yacc.py: 410:
+   yacc.py: 411:State  : 57
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal TkId . LexToken(TkIs,'is',18,335)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['cuatro'] and goto state 72
+   yacc.py: 506:Result : <str @ 0x10f8440d8> ('cuatro')
+   yacc.py: 410:
+   yacc.py: 411:State  : 72
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids . LexToken(TkIs,'is',18,335)
+   yacc.py: 445:Action : Shift and goto state 114
+   yacc.py: 410:
+   yacc.py: 411:State  : 114
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs . LexToken(TkNum,1,18,338)
+   yacc.py: 445:Action : Shift and goto state 144
+   yacc.py: 410:
+   yacc.py: 411:State  : 144
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum . LexToken(TkId,'colors',18,340)
+   yacc.py: 445:Action : Shift and goto state 57
+   yacc.py: 410:
+   yacc.py: 411:State  : 57
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum TkId . LexToken(TkObjectsLower,'objects',18,347)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['colors'] and goto state 174
+   yacc.py: 506:Result : <str @ 0x10f844340> ('colors')
+   yacc.py: 410:
+   yacc.py: 411:State  : 174
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids . LexToken(TkObjectsLower,'objects',18,347)
+   yacc.py: 445:Action : Shift and goto state 188
+   yacc.py: 410:
+   yacc.py: 411:State  : 188
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower . LexToken(TkAt,'at',18,355)
+   yacc.py: 445:Action : Shift and goto state 194
+   yacc.py: 410:
+   yacc.py: 411:State  : 194
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower TkAt . LexToken(TkNum,4,18,358)
+   yacc.py: 445:Action : Shift and goto state 198
+   yacc.py: 410:
+   yacc.py: 411:State  : 198
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum . LexToken(TkNum,1,18,360)
+   yacc.py: 445:Action : Shift and goto state 199
+   yacc.py: 410:
+   yacc.py: 411:State  : 199
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum . LexToken(TkGoal,'Goal',19,362)
+   yacc.py: 471:Action : Reduce rule [newGoal -> TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum] with ['Goal','cuatro','is',1,'colors','objects','at',4,1] and goto state 21
+   yacc.py: 506:Result : <Node @ 0x10f844048> (<Node.Node object at 0x10f844048>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 21
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst newGoal . LexToken(TkGoal,'Goal',19,362)
+   yacc.py: 471:Action : Reduce rule [worldInst -> newGoal] with [<Node @ 0x10f844048>] and goto state 13
+   yacc.py: 506:Result : <Node @ 0x10f839c50> (<Node.Node object at 0x10f839c50>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 13
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst . LexToken(TkGoal,'Goal',19,362)
+   yacc.py: 445:Action : Shift and goto state 31
+   yacc.py: 410:
+   yacc.py: 411:State  : 31
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal . LexToken(TkId,'cinco',19,367)
+   yacc.py: 445:Action : Shift and goto state 57
+   yacc.py: 410:
+   yacc.py: 411:State  : 57
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal TkId . LexToken(TkIs,'is',19,373)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['cinco'] and goto state 72
+   yacc.py: 506:Result : <str @ 0x10f8441b8> ('cinco')
+   yacc.py: 410:
+   yacc.py: 411:State  : 72
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids . LexToken(TkIs,'is',19,373)
+   yacc.py: 445:Action : Shift and goto state 114
+   yacc.py: 410:
+   yacc.py: 411:State  : 114
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs . LexToken(TkNum,1,19,376)
+   yacc.py: 445:Action : Shift and goto state 144
+   yacc.py: 410:
+   yacc.py: 411:State  : 144
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum . LexToken(TkId,'colors',19,378)
+   yacc.py: 445:Action : Shift and goto state 57
+   yacc.py: 410:
+   yacc.py: 411:State  : 57
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum TkId . LexToken(TkObjectsLower,'objects',19,385)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['colors'] and goto state 174
+   yacc.py: 506:Result : <str @ 0x10f844458> ('colors')
+   yacc.py: 410:
+   yacc.py: 411:State  : 174
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids . LexToken(TkObjectsLower,'objects',19,385)
+   yacc.py: 445:Action : Shift and goto state 188
+   yacc.py: 410:
+   yacc.py: 411:State  : 188
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower . LexToken(TkAt,'at',19,393)
+   yacc.py: 445:Action : Shift and goto state 194
+   yacc.py: 410:
+   yacc.py: 411:State  : 194
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower TkAt . LexToken(TkNum,5,19,396)
+   yacc.py: 445:Action : Shift and goto state 198
+   yacc.py: 410:
+   yacc.py: 411:State  : 198
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum . LexToken(TkNum,2,19,398)
+   yacc.py: 445:Action : Shift and goto state 199
+   yacc.py: 410:
+   yacc.py: 411:State  : 199
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum . LexToken(TkFinalG,'Final goal',21,401)
+   yacc.py: 471:Action : Reduce rule [newGoal -> TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum] with ['Goal','cinco','is',1,'colors','objects','at',5,2] and goto state 21
+   yacc.py: 506:Result : <Node @ 0x10f844438> (<Node.Node object at 0x10f844438>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 21
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst newGoal . LexToken(TkFinalG,'Final goal',21,401)
+   yacc.py: 471:Action : Reduce rule [worldInst -> newGoal] with [<Node @ 0x10f844438>] and goto state 13
+   yacc.py: 506:Result : <Node @ 0x10f839e80> (<Node.Node object at 0x10f839e80>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 13
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst . LexToken(TkFinalG,'Final goal',21,401)
+   yacc.py: 445:Action : Shift and goto state 32
+   yacc.py: 410:
+   yacc.py: 411:State  : 32
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG . LexToken(TkIs,'is',21,412)
+   yacc.py: 445:Action : Shift and goto state 73
+   yacc.py: 410:
+   yacc.py: 411:State  : 73
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs . LexToken(TkId,'uno',21,415)
+   yacc.py: 445:Action : Shift and goto state 57
+   yacc.py: 410:
+   yacc.py: 411:State  : 57
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs TkId . LexToken(TkAnd,'and',21,419)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['uno'] and goto state 120
+   yacc.py: 506:Result : <str @ 0x10f844260> ('uno')
+   yacc.py: 410:
+   yacc.py: 411:State  : 120
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs ids . LexToken(TkAnd,'and',21,419)
+   yacc.py: 471:Action : Reduce rule [finalGoalTest -> ids] with ['uno'] and goto state 115
+   yacc.py: 506:Result : <Node @ 0x10f844320> (<Node.Node object at 0x10f844320>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 115
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest . LexToken(TkAnd,'and',21,419)
+   yacc.py: 445:Action : Shift and goto state 145
+   yacc.py: 410:
+   yacc.py: 411:State  : 145
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest TkAnd . LexToken(TkId,'dos',21,423)
+   yacc.py: 445:Action : Shift and goto state 57
+   yacc.py: 410:
+   yacc.py: 411:State  : 57
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest TkAnd TkId . LexToken(TkAnd,'and',21,427)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['dos'] and goto state 120
+   yacc.py: 506:Result : <str @ 0x10f8445e0> ('dos')
+   yacc.py: 410:
+   yacc.py: 411:State  : 120
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest TkAnd ids . LexToken(TkAnd,'and',21,427)
+   yacc.py: 471:Action : Reduce rule [finalGoalTest -> ids] with ['dos'] and goto state 175
+   yacc.py: 506:Result : <Node @ 0x10f844588> (<Node.Node object at 0x10f844588>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 175
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest TkAnd finalGoalTest . LexToken(TkAnd,'and',21,427)
+   yacc.py: 471:Action : Reduce rule [conjuncionGoal -> finalGoalTest TkAnd finalGoalTest] with [<Node @ 0x10f844320>,'and',<Node @ 0x10f844588>] and goto state 118
+   yacc.py: 506:Result : <Node @ 0x10f8444e0> (<Node.Node object at 0x10f8444e0>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 118
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs conjuncionGoal . LexToken(TkAnd,'and',21,427)
+   yacc.py: 471:Action : Reduce rule [finalGoalTest -> conjuncionGoal] with [<Node @ 0x10f8444e0>] and goto state 115
+   yacc.py: 506:Result : <Node @ 0x10f8444a8> (<Node.Node object at 0x10f8444a8>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 115
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest . LexToken(TkAnd,'and',21,427)
+   yacc.py: 445:Action : Shift and goto state 145
+   yacc.py: 410:
+   yacc.py: 411:State  : 145
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest TkAnd . LexToken(TkId,'tres',21,431)
+   yacc.py: 445:Action : Shift and goto state 57
+   yacc.py: 410:
+   yacc.py: 411:State  : 57
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest TkAnd TkId . LexToken(TkAnd,'and',21,436)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['tres'] and goto state 120
+   yacc.py: 506:Result : <str @ 0x10f8445a8> ('tres')
+   yacc.py: 410:
+   yacc.py: 411:State  : 120
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest TkAnd ids . LexToken(TkAnd,'and',21,436)
+   yacc.py: 471:Action : Reduce rule [finalGoalTest -> ids] with ['tres'] and goto state 175
+   yacc.py: 506:Result : <Node @ 0x10f844390> (<Node.Node object at 0x10f844390>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 175
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest TkAnd finalGoalTest . LexToken(TkAnd,'and',21,436)
+   yacc.py: 471:Action : Reduce rule [conjuncionGoal -> finalGoalTest TkAnd finalGoalTest] with [<Node @ 0x10f8444a8>,'and',<Node @ 0x10f844390>] and goto state 118
+   yacc.py: 506:Result : <Node @ 0x10f844550> (<Node.Node object at 0x10f844550>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 118
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs conjuncionGoal . LexToken(TkAnd,'and',21,436)
+   yacc.py: 471:Action : Reduce rule [finalGoalTest -> conjuncionGoal] with [<Node @ 0x10f844550>] and goto state 115
+   yacc.py: 506:Result : <Node @ 0x10f8447b8> (<Node.Node object at 0x10f8447b8>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 115
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest . LexToken(TkAnd,'and',21,436)
+   yacc.py: 445:Action : Shift and goto state 145
+   yacc.py: 410:
+   yacc.py: 411:State  : 145
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest TkAnd . LexToken(TkId,'cuatro',21,440)
+   yacc.py: 445:Action : Shift and goto state 57
+   yacc.py: 410:
+   yacc.py: 411:State  : 57
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest TkAnd TkId . LexToken(TkAnd,'and',21,447)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['cuatro'] and goto state 120
+   yacc.py: 506:Result : <str @ 0x10f844730> ('cuatro')
+   yacc.py: 410:
+   yacc.py: 411:State  : 120
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest TkAnd ids . LexToken(TkAnd,'and',21,447)
+   yacc.py: 471:Action : Reduce rule [finalGoalTest -> ids] with ['cuatro'] and goto state 175
+   yacc.py: 506:Result : <Node @ 0x10f8446a0> (<Node.Node object at 0x10f8446a0>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 175
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest TkAnd finalGoalTest . LexToken(TkAnd,'and',21,447)
+   yacc.py: 471:Action : Reduce rule [conjuncionGoal -> finalGoalTest TkAnd finalGoalTest] with [<Node @ 0x10f8447b8>,'and',<Node @ 0x10f8446a0>] and goto state 118
+   yacc.py: 506:Result : <Node @ 0x10f844668> (<Node.Node object at 0x10f844668>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 118
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs conjuncionGoal . LexToken(TkAnd,'and',21,447)
+   yacc.py: 471:Action : Reduce rule [finalGoalTest -> conjuncionGoal] with [<Node @ 0x10f844668>] and goto state 115
+   yacc.py: 506:Result : <Node @ 0x10f8446d8> (<Node.Node object at 0x10f8446d8>)
+   yacc.py: 410:
+   yacc.py: 411:State  : 115
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest . LexToken(TkAnd,'and',21,447)
+   yacc.py: 445:Action : Shift and goto state 145
+   yacc.py: 410:
+   yacc.py: 411:State  : 145
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest TkAnd . LexToken(TkId,'cinco',21,451)
+   yacc.py: 445:Action : Shift and goto state 57
+   yacc.py: 410:
+   yacc.py: 411:State  : 57
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest TkAnd TkId . LexToken(TkSemicolon,';',21,456)
+   yacc.py: 471:Action : Reduce rule [ids -> TkId] with ['cinco'] and goto state 120
+   yacc.py: 506:Result : <str @ 0x10f844768> ('cinco')
+   yacc.py: 410:
+   yacc.py: 411:State  : 120
+   yacc.py: 435:Stack  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest TkAnd ids . LexToken(TkSemicolon,';',21,456)
+   yacc.py: 580:Error  : worldDefinition worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst worldInst TkFinalG TkIs finalGoalTest TkAnd ids . LexToken(TkSemicolon,';',21,456)
