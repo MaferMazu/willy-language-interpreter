@@ -18,7 +18,7 @@ Goal tres is 1 colors objects at 3 2
 Goal cuatro is 1 colors objects at 4 1
 Goal cinco is 1 colors objects at 5 2
 
-Final goal is uno and dos and tres and cuatro and cinco;
+Final goal is uno and dos and tres and cuatro and cinco
 
 end-world
 
