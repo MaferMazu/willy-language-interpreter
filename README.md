@@ -11,7 +11,7 @@ Willy **es un interpretador del lenguaje Willy***, que determina un ambiente de 
 
 :robot: Este robot puede interactuar con objetos en un mundo y desplazarse por el mismo a través de cuadrículas de tamaño finito.
 
-Para más detalles del lenguaje Willy > [willy.pdf](http://localhost/)
+Para más detalles del lenguaje Willy > [willy.pdf](https://github.com/MaferMazu/Willy/blob/Parser/willy.pdf)
 
 Este interpretador se hizo como proyecto para la materia de Traductores de la Universidad Simón Bolívar, el trimestre Ene-Mar de 2020
 
@@ -130,7 +130,7 @@ executeMyTask(): Quién es la función responsable de que se ejecuten todas las 
 
 PickStart en un programa en lenguaje Willy que consta de un mundo llamado sky con dimensiones 8 x 9 con estrellas.
 
-:checkered_flag: El objetivo es que Willy logre llegar a la posición final con 3 estrellas en su cesta.
+El objetivo es que Willy logre llegar a la posición final con 3 estrellas en su cesta.
 
 ## WillyCleanItsRoom.txt
 
@@ -138,7 +138,7 @@ PickStart en un programa en lenguaje Willy que consta de un mundo llamado sky co
 
 Este es un programa que tiene un mundo llamado room con dimensiones 4 x 5 que representa el cuarto de una persona.
 
-:checkered_flag: El objetivo de este es que Willy recoja su cuarto colocando su celular, su laptop y los libros en su mesa de trabajo (en donde está inicialmente su laptop) y que coloque toda la ropa sucia en la cesta de la ropa sucia.
+El objetivo de este es que Willy recoja su cuarto colocando su celular, su laptop y los libros en su mesa de trabajo (en donde está inicialmente su laptop) y que coloque toda la ropa sucia en la cesta de la ropa sucia.
 
 # Conclusión
 
@@ -150,4 +150,4 @@ Otra estructura importante que se utilizó fue la del árbol que es la responsab
 
 Para finalizar es importante comentar que esto fue posible gracias a dividir la tarea de crear el interpretador en pequeñas etapas e ir resolviendo cada una de ellas para así lograr el resultado final y darle vida a Willy.
 
-:robot: *- Hello, World! -* :fa-heart:
+:robot: :speech_balloon: *- Hello, World! -* 
