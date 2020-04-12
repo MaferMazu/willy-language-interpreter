@@ -10,7 +10,7 @@ class World:
           self.capacityOfBasket = 0
           self.objectsInBasket = [] #Formato [idObjeto,amountObject,colorObject]
           self.bools = [["front-clear",False], ["left-clear",False], ["right-clear",False], ["looking-north",False], ["looking-east",False], ["looking-south",False],["looking-west",False]] #Formato [id,value]
-          self.directions=["north","west","south","east"]
+          self.directions=["north","east","south","west"]
           self.goals=[] #Formato [id,tipo,objectOrPosition,amount,position/None]
           self.finalgoal=[None,""] #Formato [Nodo,string]
           self.repobj=["o","+","x","#"]
@@ -36,8 +36,8 @@ class World:
           #ini y fin son pares ordenados x,y
           if len(ini)==len(fin)==2 and ((direction=="north" and ini[0]==fin[0] and ini[1]<=fin[1]) or
             (direction=="south" and ini[0]==fin[0] and ini[1]>=fin[1]) or
-            (direction=="east" and ini[1]==fin[1] and ini[0]>=fin[0]) or
-            (direction=="west" and ini[1]==fin[1] and ini[0]<=fin[0])):
+            (direction=="west" and ini[1]==fin[1] and ini[0]>=fin[0]) or
+            (direction=="east" and ini[1]==fin[1] and ini[0]<=fin[0])):
                self.walls.append([ini,fin,direction])
                if direction=="north":
                     for x in range(ini[1],fin[1]+1):
@@ -49,12 +49,12 @@ class World:
                          pair=self.positionInBoard([ini[0],x])
                          position = self.board[pair[0]][pair[1]]
                          position[1]="/"
-               if direction=="east":
+               if direction=="west":
                     for x in range(fin[0],ini[0]+1):
                          pair=self.positionInBoard([x,ini[1]])
                          position = self.board[pair[0]][pair[1]]
                          position[1]="/"
-               if direction=="west":
+               if direction=="east":
                     for x in range(ini[0],fin[0]+1):
                          pair=self.positionInBoard([x,ini[1]])
                          position = self.board[pair[0]][pair[1]]
@@ -431,7 +431,7 @@ class World:
                     if 1<= position[0]+1 <= self.dimensions[0]:
                          right = [position[0]+1,position[1]]
 
-               elif direction=="west":
+               elif direction=="east":
                     if 1<= position[1]+1 <= self.dimensions[1]:
                          left = [position[0],position[1]+1]
                     if 1<= position[1]-1 <= self.dimensions[1]:
@@ -447,7 +447,7 @@ class World:
                     if 1<= position[0]+1 <= self.dimensions[0]:
                          left = [position[0]+1,position[1]]
                
-               elif direction=="east":
+               elif direction=="west":
                     if 1<= position[1]+1 <= self.dimensions[1]:
                          right = [position[0],position[1]+1]
                     if 1<= position[1]-1 <= self.dimensions[1]:
