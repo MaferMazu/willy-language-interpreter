@@ -8,8 +8,8 @@ begin-world room
 World 4 5
 
 {{cama}}
-Wall west from 1 1 to 2 1
-Wall west from 1 2 to 2 2
+Wall east from 1 1 to 2 1
+Wall east from 1 2 to 2 2
 
 {{estante}}
 Wall south from 1 5 to 1 4
@@ -68,35 +68,32 @@ while found(laptop) and carrying(cell) do drop cell;
 turn-left;
 repeat 8 times begin 
 while front-clear do mymove;
-if looking-east then begin turn-left; turn-left; while not right-clear and front-clear do mymove; turn-right; if front-clear then mymove; turn-left; end;
-while front-clear do mymove;
-if looking-west then begin turn-right; turn-right; while not left-clear and front-clear do mymove; turn-left;if front-clear then mymove; turn-right; end;
-end;
-
-repeat 8 times begin 
-while front-clear do mymove;
-if looking-west then begin turn-left; turn-left; while not right-clear and front-clear do mymove; turn-right;if front-clear then mymove; turn-left; end;
+if looking-west then begin turn-left; turn-left; while not right-clear and front-clear do mymove; turn-right; if front-clear then mymove; turn-left; end;
 while front-clear do mymove;
 if looking-east then begin turn-right; turn-right; while not left-clear and front-clear do mymove; turn-left;if front-clear then mymove; turn-right; end;
 end;
 
 repeat 8 times begin 
 while front-clear do mymove;
-if looking-east then begin turn-left; turn-left; while not right-clear and front-clear do mymove; turn-right; if front-clear then mymove; turn-left; end;
+if looking-east then begin turn-left; turn-left; while not right-clear and front-clear do mymove; turn-right;if front-clear then mymove; turn-left; end;
 while front-clear do mymove;
 if looking-west then begin turn-right; turn-right; while not left-clear and front-clear do mymove; turn-left;if front-clear then mymove; turn-right; end;
 end;
 
 repeat 8 times begin 
 while front-clear do mymove;
-if looking-west then begin turn-left; turn-left; while not right-clear and front-clear do mymove; turn-right;if front-clear then mymove; turn-left; end;
+if looking-west then begin turn-left; turn-left; while not right-clear and front-clear do mymove; turn-right; if front-clear then mymove; turn-left; end;
 while front-clear do mymove;
 if looking-east then begin turn-right; turn-right; while not left-clear and front-clear do mymove; turn-left;if front-clear then mymove; turn-right; end;
 end;
 
+repeat 8 times begin 
+while front-clear do mymove;
+if looking-east then begin turn-left; turn-left; while not right-clear and front-clear do mymove; turn-right;if front-clear then mymove; turn-left; end;
+while front-clear do mymove;
+if looking-west then begin turn-right; turn-right; while not left-clear and front-clear do mymove; turn-left;if front-clear then mymove; turn-right; end;
+end;
 
-
-{{Ejecuto}}
 terminate;
 
 end-task

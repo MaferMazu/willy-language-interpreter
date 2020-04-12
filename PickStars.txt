@@ -57,7 +57,7 @@ repeat 5 times begin
 while front-clear do mymove;
 if looking-east then begin turn-left; turn-left; while not right-clear and front-clear do mymove; turn-right;if front-clear then mymove; turn-left; end;
 while front-clear do mymove;
-if looking-east then begin turn-right; turn-right; while not left-clear and front-clear do mymove; turn-left;if front-clear then mymove; turn-right; end;
+if looking-west then begin turn-right; turn-right; while not left-clear and front-clear do mymove; turn-left;if front-clear then mymove; turn-right; end;
 end;
 
 end-task

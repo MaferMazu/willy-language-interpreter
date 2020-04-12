@@ -9,7 +9,7 @@ World 5 2
 Object-type colors of color cyan
 
 {{Inicio de Wally}}
-Start at 1 2 heading west
+Start at 1 2 heading east
 Basket of capacity 5
 Place 5 of colors in basket
 
@@ -45,7 +45,7 @@ World 7 4
 Object-type colors of color yellow
 
 {{Inicio de Wally}}
-Start at 1 4 heading west
+Start at 1 4 heading east
 Basket of capacity 9
 Place 9 of colors in basket
 

@@ -1,7 +1,7 @@
 ### Willy*
 
 
-[TOCM]
+<!-- toc -->
 
 
 
@@ -16,8 +16,8 @@ Para más detalles del lenguaje Willy > [willy.pdf](https://github.com/MaferMazu
 Este interpretador se hizo como proyecto para la materia de Traductores de la Universidad Simón Bolívar, el trimestre Ene-Mar de 2020
 
 Y fue desarrollado por: 
-@jcellomarcano 
-@mafermazu 
+[@jcellomarcano](https://github.com/jcellomarcano)
+[@mafermazu](https://github.com/MaferMazu)
 
 # ¿Cómo correrlo? 
 
@@ -83,7 +83,18 @@ La forma correcta es: (sin el ; después del end)
 
 - Si el programa se ejecuta correctamente.
 
-### Versión 2.0
+### Consideraciones en cuanto a la impresión:
+
+- Las paredes están representadas por "/"
+
+- Los objetos en el mundo están representados por "o","+","x","#" en ese orden, correspondiente al orden de creación del objeto
+
+- Willy está representado por una w
+
+- Si Willy está sobre algún objeto se representa con W
+
+### Versiones anteriores
+Versión 2.0
 05/04/2020 
 
 Actualizaciones:
@@ -91,7 +102,7 @@ Actualizaciones:
 - Se realizó el árbol con las instrucciones para ser ejecutadas.
 - Se acomodaron varios errores.
 
-### Versión 1.0
+Versión 1.0
 03/04/2020 
 
 El proyecto no se encuentra terminado en su totalidad, sin embargo esta implementado:

@@ -10,10 +10,10 @@ World 8 5
 
 {{Walls}}
 Wall north from 2 2 to 2 5
-Wall west from 4 2 to 4 2
-Wall west from 4 4 to 4 4
-Wall west from 6 2 to 8 2
-Wall west from 6 1 to 6 1
+Wall east from 4 2 to 4 2
+Wall east from 4 4 to 4 4
+Wall east from 6 2 to 8 2
+Wall east from 6 1 to 6 1
 
 
 {{Willy position}}
