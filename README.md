@@ -42,7 +42,7 @@ o
 
 El interpretador realiza correctamente la lectura de los programas escritos en lenguaje Willy*.
 
-Es importante tomar en cuenta que se tomaron ciertas decisiones dentro de las precedencias del interpretador, para evitar ambiguedades, entre ellas:
+Es importante tener en cuenta que se tomaron ciertas decisiones dentro de las precedencias del interpretador para evitar ambiguedades, entre ellas:
 
 La instrucción:
 
