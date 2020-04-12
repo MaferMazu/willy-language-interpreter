@@ -133,7 +133,7 @@ def p_wallSet(p):
             newWorld.setWall([p[4],p[5]],[p[7],p[8]],actualDir)
         else:
             data_error = {
-                "type": "Bad token of " + actualDir + "Dimentions",
+                "type": "Bad definition of " + actualDir + "Dimentions",
                 "line": p.lineno(2),
                 "column": p.lexpos(2) + 1,
             }
@@ -145,31 +145,29 @@ def p_wallSet(p):
             newWorld.setWall([p[4], p[5]], [p[7], p[8]], actualDir)
         else:
             data_error = {
-                "type": "Bad token of " + actualDir + "Dimentions",
-                "line": p.lineno(2),
-                "column": p.lexpos(2) + 1,
-            }
-            errorSemantic(data_error)
-    elif actualDir == "east":
-        # print("east")
-        if p[5]==p[8] and p[4]>=p[7]:
-            p[0] = Node("WallSet:", [p[2]])
-            newWorld.setWall([p[4], p[5]], [p[7], p[8]], actualDir)
-        else:
-            data_error = {
-                "type": "Bad token of " + actualDir + "Dimentions",
+                "type": "Bad definition of" + actualDir + "Dimentions",
                 "line": p.lineno(2),
                 "column": p.lexpos(2) + 1,
             }
             errorSemantic(data_error)
     elif actualDir == "west":
-        # print("west")
+        if p[5]==p[8] and p[4]>=p[7]:
+            p[0] = Node("WallSet:", [p[2]])
+            newWorld.setWall([p[4], p[5]], [p[7], p[8]], actualDir)
+        else:
+            data_error = {
+                "type": "Bad definition of " + actualDir + "Dimentions",
+                "line": p.lineno(2),
+                "column": p.lexpos(2) + 1,
+            }
+            errorSemantic(data_error)
+    elif actualDir == "east":
         if p[5]==p[8] and p[4]<=p[7]:
             p[0] = Node("WallSet:", [p[2]])
             newWorld.setWall([p[4], p[5]], [p[7], p[8]], actualDir)
         else:
             data_error = {
-                "type": "Bad token of " + actualDir + "Dimentions",
+                "type": "Bad definition of " + actualDir + "Dimentions",
                 "line": p.lineno(2),
                 "column": p.lexpos(2) + 1,
             }
