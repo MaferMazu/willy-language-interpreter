@@ -42,7 +42,7 @@ o
 
 El interpretador realiza correctamente la lectura de los programas escritos en lenguaje Willy*.
 
-Es importante tomar en cuenta que por la forma en que se implementaron las precedencias dentro del interpretador para evitar ambiguedades se tomaron ciertas decisiones:
+Es importante tomar en cuenta que se tomaron ciertas decisiones dentro de las precedencias del interpretador, para evitar ambiguedades, entre ellas:
 
 La instrucción:
 
@@ -172,7 +172,7 @@ El objetivo es que Willy logre llegar a la posición final con 3 estrellas en su
 
 ### WillyCleanItsRoom.txt
 
-:shirt: :closed_book: :computer:
+:shirt: :blue_book: :computer:
 
 Este es un programa que tiene un mundo llamado room con dimensiones 4 x 5 que representa el cuarto de una persona.
 
