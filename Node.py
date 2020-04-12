@@ -135,16 +135,16 @@ class Node:
                               print("No se puede hacer el setbool con:",self.children[0])
                     elif self.type=="SetTrue":
                          if not task.world.changeBool(self.children[0],True):
-                              print("No se puede hacer el settrue con:",self.children[0])
+                              print("No se puede hacer el set true con:",self.children[0])
                     elif self.type=="Move":
                          if not task.moveWilly():
                               print("Willy no se pudo mover, y su configuración actual es:",task.world.getWillyPosition())
                     elif self.type=="TL":
                          if not task.turnWilly("left"):
-                              print("No pudo haver turn-left:")
+                              print("No pudo hacer turn-left:")
                     elif self.type=="TR":
                          if not task.turnWilly("right"):
-                              print("No pudo haver turn-right:")
+                              print("No pudo hacer turn-right:")
                     elif self.type=="Terminate":
                          print("###############")
                          print("Estado final de "+str(task.world.id) +" luego de haber ejecutado "+str(task.id))

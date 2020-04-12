@@ -15,10 +15,9 @@ Para más detalles del lenguaje Willy > [willy.pdf](https://github.com/MaferMazu
 
 Este interpretador se hizo como proyecto para la materia de Traductores de la Universidad Simón Bolívar, el trimestre Ene-Mar de 2020
 
-Y fue desarrollado por:
-
-- @jcellomarcano  :boy:
-- @mafermazu  :girl:
+Y fue desarrollado por: 
+@jcellomarcano 
+@mafermazu 
 
 # ¿Cómo correrlo? 
 
@@ -37,23 +36,63 @@ o
   `$ willy `
 
 # Versiones
-### Versión 2.1
-05/04/2020 04:35
 
-Se descubrió que falta resolver en la recursión lo que debe hacer el método de ejecución con los nodos intermedios a las producciones principales de instrucciones.
+## Versión Final 3.0
+12/04/2020 
+
+El interpretador realiza correctamente la lectura de los programas escritos en lenguaje Willy*.
+
+Es importante tomar en cuenta que por la forma en que se implementaron las precedencias dentro del interpretador para evitar ambiguedades se tomaron ciertas decisiones:
+
+La instrucción:
+
+`if x then if x then y else z`
+
+es tomada de la siguiente forma
+
+`if x then (if x then y else z)`
+
+y no hay forma de que el else se refiera al if más externo ya que no hay paréntesis en la sintaxis de las instrucciones, y tampoco se toma en cuenta la identación de las instrucciones.
+
+
+### Otras cosas importantes que resaltar:
+
+- Todas las instrucciones dentro de los bloques de los mundos deben ir sin ; al final.
+
+- Sólo las instrucciones dentro de los **bloques de las tareas y dentro de los bloques de begin end** tienen ; al final.
+
+Esto está mal:
+
+`if x then begin a; b; end; else if y then c;`
+
+La forma correcta es: (sin el ; después del end)
+
+`if x then begin a; b; end else if y then c;`
+
+- No se pueden crear objetos ni booleanos con el mismo nombre el mundo.
+
+- No se pueden crear funciones con el mismo nombre dentro de las tareas.
+
+- Se pueden crear funciones dentro de funciones. (Y el nombre de las funciones pueden ser repetidas sí y sólo sí están dos niveles más internos de dónde se encuentra la función definida previamente).
+
+- Todo lo que vaya a ser instanciado debe estar definido previamente.
+
+- No se puede insertar objetos en la cesta de willy si no se definió la capacidad de la cesta previamente.
+
+- Si el programa encuentra la instrucción terminate o se cumple el final goal la ejecución del task termina.
+
+- Si el programa se ejecuta correctamente.
 
 ### Versión 2.0
-05/04/2020 04:00
+05/04/2020 
 
 Actualizaciones:
 - Se implementaron más archivos de prueba.
 - Se realizó el árbol con las instrucciones para ser ejecutadas.
 - Se acomodaron varios errores.
 
-Falta: revisar porqué en parser al hacerle un método a un nodo en particular este no responde. (línea 548 en myparser.py)
-
 ### Versión 1.0
-03/04/2020 23:50
+03/04/2020 
 
 El proyecto no se encuentra terminado en su totalidad, sin embargo esta implementado:
 
@@ -62,8 +101,6 @@ El proyecto no se encuentra terminado en su totalidad, sin embargo esta implemen
 - La tabla de símbolos.
 - Las clases World y Task para la implementación.
 
-Por terminar:
-Hacer las instancias correspondientes del mundo para hacer la correcta ejecución del programa Willy.
 
 # Sobre la implementación
 
@@ -125,17 +162,17 @@ executeMyTask(): Quién es la función responsable de que se ejecuten todas las 
 
 # Archivos de Prueba
 
-### PickStart.txt
+### PickStars.txt
 
-:robot: :speech_balloon: :star: :dart:
+:robot: :star: 
 
-PickStart en un programa en lenguaje Willy que consta de un mundo llamado sky con dimensiones 8 x 9 con estrellas.
+PickStars en un programa en lenguaje Willy que consta de un mundo llamado sky con dimensiones 8 x 9 con estrellas.
 
 El objetivo es que Willy logre llegar a la posición final con 3 estrellas en su cesta.
 
 ### WillyCleanItsRoom.txt
 
-:running_shirt_with_sash: :jeans: :closed_book: :computer:
+:shirt: :closed_book: :computer:
 
 Este es un programa que tiene un mundo llamado room con dimensiones 4 x 5 que representa el cuarto de una persona.
 
@@ -143,12 +180,47 @@ El objetivo de este es que Willy recoja su cuarto colocando su celular, su lapto
 
 ### EatClean.txt
 
-:cherries: :green_apple: :pizza: :chocolate_bar:
+:cherries: :green_apple: :pizza:
 
 Este programa contiene un mundo con comida saludable y comida no saludable.
 Willy con un caminar sencillo recorre todo el mundo.
 
 El final goal es llegar al final comiendose todas las frutas y no comiendose las pizzas.
+
+### WriteFirstLetterOfMyName.txt
+
+:pencil2: :pencil:
+
+Aquí hay dos mundos en donde Willy escribe la primera letra de su nombre (W) en dimensiones distintas.
+
+### ComesHappyToUni.txt
+
+:smile: :expressionless: :triumph:
+
+Este programa contiene un mundo que representa la ida a la universidad.
+Por cada semaforo o señalización que Willy se encuentra lo pone de mal humor.
+Por cada vez que sintoniza una canción en la radio que le gusta le mejora el humor.
+¿Willy llegará de buen humor a la uni?
+
+### WillyScan.txt 
+
+:dart: :trophy:
+
+Es un programa que simula un mundo 20 x 20 con vidas y objetos dañinos.
+Willy tiene 5 vidas inicialmente y debe llegar a la meta sin quedarse sin vidas.
+
+### EsferaDelDragon.txt
+
+:dragon_face: :crystal_ball:
+
+### Laberinto.txt
+
+:fearful: :gem: :triangular_flag_on_post:
+
+### TicTacToe.txt
+
+:negative_squared_cross_mark: :o2:
+ 
 
 # Conclusión
 

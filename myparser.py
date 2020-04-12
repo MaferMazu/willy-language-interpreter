@@ -23,7 +23,7 @@ logging.basicConfig(
 precedence = (
     ('left','TkThen'),
     ('left', 'TkAnd', 'TkOr','TkElse'),
-    ('right', 'TkNot'),            # Unary minus operator
+    ('right', 'TkNot','TkBegin'),            # Unary minus operator
  )
 
 

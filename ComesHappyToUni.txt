@@ -36,9 +36,9 @@ Object-type fin of color magenta
 Object-type alert of color yellow
 
 {{Place}}
-Place 1 of semaphore at 9 5
-Place 1 of semaphore at 15 5
-Place 1 of semaphore at 3 3
+Place 3 of semaphore at 9 5
+Place 3 of semaphore at 15 5
+Place 3 of semaphore at 3 3
 Place 1 of music at 9 4
 Place 1 of music at 6 4
 Place 1 of music at 14 3
@@ -46,6 +46,7 @@ Place 1 of music at 1 2
 Place 1 of music at 7 1
 Place 1 of music at 6 2
 Place 1 of music at 12 2
+Place 1 of music at 12 5
 Place 1 of alert at 7 4
 Place 1 of alert at 12 3
 Place 1 of alert at 4 2
@@ -61,5 +62,44 @@ Final goal is goal1 and goal2
 end-world
 
 begin-task drive on road
+
+define angrier as begin
+if angry3 then ;;
+if angry2 then begin flip angry2; set angry3 end;
+if angry1 then begin flip angry1; set angry2 end;
+if happy1 then begin flip happy1; set angry1 end;
+if happy2 then begin flip happy2; set happy1 end;
+if happy3 then begin flip happy3; set happy2 end;
+end;
+
+define happier as begin
+if happy3 then ;;
+if happy2 then begin flip happy2; set happy3 end;
+if happy1 then begin flip happy1; set happy2 end;
+if angry1 then begin flip angry1; set happy1 end;
+if angry2 then begin flip angry2; set angry1 end;
+if angry3 then begin flip angry3; set angry2 end;
+end;
+
+define verification as if found(fin) then
+if angry3 then repeat 3 times pick fin;
+
+define mymove as begin 
+if front-clear then move;
+if found(semaphore) then begin angrier; pick semaphore; end;
+if found(alert) then begin angrier; pick alert; end;
+if found(music) then begin happier; pick music; end;
+if found(fin) then terminate;
+end;
+
+repeat 4 times begin
+while front-clear do mymove;
+turn-right; if front-clear then mymove; turn-right;
+while front-clear do mymove;
+turn-left; if front-clear then mymove; turn-left;
+end;
+turn-left;
+while front-clear do mymove;
+
 
 end-task
