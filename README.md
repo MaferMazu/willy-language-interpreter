@@ -1,7 +1,33 @@
 ### Willy*
 
 
-<!-- toc -->
+- [¿Qué es?](#-qu--es-)
+- [¿Cómo correrlo?](#-c-mo-correrlo-)
+- [Versiones](#versiones)
+  * [Versión Final 3.0](#versi-n-final-30)
+    + [Otras cosas importantes que resaltar:](#otras-cosas-importantes-que-resaltar-)
+    + [Consideraciones en cuanto a la impresión:](#consideraciones-en-cuanto-a-la-impresi-n-)
+    + [Versiones anteriores](#versiones-anteriores)
+- [Sobre la implementación](#sobre-la-implementaci-n)
+  * [Sobre el Lexer](#sobre-el-lexer)
+  * [Sobre el Parser](#sobre-el-parser)
+  * [Sobre el Interpretador](#sobre-el-interpretador)
+    + [Interpretar los mundos](#interpretar-los-mundos)
+    + [Interpretar las tareas](#interpretar-las-tareas)
+- [Archivos de Prueba](#archivos-de-prueba)
+    + [PickStars.txt](#pickstarstxt)
+    + [WillyCleanItsRoom.txt](#willycleanitsroomtxt)
+    + [EatClean.txt](#eatcleantxt)
+    + [WriteFirstLetterOfMyName.txt](#writefirstletterofmynametxt)
+    + [ComesHappyToUni.txt](#comeshappytounitxt)
+    + [WillyScan.txt](#willyscantxt)
+    + [EsferaDelDragon.txt](#esferadeldragontxt)
+    + [Laberinto.txt](#laberintotxt)
+    + [TicTacToe.txt](#tictactoetxt)
+- [Conclusión](#conclusi-n)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 
 
 
