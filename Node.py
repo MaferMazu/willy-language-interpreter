@@ -1,5 +1,7 @@
 from World import *
 from Task import *
+import time
+startTime = time.time()
 class Node:
      def __init__(self,type,children=None):
           self.type = type
@@ -110,6 +112,11 @@ class Node:
      def executeMyTask(self,task):
           # print("####HEELL YEA")
           # # print(task)
+          time.sleep(1)
+          if task.time > 0:
+               print('Going to sleep for', task.time, 'seconds.')
+               # making delay for 1 second
+               time.sleep(task.time)
           if isinstance(task,Task) and not task.fin:
                # print(self.type)
                if not task.world.getValueFinalGoal():

@@ -11,6 +11,8 @@ from World import *
 from Task import *
 from ModelProcedure import *
 
+
+
 DEBUG_MODE = True
 # parser: Any = yacc.parse(lexer)
 logging.basicConfig(
@@ -563,7 +565,7 @@ def p_ids(p):
     "ids : TkId"
     p[0]=p[1]
     p.set_lineno(0, p.lineno(1))
-    
+
 
 def p_taskBlock(p):
     """taskBlock : taskDefinition multiInstructions TkEndTask"""
@@ -606,20 +608,14 @@ def p_taskDefinition(p):
     if procedures.find(p[4], createdWorlds) is not None:
 
         activeWorld = procedures.find(p[4], createdWorlds)
-#         # print("######### elemento")
-#         # print(activeWorld)
-#         # print(activeWorld.id)
-#         # print(activeWorld.getDimension())
-#         # print("elemento  #########")
+
         type = {
             "type": "Task"
         }
         p[0] = Node("", [p[2], p[1]])
         data = [p[0].children[0], type]
-#         # print("11111 INSTANCIA")
-#         # print(isinstance(activeWorld, World))
-#         # print("22222 INSTANCIA")
-        currentTask = Task(p[2], activeWorld)
+
+        currentTask = Task(p[2], activeWorld, 5)
         programBlock.append(data)
 #         # print(stack)
     else:
@@ -777,8 +773,8 @@ def p_primitiveInstructions(p):
             #finish(data_error)
         else:
             p[0] = Node("MyInstruction", [p[1]])
-    
-    
+
+
 
 
 
@@ -805,7 +801,7 @@ def p_booleanTests(p):
             p[0]=Node("Found",[p[3]])
         elif p[1] == "carrying" :
             p[0] = Node("Carrying", [p[3]])
-            
+
     elif len(p)==4:
         p[0]=Node("Parentesis",[p[2]])
 

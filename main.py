@@ -39,11 +39,14 @@ elif len(argv) == 2:
 else:
     filepath = input('Archivo a Interpretar: ')
 
+time = 2
+isDebug = False
+
 
 #Probamos abrir el archivo
 try:
-    f = str(open(str(sys.argv[1]),'r').read()) #open(filepath, 'r')
-    string = str(open(str(sys.argv[1]),'r').read())
+    f = str(open(str(filepath),'r').read()) #open(filepath, 'r')
+    string = str(open(str(filepath),'r').read())
     
     data = f #.readline()
     output=""
@@ -51,6 +54,7 @@ try:
     # Construimos lexer
     lexer = lex.lex(module=lexer)
     # Construimos parser
+    # myparser = myparser()
     parser = yacc.yacc(module=myparser, debug=True, debuglog=log)
 
 
