@@ -55,11 +55,22 @@ Y fue desarrollado por:
 
 3. Luego se puede ejecutar el programa Willy, usando:
 
-  `$ willy <nombredearchivoexistente>`
+  1) `$ willy <nombredearchivoexistente> <#DeSegundos>` 
+  
+  2) `$ willy <nombredearchivoexistente> <debug>`
+  
+  3) `$ willy <#DeSegundos>` 
+  
+  4) `$ willy <debug>`
+  
+Luego de 3 y 4, se debe asiganr nombre (direccion del archivo que se desea leer en txt) donde
 
-o
+ - "#DeSegundos": es para asignar un numero que sera la cantidad de segundos que tendra paso a paso 
+ 
+ - "debug": permitira que hasta que el usuario no presione cualquier tecla, el programa no continua ejecutanse
+          y la forma de detenerlo en ambos, hay que usar ctrl + c
 
-  `$ willy `
+  
 
 # Versiones
 
@@ -250,12 +261,19 @@ Willy tiene 5 vidas inicialmente y debe llegar a la meta sin quedarse sin vidas.
 
 :dragon_face: :crystal_ball:
 
+Es un programa que se encarga de recorrer laberitos con un set de muros y una esfera de dragon al final, el poder esta e que willy siempre llegue al final encontrando la esfera del dragon de forma dinamica
+a manera de que permita cambios de los muros del mundo e igual se puedan mover
+
+
 ### Laberinto.txt
 
 :fearful: :gem: :triangular_flag_on_post:
+Es un porgrama que se encarga de recorrer laberitos con un set de muros una salida, 
+La idea consiste en jugar con el ser de WALL dentro del o los mundos y permita que willy llegue al final con el task que existe
 
 ### TicTacToe.txt
-
+La popular vieja en una forma estatica, a manera de que se permita jugar manipulando en task paso a paso  
+Y willy sea capaz de ganar tanto con  O ó X
 :negative_squared_cross_mark: :o2:
  
 
