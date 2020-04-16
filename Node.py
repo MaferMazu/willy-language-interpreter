@@ -112,7 +112,7 @@ class Node:
      def executeMyTask(self,task):
           # print("####HEELL YEA")
           # # print(task)
-          time.sleep(1)
+          time.sleep(task.time)
           if task.time > 0:
                print('Going to sleep for', task.time, 'seconds.')
                # making delay for 1 second
