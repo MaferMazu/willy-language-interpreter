@@ -615,7 +615,7 @@ def p_taskDefinition(p):
         p[0] = Node("", [p[2], p[1]])
         data = [p[0].children[0], type]
 
-        currentTask = Task(p[2], activeWorld, 1)
+        currentTask = Task(p[2], activeWorld, 0.5)
         programBlock.append(data)
 #         # print(stack)
     else:
