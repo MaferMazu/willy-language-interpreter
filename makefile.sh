@@ -21,4 +21,4 @@ else
     echo "$FILE NOW CREATED"
 fi
 source ~/.bash_profile
-echo "command willy has been added to your path"
+echo "command willy has been added to ysudour path"

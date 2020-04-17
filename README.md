@@ -51,7 +51,7 @@ Y fue desarrollado por:
 
 2. Entrar en la terminal del sistema en la dirección del repositorio y realizar en la línea de comandos:
 
-  `$ ./makefile` 
+  `$ ./makefile.sh` 
 
 3. Luego se puede ejecutar el programa Willy, usando:
 

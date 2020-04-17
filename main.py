@@ -5,6 +5,7 @@ import lexer, myparser
 from sys import argv
 import os,sys
 import logging
+from Task import *
 
 ValidTokens = []  # Coleccion de tokens validos
 InvalidTokens = []  # Coleccion de tokens invalidos
@@ -30,17 +31,47 @@ result = parser.parse(string,lex,debug=log)
 
 """
 #Verificamos la ejecucion del programa y sus entradas
-if len(argv) > 2:
-    print("Uso del programa: python lexer.py <Nombre del archivo>")
-    print("o utiizando: python3 lexer.py ")
-    sys.exit()
+if len(argv) ==3:
+    filepath = argv[1]
+    if argv[2] == "-m" or argv[2] == "--manual":
+        Task.add_element("man")
+    elif argv[2] == "-a" or argv[2] == "--auto":
+        Task.add_element(0)
+    else:
+        print("Uso del programa: python lexer.py <Nombre del archivo> <--manual>")
+        print("Uso del programa: python lexer.py <Nombre del archivo> <-m>")
+        print("Uso del programa: python lexer.py <Nombre del archivo> <--auto>")
+        print("Uso del programa: python lexer.py <Nombre del archivo> <-a>")
+        print("o utiizando: willy ")
+        sys.exit()
+
 elif len(argv) == 2:
     filepath = argv[1]
-else:
+elif len(argv) == 4:
+    filepath = argv[1]
+    if argv[2] == "-a" or argv[2] == "--auto":
+        if float(argv[3]) > 0:
+            Task.add_element(float(argv[3]))
+        else:
+            print("La cantidad en segundos puede ser un entero o decimal mayor a 0")
+            sys.exit()
+    else:
+        print("Uso del programa: python lexer.py <Nombre del archivo> <--auto> <segundos>")
+        print("Uso del programa: python lexer.py <Nombre del archivo> <-a> <segundos>")
+        sys.exit()
+
+
+elif len(argv) == 1 :
     filepath = input('Archivo a Interpretar: ')
 
-time = 2
-isDebug = False
+else:
+    print("Uso del programa: python lexer.py <Nombre del archivo> <--manual>")
+    print("Uso del programa: python lexer.py <Nombre del archivo> <-m>")
+    print("Uso del programa: python lexer.py <Nombre del archivo> <--auto>")
+    print("Uso del programa: python lexer.py <Nombre del archivo> <-a>")
+    print("o utiizando: willy ")
+    sys.exit()
+
 
 
 #Probamos abrir el archivo

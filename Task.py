@@ -2,13 +2,14 @@ from World import World #Despues tengo que comentar esto
 
 
 class Task:
-    def __init__(self, id, instanceWorld, time):
+
+    time = any
+    def __init__(self, id, instanceWorld):
         self.instructions = [] #todas mis instrucciones
         self.world = instanceWorld
         self.id = id
         self.node=None
         self.fin = False
-        self.time = time
 
 
     def getInstructions(self):
@@ -67,6 +68,10 @@ class Task:
 
     def dropObject(self,id):
         return self.world.setFreeObjectsInBasket(id,1)
+
+    @staticmethod
+    def add_element(x):
+        Task.time = x
 
 """ def main():
     # print("Corriendo!")
