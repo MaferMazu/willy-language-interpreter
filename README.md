@@ -55,19 +55,19 @@ Y fue desarrollado por:
 
 3. Luego se puede ejecutar el programa Willy, usando:
 
-  1) `$ willy <nombredearchivoexistente> <#DeSegundos>` 
+  1) `$ willy <nombredearchivoexistente> <--manual> o <-m> <#DeSegundos>*` 
   
-  2) `$ willy <nombredearchivoexistente> <debug>`
+  2) `$ willy <nombredearchivoexistente> <--auto> o <-a>`
   
-  3) `$ willy <#DeSegundos>` 
+  3) `$ willy <nombredearchivoexistente>` 
   
-  4) `$ willy <debug>`
+  4) `$ willy `
   
 Luego de 3 y 4, se debe asiganr nombre (direccion del archivo que se desea leer en txt) donde
 
  - "#DeSegundos": es para asignar un numero que sera la cantidad de segundos que tendra paso a paso 
  
- - "debug": permitira que hasta que el usuario no presione cualquier tecla, el programa no continua ejecutanse
+ - "auto": permitira que hasta que el usuario no presione cualquier tecla, el programa no continua ejecutanse
           y la forma de detenerlo en ambos, hay que usar ctrl + c
 
   
