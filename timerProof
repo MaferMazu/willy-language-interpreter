@@ -1,0 +1,12 @@
+import time
+startTime = time.time()
+for i in range(0,5):
+   print(i)
+   sec = input('Let us wait for user input. Let me know how many seconds to sleep now.\n')
+
+   print('Going to sleep for', 1, 'seconds.')
+   # making delay for 1 second
+   time.sleep(1)
+endTime = time.time()
+elapsedTime = endTime - startTime
+print("Elapsed Time = %s" % elapsedTime)

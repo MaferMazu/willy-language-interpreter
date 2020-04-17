@@ -1,4 +1,6 @@
-
+{{WillyScan.txt es un programa que simula un mundo 20 x 20.
+En el mundo hay más vidas y hay objetos dañinos.
+Willy tiene 5 vidas inicialmente y debe llegar a la meta sin quedarse sin vidas.}}
 
 begin-world world1
 
@@ -6,21 +8,22 @@ begin-world world1
 World 20 20
 
 {{paredes}}
-Wall west from 1 3 to 2 3
-Wall west from 2 2 to 15 2
-Wall west from 17 4 to 20 4
-Wall west from 1 17 to 8 17
+Wall east from 1 3 to 2 3
+Wall east from 2 2 to 15 2
+Wall east from 17 4 to 20 4
+Wall east from 1 17 to 8 17
 Wall north from 8 17 to 8 19
-Wall west from 5 11 to 16 11
-Wall west from 5 3 to 8 3
+Wall east from 5 11 to 16 11
+Wall east from 5 3 to 8 3
 Wall north from 9 4 to 9 10
-Wall west from 10 17 to 20 17
-Wall west from 10 16 to 20 16
-Wall west from 10 15 to 20 15
-Wall west from 10 14 to 20 14
-Wall west from 1 15 to 8 15
-Wall west from 1 14 to 8 14
-Wall west from 1 13 to 8 13
+Wall east from 10 17 to 20 17
+Wall east from 10 16 to 20 16
+Wall east from 10 15 to 20 15
+Wall east from 10 14 to 20 14
+Wall east from 1 15 to 8 15
+Wall east from 1 14 to 8 14
+Wall east from 1 13 to 8 13
+Wall east from 9 3 to 9 3
 
 {{objetos}}
 Object-type medal of color yellow
@@ -31,9 +34,6 @@ Object-type pain of color cyan
 Place 1 of medal at 1 18
 Place 1 of pain at 9 5
 Place 1 of pain at 4 3
-Place 1 of pain at 16 2
-Place 1 of pain at 17 2
-Place 1 of pain at 18 2
 Place 1 of pain at 20 7
 Place 1 of pain at 19 7
 Place 1 of pain at 18 7
@@ -45,47 +45,57 @@ Place 1 of pain at 13 7
 Place 1 of pain at 13 6
 Place 1 of pain at 13 5
 Place 1 of pain at 19 19
+Place 1 of heart at 16 2
+Place 1 of heart at 17 2
+Place 1 of heart at 18 2
 Place 1 of heart at 11 3
 Place 1 of heart at 11 5
 Place 1 of heart at 11 7
 Place 1 of heart at 11 9
-Place 3 of heart in basket
+
 
 {{Inicio de Wally}}
 Start at 1 2 heading south
 Basket of capacity 30
 Boolean willyisalive with initial value true
+Place 5 of heart in basket
 
 
 {{Goals}}
 Goal goal1 is willy is at 1 18
 Goal goal2 is 0 heart objects in Basket
 Goal goal3 is 1 medal objects in Basket
-Final goal is goal1 and (not goal2 or goal3);
+Final goal is goal1 and (not goal2 or goal3)
 end-world
 
 
 {{Task}}
 begin-task task1 on world1
 
-{{Defino myturn}}
-define myturn as
-if looking-west then turn-left else turn-right;
-
 {{Defino walk}}
 define walk as
 begin 
-if front-clear then move else myturn;
-if found(pain) then drop heart;
+if not willyisalive then terminate;
+if front-clear then move;
 if found(heart) then pick heart;
 if found(medal) then pick medal;
-if found(medal) or not carrying(heart) then
+if found(medal) or not carrying(heart) then 
+flip willyisalive;
+if found(pain) then begin pick pain; drop heart; end;
+end;
 
-begin flip willyisalive;
-terminate;
-end
 
 {{Ejecuto}}
-while willyisalive do walk;
+walk; turn-left;
+
+repeat 12 times begin
+if willyisalive then while front-clear do walk;
+turn-left; if front-clear then walk; turn-left;
+if willyisalive then while front-clear do walk;
+turn-right; if front-clear then walk; turn-right;
+end;
+turn-right;
+repeat 2 times walk;
+
 
 end-task

@@ -1,0 +1,63 @@
+{{PickStars en un programa en lenguaje Willy que consta de un mundo llamado sky con dimensiones 8 x 9 con estrellas.
+
+El objetivo es que Willy logre llegar a la posición final con 3 estrellas en su cesta.}}
+
+begin-world sky
+
+{{mundo con 8 columas y 9 filas}}
+World 8 9
+
+{{walls}}
+Wall east from 1 2 to 6 2
+Wall east from 4 4 to 8 4
+Wall east from 1 5 to 2 5
+Wall east from 1 6 to 2 6
+Wall east from 6 6 to 8 6
+Wall east from 4 7 to 6 7
+Wall north from 6 8 to 6 9
+
+
+{{objetos}}
+Object-type stars of color yellow
+Object-type goal of color yellow
+
+{{Inicio de Wally}}
+Start at 1 1 heading east
+Basket of capacity 3
+
+{{Colocar objetos}}
+Place 1 of stars at 8 2
+Place 1 of stars at 3 4
+Place 1 of stars at 4 6
+Place 1 of stars at 7 7
+Place 1 of stars at 7 8
+Place 1 of stars at 8 7
+Place 1 of stars at 8 8
+Place 1 of stars at 8 9
+Place 1 of stars at 7 9
+Place 1 of goal at 1 9
+
+
+
+
+{{Goals}}
+Goal goal1 is willy is at 1 9
+Goal goal2 is 3 stars objects in Basket
+
+Final goal is goal1 and goal2
+end-world
+
+
+{{Task}}
+begin-task pickstars on sky
+
+define mymove as begin move; if found(stars) then pick stars end;
+
+repeat 5 times begin 
+while front-clear do mymove;
+if looking-east then begin turn-left; turn-left; while not right-clear and front-clear do mymove; turn-right;if front-clear then mymove; turn-left; end;
+while front-clear do mymove;
+if looking-west then begin turn-right; turn-right; while not left-clear and front-clear do mymove; turn-left;if front-clear then mymove; turn-right; end;
+end;
+
+end-task

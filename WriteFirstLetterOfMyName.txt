@@ -1,0 +1,86 @@
+{{Este programa consta de dos mundos en donde Willy escribe la W en dos tamaños distintos}}
+
+begin-world page
+
+{{mundo con 5 columas y 2 filas}}
+World 5 2
+
+{{Objetos}}
+Object-type colors of color cyan
+
+{{Inicio de Wally}}
+Start at 1 2 heading east
+Basket of capacity 5
+Place 5 of colors in basket
+
+{{Goal}}
+Goal uno is 1 colors objects at 1 2
+Goal dos is 1 colors objects at 2 1
+Goal tres is 1 colors objects at 3 2
+Goal cuatro is 1 colors objects at 4 1
+Goal cinco is 1 colors objects at 5 2
+
+Final goal is uno and dos and tres and cuatro and cinco
+
+end-world
+
+begin-task writefirstletterofmyname on page
+repeat 2 times begin
+while front-clear do begin drop colors; if front-clear then repeat 2 times move; end;
+drop colors;
+repeat 2 times begin turn-right;if front-clear then move; end; end;
+
+end-task
+
+
+
+
+
+begin-world page2
+
+{{mundo con 7 columas y 4 filas}}
+World 7 4
+
+{{Objetos}}
+Object-type colors of color yellow
+
+{{Inicio de Wally}}
+Start at 1 4 heading east
+Basket of capacity 9
+Place 9 of colors in basket
+
+{{Goal}}
+Goal uno is 1 colors objects at 2 3
+Goal dos is 1 colors objects at 3 2
+Goal tres is 1 colors objects at 4 3
+Goal cuatro is 1 colors objects at 5 2
+Goal cinco is 1 colors objects at 6 3
+Goal seis is 1 colors objects at 1 4
+Goal siete is 1 colors objects at 7 4
+Goal ocho is 1 colors objects at 3 1
+Goal nueve is 1 colors objects at 5 1
+
+Final goal is uno and dos and tres and cuatro and cinco and seis and siete and ocho and nueve
+
+end-world
+
+begin-task writefirstletterofmyname2 on page2
+define pintoynopinto as repeat 2 times begin drop colors; repeat 2 times move; end;
+define giroizq as repeat 2 times begin turn-left;if front-clear then move; end;
+define giroder as repeat 2 times begin turn-right;if front-clear then move; end;
+drop colors;
+while front-clear do move;
+drop colors;
+turn-right;
+if front-clear then move;
+turn-right;
+move;
+while front-clear do begin drop colors; if front-clear then repeat 2 times move; end;
+giroizq;
+move;
+pintoynopinto;
+giroder;
+move;
+pintoynopinto;
+
+end-task

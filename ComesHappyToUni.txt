@@ -1,0 +1,105 @@
+{{Este programa contiene un mundo que representa la ida a la universidad.
+Por cada semaforo o señalización que Willy se encuentra lo pone de mal humor.
+Por cada vez que sintoniza una canción en la radio que le gusta le mejora el humor.
+¿Willy llegará de buen humor a la uni?}}
+
+begin-world road
+
+{{World con dimensiones 15 x 5}}
+World 15 5
+
+{{Elementos de la carretera}}
+Wall north from 2 2 to 2 3
+Wall east from 1 4 to 5 4
+Wall east from 13 1 to 15 1
+Wall east from 13 2 to 15 2
+Wall north from 5 1 to 5 2
+Wall east from 10 4 to 12 4
+
+
+
+{{Willy position}}
+Start at 1 5 heading east
+Basket of capacity 50
+Boolean True with initial value true
+Boolean angry1 with initial value false
+Boolean angry2 with initial value false
+Boolean angry3 with initial value false
+Boolean happy1 with initial value true
+Boolean happy2 with initial value false
+Boolean happy3 with initial value false
+
+{{Objetos}}
+Object-type semaphore of color red
+Object-type music of color cyan
+Object-type fin of color magenta
+Object-type alert of color yellow
+
+{{Place}}
+Place 3 of semaphore at 9 5
+Place 3 of semaphore at 15 5
+Place 3 of semaphore at 3 3
+Place 1 of music at 9 4
+Place 1 of music at 6 4
+Place 1 of music at 14 3
+Place 1 of music at 1 2
+Place 1 of music at 7 1
+Place 1 of music at 6 2
+Place 1 of music at 12 2
+Place 1 of music at 12 5
+Place 1 of alert at 7 4
+Place 1 of alert at 12 3
+Place 1 of alert at 4 2
+Place 1 of alert at 9 2
+Place 3 of fin at 1 3
+
+
+{{Goals}}
+Goal goal1 is 3 fin objects in Basket
+Goal goal2 is willy is at 1 3
+
+Final goal is goal1 and goal2
+end-world
+
+begin-task drive on road
+
+define angrier as begin
+if angry3 then ;;
+if angry2 then begin flip angry2; set angry3 end;
+if angry1 then begin flip angry1; set angry2 end;
+if happy1 then begin flip happy1; set angry1 end;
+if happy2 then begin flip happy2; set happy1 end;
+if happy3 then begin flip happy3; set happy2 end;
+end;
+
+define happier as begin
+if happy3 then ;;
+if happy2 then begin flip happy2; set happy3 end;
+if happy1 then begin flip happy1; set happy2 end;
+if angry1 then begin flip angry1; set happy1 end;
+if angry2 then begin flip angry2; set angry1 end;
+if angry3 then begin flip angry3; set angry2 end;
+end;
+
+define verification as if found(fin) then
+if angry3 then repeat 3 times pick fin;
+
+define mymove as begin 
+if front-clear then move;
+if found(semaphore) then begin angrier; pick semaphore; end;
+if found(alert) then begin angrier; pick alert; end;
+if found(music) then begin happier; pick music; end;
+if found(fin) then terminate;
+end;
+
+repeat 4 times begin
+while front-clear do mymove;
+turn-right; if front-clear then mymove; turn-right;
+while front-clear do mymove;
+turn-left; if front-clear then mymove; turn-left;
+end;
+turn-left;
+while front-clear do mymove;
+
+
+end-task

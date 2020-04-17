@@ -1,0 +1,61 @@
+{{Este programa contiene un mundo con comida saludable y comida no saludable.
+Willy con un caminar sencillo recorre todo el mundo.
+
+El final goal es llegar al final comiendose todas las frutas y no comiendose las pizzas.}}
+
+begin-world foodland
+
+{{World con dimensiones 8 x 5}}
+World 8 5
+
+{{Walls}}
+Wall north from 2 2 to 2 5
+Wall east from 4 2 to 4 2
+Wall east from 4 4 to 4 4
+Wall east from 6 2 to 8 2
+Wall east from 6 1 to 6 1
+
+
+{{Willy position}}
+Start at 1 5 heading south
+Basket of capacity 5
+Place 5 of colors in basket
+Boolean True with initial value true
+
+{{Objetos}}
+Object-type pizza of color red
+Object-type fruits of color green
+Object-type fin of color magenta
+
+{{Place}}
+Place 1 of fruits at 1 4
+Place 1 of fruits at 1 3
+Place 1 of fruits at 1 2
+Place 1 of fruits at 3 5
+Place 1 of pizza at 4 3
+Place 1 of pizza at 5 4
+Place 1 of pizza at 6 4
+Place 1 of pizza at 7 4
+Place 1 of pizza at 8 4
+Place 1 of fin at 8 5
+
+{{Goals}}
+Goal goal1 is 3 fruits objects in Basket
+Goal goal2 is 0 pizza objects in Basket
+
+Final goal is goal1 and goal2
+end-world
+
+begin-task eat on foodland
+
+define verification as if found(fin) then terminate;
+
+define mymove as if front-clear then begin move; if found(pizza) then pick pizza;
+if found(fruits) then pick fruits; verification;
+end;
+
+while True do begin
+while front-clear do mymove;
+if looking-south then begin turn-left; mymove; turn-left;end
+else begin turn-right;mymove;turn-right;end;end;
+end-task

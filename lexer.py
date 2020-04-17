@@ -139,7 +139,7 @@ t_TkParenR  = r'\)'
 
 
 # Ignored Chars
-t_ignore_TkCommentsBlock = r'[\{]{2}.*[}]{2}'
+t_ignore_TkCommentsBlock = r'{{(.|\n)[^{}]*}}'
 t_ignore_TkComments = r'[\-]{2}.*'
 t_ignore_TkSpace = r'\s'
 t_ignore_TkTab = r' \t'
@@ -233,3 +233,5 @@ def t_TkNum(t):
     r'\d+'
     t.value = int(t.value)
     return t
+
+

@@ -11,6 +11,8 @@ from World import *
 from Task import *
 from ModelProcedure import *
 
+
+
 DEBUG_MODE = True
 # parser: Any = yacc.parse(lexer)
 logging.basicConfig(
@@ -21,8 +23,9 @@ logging.basicConfig(
     )
 
 precedence = (
-    ('left', 'TkAnd', 'TkOr'),
-    ('right', 'TkNot'),            # Unary minus operator
+    ('left','TkThen'),
+    ('left', 'TkAnd', 'TkOr','TkElse'),
+    ('right', 'TkNot','TkBegin'),            # Unary minus operator
  )
 
 
@@ -73,6 +76,8 @@ def p_program(p):
             | worldBlock program
             | taskBlock program
     """
+    global hasSetted
+    hasSetted
     if len(p)==2:
         p[0]=Node("Program Block:",[p[1]])
     else:
@@ -87,9 +92,10 @@ def p_program(p):
 
 
 def p_worldInstSet(p):
-    """worldInstSet : worldInst TkSemicolon worldInstSet
-                    | worldInst worldInstSet
-                    | worldInst TkSemicolon
+
+    """worldInstSet : worldInst worldInstSet
+                    | worldInst
+
     """
     global worldInstBool
 
@@ -97,10 +103,10 @@ def p_worldInstSet(p):
         worldInstBool = False
     if len(p)==4:
         p[0]=Node("WorldInstancia:",[p[1],p[3]])
-    else:
-        if p[2]==";":
+
+    elif len(p)==2:
             p[0]=Node("WorldInstancia:",[p[1]])
-        else:
+    else:
             p[0]=Node("WorldInstancia:",[p[1],p[2]])
 
 def p_worldInst(p):
@@ -119,7 +125,7 @@ def p_worldInst(p):
 def p_wallSet(p):
     """wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum"""
     global newWorld
-    actualDir = p[2].children[0]
+    actualDir = p[2]
     # print(actualDir, p[4], p[7])
     # print(actualDir, p[5], p[8])
     if actualDir == "north":
@@ -129,7 +135,7 @@ def p_wallSet(p):
             newWorld.setWall([p[4],p[5]],[p[7],p[8]],actualDir)
         else:
             data_error = {
-                "type": "Bad token of " + actualDir + "Dimentions",
+                "type": "Bad definition of " + actualDir + "Dimentions",
                 "line": p.lineno(2),
                 "column": p.lexpos(2) + 1,
             }
@@ -141,31 +147,29 @@ def p_wallSet(p):
             newWorld.setWall([p[4], p[5]], [p[7], p[8]], actualDir)
         else:
             data_error = {
-                "type": "Bad token of " + actualDir + "Dimentions",
-                "line": p.lineno(2),
-                "column": p.lexpos(2) + 1,
-            }
-            errorSemantic(data_error)
-    elif actualDir == "east":
-        # print("east")
-        if p[5]==p[8] and p[4]>=p[7]:
-            p[0] = Node("WallSet:", [p[2]])
-            newWorld.setWall([p[4], p[5]], [p[7], p[8]], actualDir)
-        else:
-            data_error = {
-                "type": "Bad token of " + actualDir + "Dimentions",
+                "type": "Bad definition of" + actualDir + "Dimentions",
                 "line": p.lineno(2),
                 "column": p.lexpos(2) + 1,
             }
             errorSemantic(data_error)
     elif actualDir == "west":
-        # print("west")
+        if p[5]==p[8] and p[4]>=p[7]:
+            p[0] = Node("WallSet:", [p[2]])
+            newWorld.setWall([p[4], p[5]], [p[7], p[8]], actualDir)
+        else:
+            data_error = {
+                "type": "Bad definition of " + actualDir + "Dimentions",
+                "line": p.lineno(2),
+                "column": p.lexpos(2) + 1,
+            }
+            errorSemantic(data_error)
+    elif actualDir == "east":
         if p[5]==p[8] and p[4]<=p[7]:
             p[0] = Node("WallSet:", [p[2]])
             newWorld.setWall([p[4], p[5]], [p[7], p[8]], actualDir)
         else:
             data_error = {
-                "type": "Bad token of " + actualDir + "Dimentions",
+                "type": "Bad definition of " + actualDir + "Dimentions",
                 "line": p.lineno(2),
                 "column": p.lexpos(2) + 1,
             }
@@ -237,15 +241,16 @@ def p_worldBlock(p):
         stack.pop()
     stack.insert(id,attributesObjects)
     createdWorlds.append(newWorld)
+    global hasSetted
+    hasSetted = False
 
     print("###############")
-    print("Estado inicial de " + "\n" + str(newWorld))
+    print("Estado inicial de "+ str(newWorld.id))
     print("La posición de Willy es: "+ str(newWorld.getWillyPosition()[0]) + " mirando hacia el " + str(newWorld.getWillyPosition()[1]))
     print("Lo que tiene en el basket es:\n", newWorld.getObjectsInBasket())
     print("El estado de los bools es:\n", newWorld.getBools())
-    print("El estado de los goals es:\n", newWorld.getGoals())
     print("El final goal es:\n" + newWorld.getFinalGoal())
-    print("El valor es: ",newWorld.getValueFinalGoal())
+    print("El valor del final goal es: ",newWorld.getValueFinalGoal())
     print(newWorld)
 
 
@@ -406,7 +411,7 @@ def p_setStartPosition(p):
             }
             errorSemantic(data_error)
         else:
-            newWorld.setWillyStart([p[3],p[4]], p[6].children[0])
+            newWorld.setWillyStart([p[3],p[4]], p[6])
             p[0]=Node("WillyStartPosition",[p[6]])
 
 def p_setBasketCapacity(p):
@@ -560,7 +565,7 @@ def p_ids(p):
     "ids : TkId"
     p[0]=p[1]
     p.set_lineno(0, p.lineno(1))
-    p.set_lexpos(0, p.lexpos(1))
+
 
 def p_taskBlock(p):
     """taskBlock : taskDefinition multiInstructions TkEndTask"""
@@ -603,19 +608,14 @@ def p_taskDefinition(p):
     if procedures.find(p[4], createdWorlds) is not None:
 
         activeWorld = procedures.find(p[4], createdWorlds)
-#         # print("######### elemento")
-#         # print(activeWorld)
-#         # print(activeWorld.id)
-#         # print(activeWorld.getDimension())
-#         # print("elemento  #########")
+
         type = {
             "type": "Task"
         }
         p[0] = Node("", [p[2], p[1]])
         data = [p[0].children[0], type]
-#         # print("11111 INSTANCIA")
-#         # print(isinstance(activeWorld, World))
-#         # print("22222 INSTANCIA")
+
+
         currentTask = Task(p[2], activeWorld)
         programBlock.append(data)
 #         # print(stack)
@@ -774,8 +774,8 @@ def p_primitiveInstructions(p):
             #finish(data_error)
         else:
             p[0] = Node("MyInstruction", [p[1]])
-    
-    
+
+
 
 
 
@@ -802,7 +802,7 @@ def p_booleanTests(p):
             p[0]=Node("Found",[p[3]])
         elif p[1] == "carrying" :
             p[0] = Node("Carrying", [p[3]])
-            
+
     elif len(p)==4:
         p[0]=Node("Parentesis",[p[2]])
 
@@ -836,8 +836,7 @@ def p_primitiveBoolean(p):
 
 def p_instructions(p):
     """instructions : primitiveInstructions
-                    | ifSimple
-                    | ifCompound
+                    | ifInstruction
                     | TkSemicolon
                     | whileInst
                     | TkBegin multiInstructions TkEnd
@@ -889,15 +888,15 @@ def p_instructions(p):
 #     p[0]=Node("Define",[p[1],p[2]])
 #     stack.pop()
 
-def p_ifSimple(p):
-    """ ifSimple : TkIf booleanTests TkThen instructions
+def p_ifInstruction(p):
+    """ ifInstruction : TkIf booleanTests TkThen instructions
+                      | TkIf booleanTests TkThen instructions TkElse instructions
     """
-    p[0] = Node('ifSimple', [p[2],p[4]])
+    if len(p)==5:
+        p[0] = Node('ifSimple', [p[2],p[4]])
+    else:
+        p[0] = Node('ifCompound', [p[2],p[4],p[6]])
 
-def p_ifCompound(p):
-    """ ifCompound : TkIf booleanTests TkThen instructions TkElse instructions
-    """
-    p[0] = Node('ifCompound', [p[2],p[4],p[6]])
 
 def p_whileInst(p):
     """ whileInst : TkWhile booleanTests TkDo instructions
@@ -944,7 +943,7 @@ def p_directions(p):
                 | TkSouth
                 | TkWest
     """
-    p[0]=Node("Direction",[p[1]])
+    p[0]=p[1]
 
 
 def p_empty(p):
@@ -960,8 +959,8 @@ def p_error(p):
     global ParserErrors
     # print(p)
     if p is not None:
-        error = 'Error del Parser "' + str(p.type) + '" en fila ' \
-                + str(p.lineno) + ', columna ' + str(p.lexpos)
+        error = 'Error de sintaxis "' + str(p.value) + '" en fila ' \
+                + str(p.lineno)
         ParserErrors.append(error)
         print(ParserErrors)
     else:
@@ -973,8 +972,8 @@ def errorSemantic(err):
     global ParserErrors
     # print(err)
     if err is not None:
-        error = 'Error del Parser "' + str(err["type"]) + '" en fila ' \
-                + str(err["line"]) + ', columna ' + str(err["column"])
+        error = 'Error con "' + str(err["type"]) + '" en linea ' \
+                + str(err["line"])
         ParserErrors.append(error)
         print(ParserErrors)
 

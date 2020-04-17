@@ -1,40 +1,146 @@
-
-# Willy*
-
-Willy* es un proyecto que consiste en la implementación de un ambiente de programación para un robot de nombre Willy.
-
-Este robot puede interactuar con objetos en un mundo y desplazarse por el mismo a través de cuadrículas de tamaño finito.
-
-# Cómo correr el programa
-
-Se realiza la en la línea de comandos:
-./makefile
-
-y luego se puede ejecutar el programa Willy, usando:
+### Willy*
 
 
-willy [nombredearchivoexistente]
+- [¿Qué es?](#-qu--es-)
+- [¿Cómo correrlo?](#-c-mo-correrlo-)
+- [Versiones](#versiones)
+  * [Versión Final 3.0](#versi-n-final-30)
+    + [Otras cosas importantes que resaltar:](#otras-cosas-importantes-que-resaltar-)
+    + [Consideraciones en cuanto a la impresión:](#consideraciones-en-cuanto-a-la-impresi-n-)
+    + [Versiones anteriores](#versiones-anteriores)
+- [Sobre la implementación](#sobre-la-implementaci-n)
+  * [Sobre el Lexer](#sobre-el-lexer)
+  * [Sobre el Parser](#sobre-el-parser)
+  * [Sobre el Interpretador](#sobre-el-interpretador)
+    + [Interpretar los mundos](#interpretar-los-mundos)
+    + [Interpretar las tareas](#interpretar-las-tareas)
+- [Archivos de Prueba](#archivos-de-prueba)
+    + [PickStars.txt](#pickstarstxt)
+    + [WillyCleanItsRoom.txt](#willycleanitsroomtxt)
+    + [EatClean.txt](#eatcleantxt)
+    + [WriteFirstLetterOfMyName.txt](#writefirstletterofmynametxt)
+    + [ComesHappyToUni.txt](#comeshappytounitxt)
+    + [WillyScan.txt](#willyscantxt)
+    + [EsferaDelDragon.txt](#esferadeldragontxt)
+    + [Laberinto.txt](#laberintotxt)
+    + [TicTacToe.txt](#tictactoetxt)
+- [Conclusión](#conclusi-n)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
+
+
+
+# ¿Qué es?
+
+Willy **es un interpretador del lenguaje Willy***, que determina un ambiente de programación para un robot.
+
+:robot: Este puede interactuar con objetos en un mundo y desplazarse por el mismo a través de cuadrículas de tamaño finito.
+
+Para más detalles del lenguaje Willy > [willy.pdf](https://github.com/MaferMazu/Willy/blob/Parser/willy.pdf)
+
+Este interpretador se hizo como proyecto para la materia de Traductores de la Universidad Simón Bolívar, el trimestre Ene-Mar de 2020
+
+Y fue desarrollado por: 
+[@jcellomarcano](https://github.com/jcellomarcano)
+[@mafermazu](https://github.com/MaferMazu)
+
+# ¿Cómo correrlo? 
+
+1. Descargar el repositorio
+
+2. Entrar en la terminal del sistema en la dirección del repositorio y realizar en la línea de comandos:
+
+  `$ ./makefile.sh` 
+
+3. Luego se puede ejecutar el programa Willy, usando:
+
+  1) `$ willy <nombredearchivoexistente> <#DeSegundos>` 
   
-o con willy exclusivamente. (Luego se le pedira ingresar el txt)
+  2) `$ willy <nombredearchivoexistente> <debug>`
+  
+  3) `$ willy <#DeSegundos>` 
+  
+  4) `$ willy <debug>`
+  
+Luego de 3 y 4, se debe asiganr nombre (direccion del archivo que se desea leer en txt) donde
 
-# Estado Actual del Programa
-Versión 2.1
-05/04/2020 04:35
+ - "#DeSegundos": es para asignar un numero que sera la cantidad de segundos que tendra paso a paso 
+ 
+ - "debug": permitira que hasta que el usuario no presione cualquier tecla, el programa no continua ejecutanse
+          y la forma de detenerlo en ambos, hay que usar ctrl + c
 
-Se descubrió que falta resolver en la recursión lo que debe hacer el método de ejecución con los nodos intermedios a las producciones principales de instrucciones.
+  
 
+# Versiones
+
+## Versión Final 3.0
+12/04/2020 
+
+El interpretador realiza correctamente la lectura de los programas escritos en lenguaje Willy*.
+
+Es importante tener en cuenta que se tomaron ciertas decisiones dentro de las precedencias del interpretador para evitar ambiguedades, entre ellas:
+
+La instrucción:
+
+`if x then if x then y else z`
+
+es tomada de la siguiente forma
+
+`if x then (if x then y else z)`
+
+y no hay forma de que el else se refiera al if más externo ya que no hay paréntesis en la sintaxis de las instrucciones, y tampoco se toma en cuenta la identación de las instrucciones.
+
+
+### Otras cosas importantes que resaltar:
+
+- Todas las instrucciones dentro de los bloques de los mundos deben ir sin ; al final.
+
+- Sólo las instrucciones dentro de los **bloques de las tareas y dentro de los bloques de begin end** tienen ; al final.
+
+Esto está mal:
+
+`if x then begin a; b; end; else if y then c;`
+
+La forma correcta es: (sin el ; después del end)
+
+`if x then begin a; b; end else if y then c;`
+
+- No se pueden crear objetos ni booleanos con el mismo nombre el mundo.
+
+- No se pueden crear funciones con el mismo nombre dentro de las tareas.
+
+- Se pueden crear funciones dentro de funciones. (Y el nombre de las funciones pueden ser repetidas sí y sólo sí están dos niveles más internos de dónde se encuentra la función definida previamente).
+
+- Todo lo que vaya a ser instanciado debe estar definido previamente.
+
+- No se puede insertar objetos en la cesta de willy si no se definió la capacidad de la cesta previamente.
+
+- Si el programa encuentra la instrucción terminate o se cumple el final goal la ejecución del task termina.
+
+- Si el programa se ejecuta correctamente.
+
+### Consideraciones en cuanto a la impresión:
+
+- Las paredes están representadas por "/"
+
+- Los objetos en el mundo están representados por "o","+","x","#" en ese orden, correspondiente al orden de creación del objeto
+
+- Willy está representado por una w
+
+- Si Willy está sobre algún objeto se representa con W
+
+### Versiones anteriores
 Versión 2.0
-05/04/2020 04:00
+05/04/2020 
 
 Actualizaciones:
 - Se implementaron más archivos de prueba.
 - Se realizó el árbol con las instrucciones para ser ejecutadas.
 - Se acomodaron varios errores.
 
-Falta: revisar porqué en parser al hacerle un método a un nodo en particular este no responde. (línea 548 en myparser.py)
-
 Versión 1.0
-03/04/2020 23:50
+03/04/2020 
 
 El proyecto no se encuentra terminado en su totalidad, sin embargo esta implementado:
 
@@ -43,65 +149,142 @@ El proyecto no se encuentra terminado en su totalidad, sin embargo esta implemen
 - La tabla de símbolos.
 - Las clases World y Task para la implementación.
 
-Por terminar:
-Hacer las instancias correspondientes del mundo para hacer la correcta ejecución del programa Willy.
 
-# Sobre el proyecto:
+# Sobre la implementación
 
-La implementación de este programa se dividió en 3 etapas:
+Este proyecto se dividió en 3 etapas:
 
-En la primera fase del proyecto se implementó el análisis lexicográfico, el cual consiste en reconocer una entrada y dividirla en pequeños pedacitos que llamaremos tokens. Estos luego serán utilizados para crear el análisis sintáctico, que sería nuestro siguiente paso.
+En la primera fase del proyecto se implementó el análisis lexicográfico, el cual consiste en reconocer una entrada y dividirla en pequeños pedazos llamados tokens. 
 
 Para realizar el análisis lexicográfico se utilizó una herramienta de construcción de lexer y parser llamada PLY.
 
 La segunda etapa consistió en implementar un módulo sintáctico que utilice el módulo lexicográfico de la primera entrega. Este analizador debe aceptar o rechazar un programa dependiendo de si la entrada pertenece o no al lenguaje Willy*, que es el que utiliza nuestro robot para transitar en los mundos definidos en ese mismo lenguaje.
 
-Y por último en la tercera entrega se concentraba en terminar el interpretador del lenguaje y el simulador para que se realizara correctamente la ejecución del programa.
+Y la última entrega se concentraba en terminar el interpretador del lenguaje y el simulador para que se realizara correctamente la ejecución del programa.
 
 ## Sobre el Lexer
 
-Primero se realizó una lista de tokens, que son los que se consideraron convenientes para los requerimientos del problema. Esta posee los nombres que se usarán posteriormente para identificar las palabras o grupos de palabras que queremos agrupar y dividir, y así empezar a interpretar todo lo que nos provee la entrada al software.
+Primero se definió una lista de palabras reservadas y una lista de tokens, que son las que se consideraron convenientes para los requerimientos del problema. 
 
-También se tiene una lista de palabras reservadas (tokens), que es añadida posteriormente en la lista inicial de tokens.
 
-Luego se definieron los tokens ignorados, esto y muchas de las definiciones de tokens se hicieron con ayuda de las expresiones regulares, que nos permitían agrupar lo que necesitaramos.
+Luego se definieron los tokens ignorados.
 
-Se tienen dos listas, una de Tokens válidos y otra de no válidos, para llevar un control de los tokens que se van formando a medida que se va leyendo el programa.
+Muchas de las definiciones de tokens se hicieron con ayuda de las expresiones regulares, que nos permitían agrupar las cadenas de texto que se necesitaban.
 
-El manejador de errores es importante porque en este lenguaje puede que hayan símbolos que no existan, y es importante que como implementador se le notifique al usuario que quiere realizar alguna prueba, la columna y línea donde se manifiesta el error.
 
-Las siguientes instrucciones fueron para construir el lexer con PLY, verificar las longitudes de entradas del prompt, leer el archivo de entrada que nuestro analizador lexicográfico va a procesar y hacer las consideraciones pertinentes para que el formato de salida del programa sea el especificado.
+También se implementaron dos listas, una de tokens válidos y otra de no válidos, para llevar un control de los tokens que se van formando a medida que se va leyendo el archivo inicial del programa, y de haber existencia de tokens no válidos puedan ser redirigidos a un manejador de errores.
+
+El manejador de errores es importante porque en este lenguaje puede que hayan símbolos que no existan, y hay que manejarlos. Para ello se almacenó información pertinente de los tokens como la columna y línea donde se manifiesta el error.
 
 Si el arreglo de tokens inválidos tiene algún elemento se muestra dicho error en pantalla y termina la ejecución.
 
 ## Sobre el Parser
 
-Para la implementación del Parser primero se tuvo que entender cómo funciona el constructor de sintaxis que provee PLY, este se denomina yacc, y toma un conjunto de definiciones y las convierte en la gramática de nuestro lenguaje. De hecho, la forma que tienen las definiciones presentes en este módulo se asemejan a las vistas en clase de Traductores.
+Para la implementación del Parser primero se tuvo que entender cómo funciona el constructor de sintaxis que provee PLY, este se denomina yacc, y toma un conjunto de definiciones y las convierte en la gramática de nuestro lenguaje. La forma que tienen las definiciones presentes en este módulo se asemejan a las vistas en clase de Traductores.
 
-El diseño de esta gramática comprende la forma en que se determina si un programa es correcto o no en el mundo de Willy*. Para ello se utilizaron las especificaciones del mundo, y se buscó generalizar reglas que permitan que con símbolos terminales (los tokens obtenidos del módulo 1) y los no terminales representados por las definiciones en el parser (myparser.py), que son quienes generan las producciones correspondientes.
-
-La gramática consta de varios elementos: las variables (que vienen a ser las definiciones que se crearon para que el constructor del parser funcionara), los símbolos terminales que son los tokens, las reglas de producción que también están especificadas en el archivo myparser.py y el símbolo inicial que es representado por “program”. 
+El diseño de esta gramática comprende la forma en que se determina si un programa es correcto o no en el mundo de Willy. Para ello se utilizaron las especificaciones del mundo, y se buscó generalizar reglas que permitan que con símbolos terminales (los tokens obtenidos de la etapa del lexer) y los no terminales representados por las definiciones en el parser se pueda determinar la forma que van a tener las instrucciones dentro de Willy*. 
 
 ## Sobre el Interpretador
 
-Para el interpretador, lo que se hizo fue aprovechar la estructura Nodo que se creó y se fue instanciando recursivamente en el parser para así crear métodos en la clase Nodo que pudiesen ejecutar las instrucciones recorriendo el nodo como si se tratara de un árbol.
+Inicialmente se creó una **pila de símbolos** en donde se almacenan los distintos identificadores (ids) que son utilizados para cada mundo, tarea, variable booleana, nombre de función, objeto, etc. Esto con el objetivo de mantener un control de identificadores, y verificar que se utilicen correctamente; por ejemplo, no instanciar objetos que no fueron previamente definidos, o no definir dos funciones con el mismo nombre, incluso verificar que no existan dos mundos con el mismo nombre.
 
-En particular se crearon 3 métodos que son exclusivos para tipos determinados de nodos. Estos se implementan en el parser y de esta forma las instrucciones del programa Willy pueden ir ejecutándose una tras otra sin generar inconvenientes.
+Con respecto a la ejecución del programa se puede dividir en dos partes:
+
+### Interpretar los mundos
+
+Se creó una clase mundo con ciertos métodos y a partir del parser estos métodos fueron invocados para así tener registradas las caricterísticas del mismo y poder mostrarlo.
+
+Para esta etapa se crearon también algunos controladores en el parser para asegurar que la asignación de atributos del mundo esten correctas. Por ejemplo, detectar si se tiene un mundo de tamaño 1x1, no construir paredes en la columna 3.
+
+### Interpretar las tareas 
+
+Se aprovechó la estructura del parser para crear nodos (estructuras que tienen un tipo e hijos), para que al ejecutar el parser la creación de nodos se fuera creando recursivamente para así obtener una estructura de árbol con todas las instrucciones, similar a un árbol de derivación.
+
+A partir de esta estructura se crearon varios métodos para manejar los nodos. Y los más importantes son:
+
+finalGoalValue(): Para saber el valor booleano del final goal definido para cada mundo.
+
+boolValue(): Para saber el valor booleano de las condiciones creadas en la tarea.
+
+executeMyTask(): Quién es la función responsable de que se ejecuten todas las instrucciones de forma correcta dentro de Willy*.
+
+# Archivos de Prueba
+
+### PickStars.txt
+
+:robot: :star: 
+
+PickStars en un programa en lenguaje Willy que consta de un mundo llamado sky con dimensiones 8 x 9 con estrellas.
+
+El objetivo es que Willy logre llegar a la posición final con 3 estrellas en su cesta.
+
+### WillyCleanItsRoom.txt
+
+:shirt: :blue_book: :computer:
+
+Este es un programa que tiene un mundo llamado room con dimensiones 4 x 5 que representa el cuarto de una persona.
+
+El objetivo de este es que Willy recoja su cuarto colocando su celular, su laptop y los libros en su mesa de trabajo (en donde está inicialmente su laptop) y que coloque toda la ropa sucia en la cesta de la ropa sucia.
+
+### EatClean.txt
+
+:cherries: :green_apple: :pizza:
+
+Este programa contiene un mundo con comida saludable y comida no saludable.
+Willy con un caminar sencillo recorre todo el mundo.
+
+El final goal es llegar al final comiendose todas las frutas y no comiendose las pizzas.
+
+### WriteFirstLetterOfMyName.txt
+
+:pencil2: :pencil:
+
+Aquí hay dos mundos en donde Willy escribe la primera letra de su nombre (W) en dimensiones distintas.
+
+### ComesHappyToUni.txt
+
+:smile: :expressionless: :triumph:
+
+Este programa contiene un mundo que representa la ida a la universidad.
+Por cada semaforo o señalización que Willy se encuentra lo pone de mal humor.
+Por cada vez que sintoniza una canción en la radio que le gusta le mejora el humor.
+¿Willy llegará de buen humor a la uni?
+
+### WillyScan.txt 
+
+:dart: :trophy:
+
+Es un programa que simula un mundo 20 x 20 con vidas y objetos dañinos.
+Willy tiene 5 vidas inicialmente y debe llegar a la meta sin quedarse sin vidas.
+
+### EsferaDelDragon.txt
+
+:dragon_face: :crystal_ball:
+
+Es un programa que se encarga de recorrer laberitos con un set de muros y una esfera de dragon al final, el poder esta e que willy siempre llegue al final encontrando la esfera del dragon de forma dinamica
+a manera de que permita cambios de los muros del mundo e igual se puedan mover
 
 
+### Laberinto.txt
+
+:fearful: :gem: :triangular_flag_on_post:
+Es un porgrama que se encarga de recorrer laberitos con un set de muros una salida, 
+La idea consiste en jugar con el ser de WALL dentro del o los mundos y permita que willy llegue al final con el task que existe
+
+### TicTacToe.txt
+La popular vieja en una forma estatica, a manera de que se permita jugar manipulando en task paso a paso  
+Y willy sea capaz de ganar tanto con  O ó X
+:negative_squared_cross_mark: :o2:
+ 
 
 # Conclusión
 
-Para desarrollar un interpretador es importante usar la estrategia de dividir y vencer.
+Para desarrollar un interpretador correctamente es importante realizarlo paso a paso. Primero definir cuáles van a ser las palabras que formaran parte del lenguaje, luego definir la estructura sintáctica que tendrán las instrucciones, para luego de haber verificado eso se pueda implementar la ejecución de un programa escrito en ese lenguaje.
 
-Dividiendo la entrada con el programa en tokens y almacenar información pertinente sobre la línea en la que se encuentra o la columna ayudará a que luego podamos darle estructura al lenguaje que se está leyendo y así lograr entender e implementar de forma correcta el funcionamiento del programa de entrada.
+Para Willy se necesitaron estructuras como la pila de símbolos porque en el mundo se podían definir variables y funciones, y se necesitaba tener un control de eso.
 
-Un paso a la vez.
+Otra estructura importante que se utilizó fue la del árbol que es la responsable de que la ejecución de las tareas pueda realizarse de forma correcta. Sin embargo este no se puede crear de forma correcta si no se tiene una buena gramática (que no sea ambigua ) que cree la estructura.
 
-Para la siguiente etapa se aseguró de que la estructura de las instrucciones fueran las indicadas, y que el programa de Willy no pueda ser ejecutado si existe alguna instrucción con errores de sintaxis.
+Para finalizar es importante comentar que esto fue posible gracias a dividir la tarea de crear el interpretador en pequeñas etapas e ir resolviendo cada una de ellas para así lograr el resultado final y darle vida a Willy.
 
-Además se creo una tabla de símbolos que permite llevar el control de las variables del mundo.
-
-Finalmente se crearon estructuras como World y Task que proveen distintas funciones para implementar y ejecutar los programas en lenguaje Willy.
-
-De esta forma se fueron realizando paso a paso todos los procedimientos para crear un interpretador de lenguaje y darle vida a Willy.
+:robot: :speech_balloon: *- Hello, World! -* 
