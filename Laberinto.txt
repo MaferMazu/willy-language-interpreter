@@ -17,6 +17,7 @@ Wall north from 10 1 to 10 2
 Wall north from 10 4 to 10 8
 Wall east from 4 9 to 8 9
 
+Start at 3 1 heading north
 Object-type DragonBall of color yellow
 Basket of capacity 1
 
@@ -37,3 +38,14 @@ Boolean imInCell33 with initial value false
 
 
 end-world
+
+begin-task Correr on Laberinto
+
+turn-left;
+move;
+turn-right;
+move;
+terminate;
+
+
+end-task
