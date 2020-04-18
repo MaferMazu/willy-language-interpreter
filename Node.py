@@ -97,7 +97,6 @@ class Node:
                return False
 
      def timer(self, task):
-          print("Task.time: " + str(task.time))
           if task.time == "man":
                input('Let us wait for user input. \n')
                print("###############")
@@ -105,7 +104,7 @@ class Node:
                print("La posición de Willy es: " + str(task.world.getWillyPosition()[0]) + " mirando hacia el " + str(
                     task.world.getWillyPosition()[1]))
                print("Lo que tiene en el basket es:\n", task.world.getObjectsInBasket())
-               print("El estado de los bools es:\n", task.world.getBools())
+               # print("El estado de los bools es:\n", task.world.getBools())
                print("El final goal es:\n" + task.world.getFinalGoal())
                print("El valor del final goal es: ", task.world.getValueFinalGoal())
                print(task.world)
@@ -118,7 +117,7 @@ class Node:
                     print("La posición de Willy es: " + str(task.world.getWillyPosition()[0]) + " mirando hacia el " + str(
                          task.world.getWillyPosition()[1]))
                     print("Lo que tiene en el basket es:\n", task.world.getObjectsInBasket())
-                    print("El estado de los bools es:\n", task.world.getBools())
+                    # print("El estado de los bools es:\n", task.world.getBools())
                     print("El final goal es:\n" + task.world.getFinalGoal())
                     print("El valor del final goal es: ", task.world.getValueFinalGoal())
                     print(task.world)
