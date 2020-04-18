@@ -4,7 +4,6 @@ import os,sys
 import lexer
 import ply.yacc as yacc
 import logging
-from Structure import Structure
 from myStack import myStack
 from Node import *
 from World import *

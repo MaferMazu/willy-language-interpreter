@@ -21,7 +21,7 @@
     + [WriteFirstLetterOfMyName.txt](#writefirstletterofmynametxt)
     + [ComesHappyToUni.txt](#comeshappytounitxt)
     + [WillyScan.txt](#willyscantxt)
-    + [EsferaDelDragon.txt](#esferadeldragontxt)
+    + [EsferasDelDragon.txt](#esferasdeldragontxt)
     + [Laberinto.txt](#laberintotxt)
     + [TicTacToe.txt](#tictactoetxt)
 - [Conclusión](#conclusi-n)
@@ -53,22 +53,29 @@ Y fue desarrollado por:
 
   `$ ./makefile.sh` 
 
+  (Nota: se espera que no existan otros ejecutables con el mismo nombre, eso quiere decir que no se tenga en el $PATH otro comando que se llame willy)
+
+  Si se tiene otros ejecutables en el PATH se pueden eliminar utilizando: export PATH=${PATH%:DireccionDeComandoAEliminarDelPath}
+
+  (Al ejecutar el makefile se copian los archivos .py en ~/.local/bin para poder ejecutar a willy)
+
 3. Luego se puede ejecutar el programa Willy, usando:
 
-  1) `$ willy <nombredearchivoexistente> <#DeSegundos>` 
+  1) `$ willy <direcciondearchivoenlenguajewilly*> <-a|--automatico> <#DeSegundos>` 
   
-  2) `$ willy <nombredearchivoexistente> <debug>`
+  2) `$ willy <direcciondearchivoenlenguajewilly*> <-m|--manual>`
   
-  3) `$ willy <#DeSegundos>` 
-  
-  4) `$ willy <debug>`
-  
-Luego de 3 y 4, se debe asiganr nombre (direccion del archivo que se desea leer en txt) donde
 
- - "#DeSegundos": es para asignar un numero que sera la cantidad de segundos que tendra paso a paso 
+Todo lo que esté entre <> es opcional y '|' significa que es uno u otro.
+
+ - En el modo automático se debe asignar un número en float con los segundos en que se ejecutará el programa paso a paso.
  
- - "debug": permitira que hasta que el usuario no presione cualquier tecla, el programa no continua ejecutanse
-          y la forma de detenerlo en ambos, hay que usar ctrl + c
+ - En el modo manual, cada paso se va a ejecutar al pisar la tecla enter.
+
+
+La forma de detener la ejecución de ambos modos es usar ctrl + c
+
+La forma de correr el programa y que se ejecute todo es colocarlo en modo automático y no colocando segundos.
 
   
 
@@ -257,7 +264,7 @@ Por cada vez que sintoniza una canción en la radio que le gusta le mejora el hu
 Es un programa que simula un mundo 20 x 20 con vidas y objetos dañinos.
 Willy tiene 5 vidas inicialmente y debe llegar a la meta sin quedarse sin vidas.
 
-### EsferaDelDragon.txt
+### EsferasDelDragon.txt
 
 :dragon_face: :crystal_ball:
 
