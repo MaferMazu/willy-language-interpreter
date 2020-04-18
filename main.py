@@ -123,11 +123,7 @@ try:
         # Agarro el siguiente token
         tok = lexer.token()
     output+="\n"
-    # result = parser.parse(datacopy)
-    #print(result)
-        
-    # Leemos otra linea
-    #data = f.readline()
+
 
     
     #while data:
