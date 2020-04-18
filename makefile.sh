@@ -13,11 +13,11 @@ ln -s main.py ~/.local/bin/willy
 FILE=~/.bash_profile
 if [ -f "$FILE" ]; then
     echo "$FILE exist"
-    echo -e 'export PATH="$PATH:~/.local/bin"' » ~/.bash_profile
+    echo -e 'export PATH="$PATH:~/.local/bin"' >> ~/.bash_profile
 else
     echo "$FILE does not exist"
     touch ~/.bash_profile
-    echo -e 'export PATH="$PATH:~/.local/bin"' » ~/.bash_profile
+    echo -e 'export PATH="$PATH:~/.local/bin"' >> ~/.bash_profile
     echo "$FILE NOW CREATED"
 fi
 source ~/.bash_profile
