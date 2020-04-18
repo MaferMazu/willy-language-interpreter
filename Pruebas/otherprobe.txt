@@ -16,7 +16,7 @@ begin-world w2
 	Boolean t with initial value true
 	Boolean f with initial value false
 	Goal g1 is willy is at 5 5
-	Final goal is g1;
+	Final goal is g1
 end-world
 
 begin-task t1 on w2

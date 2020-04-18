@@ -19,7 +19,7 @@ begin-world mimundo
   Place 1 of ball at 6 3
 
   Goal mygoal is 3 ball objects in Basket
-  Final goal is mygoal;
+  Final goal is mygoal
 
 
 

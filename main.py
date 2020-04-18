@@ -11,25 +11,6 @@ ValidTokens = []  # Coleccion de tokens validos
 InvalidTokens = []  # Coleccion de tokens invalidos
 ParserErrors = [] #Errores en el parser
 
-"""
-logging.basicConfig(
-     level = logging.DEBUG,
-     filename = "parselog.txt",
-     filemode = "w",
-     format = "%(filename)10s:%(lineno)4d:%(message)s"
- )
-
-
-log = logging.getLogger()
-# Construimos lexer
-lexer = lex.lex(module=lexer)
-# Construimos parser
-parser = yacc.yacc(module=myparser, debug=True, debuglog=log)
-
-
-result = parser.parse(string,lex,debug=log)
-
-"""
 #Verificamos la ejecucion del programa y sus entradas
 if len(argv) ==3:
     filepath = argv[1]
@@ -123,7 +104,7 @@ try:
     output+="\n"
 
 
-    
+
     #while data:
         
     # Cuando hay un error se imprime solo el error
@@ -134,12 +115,8 @@ try:
         print("tokens")
        #print(output)
     
-    if (len(ParserErrors)>=1):
+    if len(ParserErrors)>=1:
         print(ParserErrors[0])
-
-
-
-
 
 except FileNotFoundError:
     print('Imposible abrir el archivo ' + filepath)
