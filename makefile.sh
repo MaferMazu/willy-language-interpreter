@@ -13,13 +13,14 @@ fi
 cp main.py ~/local1/
 ln -s main.py $PWD/willy
 FILE=~/.bash_profile
+echo  'export PATH="$PATH:'$PWD'/willy"'
 if [ -f "$FILE" ]; then
     echo "$FILE exist"
-    echo -e 'export PATH="$PATH:~/local1/willy"' >> ~/.bash_profile
+    echo -e 'export PATH="$PATH:'$PWD'/willy"' >> ~/.bash_profile
 else
     echo "$FILE does not exist"
     touch ~/.bash_profile
-    echo -e 'export PATH="$PATH:~/local1/willy"' >> ~/.bash_profile
+    echo -e 'export PATH="$PATH:'$PWD'/willy"' >> ~/.bash_profile
     echo "$FILE NOW CREATED"
 fi
 source ~/.bash_profile
