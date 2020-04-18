@@ -47,6 +47,7 @@ if len(argv) ==3:
 
 elif len(argv) == 2:
     filepath = argv[1]
+    Task.add_element(0)
 elif len(argv) == 4:
     filepath = argv[1]
     if argv[2] == "-a" or argv[2] == "--auto":

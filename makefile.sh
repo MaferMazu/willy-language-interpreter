@@ -1,5 +1,7 @@
 chmod a+x main.py
 DIR=~/local1/
+PWD=$(pwd)
+echo $PWD
 if [ -d "$DIR" ]; then
     echo "$DIR exist"
 
@@ -9,7 +11,7 @@ else
     echo "$DIR NOW CREATED"
 fi
 cp main.py ~/local1/
-ln -s main.py ~/local1/willy
+ln -s main.py $PWD/willy
 FILE=~/.bash_profile
 if [ -f "$FILE" ]; then
     echo "$FILE exist"
