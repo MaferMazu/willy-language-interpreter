@@ -38,15 +38,14 @@ if len(argv) ==3:
     elif argv[2] == "-a" or argv[2] == "--auto":
         Task.add_element(0)
     else:
-        print("Uso del programa: python lexer.py <Nombre del archivo> <--manual>")
-        print("Uso del programa: python lexer.py <Nombre del archivo> <-m>")
-        print("Uso del programa: python lexer.py <Nombre del archivo> <--auto>")
-        print("Uso del programa: python lexer.py <Nombre del archivo> <-a>")
-        print("o utiizando: willy ")
+        print("Uso del programa: willy <Nombre del archivo> <--manual|-m>")
+        print("Uso del programa: willy <Nombre del archivo> <--auto|-a> <un float que representa los seg>\n")
+        print("Los elementos entre < > son opcionales. Y '|' significa que se puede utilizar uno u otro.")
         sys.exit()
 
 elif len(argv) == 2:
     filepath = argv[1]
+    Task.add_element(0)
 elif len(argv) == 4:
     filepath = argv[1]
     if argv[2] == "-a" or argv[2] == "--auto":

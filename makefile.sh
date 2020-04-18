@@ -8,7 +8,7 @@ else
     mkdir ~/.local/bin
     echo "$DIR NOW CREATED"
 fi
-cp main.py ~/.local/bin
+cp *.py ~/.local/bin
 ln -s main.py ~/.local/bin/willy
 FILE=~/.bash_profile
 if [ -f "$FILE" ]; then
