@@ -13,7 +13,7 @@ fi
 cp main.py ~/local1/
 ln -s main.py $PWD/willy
 FILE=~/.bash_profile
-echo  'export PATH="$PATH:'$PWD'/willy"'
+
 if [ -f "$FILE" ]; then
     echo "$FILE exist"
     echo -e 'export PATH="$PATH:'$PWD'/willy"' >> ~/.bash_profile
@@ -23,5 +23,6 @@ else
     echo -e 'export PATH="$PATH:'$PWD'/willy"' >> ~/.bash_profile
     echo "$FILE NOW CREATED"
 fi
+
 source ~/.bash_profile
-echo "command willy has been added to ysudour path"
+echo $PATH
