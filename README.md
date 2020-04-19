@@ -1,12 +1,15 @@
 ### Willy*
 
+:robot: :speech_balloon: *- My name is Willy! -* 
 
+- [Willy*](#willy-)
 - [¿Qué es?](#-qu--es-)
 - [¿Cómo correrlo?](#-c-mo-correrlo-)
 - [Versiones](#versiones)
   * [Versión Final 3.0](#versi-n-final-30)
     + [Otras cosas importantes que resaltar:](#otras-cosas-importantes-que-resaltar-)
     + [Consideraciones en cuanto a la impresión:](#consideraciones-en-cuanto-a-la-impresi-n-)
+    + [Consideraciones en cuanto a la implementación:](#consideraciones-en-cuanto-a-la-implementaci-n-)
     + [Versiones anteriores](#versiones-anteriores)
 - [Sobre la implementación](#sobre-la-implementaci-n)
   * [Sobre el Lexer](#sobre-el-lexer)
@@ -14,6 +17,7 @@
   * [Sobre el Interpretador](#sobre-el-interpretador)
     + [Interpretar los mundos](#interpretar-los-mundos)
     + [Interpretar las tareas](#interpretar-las-tareas)
+  * [Sobre el Simulador](#sobre-el-simulador)
 - [Archivos de Prueba](#archivos-de-prueba)
     + [PickStars.txt](#pickstarstxt)
     + [WillyCleanItsRoom.txt](#willycleanitsroomtxt)
@@ -24,6 +28,7 @@
     + [EsferasDelDragon.txt](#esferasdeldragontxt)
     + [Laberinto.txt](#laberintotxt)
     + [TicTacToe.txt](#tictactoetxt)
+    + [Otros](#otros)
 - [Conclusión](#conclusi-n)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
@@ -33,7 +38,7 @@
 
 # ¿Qué es?
 
-Willy **es un interpretador del lenguaje Willy***, que determina un ambiente de programación para un robot.
+**Este es un interpretador del lenguaje Willy***, que determina un ambiente de programación para un robot.
 
 :robot: Este puede interactuar con objetos en un mundo y desplazarse por el mismo a través de cuadrículas de tamaño finito.
 
@@ -47,19 +52,23 @@ Y fue desarrollado por:
 
 # ¿Cómo correrlo? 
 
-1. Descargar el repositorio
+1. Tener descargado ply > [ply](https://www.dabeaz.com/ply/)
 
-2. Entrar en la terminal del sistema en la dirección del repositorio y realizar en la línea de comandos:
+2. Descargar el repositorio
+
+3. Entrar en la terminal del sistema en la dirección del repositorio y realizar en la línea de comandos:
 
   `$ ./makefile.sh` 
 
-  (Nota: se espera que no existan otros ejecutables con el mismo nombre, eso quiere decir que no se tenga en el $PATH otro comando que se llame willy)
+  (Nota: se espera que no existan otros ejecutables con el mismo nombre, es decir, que no se tenga en el $PATH otro comando que se llame willy)
 
-  Si se tiene otros ejecutables en el PATH se pueden eliminar utilizando: export PATH=${PATH%:DireccionDeComandoAEliminarDelPath}
+  Si se tiene otros ejecutables en el PATH se pueden eliminar utilizando:
 
+  `$ export PATH=${PATH%:DireccionDeComandoAEliminarDelPath}` 
+  
   (Al ejecutar el makefile se copian los archivos .py en ~/.local/bin para poder ejecutar a willy)
 
-3. Luego se puede ejecutar el programa Willy, usando:
+4. Luego se puede ejecutar el programa Willy, usando:
 
   1) `$ willy <direcciondearchivoenlenguajewilly*> <-a|--automatico> <#DeSegundos>` 
   
@@ -77,7 +86,10 @@ La forma de detener la ejecución de ambos modos es usar ctrl + c
 
 La forma de correr el programa y que se ejecute todo es colocarlo en modo automático y no colocando segundos.
 
-  
+**Dentro del directorio Pruebas se encuentran algunos archivos en lenguaje Willy**. Se puede conocer un poco más de esto aquí > [Archivos de Prueba](#archivos-de-prueba)
+
+Para entender mejor cómo corre el programa leer sobre la [Versión Final 3.0](#versi-n-final-30) y [Sobre la implementación](#sobre-la-implementaci-n)
+
 
 # Versiones
 
@@ -125,7 +137,6 @@ La forma correcta es: (sin el ; después del end)
 
 - Si el programa encuentra la instrucción terminate o se cumple el final goal la ejecución del task termina.
 
-- Si el programa se ejecuta correctamente.
 
 ### Consideraciones en cuanto a la impresión:
 
@@ -136,6 +147,20 @@ La forma correcta es: (sin el ; después del end)
 - Willy está representado por una w
 
 - Si Willy está sobre algún objeto se representa con W
+
+
+### Consideraciones en cuanto a la implementación:
+
+- El interpretador ejecuta el programa de forma secuencial. Si se lee un task cuyo mundo no ha sido declarado previamente esto generaría un error.
+
+- Si se definen dos task para un mismo mundo, el segundo task se va a ejecutar sobre el mundo resultante de haber aplicado el primer task, si y sólo si se hizo la ejecución de este primer task de forma correcta.
+
+- Al leerse los mundos estos son creados y almacenados. Al leer los task, si el mundo al que hace referencia al task existe, este es ejecutado.
+
+- Se recomienda declarar todos los mundos primero y luego los task, para que se realice una correcta ejecución de los mismos.
+
+Para más información consultar: [Sobre la implementación](#sobre-la-implementaci-n)
+
 
 ### Versiones anteriores
 Versión 2.0
@@ -193,29 +218,47 @@ El diseño de esta gramática comprende la forma en que se determina si un progr
 
 ## Sobre el Interpretador
 
+Se utilizó el modulo parser.py para implementar el interpretador ahí mismo.
+
 Inicialmente se creó una **pila de símbolos** en donde se almacenan los distintos identificadores (ids) que son utilizados para cada mundo, tarea, variable booleana, nombre de función, objeto, etc. Esto con el objetivo de mantener un control de identificadores, y verificar que se utilicen correctamente; por ejemplo, no instanciar objetos que no fueron previamente definidos, o no definir dos funciones con el mismo nombre, incluso verificar que no existan dos mundos con el mismo nombre.
 
-Con respecto a la ejecución del programa se puede dividir en dos partes:
+Este interpretador ejecuta el programa de forma secuencial. Si se lee un task cuyo mundo no ha sido declarado previamente esto generaría un error.
+
 
 ### Interpretar los mundos
 
-Se creó una clase mundo con ciertos métodos y a partir del parser estos métodos fueron invocados para así tener registradas las caricterísticas del mismo y poder mostrarlo.
+Se creó una clase mundo con ciertos métodos y a partir del parser estos fueron invocados para así tener registradas las características del mismo y poder mostrarlo.
 
 Para esta etapa se crearon también algunos controladores en el parser para asegurar que la asignación de atributos del mundo esten correctas. Por ejemplo, detectar si se tiene un mundo de tamaño 1x1, no construir paredes en la columna 3.
 
 ### Interpretar las tareas 
 
-Se aprovechó la estructura del parser para crear nodos (estructuras que tienen un tipo e hijos), para que al ejecutar el parser la creación de nodos se fuera creando recursivamente para así obtener una estructura de árbol con todas las instrucciones, similar a un árbol de derivación.
+Se aprovechó la estructura del parser para crear nodos (estructuras que tienen un tipo e hijos), para que al ejecutar el parser la creación de nodos se hiciera recursivamente para así obtener una estructura de árbol con todas las instrucciones, similar a un árbol de derivación.
 
-A partir de esta estructura se crearon varios métodos para manejar los nodos. Y los más importantes son:
+A partir de esta estructura se crearon varios métodos para manejar los nodos (especificadas en la parte de sobre el simulador)
 
-finalGoalValue(): Para saber el valor booleano del final goal definido para cada mundo.
 
-boolValue(): Para saber el valor booleano de las condiciones creadas en la tarea.
+## Sobre el Simulador
 
-executeMyTask(): Quién es la función responsable de que se ejecuten todas las instrucciones de forma correcta dentro de Willy*.
+El simulador, quién es el encargado de la ejecución de las instrucciones del programa, fue implementado como una función dentro de la clase Node. Esta función tiene el nombre de executeMyTask() y todas las funciones que esta utiliza se encuentran dentro de la clase Node y la clase Task.
+
+- Funciones a resaltar de Node:
+
+    + finalGoalValue(): Para saber el valor booleano del final goal definido para cada mundo.
+
+    + boolValue(): Para saber el valor booleano de las condiciones creadas en la tarea.
+
+    + executeMyTask(): Quién es la función responsable de que se ejecuten todas las instrucciones de forma correcta dentro de Willy*. Esta utiliza la estructura de nodo para llamarse recursivamente y así ir recorriendo las instrucciones una a una.
+
+    + timer(): Quién es la responsable de que las instrucciones se vayan ejecutando paso a paso (con la opción -a|--automatico) o con la tecla enter (con la opción -m|--manual).
+
+- En la clase Task es en dónde se tiene la especificación de las instrucciones ejecutadas en executeMyTask().
+
 
 # Archivos de Prueba
+
+Todos estos se encuentran dentro del directorio llamado Pruebas
+
 
 ### PickStars.txt
 
@@ -275,13 +318,20 @@ a manera de que permita cambios de los muros del mundo e igual se puedan mover
 ### Laberinto.txt
 
 :fearful: :gem: :triangular_flag_on_post:
+
 Es un porgrama que se encarga de recorrer laberitos con un set de muros una salida, 
 La idea consiste en jugar con el ser de WALL dentro del o los mundos y permita que willy llegue al final con el task que existe
 
 ### TicTacToe.txt
+
+:negative_squared_cross_mark: :o2:
+
 La popular vieja en una forma estatica, a manera de que se permita jugar manipulando en task paso a paso  
 Y willy sea capaz de ganar tanto con  O ó X
-:negative_squared_cross_mark: :o2:
+
+### Otros
+
+Se dejaron también otros archivos de prueba que se utilizaron para probar el correcto funcionamiento de Willy.
  
 
 # Conclusión
