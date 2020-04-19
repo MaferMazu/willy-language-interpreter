@@ -1,5 +1,34 @@
 from World import World #Despues tengo que comentar esto
 
+""" Taks - Simulador II
+    Traductores e Interpretadores (CI-3725)
+    Maria Fernanda Magallanes (13-10787)
+    Jesus Marcano (12-10359)
+    E-M 2020
+    
+    
+    Task es el encargado de almacenar las instrucciones creadas por el usuairo y de sumylar el movimiento de willy dentro del mundo
+    
+    Taks esta comprendido por una definicion inciial que contiene
+        self.instructions Instrucciones que crea el usuario "distintas a las primitivas"
+        self.world "Mundo Asociado al Task"
+        self.id "identificador del Taks"
+        self.node "Nodo referente al arbol para saber quienes son los hijos de esta instruccion"
+        self.fin = "Variable para saber si se cumplio el Final Goal"
+        
+    Ademas de lo anterior, contamos con "time" variable de Tipo any, que puede ser un float o string, que contiene los 
+        segundos o la forma de ejecucion del programa
+        
+    Las funciones :
+        - moveWilly
+        - turnWilly
+        - pickObject
+        - dropObject
+        Todas estas competen a acciones de Willy dentro del mundo donde tienes: cambio de orientacion en el tablero, movimiento, 
+        interaccion con objetos
+        
+    add_element: Metodo estatico que se encarga de setear el tiempo desde que se llama la ejecución del programa
+"""
 
 class Task:
 

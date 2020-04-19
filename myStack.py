@@ -1,5 +1,20 @@
 DEBUG_MODE = True
 import sys
+
+"""
+    Estructura de Pila para verificacion del interprete
+    Primera fase del proyecto
+    Traductores e Interpretadores (CI-3725)
+    Maria Fernanda Magallanes (13-10787)
+    Jesus Marcano (12-10359)
+    E-M 2020
+    
+    Simulacion de una Pila que se encarga de verificar contextos dentro de dentro del mundo y dentro de la tarea
+        con esta clase se puede ver si existe o no un elemento dentro de la pila y devuelve True or False, si el 
+        elemento a insertar ya existe. De esta forma, no aseguramos si existen elementos repetidos dentro de nuestro 
+        programa 
+    
+"""
 class myStack:
     def __init__(self):
         self.stack = []

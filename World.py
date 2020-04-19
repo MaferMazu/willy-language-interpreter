@@ -1,3 +1,24 @@
+"""
+WORLD - Mundos de Willy
+    Traductores e Interpretadores (CI-3725)
+    Maria Fernanda Magallanes (13-10787)
+    Jesus Marcano (12-10359)
+    E-M 2020
+
+    Clase que se encarga de manejar todas las carecteristicas del Mundo
+
+    Compendio de Getters & Setters que comprenden lo siguiente:
+     - Orientacion de Willy
+     - Objetos dentro del mundo
+     - Dimensiones del mundo
+     - Muros y limites del mundo
+     - Capacidad de la cesta de Willy
+     - booleandoPrimitivos del mundo y Creados pro el usuario
+     - Goals que comprenden al mundo
+     - Simobolos de objetos del programa
+     - Verificacion de la Existencia de objetos dentro del Mundo
+     - Cambio de estado de los booleanos
+"""
 class World:
      def __init__(self, id):
           self.id = id
