@@ -1,6 +1,37 @@
 from World import *
 from Task import *
 import time
+
+"""
+    Simulador y Arbol del programa
+    Primera fase del proyecto
+    Traductores e Interpretadores (CI-3725)
+    Maria Fernanda Magallanes (13-10787)
+    Jesus Marcano (12-10359)
+    E-M 2020
+    
+    
+    Node es la estructura de un Nodo en particular dentro del Arbol de instrucciones generado por las producciones
+    de neustro parser e interpretador
+     
+     
+     Junto a esto, tenemos 3 componentes grandes que encargan de realizar la simulacion del Task
+     
+     - finalGoalToString y finalGoalValue: Estas funciones se encargan de hacer manejable al usuario, en formato String
+          la interterpretacion de los Final Goal, a manera de que el usuario pueda ver el resultado del mismo, ademas
+          de las correspondientes validaciones para saber si el programa llego al objetivo definido por el usuario
+     
+     - boolValue: Se encarga de evaluar el estado del booleando del World al cual se esta aplicando el nodo del Task.
+          Esto a manera de poder cambiar verificar y modificar el valor de los booleando primitivos de Willy como los definidos por el usuario
+          
+     - executeMyTask: Este es el encargado de hacer el recorrido del Arbol que generan las producciones que creamos dentro del parser
+     
+     Para una ejecucion a manera de Debbugger tenemos: 
+          - timer: este solo se encarga de impresion de salidas cada x cantidad de segundos, de forma automatica o previo un input de enter del usuario
+     
+     
+"""
+
 startTime = time.time()
 class Node:
      def __init__(self,type,children=None):
@@ -9,7 +40,6 @@ class Node:
                self.children = children
           else:
                self.children = [ ]
-
 
      def __str__(self, level=0):
           ret = "  " * level + self.type + "\n"
@@ -23,7 +53,6 @@ class Node:
 
      def finalGoalToString(self):
           ret=""
-
           if self.type=="Conjuncion" :
                ret += self.children[0].finalGoalToString() + " and " + self.children[1].finalGoalToString()
           elif self.type=="Disyuncion":
@@ -42,9 +71,7 @@ class Node:
           return ret
 
      def finalGoalValue(self,mundo,mybool):
-          
           if isinstance(mundo,World):
-               # print(self.type)
                if self.type=="Conjuncion":
                     left = self.children[0].finalGoalValue(mundo,mybool)
                     rigth = self.children[1].finalGoalValue(mundo,mybool)
@@ -64,7 +91,6 @@ class Node:
                          if isinstance(child,Node):
                               mybool= mybool and (child.finalGoalValue(mundo,mybool))
                          else:
-                              # print("soy leaf y mi valor es:",child,mundo.getGoals(),mundo.getValueGoals(child))
                               mybool=mybool and mundo.getValueGoals(child)
                     
                return mybool
@@ -72,9 +98,7 @@ class Node:
                return False
 
      def boolValue(self,mundo,mybool):
-          
           if isinstance(mundo,World):
-               # print(self.type)
                if self.type=="Conjuncion":
                     left = self.children[0].boolValue(mundo,mybool)
                     rigth = self.children[1].boolValue(mundo,mybool)
@@ -82,16 +106,13 @@ class Node:
                elif self.type=="Disyuncion":
                     left = self.children[0].boolValue(mundo,mybool)
                     rigth = self.children[1].boolValue(mundo,mybool)
-                    # print("SOYYYYYYYYYYYYYYYYYYYYYYYYYYYYY EL SEXY OOOOOOOO")
                     mybool= mybool and (mundo.getValueGoals(left) or mundo.getValueGoals(rigth))
-                    # print(mybool)
                elif self.type=="Parentesis":
                     u = self.children[0].boolValue(mundo,mybool)
                     mybool= mybool and ((u))
                elif self.type=="Not":
                     u = self.children[0].boolValue(mundo,mybool)
                     mybool= mybool and (not u)
-
                elif self.type=="Found":
                     mybool= mybool and mundo.isCellWithObject(mundo.getWillyPosition()[0],self.children[0])
                elif self.type == "Carrying":
@@ -101,15 +122,12 @@ class Node:
                          if isinstance(child,Node):
                               mybool= mybool and (child.boolValue(mundo,mybool))
                          else:
-                              # print("soy leaf y mi valor es:", child, mundo.getBools(), mundo.getValueBool(child))
                               mybool=mybool and mundo.getValueBool(child)
-                              # print(mybool)
                return mybool
           else:
                return False
 
      def timer(self, task):
-          print("Task.time: " + str(task.time))
           if task.time == "man":
                input('Let us wait for user input. \n')
                print("###############")
@@ -117,7 +135,7 @@ class Node:
                print("La posición de Willy es: " + str(task.world.getWillyPosition()[0]) + " mirando hacia el " + str(
                     task.world.getWillyPosition()[1]))
                print("Lo que tiene en el basket es:\n", task.world.getObjectsInBasket())
-               print("El estado de los bools es:\n", task.world.getBools())
+               # print("El estado de los bools es:\n", task.world.getBools())
                print("El final goal es:\n" + task.world.getFinalGoal())
                print("El valor del final goal es: ", task.world.getValueFinalGoal())
                print(task.world)
@@ -130,7 +148,7 @@ class Node:
                     print("La posición de Willy es: " + str(task.world.getWillyPosition()[0]) + " mirando hacia el " + str(
                          task.world.getWillyPosition()[1]))
                     print("Lo que tiene en el basket es:\n", task.world.getObjectsInBasket())
-                    print("El estado de los bools es:\n", task.world.getBools())
+                    # print("El estado de los bools es:\n", task.world.getBools())
                     print("El final goal es:\n" + task.world.getFinalGoal())
                     print("El valor del final goal es: ", task.world.getValueFinalGoal())
                     print(task.world)
@@ -138,13 +156,7 @@ class Node:
                     pass
 
      def executeMyTask(self,task):
-          # print("####HEELL YEA")
-          # # print(task)
-
-
-
           if isinstance(task,Task) and not task.fin:
-               # print(self.type)
                if not task.world.getValueFinalGoal():
                     if self.type=="Drop":
                          if task.world.isObjectBasket(self.children[0]) and task.world.isObject(self.children[0]):
@@ -152,12 +164,10 @@ class Node:
                                    print("No se puede hacer el drop con:",self.children[0])
                          self.timer(task)
                     elif self.type=="Pick":
-                         # print("ESTAMOS RECOGIENDO")
                          if task.world.isCellWithObject(task.world.getWillyPosition()[0],self.children[0]) and task.world.isObject(self.children[0]):
                               if not task.pickObject(self.children[0]):
                                    print("No se puede hacer el pick con:",self.children[0])
                          self.timer(task)
-                         #print("Pick")
                     elif self.type=="Clear":
                          if not task.world.changeBool(self.children[0], False):
                               print("No se puede hacer el clear con:",self.children[0])
@@ -201,7 +211,6 @@ class Node:
                     elif self.type=="ifSimple":
                          if self.children[0].boolValue(task.world,True):
                               self.children[1].executeMyTask(task)
-                              #print("Ifsimpledentro")
                          self.timer(task)
                     elif self.type=="ifCompound":
                          if self.children[0].boolValue(task.world,True):
@@ -210,7 +219,6 @@ class Node:
                               self.children[2].executeMyTask(task)
                          self.timer(task)
                     elif self.type =="whileInst":
-                         #print("MY WHILEEEEEEEE condicion: ",self.children[0],self.children[0].boolValue(task.world,True))
                          while self.children[0].boolValue(task.world,True):
                               if task.fin:
                                    break

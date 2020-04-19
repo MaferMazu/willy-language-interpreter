@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """
-    Analizador Lexicografico del Lenguaje GuardedUSB
+    Analizador Lexicografico del Lenguaje Willy
     Primera fase del proyecto
     Traductores e Interpretadores (CI-3725)
     Maria Fernanda Magallanes (13-10787)
     Jesus Marcano (12-10359)
     E-M 2020
+
+    Aqui estan almacenados todos los Tokens que reconocemos en el programa.
+
+    dividodos en diferentes secciones:
+        Lista de Tokens, palabras reservadas, tokens del programa, tokens ignorados, reglase de tokens y simbolos
 """
 
 from ply import lex
