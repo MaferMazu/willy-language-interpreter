@@ -1,6 +1,37 @@
 from World import *
 from Task import *
 import time
+
+"""
+    Simulador y Arbol del programa
+    Primera fase del proyecto
+    Traductores e Interpretadores (CI-3725)
+    Maria Fernanda Magallanes (13-10787)
+    Jesus Marcano (12-10359)
+    E-M 2020
+    
+    
+    Node es la estructura de un Nodo en particular dentro del Arbol de instrucciones generado por las producciones
+    de neustro parser e interpretador
+     
+     
+     Junto a esto, tenemos 3 componentes grandes que encargan de realizar la simulacion del Task
+     
+     - finalGoalToString y finalGoalValue: Estas funciones se encargan de hacer manejable al usuario, en formato String
+          la interterpretacion de los Final Goal, a manera de que el usuario pueda ver el resultado del mismo, ademas
+          de las correspondientes validaciones para saber si el programa llego al objetivo definido por el usuario
+     
+     - boolValue: Se encarga de evaluar el estado del booleando del World al cual se esta aplicando el nodo del Task.
+          Esto a manera de poder cambiar verificar y modificar el valor de los booleando primitivos de Willy como los definidos por el usuario
+          
+     - executeMyTask: Este es el encargado de hacer el recorrido del Arbol que generan las producciones que creamos dentro del parser
+     
+     Para una ejecucion a manera de Debbugger tenemos: 
+          - timer: este solo se encarga de impresion de salidas cada x cantidad de segundos, de forma automatica o previo un input de enter del usuario
+     
+     
+"""
+
 startTime = time.time()
 class Node:
      def __init__(self,type,children=None):

@@ -10,16 +10,42 @@ from World import *
 from Task import *
 from ModelProcedure import *
 
+"""
+    Analizador Semantico y sintactico + (Interpretador) De Willy*
+    Primera fase del proyecto
+    Traductores e Interpretadores (CI-3725)
+    Maria Fernanda Magallanes (13-10787)
+    Jesus Marcano (12-10359)
+    E-M 2020
+
+    Dentro de myparser, encontramos todos lo metodos que son encargados de desarrollar las producciones,
+    estos de la forma: p_nombreFuncion
+    dentro de ellos se hace split de los tokens recibidos para poder armar los distintos nodos que generaran el 
+    arbol de lectura de nuestro parser. 
+    
+    En la primera seccion tenemos todas las definicones del World
+    
+    En la segunda seccion tenemos todas las definicios del Task
+    
+    En la tercera definicion tenemos los manejos de errores semanticos y sintaticos de Willy
+    
+    
+    Aqui se componen las validaciones de la correcta escritura de las frases de ejecucion, 
+    del orden que debe llevar cada una de las instrucciones, sobre si tenemos elementos repetidos dentro
+    de un mismo conexto(scope) para poder hacer buenas definiciones de nuestras variabe y desaparecer ambiguedades. 
+    
+    En caso de error se colecta la linea, el token escrito y se le señala al usuario estos componentes a donde deberia corregir el script
+"""
 
 
 DEBUG_MODE = True
 # parser: Any = yacc.parse(lexer)
-logging.basicConfig(
-        level = logging.DEBUG,
-        filename = "parselog.txt",
-        filemode = "w",
-        format = "%(filename)10s:%(lineno)4d:%(message)s"
-    )
+# logging.basicConfig(
+#         level = logging.DEBUG,
+#         filename = "parselog.txt",
+#         filemode = "w",
+#         format = "%(filename)10s:%(lineno)4d:%(message)s"
+#     )
 
 precedence = (
     ('left','TkThen'),
