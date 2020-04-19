@@ -62,6 +62,7 @@ Y fue desarrollado por:
 
   (Nota: se espera que no existan otros ejecutables con el mismo nombre, es decir, que no se tenga en el $PATH otro comando que se llame willy)
 
+
   Si se tiene otros ejecutables en el PATH se pueden eliminar utilizando:
 
   `$ export PATH=${PATH%:DireccionDeComandoAEliminarDelPath}` 
@@ -73,12 +74,14 @@ Y fue desarrollado por:
   1) `$ willy <direcciondearchivoenlenguajewilly*> <-a|--automatico> <#DeSegundos>` 
   
   2) `$ willy <direcciondearchivoenlenguajewilly*> <-m|--manual>`
+
   
 
 Todo lo que esté entre <> es opcional y '|' significa que es uno u otro.
 
  - En el modo automático se debe asignar un número en float con los segundos en que se ejecutará el programa paso a paso.
  
+
  - En el modo manual, cada paso se va a ejecutar al pisar la tecla enter.
 
 
