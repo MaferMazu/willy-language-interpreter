@@ -1,17 +1,15 @@
 ### Willy*
 
-:robot: :speech_balloon: *- My name is Willy! -* 
-
 - [Willy*](#willy-)
-- [¿Qué es?](#-qu--es-)
-- [¿Cómo correrlo?](#-c-mo-correrlo-)
+- [¿Qué es?](#qué-es)
+- [¿Cómo correrlo?](#cómo-correrlo)
 - [Versiones](#versiones)
-  * [Versión Final 3.0](#versi-n-final-30)
-    + [Otras cosas importantes que resaltar:](#otras-cosas-importantes-que-resaltar-)
-    + [Consideraciones en cuanto a la impresión:](#consideraciones-en-cuanto-a-la-impresi-n-)
-    + [Consideraciones en cuanto a la implementación:](#consideraciones-en-cuanto-a-la-implementaci-n-)
+  * [Versión Final 3.0](#versión-final-30)
+    + [Otras cosas importantes que resaltar:](#otras-cosas-importantes-que-resaltar)
+    + [Consideraciones en cuanto a la impresión:](#consideraciones-en-cuanto-a-la-impresión)
+    + [Consideraciones en cuanto a la implementación:](#consideraciones-en-cuanto-a-la-implementación)
     + [Versiones anteriores](#versiones-anteriores)
-- [Sobre la implementación](#sobre-la-implementaci-n)
+- [Sobre la implementación](#sobre-la-implementación)
   * [Sobre el Lexer](#sobre-el-lexer)
   * [Sobre el Parser](#sobre-el-parser)
   * [Sobre el Interpretador](#sobre-el-interpretador)
@@ -29,7 +27,7 @@
     + [Laberinto.txt](#laberintotxt)
     + [TicTacToe.txt](#tictactoetxt)
     + [Otros](#otros)
-- [Conclusión](#conclusi-n)
+- [Conclusión](#conclusión)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
@@ -47,8 +45,10 @@ Para más detalles del lenguaje Willy > [willy.pdf](https://github.com/MaferMazu
 Este interpretador se hizo como proyecto para la materia de Traductores de la Universidad Simón Bolívar, el trimestre Ene-Mar de 2020
 
 Y fue desarrollado por: 
-[@jcellomarcano](https://github.com/jcellomarcano)
-[@mafermazu](https://github.com/MaferMazu)
+
+- [@jcellomarcano](https://github.com/jcellomarcano)
+
+- [@mafermazu](https://github.com/MaferMazu)
 
 # ¿Cómo correrlo? 
 
@@ -88,7 +88,7 @@ La forma de correr el programa y que se ejecute todo es colocarlo en modo autom�
 
 **Dentro del directorio Pruebas se encuentran algunos archivos en lenguaje Willy**. Se puede conocer un poco más de esto aquí > [Archivos de Prueba](#archivos-de-prueba)
 
-Para entender mejor cómo corre el programa leer sobre la [Versión Final 3.0](#versi-n-final-30) y [Sobre la implementación](#sobre-la-implementaci-n)
+Para entender mejor cómo corre el programa leer sobre la [Versión Final 3.0](#versión-final-30) y [Sobre la implementación](#sobre-la-implementación)
 
 
 # Versiones
@@ -159,7 +159,7 @@ La forma correcta es: (sin el ; después del end)
 
 - Se recomienda declarar todos los mundos primero y luego los task, para que se realice una correcta ejecución de los mismos.
 
-Para más información consultar: [Sobre la implementación](#sobre-la-implementaci-n)
+Para más información consultar: [Sobre la implementación](#sobre-la-implementación)
 
 
 ### Versiones anteriores
