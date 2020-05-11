@@ -87,10 +87,14 @@ class Node:
                     u = self.children[0].finalGoalValue(mundo,mybool)
                     mybool= mybool and (not u)
                else:
+                    # print(self.children)
                     for child in self.children:
+                         # print("#####FINALGOALVALUE#####")
+                         # print(isinstance(child, Node))
                          if isinstance(child,Node):
                               mybool= mybool and (child.finalGoalValue(mundo,mybool))
                          else:
+                              # print(mundo.getValueGoals(child))
                               mybool=mybool and mundo.getValueGoals(child)
                     
                return mybool
@@ -157,107 +161,110 @@ class Node:
 
      def executeMyTask(self,task):
           if isinstance(task,Task) and not task.fin:
-               if not task.world.getValueFinalGoal():
-                    if self.type=="Drop":
-                         if task.world.isObjectBasket(self.children[0]) and task.world.isObject(self.children[0]):
-                              if not task.dropObject(self.children[0]):
-                                   print("No se puede hacer el drop con:",self.children[0])
-                         self.timer(task)
-                    elif self.type=="Pick":
-                         if task.world.isCellWithObject(task.world.getWillyPosition()[0],self.children[0]) and task.world.isObject(self.children[0]):
-                              if not task.pickObject(self.children[0]):
-                                   print("No se puede hacer el pick con:",self.children[0])
-                         self.timer(task)
-                    elif self.type=="Clear":
-                         if not task.world.changeBool(self.children[0], False):
-                              print("No se puede hacer el clear con:",self.children[0])
-                         self.timer(task)
-                    elif self.type=="Flip":
-                         boolAux = task.world.getValueBool(self.children[0])
-                         if not task.world.changeBool(self.children[0], not boolAux):
-                              print("No se puede hacer el flip con:",self.children[0])
-                         self.timer(task)
-                    elif self.type=="SetBool":
-                         if not task.world.changeBool(self.children[0],self.children[1]):
-                              print("No se puede hacer el setbool con:",self.children[0])
-                         self.timer(task)
-                    elif self.type=="SetTrue":
-                         if not task.world.changeBool(self.children[0],True):
-                              print("No se puede hacer el set true con:",self.children[0])
-                         self.timer(task)
-                    elif self.type=="Move":
-                         if not task.moveWilly():
-                              print("Willy no se pudo mover, y su configuración actual es:",task.world.getWillyPosition())
-                         self.timer(task)
-                    elif self.type=="TL":
-                         if not task.turnWilly("left"):
-                              print("No pudo hacer turn-left:")
-                         self.timer(task)
-                    elif self.type=="TR":
-                         if not task.turnWilly("right"):
-                              print("No pudo hacer turn-right:")
-                         self.timer(task)
-                    elif self.type=="Terminate":
-                         print("###############")
-                         print("Estado final de "+str(task.world.id) +" luego de haber ejecutado "+str(task.id))
-                         print("La posición de Willy es: "+ str(task.world.getWillyPosition()[0]) + " mirando hacia el " + str(task.world.getWillyPosition()[1]))
-                         print("Lo que tiene en el basket es:\n", task.world.getObjectsInBasket())
-                         print("El estado de los bools es:\n", task.world.getBools())
-                         print("El final goal es:\n" + task.world.getFinalGoal())
-                         print("El valor del final goal es: ",task.world.getValueFinalGoal())
-                         print(task.world)
-                         task.fin=True
-                         self.timer(task)
-                    elif self.type=="ifSimple":
-                         if self.children[0].boolValue(task.world,True):
-                              self.children[1].executeMyTask(task)
-                         self.timer(task)
-                    elif self.type=="ifCompound":
-                         if self.children[0].boolValue(task.world,True):
-                              self.children[1].executeMyTask(task)
-                         else:
-                              self.children[2].executeMyTask(task)
-                         self.timer(task)
-                    elif self.type =="whileInst":
-                         while self.children[0].boolValue(task.world,True):
-                              if task.fin:
-                                   break
-                              self.children[1].executeMyTask(task)
-                         self.timer(task)
-                    elif self.type =="Define As":
-                         task.instructions.append([self.children[0].children[0],self.children[1]])
-                         self.timer(task)
-                    elif self.type=="Repeat":
-                         for i in range(0,self.children[0]):
-                              if task.fin:
-                                   break
-                              self.children[1].executeMyTask(task)
-                         self.timer(task)
-                    elif self.type=="MyInstruction":
-                         if task.instructions!=[]:
-                              for x in task.instructions:
-                                   if self.children[0]==x[0]:
-                                        x[1].executeMyTask(task)
-                         self.timer(task)
-                    else:
-                         
-                         for child in self.children:
-                              if isinstance(child,Node):
-                                   if child.type=="Terminate":
-                                        child.executeMyTask(task)
-                                        break
-                                   else:
-                                        child.executeMyTask(task)
-               else:
+               if self.type == "Drop":
+                    if task.world.isObjectBasket(self.children[0]) and task.world.isObject(self.children[0]):
+                         if not task.dropObject(self.children[0]):
+                              print("No se puede hacer el drop con:", self.children[0])
+                    self.timer(task)
+               elif self.type == "Pick":
+                    if task.world.isCellWithObject(task.world.getWillyPosition()[0],
+                                                   self.children[0]) and task.world.isObject(self.children[0]):
+                         if not task.pickObject(self.children[0]):
+                              print("No se puede hacer el pick con:", self.children[0])
+                    self.timer(task)
+               elif self.type == "Clear":
+                    if not task.world.changeBool(self.children[0], False):
+                         print("No se puede hacer el clear con:", self.children[0])
+                    self.timer(task)
+               elif self.type == "Flip":
+                    boolAux = task.world.getValueBool(self.children[0])
+                    if not task.world.changeBool(self.children[0], not boolAux):
+                         print("No se puede hacer el flip con:", self.children[0])
+                    self.timer(task)
+               elif self.type == "SetBool":
+                    if not task.world.changeBool(self.children[0], self.children[1]):
+                         print("No se puede hacer el setbool con:", self.children[0])
+                    self.timer(task)
+               elif self.type == "SetTrue":
+                    if not task.world.changeBool(self.children[0], True):
+                         print("No se puede hacer el set true con:", self.children[0])
+                    self.timer(task)
+               elif self.type == "Move":
+                    if not task.moveWilly():
+                         print("Willy no se pudo mover, y su configuración actual es:", task.world.getWillyPosition())
+                    self.timer(task)
+               elif self.type == "TL":
+                    if not task.turnWilly("left"):
+                         print("No pudo hacer turn-left:")
+                    self.timer(task)
+               elif self.type == "TR":
+                    if not task.turnWilly("right"):
+                         print("No pudo hacer turn-right:")
+                    self.timer(task)
+               elif self.type == "Terminate":
                     print("###############")
-                    print("Estado final de "+str(task.world.id) +" luego de haber ejecutado "+str(task.id))
-                    print("La posición de Willy es: "+ str(task.world.getWillyPosition()[0]) + " mirando hacia el " + str(task.world.getWillyPosition()[1]))
+                    print("Estado final de " + str(task.world.id) + " luego de haber ejecutado " + str(task.id))
+                    print("La posición de Willy es: " + str(
+                         task.world.getWillyPosition()[0]) + " mirando hacia el " + str(
+                         task.world.getWillyPosition()[1]))
                     print("Lo que tiene en el basket es:\n", task.world.getObjectsInBasket())
                     print("El estado de los bools es:\n", task.world.getBools())
                     print("El final goal es:\n" + task.world.getFinalGoal())
-                    print("El valor del final goal es: ",task.world.getValueFinalGoal())
+                    print("El valor del final goal es: ", task.world.getValueFinalGoal())
                     print(task.world)
-                    task.fin=True
+                    task.fin = True
                     self.timer(task)
-                    
+               elif self.type == "ifSimple":
+                    if self.children[0].boolValue(task.world, True):
+                         self.children[1].executeMyTask(task)
+                    self.timer(task)
+               elif self.type == "ifCompound":
+                    if self.children[0].boolValue(task.world, True):
+                         self.children[1].executeMyTask(task)
+                    else:
+                         self.children[2].executeMyTask(task)
+                    self.timer(task)
+               elif self.type == "whileInst":
+                    while self.children[0].boolValue(task.world, True):
+                         # if task.fin:
+                         #      break
+                         self.children[1].executeMyTask(task)
+                    self.timer(task)
+               elif self.type == "Define As":
+                    task.instructions.append([self.children[0].children[0], self.children[1]])
+                    self.timer(task)
+               elif self.type == "Repeat":
+                    for i in range(0, self.children[0]):
+                         # if task.fin:
+                         #      break
+                         self.children[1].executeMyTask(task)
+                    self.timer(task)
+               elif self.type == "MyInstruction":
+                    if task.instructions != []:
+                         for x in task.instructions:
+                              if self.children[0] == x[0]:
+                                   x[1].executeMyTask(task)
+                    self.timer(task)
+               else:
 
+                    for child in self.children:
+                         if isinstance(child, Node):
+                              if child.type == "Terminate":
+                                   child.executeMyTask(task)
+                                   break
+                              else:
+                                   child.executeMyTask(task)
+
+               # else:
+               #      print("###############")
+               #      print("Estado final de "+str(task.world.id) +" luego de haber ejecutado "+str(task.id))
+               #      print("La posición de Willy es: "+ str(task.world.getWillyPosition()[0]) + " mirando hacia el " + str(task.world.getWillyPosition()[1]))
+               #      print("Lo que tiene en el basket es:\n", task.world.getObjectsInBasket())
+               #      print("El estado de los bools es:\n", task.world.getBools())
+               #      print("El final goal es:\n" + task.world.getFinalGoal())
+               #      print("El valor del final goal es: ",task.world.getValueFinalGoal())
+               #      print(task.world)
+               #      task.fin=False
+               #      self.timer(task)
+               #
+               #

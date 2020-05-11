@@ -35,6 +35,7 @@ class myStack:
             table = self.stack[self.level - 1]
             table.append(pair)
         else:
+            print("El elemento: " + str(symbol) + "existe en la pila y no podemos volver a agregarlo")
             sys.exit()
 
     def push_empty_table(self):

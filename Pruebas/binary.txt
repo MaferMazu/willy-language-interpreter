@@ -1,0 +1,249 @@
+begin-world binary
+    World 8 1
+    Start at 8 1 heading west
+    Basket of capacity 8
+    Object-type bit1 of color green
+    Object-type bit2 of color blue
+    Object-type bit3 of color red
+    Place 8 of bit3 in basket
+
+    -- n1 = 11001101
+    -- n2 = 00111001
+    Place 1 of bit1 at 1 1
+    Place 1 of bit1 at 2 1
+    Place 1 of bit1 at 5 1
+    Place 1 of bit1 at 6 1
+    Place 1 of bit1 at 8 1
+
+    Place 1 of bit2 at 3 1
+    Place 1 of bit2 at 4 1
+    Place 1 of bit2 at 5 1
+    Place 1 of bit2 at 8 1
+
+    Boolean valid with initial value false
+
+    Final goal is valid
+end-world
+
+begin-task conjuncion on binary
+
+    if found(bit1) and found(bit2) then move;
+
+end-task
+
+{{-- complemento bit a bit de bit1
+-- resultado esperado es 00110010
+begin-task complemento on binary
+    define op as begin
+        if not found(bit1) then drop bit3;
+    end;
+    while front-clear do begin
+        op; move;
+    end;
+    op;
+
+    turn-right;
+    turn-right;
+
+    define expect0 as begin
+        if found(bit3) then clear valid;
+    end;
+
+    define expect1 as begin
+        if not found(bit3) then clear valid;
+    end;
+
+    set valid;
+    expect0; move;
+    expect0; move;
+    expect1; move;
+    expect1; move;
+    expect0; move;
+    expect0; move;
+    expect1; move;
+    expect0;
+end-task}}
+
+-- conjuncion bit a bit de bit1 y bit2
+-- resultado esperado es 00001001
+
+{{begin-task conjuncion on binary
+    define op as begin
+        if found(bit1) and found(bit2) then drop bit3;
+    end;
+    while front-clear do begin
+        op; move;
+    end;
+    op;
+
+    turn-right;
+    turn-right;
+
+    define expect0 as begin
+        if found(bit3) then clear valid;
+    end;
+
+    define expect1 as begin
+        if not found(bit3) then clear valid;
+    end;
+
+    set valid;
+    expect0; move;
+    expect0; move;
+    expect0; move;
+    expect0; move;
+    expect1; move;
+    expect0; move;
+    expect0; move;
+    expect1;
+end-task}}
+
+{{-- conjuncion bit a bit de bit1 y bit2
+-- resultado esperado es 11111101
+begin-task disyuncion on binary
+    define op as begin
+        if found(bit1) or found(bit2) then drop bit3;
+    end;
+    while front-clear do begin
+        op; move;
+    end;
+    op;
+
+    turn-right;
+    turn-right;
+
+    define expect0 as begin
+        if found(bit3) then clear valid;
+    end;
+
+    define expect1 as begin
+        if not found(bit3) then clear valid;
+    end;
+
+    set valid;
+    expect1; move;
+    expect1; move;
+    expect1; move;
+    expect1; move;
+    expect1; move;
+    expect1; move;
+    expect0; move;
+    expect1;
+end-task
+
+-- xor bit a bit de bit1 y bit2
+-- resultado esperado es 11110100
+begin-task xor on binary
+    define op as begin
+        if found(bit1) and not found(bit2) then drop bit3
+        else if not found(bit1) and found(bit2) then drop bit3;
+    end;
+    while front-clear do begin
+        op; move;
+    end;
+    op;
+
+    turn-right;
+    turn-right;
+
+    define expect0 as begin
+        if found(bit3) then clear valid;
+    end;
+
+    define expect1 as begin
+        if not found(bit3) then clear valid;
+    end;
+
+    set valid;
+    expect1; move;
+    expect1; move;
+    expect1; move;
+    expect1; move;
+    expect0; move;
+    expect1; move;
+    expect0; move;
+    expect0;
+end-task
+
+-- n1 >> 1
+-- resultado esperado es 01100110
+begin-task shiftl on binary
+    define turnback as begin turn-right; turn-right; end;
+    define op as begin
+        if found(bit1) then begin
+            turnback;
+            if front-clear then begin
+                move;
+                drop bit3;
+                turnback;
+                move;
+            end else turnback;
+        end;
+    end;
+    while front-clear do begin
+        op; move;
+    end;
+    op;
+
+    turnback;
+
+    define expect0 as begin
+        if found(bit3) then clear valid;
+    end;
+
+    define expect1 as begin
+        if not found(bit3) then clear valid;
+    end;
+
+    set valid;
+    expect0; move;
+    expect1; move;
+    expect1; move;
+    expect0; move;
+    expect0; move;
+    expect1; move;
+    expect1; move;
+    expect0;
+end-task
+
+
+-- n1 << 1
+-- resultado esperado es 10011010
+begin-task shiftr on binary
+    define turnback as begin turn-right; turn-right; end;
+    define op as begin
+        if found(bit1) then begin
+            if front-clear then begin
+                move;
+                drop bit3;
+                turnback;
+                move;
+                turnback;
+            end;
+        end;
+    end;
+    while front-clear do begin
+        op; move;
+    end;
+    op;
+
+    turnback;
+
+    define expect0 as begin
+        if found(bit3) then clear valid;
+    end;
+
+    define expect1 as begin
+        if not found(bit3) then clear valid;
+    end;
+
+    set valid;
+    expect1; move;
+    expect0; move;
+    expect0; move;
+    expect1; move;
+    expect1; move;
+    expect0; move;
+    expect1; move;
+    expect0;
+end-task}}
