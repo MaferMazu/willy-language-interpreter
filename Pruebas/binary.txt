@@ -21,9 +21,11 @@ begin-world binary
     Place 1 of bit2 at 8 1
 
     Boolean valid with initial value false
+    Boolean yei with initial value true
 
     Final goal is valid
 end-world
+
 
 -- complemento bit a bit de bit1
 -- resultado esperado es 00110010

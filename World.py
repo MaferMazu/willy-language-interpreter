@@ -19,6 +19,8 @@ WORLD - Mundos de Willy
      - Verificacion de la Existencia de objetos dentro del Mundo
      - Cambio de estado de los booleanos
 """
+
+
 class World:
     def __init__(self, id):
         self.id = id
@@ -130,7 +132,7 @@ class World:
                 return True
             elif typeOf == "ObjectInPosition" and isinstance(objectOrPosition, str) and isinstance(position2,
                                                                                                    list) and isinstance(
-                    amount, int):
+                amount, int):
                 goal = [id, typeOf, objectOrPosition, amount, position2]
                 self.goals.append(goal)
                 return True
@@ -141,8 +143,10 @@ class World:
         return self.goals
 
     def getValueGoals(self, goal):
+        if goal == True or goal == False:
+            return goal
         if self.isBool(goal):
-             return self.getValueBool(goal)
+            return self.getValueBool(goal)
         if self.isGoal(goal):
             for x in self.goals:
                 if x[0] == goal:
@@ -166,11 +170,8 @@ class World:
                             return False
 
     def getValueFinalGoal(self):
-        # print("###########")
-        # print("prueba Final")
-        # print(self.finalgoal)
+
         if self.finalgoal[1] != "":
-            # print("Here is")
             return self.finalgoal[0].finalGoalValue(self, True)
         else:
             return False
@@ -406,7 +407,7 @@ class World:
                     if elem[1] == " ":
                         if elem[2] != []:
                             for x in range(0, len(self.objects)):
-                                if self.objects[x][0] == elem[2][len(elem[2])-1][0]:
+                                if self.objects[x][0] == elem[2][len(elem[2]) - 1][0]:
                                     rep += "[" + self.repobj[x % 4] + "] "
                                     break
                         else:
