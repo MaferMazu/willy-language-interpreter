@@ -1,44 +1,44 @@
 begin-world pathworld
-   World 10 10;
-   Start at 1 1 heading north;
-   Goal willyArrive is willy is at 10 10;
-   Basket of capacity 18;
-   Object-type manzana of color red;
-   Object-type final of color cyan;
-   Place 1 of final at 10 10;
-   Place 18 of manzana in basket;
-   Wall north from 3 7 to 3 7;
-   Wall south from 9 6 to 9 6;
-   Wall east from 9 5 to 9 5;
-   Wall west from 3 1 to 3 1;
-   Wall north from 1 9 to 1 9;
-   Wall south from 6 6 to 6 6;
-   Wall east from 6 5 to 6 5;
-   Wall west from 8 2 to 8 2;
-   Wall north from 8 9 to 8 9;
-   Wall south from 6 10 to 6 10;
-   Wall east from 7 7 to 7 7;
-   Wall west from 9 8 to 9 8;
-   Wall north from 2 6 to 2 6;
-   Wall south from 6 1 to 6 1;
-   Wall east from 4 9 to 4 9;
-   Wall west from 4 8 to 4 8;
-   Wall north from 1 5 to 1 5;
-   Wall south from 7 3 to 7 3;
-   Wall east from 5 2 to 5 2;
-   Wall west from 3 10 to 3 10;
-   Wall north from 5 8 to 5 8;
-   Wall south from 2 7 to 2 7;
-   Wall east from 8 5 to 8 5;
-   Wall west from 2 1 to 2 1;
-   Wall north from 8 10 to 8 10;
-   Wall south from 7 6 to 7 6;
-   Wall east from 5 5 to 5 5;
-   Wall west from 3 3 to 3 3;
-   Wall north from 9 2 to 9 2;
-   Wall south from 7 10 to 7 10;
-   Wall east from 1 8 to 1 8;
-   Wall west from 6 7 to 6 7;
+   World 10 10
+   Start at 1 1 heading north
+   Goal willyArrive is willy is at 10 10
+   Basket of capacity 18
+   Object-type manzana of color red
+   Object-type final of color cyan
+   Place 1 of final at 10 10
+   Place 18 of manzana in basket
+   Wall north from 3 7 to 3 7
+   Wall south from 9 6 to 9 6
+   Wall east from 9 5 to 9 5
+   Wall west from 3 1 to 3 1
+   Wall north from 1 9 to 1 9
+   Wall south from 6 6 to 6 6
+   Wall east from 6 5 to 6 5
+   Wall west from 8 2 to 8 2
+   Wall north from 8 9 to 8 9
+   Wall south from 6 10 to 6 10
+   Wall east from 7 7 to 7 7
+   Wall west from 9 8 to 9 8
+   Wall north from 2 6 to 2 6
+   Wall south from 6 1 to 6 1
+   Wall east from 4 9 to 4 9
+   Wall west from 4 8 to 4 8
+   Wall north from 1 5 to 1 5
+   Wall south from 7 3 to 7 3
+   Wall east from 5 2 to 5 2
+   Wall west from 3 10 to 3 10
+   Wall north from 5 8 to 5 8
+   Wall south from 2 7 to 2 7
+   Wall east from 8 5 to 8 5
+   Wall west from 2 1 to 2 1
+   Wall north from 8 10 to 8 10
+   Wall south from 7 6 to 7 6
+   Wall east from 5 5 to 5 5
+   Wall west from 3 3 to 3 3
+   Wall north from 9 2 to 9 2
+   Wall south from 7 10 to 7 10
+   Wall east from 1 8 to 1 8
+   Wall west from 6 7 to 6 7
    Wall north from 10 3 to 10 3
    Wall south from 3 6 to 3 6
    Wall east from 5 1 to 5 1
@@ -199,4 +199,285 @@ begin-task prog4 on pathworld
         end
     end;
     repeat 18 times nextmove;
+end-task
+begin-world mentiravale
+    Boolean b with initial value false
+    Final goal is b
+end-world
+
+-- debe pasar
+begin-task prog5 on mentiravale
+    set b;
+end-task
+
+-- debe fallar
+begin-task prog6 on mentiravale
+    set b to false;
+end-task
+
+-- debe pasar
+begin-task prog7 on mentiravale
+    set b to true;
+end-task
+
+-- debe pasar
+begin-task prog8 on mentiravale
+    flip b;
+end-task
+
+-- debe fallar
+begin-task prog9 on mentiravale
+    repeat 2 times flip b;
+end-task
+
+-- debe fallar
+begin-task prog10 on mentiravale
+    clear b;
+end-task
+-- Número que representa un entero de 10 bits
+-- La condicion final del programa depende de la variable `valido`
+-- que es manipulable por el programa como tal
+-- Siempre empezamos desde el bit más izquierdo.
+-- bit3 va a ser el resultado de la operacion a realizarse en cada task y va a estar inicializado en 0
+begin-world binary
+    World 8 1
+    Start at 8 1 heading west
+    Basket of capacity 8
+    Object-type bit1 of color green
+    Object-type bit2 of color blue
+    Object-type bit3 of color red
+    Place 8 of bit3 in basket
+
+    -- n1 = 11001101
+    -- n2 = 00111001
+    Place 1 of bit1 at 1 1
+    Place 1 of bit1 at 2 1
+    Place 1 of bit1 at 5 1
+    Place 1 of bit1 at 6 1
+    Place 1 of bit1 at 8 1
+
+    Place 1 of bit2 at 3 1
+    Place 1 of bit2 at 4 1
+    Place 1 of bit2 at 5 1
+    Place 1 of bit2 at 8 1
+
+    Boolean valid with initial value false
+
+    Final goal is valid
+end-world
+
+-- complemento bit a bit de bit1
+-- resultado esperado es 00110010
+begin-task complemento on binary
+    define op as begin
+        if not found(bit1) then drop bit3;
+    end;
+    while front-clear do begin
+        op; move;
+    end;
+    op;
+
+    turn-right;
+    turn-right;
+
+    define expect0 as begin
+        if found(bit3) then clear valid;
+    end;
+
+    define expect1 as begin
+        if not found(bit3) then clear valid;
+    end;
+
+    set valid;
+    expect0; move;
+    expect0; move;
+    expect1; move;
+    expect1; move;
+    expect0; move;
+    expect0; move;
+    expect1; move;
+    expect0;
+end-task
+
+-- conjuncion bit a bit de bit1 y bit2
+-- resultado esperado es 00001001
+begin-task conjuncion on binary
+    define op as begin
+        if found(bit1) and found(bit2) then drop bit3;
+    end;
+    while front-clear do begin
+        op; move;
+    end;
+    op;
+
+    turn-right;
+    turn-right;
+
+    define expect0 as begin
+        if found(bit3) then clear valid;
+    end;
+
+    define expect1 as begin
+        if not found(bit3) then clear valid;
+    end;
+
+    set valid;
+    expect0; move;
+    expect0; move;
+    expect0; move;
+    expect0; move;
+    expect1; move;
+    expect0; move;
+    expect0; move;
+    expect1;
+end-task
+
+-- conjuncion bit a bit de bit1 y bit2
+-- resultado esperado es 11111101
+begin-task disyuncion on binary
+    define op as begin
+        if found(bit1) or found(bit2) then drop bit3;
+    end;
+    while front-clear do begin
+        op; move;
+    end;
+    op;
+
+    turn-right;
+    turn-right;
+
+    define expect0 as begin
+        if found(bit3) then clear valid;
+    end;
+
+    define expect1 as begin
+        if not found(bit3) then clear valid;
+    end;
+
+    set valid;
+    expect1; move;
+    expect1; move;
+    expect1; move;
+    expect1; move;
+    expect1; move;
+    expect1; move;
+    expect0; move;
+    expect1;
+end-task
+
+-- xor bit a bit de bit1 y bit2
+-- resultado esperado es 11110100
+begin-task xor on binary
+    define op as begin
+        if found(bit1) and not found(bit2) then drop bit3;
+        else if not found(bit1) and found(bit2) then drop bit3;
+    end;
+    while front-clear do begin
+        op; move;
+    end;
+    op;
+
+    turn-right;
+    turn-right;
+
+    define expect0 as begin
+        if found(bit3) then clear valid;
+    end;
+
+    define expect1 as begin
+        if not found(bit3) then clear valid;
+    end;
+
+    set valid;
+    expect1; move;
+    expect1; move;
+    expect1; move;
+    expect1; move;
+    expect0; move;
+    expect1; move;
+    expect0; move;
+    expect0;
+end-task
+
+-- n1 >> 1
+-- resultado esperado es 01100110
+begin-task shiftl on binary
+    define turnback as begin turn-right; turn-right; end;
+    define op as begin
+        if found(bit1) then begin
+            turnback;
+            if front-clear then begin
+                move;
+                drop bit3;
+                turnback;
+                move;
+            end; else turnback;
+        end;
+    end;
+    while front-clear do begin
+        op; move;
+    end;
+    op;
+
+    turnback;
+
+    define expect0 as begin
+        if found(bit3) then clear valid;
+    end;
+
+    define expect1 as begin
+        if not found(bit3) then clear valid;
+    end;
+
+    set valid;
+    expect0; move;
+    expect1; move;
+    expect1; move;
+    expect0; move;
+    expect0; move;
+    expect1; move;
+    expect1; move;
+    expect0;
+end-task
+
+
+-- n1 << 1
+-- resultado esperado es 10011010
+begin-task shiftr on binary
+    define turnback as begin turn-right; turn-right; end;
+    define op as begin
+        if found(bit1) then begin
+            if front-clear then begin
+                move;
+                drop bit3;
+                turnback;
+                move;
+                turnback;
+            end;
+        end;
+    end;
+    while front-clear do begin
+        op; move;
+    end;
+    op;
+
+    turnback;
+
+    define expect0 as begin
+        if found(bit3) then clear valid;
+    end;
+
+    define expect1 as begin
+        if not found(bit3) then clear valid;
+    end;
+
+    set valid;
+    expect1; move;
+    expect0; move;
+    expect0; move;
+    expect1; move;
+    expect1; move;
+    expect0; move;
+    expect1; move;
+    expect0;
 end-task

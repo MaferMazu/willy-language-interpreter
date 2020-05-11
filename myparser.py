@@ -140,7 +140,7 @@ def p_worldInst(p):
 
 
 def p_wallSet(p):
-    """wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum TkSemicolon"""
+    """wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum"""
     global newWorld
     actualDir = p[2]
 
@@ -263,7 +263,7 @@ def p_worldBlock(p):
 
 
 def p_worldSet(p):
-    """worldSet : TkWorld TkNum TkNum TkSemicolon
+    """worldSet : TkWorld TkNum TkNum
                 | empty"""
     global newWorld
     global hasSetted
@@ -293,7 +293,7 @@ def p_worldSet(p):
 
 
 def p_newObjType(p):
-    """newObjType : TkObjType ids TkOf TkColor colors TkSemicolon"""
+    """newObjType : TkObjType ids TkOf TkColor colors"""
     global worldInstBool
     global newWorld
     id = p[2]
@@ -338,8 +338,8 @@ def p_colors(p):
 
 
 def p_setPlaceObjWorld(p):
-    """setPlaceObjWorld : TkPlace TkNum TkOf ids TkAt TkNum TkNum TkSemicolon
-                        | TkPlace TkNum TkOf ids TkIn TkBasketLower TkSemicolon
+    """setPlaceObjWorld : TkPlace TkNum TkOf ids TkAt TkNum TkNum
+                        | TkPlace TkNum TkOf ids TkIn TkBasketLower
     """
     global newWorld
     global hasSetted
@@ -350,7 +350,7 @@ def p_setPlaceObjWorld(p):
     #
     amount = p[2]
     if p[2] != 0:
-        if len(p) == 9:
+        if len(p) == 8:
             if (p[6] or p[7]) > 0:
                 p[0] = Node("PlaceObjWorld", [p[4]])
                 newWorld.setObjectInWorld(id, amount, [p[6], p[7]])
@@ -386,7 +386,7 @@ def p_setPlaceObjWorld(p):
 
 
 def p_setStartPosition(p):
-    """setStartPosition : TkStart TkAt TkNum TkNum TkHeading directions TkSemicolon"""
+    """setStartPosition : TkStart TkAt TkNum TkNum TkHeading directions """
     global newWorld
     global hasSetted
     hasSetted = True
@@ -415,7 +415,7 @@ def p_setStartPosition(p):
 
 
 def p_setBasketCapacity(p):
-    """setBasketCapacity : TkBasket TkOf TkCapacity TkNum TkSemicolon"""
+    """setBasketCapacity : TkBasket TkOf TkCapacity TkNum """
     global newWorld
     global isBasketDeclared
     if p[4] == 0:
@@ -432,8 +432,8 @@ def p_setBasketCapacity(p):
 
 
 def p_newBoolean(p):
-    """newBoolean : TkBoolean ids TkWith TkInitial TkValue TkTrue TkSemicolon
-                  | TkBoolean ids TkWith TkInitial TkValue TkFalse TkSemicolon
+    """newBoolean : TkBoolean ids TkWith TkInitial TkValue TkTrue
+                  | TkBoolean ids TkWith TkInitial TkValue TkFalse
     """
     global newWorld
     p[0] = Node("NewBoolean", [p[2]])
@@ -464,9 +464,9 @@ def p_newBoolean(p):
 
 
 def p_newGoal(p):
-    """newGoal : TkGoal ids TkIs TkWilly TkIs TkAt TkNum TkNum TkSemicolon
-            | TkGoal ids TkIs TkNum ids TkObjectsLower TkIn TkBasket TkSemicolon
-            | TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum TkSemicolon
+    """newGoal : TkGoal ids TkIs TkWilly TkIs TkAt TkNum TkNum
+            | TkGoal ids TkIs TkNum ids TkObjectsLower TkIn TkBasket
+            | TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum
     """
     global newWorld
     global worldInstBool
@@ -514,7 +514,7 @@ def p_newGoal(p):
 
 
 def p_finalGoal(p):
-    """finalGoal : TkFinalG TkIs finalGoalTest TkSemicolon"""
+    """finalGoal : TkFinalG TkIs finalGoalTest """
     global validateFinalGoal
     if validateFinalGoal:
         data_error = {
