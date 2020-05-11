@@ -1,28 +1,28 @@
 begin-world mimundo
 
-  World 10 10
+  World 10 10;
 
-  Start at 1 1 heading north
-  Basket of capacity 99999999
+  Start at 1 1 heading north;
+  Basket of capacity 99999999;
 
-  Boolean mytrue with initial value true
-
-
-  Object-type northArrow of color green
-  Object-type westArrow of color green
-  Object-type southArrow of color green
-  Object-type eastArrow of color green
-  Object-type tstopSign of color red
-
-  Place 1 of eastArrow at 1 1
-  Place 1 of northArrow at 5 1
-  Place 1 of eastArrow at 5 10
-  Place 1 of tstopSign at 10 10
+  Boolean mytrue with initial value true;
 
 
-  Goal fourFlagz is willy is at 10 10
+  Object-type northArrow of color green;
+  Object-type westArrow of color green;
+  Object-type southArrow of color green;
+  Object-type eastArrow of color green;
+  Object-type tstopSign of color red;
 
-  Final goal is fourFlagz
+  Place 1 of eastArrow at 1 1;
+  Place 1 of northArrow at 5 1;
+  Place 1 of eastArrow at 5 10;
+  Place 1 of tstopSign at 10 10;
+
+
+  Goal fourFlagz is willy is at 10 10;
+
+  Final goal is fourFlagz;
 
 end-world
 

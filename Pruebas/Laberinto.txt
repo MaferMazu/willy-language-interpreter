@@ -1,38 +1,38 @@
 begin-world Laberinto
 
 {{mundo con 10 columas y 9 filas}}
-World 10 9
+World 10 9;
 
 
 {{Wall}}
-Wall north from 2 1 to 2 4
-Wall north from 2 6 to 2 9
-Wall north from 1 4 to 1 4
-Wall north from 1 6 to 1 6
-Wall north from 4 1 to 4 7
-Wall north from 5 3 to 5 7
-Wall north from 7 3 to 7 8
-Wall north from 8 3 to 8 8
-Wall north from 10 1 to 10 2
-Wall north from 10 4 to 10 8
-Wall east from 4 9 to 8 9
+Wall north from 2 1 to 2 4;
+Wall north from 2 6 to 2 9;
+Wall north from 1 4 to 1 4;
+Wall north from 1 6 to 1 6;
+Wall north from 4 1 to 4 7;
+Wall north from 5 3 to 5 7;
+Wall north from 7 3 to 7 8;
+Wall north from 8 3 to 8 8;
+Wall north from 10 1 to 10 2;
+Wall north from 10 4 to 10 8;
+Wall east from 4 9 to 8 9;
 
-Start at 3 1 heading north
-Object-type DragonBall of color yellow
-Basket of capacity 1
+Start at 3 1 heading north;
+Object-type DragonBall of color yellow;
+Basket of capacity 1;
 
 
 
 {{Boolean if imInCell}}
-Boolean imInCell11 with initial value false
-Boolean imInCell12 with initial value false
-Boolean imInCell13 with initial value false
-Boolean imInCell21 with initial value false
-Boolean imInCell22 with initial value false
-Boolean imInCell23 with initial value false
-Boolean imInCell31 with initial value false
-Boolean imInCell32 with initial value false
-Boolean imInCell33 with initial value false
+Boolean imInCell11 with initial value false;
+Boolean imInCell12 with initial value false;
+Boolean imInCell13 with initial value false;
+Boolean imInCell21 with initial value false;
+Boolean imInCell22 with initial value false;
+Boolean imInCell23 with initial value false;
+Boolean imInCell31 with initial value false;
+Boolean imInCell32 with initial value false;
+Boolean imInCell33 with initial value false;
 
 
 
