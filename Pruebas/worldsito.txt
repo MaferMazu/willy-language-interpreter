@@ -1,0 +1,202 @@
+begin-world pathworld
+   World 10 10
+   Start at 1 1 heading north
+   Goal willyArrive is willy is at 10 10
+   Basket of capacity 18
+   Object-type manzana of color red
+   Object-type final of color cyan
+   Place 1 of final at 10 10
+   Place 18 of manzana in basket
+   Wall north from 3 7 to 3 7
+   Wall south from 9 6 to 9 6
+   Wall east from 9 5 to 9 5
+   Wall west from 3 1 to 3 1
+   Wall north from 1 9 to 1 9
+   Wall south from 6 6 to 6 6
+   Wall east from 6 5 to 6 5
+   Wall west from 8 2 to 8 2
+   Wall north from 8 9 to 8 9
+   Wall south from 6 10 to 6 10
+   Wall east from 7 7 to 7 7
+   Wall west from 9 8 to 9 8
+   Wall north from 2 6 to 2 6
+   Wall south from 6 1 to 6 1
+   Wall east from 4 9 to 4 9
+   Wall west from 4 8 to 4 8
+   Wall north from 1 5 to 1 5
+   Wall south from 7 3 to 7 3
+   Wall east from 5 2 to 5 2
+   Wall west from 3 10 to 3 10
+   Wall north from 5 8 to 5 8
+   Wall south from 2 7 to 2 7
+   Wall east from 8 5 to 8 5
+   Wall west from 2 1 to 2 1
+   Wall north from 8 10 to 8 10
+   Wall south from 7 6 to 7 6
+   Wall east from 5 5 to 5 5
+   Wall west from 3 3 to 3 3
+   Wall north from 9 2 to 9 2
+   Wall south from 7 10 to 7 10
+   Wall east from 1 8 to 1 8
+   Wall west from 6 7 to 6 7
+   Wall north from 10 3 to 10 3
+   Wall south from 3 6 to 3 6
+   Wall east from 5 1 to 5 1
+   Wall west from 6 3 to 6 3
+   Wall north from 2 2 to 2 2
+   Wall south from 4 3 to 4 3
+   Wall east from 6 8 to 6 8
+   Wall west from 10 1 to 10 1
+   Wall north from 9 10 to 9 10
+   Wall south from 7 9 to 7 9
+   Wall east from 4 6 to 4 6
+   Wall west from 4 5 to 4 5
+   Wall north from 2 3 to 2 3
+   Wall south from 6 2 to 6 2
+   Wall east from 4 10 to 4 10
+   Wall west from 2 8 to 2 8
+   Wall north from 1 7 to 1 7
+   Wall south from 3 9 to 3 9
+   Wall east from 2 5 to 2 5
+   Wall west from 4 1 to 4 1
+   Wall north from 10 2 to 10 2
+   Wall south from 5 7 to 5 7
+   Wall east from 9 3 to 9 3
+   Wall west from 3 2 to 3 2
+   Wall north from 1 10 to 1 10
+   Wall south from 7 8 to 7 8
+   Wall east from 9 1 to 9 1
+   Wall west from 6 9 to 6 9
+   Wall north from 5 6 to 5 6
+   Wall south from 9 7 to 9 7
+   Wall east from 3 5 to 3 5
+   Wall west from 5 3 to 5 3
+   Wall north from 5 10 to 5 10
+   Wall south from 3 8 to 3 8
+   Wall east from 7 2 to 7 2
+   Wall west from 8 6 to 8 6
+   Wall north from 2 9 to 2 9
+   Wall south from 1 6 to 1 6
+   Wall east from 7 5 to 7 5
+   Wall west from 9 9 to 9 9
+   Wall north from 4 7 to 4 7
+   Wall south from 8 3 to 8 3
+   Wall east from 8 1 to 8 1
+   Wall west from 8 8 to 8 8
+   Wall north from 7 1 to 7 1
+   Wall south from 5 9 to 5 9
+   Wall east from 8 7 to 8 7
+   Wall west from 4 2 to 4 2
+   Wall north from 2 10 to 2 10
+   Goal manzana0 is 1 manzana objects at 10 4
+   Goal manzana1 is 1 manzana objects at 7 4
+   Goal manzana2 is 1 manzana objects at 10 5
+   Goal manzana3 is 1 manzana objects at 6 4
+   Goal manzana4 is 1 manzana objects at 9 4
+   Goal manzana5 is 1 manzana objects at 5 4
+   Goal manzana6 is 1 manzana objects at 8 4
+   Goal manzana7 is 1 manzana objects at 10 6
+   Goal manzana8 is 1 manzana objects at 1 3
+   Goal manzana9 is 1 manzana objects at 10 8
+   Goal manzana10 is 1 manzana objects at 1 2
+   Goal manzana11 is 1 manzana objects at 4 4
+   Goal manzana12 is 1 manzana objects at 10 9
+   Goal manzana13 is 1 manzana objects at 10 7
+   Goal manzana14 is 1 manzana objects at 3 4
+   Goal manzana15 is 1 manzana objects at 2 4
+   Goal manzana16 is 1 manzana objects at 1 4
+   Goal manzana17 is 1 manzana objects at 1 1
+   Final goal is willyArrive and manzana14 and manzana1 and manzana9 and manzana0 and manzana4 and manzana8 and manzana11 and manzana15 and manzana16 and manzana12 and manzana2 and manzana10 and manzana17 and manzana5 and manzana7 and manzana3 and manzana6 and manzana13
+
+end-world
+begin-task prog1 on pathworld
+    drop manzana;
+
+    define nextmove as begin
+        if front-clear then begin move; end
+        else if right-clear then begin
+            turn-right;
+            move;
+        end
+        else if left-clear then begin
+            turn-left;
+            move;
+        end
+    end;
+
+    nextmove;
+    while not found(final) do begin
+        -- visitado
+        if not found(manzana) then begin drop manzana; end
+        else begin
+          terminate;
+        end;
+
+        if looking-north then begin nextmove; end
+        else if looking-south then begin nextmove; end
+        else if looking-east then begin nextmove; end
+        else nextmove;
+    end;
+end-task
+begin-task prog2 on pathworld
+    drop manzana;
+
+    define nextmove as begin
+        if front-clear then begin move; end
+        else if right-clear then begin
+            turn-right;
+            move;
+        end
+        else if left-clear then begin
+            turn-left;
+            move;
+        end
+    end;
+
+    nextmove;
+    while not found(final) do begin
+        -- visitado
+        if not found(manzana) then begin drop manzana; end
+        else
+          terminate;
+        nextmove;
+    end;
+end-task
+begin-task prog3 on pathworld
+    define nextmove as begin
+        if found(final) or found(manzana) then terminate;
+        drop manzana;
+
+        define getmove as begin
+            if front-clear then begin move; end
+            else if right-clear then begin
+                turn-right;
+                move;
+            end
+            else if left-clear then begin
+                turn-left;
+                move;
+            end;
+        end;
+        getmove;
+        nextmove;
+    end;
+
+    nextmove;
+end-task
+begin-task prog4 on pathworld
+    define nextmove as begin
+        if found(manzana) then terminate;
+        drop manzana;
+        if front-clear then begin move; end
+        else if right-clear then begin
+            turn-right;
+            move;
+        end
+        else if left-clear then begin
+            turn-left;
+            move;
+        end
+    end;
+    repeat 18 times nextmove;
+end-task
