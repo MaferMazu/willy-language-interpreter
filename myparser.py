@@ -140,7 +140,7 @@ def p_worldInst(p):
 
 
 def p_wallSet(p):
-    """wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum"""
+    """wallSet : TkWall directions TkFrom TkNum TkNum TkTo TkNum TkNum TkSemicolon"""
     global newWorld
     actualDir = p[2]
 
@@ -263,7 +263,7 @@ def p_worldBlock(p):
 
 
 def p_worldSet(p):
-    """worldSet : TkWorld TkNum TkNum
+    """worldSet : TkWorld TkNum TkNum TkSemicolon
                 | empty"""
     global newWorld
     global hasSetted
@@ -293,7 +293,7 @@ def p_worldSet(p):
 
 
 def p_newObjType(p):
-    """newObjType : TkObjType ids TkOf TkColor colors"""
+    """newObjType : TkObjType ids TkOf TkColor colors TkSemicolon"""
     global worldInstBool
     global newWorld
     id = p[2]
@@ -338,8 +338,8 @@ def p_colors(p):
 
 
 def p_setPlaceObjWorld(p):
-    """setPlaceObjWorld : TkPlace TkNum TkOf ids TkAt TkNum TkNum
-                        | TkPlace TkNum TkOf ids TkIn TkBasketLower
+    """setPlaceObjWorld : TkPlace TkNum TkOf ids TkAt TkNum TkNum TkSemicolon
+                        | TkPlace TkNum TkOf ids TkIn TkBasketLower TkSemicolon
     """
     global newWorld
     global hasSetted
@@ -350,7 +350,7 @@ def p_setPlaceObjWorld(p):
     #
     amount = p[2]
     if p[2] != 0:
-        if len(p) == 8:
+        if len(p) == 9:
             if (p[6] or p[7]) > 0:
                 p[0] = Node("PlaceObjWorld", [p[4]])
                 newWorld.setObjectInWorld(id, amount, [p[6], p[7]])
