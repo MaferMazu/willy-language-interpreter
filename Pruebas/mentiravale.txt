@@ -1,6 +1,6 @@
 begin-world mentiravale
-    Boolean b with initial value false
-    Final goal is b
+    Boolean b with initial value false;
+    Final goal is b;
 end-world
 
 -- debe pasar
