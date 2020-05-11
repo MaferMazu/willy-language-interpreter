@@ -386,7 +386,7 @@ def p_setPlaceObjWorld(p):
 
 
 def p_setStartPosition(p):
-    """setStartPosition : TkStart TkAt TkNum TkNum TkHeading directions TkSemicolon"""
+    """setStartPosition : TkStart TkAt TkNum TkNum TkHeading directions """
     global newWorld
     global hasSetted
     hasSetted = True
@@ -415,7 +415,7 @@ def p_setStartPosition(p):
 
 
 def p_setBasketCapacity(p):
-    """setBasketCapacity : TkBasket TkOf TkCapacity TkNum TkSemicolon"""
+    """setBasketCapacity : TkBasket TkOf TkCapacity TkNum """
     global newWorld
     global isBasketDeclared
     if p[4] == 0:
@@ -432,8 +432,8 @@ def p_setBasketCapacity(p):
 
 
 def p_newBoolean(p):
-    """newBoolean : TkBoolean ids TkWith TkInitial TkValue TkTrue TkSemicolon
-                  | TkBoolean ids TkWith TkInitial TkValue TkFalse TkSemicolon
+    """newBoolean : TkBoolean ids TkWith TkInitial TkValue TkTrue
+                  | TkBoolean ids TkWith TkInitial TkValue TkFalse
     """
     global newWorld
     p[0] = Node("NewBoolean", [p[2]])
@@ -464,13 +464,13 @@ def p_newBoolean(p):
 
 
 def p_newGoal(p):
-    """newGoal : TkGoal ids TkIs TkWilly TkIs TkAt TkNum TkNum TkSemicolon
-            | TkGoal ids TkIs TkNum ids TkObjectsLower TkIn TkBasket TkSemicolon
-            | TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum TkSemicolon
+    """newGoal : TkGoal ids TkIs TkWilly TkIs TkAt TkNum TkNum
+            | TkGoal ids TkIs TkNum ids TkObjectsLower TkIn TkBasket
+            | TkGoal ids TkIs TkNum ids TkObjectsLower TkAt TkNum TkNum
     """
     global newWorld
     global worldInstBool
-    if len(p) == 10:
+    if len(p) == 9:
         if p[4] == "willy":
             p[0] = Node("NewGoal", [p[2]])
             attributesObjects = {
@@ -514,7 +514,7 @@ def p_newGoal(p):
 
 
 def p_finalGoal(p):
-    """finalGoal : TkFinalG TkIs finalGoalTest TkSemicolon"""
+    """finalGoal : TkFinalG TkIs finalGoalTest """
     global validateFinalGoal
     if validateFinalGoal:
         data_error = {
