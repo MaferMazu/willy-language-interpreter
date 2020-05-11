@@ -31,7 +31,6 @@ class ModelProcedure:
             if element.id == symbol:
                 i_found_it = True
                 break
-
         # print("End MdodelProcedure")
 
         if i_found_it:
